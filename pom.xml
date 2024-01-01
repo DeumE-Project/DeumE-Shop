@@ -181,8 +181,8 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
-
         
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
