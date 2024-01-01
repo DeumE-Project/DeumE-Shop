@@ -1,8 +1,5 @@
 package kr.co.mapper_interface.product_answer;
 
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
 public interface ProductAnswerMapper {
     // 남원우
 

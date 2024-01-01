@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -34,8 +33,10 @@ public class CustomerController {
 
     // 변재혁
     @GetMapping(value = "/test")
-    public void test(HttpServletResponse httpServletResponse) {
-        log.info("test!!");
+    public void test(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        log.info("/customer/test");
+        String realPath = httpServletRequest.getServletContext().getRealPath("/upload");
+        log.info("realPath = {}", realPath);
     }
 
     @GetMapping(value = "/all-customer-list")

@@ -1,8 +1,5 @@
 package kr.co.mapper_interface.order_product;
 
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
 public interface OrderProductMapper {
     // 남원우
 

@@ -4,7 +4,6 @@ import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 
 import java.util.List;
 
-//@Mapper
 public interface CustomerMapper {
     // 남원우
 
