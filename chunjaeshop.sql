@@ -10,6 +10,7 @@ CREATE TABLE customer (
     customer_phone VARCHAR(50) NOT NULL,
     customer_password VARCHAR(150) NOT NULL,
     customer_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
+    customer_zipcode VARCHAR(20),
     customer_address1 VARCHAR(100), # api를 사용해서 받아온 주소 
     customer_address2 VARCHAR(100), # 고객 상세주소 (동/호수)
     customer_money INT DEFAULT 0,
@@ -24,6 +25,7 @@ CREATE TABLE seller (
     seller_phone VARCHAR(50) NOT NULL,
     seller_password VARCHAR(150) NOT NULL,
     seller_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
+    seller_zipcode VARCHAR(20),
     seller_address1 VARCHAR(100), # api를 사용해서 받아온 주소 
     seller_address2 VARCHAR(100), # 판매자 상세주소 (동/호수)
     seller_income INT DEFAULT 0, # 판매자 매출
@@ -89,8 +91,15 @@ CREATE TABLE order_product (
 	order_idx INT PRIMARY KEY AUTO_INCREMENT,
     customer_idx INT, # 외래키
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    order_total_price INT NOT NULL,
+    order_total_price INT NOT NULL, # 주문 총 가격 합계
     order_status INT NOT NULL DEFAULT 1, # 1번:배송중/2번:배송완료
+    order_zipcode VARCHAR(20), # 받는 사람 우편번호
+    order_address1 VARCHAR(100), # 받는 사람 API 주소
+    order_address2 VARCHAR(100), # 받는 사람 상세주소 (동/호수)
+    order_payment INT, # 결제수단: 1번은 포인트, 2번은 카드 등
+    order_request VARCHAR(100), # 배송 요청사항
+    order_name VARCHAR(50), # 받는 사람 이름
+    order_phone VARCHAR(20), # 받는 사람 전화번호
     FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
