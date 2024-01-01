@@ -51,6 +51,7 @@ CREATE TABLE product (
     product_detail_original VARCHAR(150) NOT NULL, # 상품 상세 설명이미지 판매자가 올린 원래 파일명
     product_detail_saved VARCHAR(150) NOT NULL, # 상품 상세 설명이미지 서버에 저장된 파일명
     product_status INT NOT NULL DEFAULT 1, # 1번: 판매가능 / 0번: 품절(판매중지)
+    product_sales INT DEFAULT 0, # 판매된 개수
     FOREIGN KEY (seller_idx) REFERENCES seller (seller_idx) ON UPDATE CASCADE ON DELETE SET NULL,
     FOREIGN KEY (category_idx) REFERENCES category (category_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
