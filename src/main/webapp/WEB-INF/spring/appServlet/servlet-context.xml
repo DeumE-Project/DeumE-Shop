@@ -22,5 +22,9 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
+    <!-- File Upload Config -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </beans:bean>
+
     <context:component-scan base-package="kr.co.chunjaeshop" />
 </beans:beans>
