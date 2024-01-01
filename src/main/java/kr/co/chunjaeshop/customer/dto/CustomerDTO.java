@@ -13,6 +13,7 @@ public class CustomerDTO {
     private String customerPhone;
     private String customerPassword;
     private LocalDateTime customerJoined;
+    private String customerZipcode;
     private String customerAddress1;
     private String customerAddress2;
     private Integer customerMoney;

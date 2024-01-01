@@ -11,6 +11,13 @@ public class OrderProductDTO {
     private LocalDateTime orderDate;
     private Integer orderTotalPrice;
     private Integer orderStatus;
+    private String orderZipcode;
+    private String orderAddress1;
+    private String orderAddress2;
+    private Integer orderPayment;
+    private String orderRequest;
+    private String orderName;
+    private String orderPhone;
 
     // 남원우
 

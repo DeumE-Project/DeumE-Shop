@@ -13,6 +13,7 @@ public class SellerDTO {
     private String sellerPhone;
     private String sellerPassword;
     private LocalDateTime sellerJoined;
+    private String sellerZipcode;
     private String sellerAddress1;
     private String sellerAddress2;
     private Integer sellerIncome;
