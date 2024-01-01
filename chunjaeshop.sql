@@ -43,12 +43,12 @@ CREATE TABLE product (
     product_explain VARCHAR(500) NOT NULL, # 상품 간단 설명
     product_price INT NOT NULL,
     product_stock INT, # 상품 재고수량
-    product_thumb_saved VARCHAR(150) NOT NULL, # 상품 리스트 페이지에서 보여질 썸네일 파일명
+    product_thumb_saved VARCHAR(150), # 상품 리스트 페이지에서 보여질 썸네일 파일명
     product_img_original VARCHAR(150) NOT NULL, # 상품 메인이미지 판매자가 올린 원래 파일명
     product_img_saved VARCHAR(150) NOT NULL, # 상품 메인이미지 서버에 저장된 파일명
     product_detail_original VARCHAR(150) NOT NULL, # 상품 상세 설명이미지 판매자가 올린 원래 파일명
     product_detail_saved VARCHAR(150) NOT NULL, # 상품 상세 설명이미지 서버에 저장된 파일명
-    product_status INT NOT NULL DEFAULT 1, # 1번: 판매가능/0번: 품절(판매중지)
+    product_status INT NOT NULL DEFAULT 1, # 1번: 판매가능 / 0번: 품절(판매중지)
     FOREIGN KEY (seller_idx) REFERENCES seller (seller_idx) ON UPDATE CASCADE ON DELETE SET NULL,
     FOREIGN KEY (category_idx) REFERENCES category (category_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
@@ -59,7 +59,7 @@ CREATE TABLE product_review (
     product_idx INT, # 외래키
     review_content VARCHAR(500) NOT NULL,
     review_star INT NOT NULL, #별점 개수
-    review_thumb_saved VARCHAR(150) NOT NULL,
+    review_thumb_saved VARCHAR(150),
     review_img_original VARCHAR(150) NOT NULL,
     review_img_saved VARCHAR(150) NOT NULL,
     review_date DATETIME DEFAULT CURRENT_TIMESTAMP,

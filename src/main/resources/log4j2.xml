@@ -36,7 +36,7 @@
         <Logger name="org.springframework" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="org.zerock" level="INFO" additivity="false">
+        <Logger name="kr.co" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
         <root level="INFO" additivity="false">

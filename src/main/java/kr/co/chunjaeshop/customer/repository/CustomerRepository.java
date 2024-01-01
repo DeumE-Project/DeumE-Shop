@@ -1,5 +1,9 @@
 package kr.co.chunjaeshop.customer.repository;
 
+import kr.co.chunjaeshop.customer.dto.CustomerDTO;
+
+import java.util.List;
+
 public interface CustomerRepository {
 
     // 남원우
@@ -15,5 +19,5 @@ public interface CustomerRepository {
 
 
     // 변재혁
-
+    List<CustomerDTO> getAllCustomerList();
 }

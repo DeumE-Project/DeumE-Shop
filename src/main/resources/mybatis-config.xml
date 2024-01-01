@@ -7,5 +7,15 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
+        <typeAlias type="kr.co.chunjaeshop.category.dto.CategoryDTO" alias="CategoryDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.customer.dto.CustomerDTO" alias="CustomerDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.notice.dto.NoticeDTO" alias="NoticeDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO" alias="OrderDetailDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO" alias="OrderProductDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product.dto.ProductDTO" alias="ProductDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product_answer.dto.ProductAnswerDTO" alias="ProductAnswerDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product_question.dto.ProductQuestionDTO" alias="ProductQuestionDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product_review.dto.ProductReviewDTO" alias="ProductReviewDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.seller.dto.SellerDTO" alias="SellerDTO"></typeAlias>
     </typeAliases>
 </configuration>
