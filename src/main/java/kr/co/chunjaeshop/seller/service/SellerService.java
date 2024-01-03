@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
+import kr.co.chunjaeshop.security.RegisterFormDTO;
+
 public interface SellerService {
 
     // 남원우
@@ -15,5 +17,6 @@ public interface SellerService {
 
 
     // 변재혁
-
+    boolean sellerRegister(RegisterFormDTO registerFormDTO);
+    boolean idDuplicationCheck(String id);
 }
