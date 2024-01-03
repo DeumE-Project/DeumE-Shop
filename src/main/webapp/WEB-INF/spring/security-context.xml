@@ -17,10 +17,13 @@
         <security:intercept-url pattern="/sample/seller" access="hasRole('ROLE_SELLER')" />
         <security:intercept-url pattern="/sample/customer" access="hasRole('ROLE_CUSTOMER')" />
         <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/**" access="permitAll()" />
 
-        <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccessHandler" />
+        <security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccessHandler" />
         <security:access-denied-handler ref="customAccessDeniedHandler" />
         <security:logout logout-url="/customLogout" invalidate-session="true" />
+
+        <security:csrf disabled="true" />
     </security:http>
 
     <security:authentication-manager>

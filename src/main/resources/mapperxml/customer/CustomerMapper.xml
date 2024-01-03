@@ -35,7 +35,13 @@
         INSERT
         INTO customer(customer_id, customer_name, customer_email, customer_phone, customer_password,
                       customer_zipcode, customer_address1, customer_address2)
-        VALUES(#{id}, #{name}, #{email}, #{phone}, #{password},
+        VALUES(#{id}, #{name}, #{email}, #{phone}, #{password1},
                #{zipcode}, #{address1}, #{address2})
     </insert>
+
+    <select id="idDuplicationCheck">
+        SELECT COUNT(customer_id)
+        FROM customer
+        WHERE customer_id = #{id}
+    </select>
 </mapper>

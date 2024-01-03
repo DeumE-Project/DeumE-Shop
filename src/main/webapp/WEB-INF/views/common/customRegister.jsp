@@ -44,66 +44,74 @@
         <div class="input-form col-md-12 mx-auto">
             <h2 class="mb-3">천재샵 회원가입</h2>
             <hr class="mb-4">
-            <form:form modelAttribute="registerFormDTO" class="validation-form" novalidate="true">
-                <h4 style="margin-bottom: 20px"><form:errors path="globalError" cssClass="text-danger" /></h4>
+            <form:form modelAttribute="registerFormDTO" action="${pageContext.request.contextPath}/register"
+                       class="validation-form" novalidate="true">
+                <h4 style="margin-bottom: 20px"><form:errors path="globalError" cssClass="text-danger"/></h4>
                 <div class="mb-3">
                     <label for="id">아이디</label>
-                    <form:input path="id" type="text" class="form-control" placeholder="아이디를 입력해주세요" required="true" />
+                    <form:input path="id" type="text" class="form-control" placeholder="아이디를 입력해주세요" required="true"/>
                     <div class="invalid-feedback">
                         아이디를 입력해주세요 (영문 소문자 및 숫자를 사용해서 최소 5자 최대 15자까지 가능합니다)
                     </div>
                     <div>
-                        <form:errors path="id" cssClass="text-danger" />
+                        <span id="id-check-span"></span>
+                    </div>
+                    <div>
+                        <form:errors path="id" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email">이름</label>
-                    <form:input path="name" type="text" class="form-control" placeholder="이름을 입력해주세요" required="true" />
+                    <form:input path="name" type="text" class="form-control" placeholder="이름을 입력해주세요" required="true"/>
                     <div class="invalid-feedback">
                         이름을 입력해주세요
                     </div>
                     <div>
-                        <form:errors path="name" cssClass="text-danger" />
+                        <form:errors path="name" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email">이메일</label>
-                    <form:input path="email" type="email" class="form-control" placeholder="example@example.com" required="true" />
+                    <form:input path="email" type="email" class="form-control" placeholder="example@example.com"
+                                required="true"/>
                     <div class="invalid-feedback">
                         이메일을 입력해주세요
                     </div>
                     <div>
-                        <form:errors path="email" cssClass="text-danger" />
+                        <form:errors path="email" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password1">비밀번호</label>
-                    <form:input path="password1" type="password" class="form-control" placeholder="비밀번호를 입력해주세요" required="true" />
+                    <form:input path="password1" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"
+                                required="true"/>
                     <div class="invalid-feedback">
                         비밀번호를 입력해주세요
                     </div>
                     <div>
-                        <form:errors path="password1" cssClass="text-danger" />
+                        <form:errors path="password1" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password2">비밀번호 확인</label>
-                    <form:input path="password2" type="password" class="form-control" placeholder="비밀번호를 재입력해주세요" required="true" />
+                    <form:input path="password2" type="password" class="form-control" placeholder="비밀번호를 재입력해주세요"
+                                required="true"/>
                     <div class="invalid-feedback">
                         비밀번호를 다시 한 번 입력해주세요
                     </div>
                     <div>
-                        <form:errors path="password2" cssClass="text-danger" />
+                        <form:errors path="password2" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="phone">전화번호</label>
-                    <form:input path="phone" type="text" class="form-control" placeholder="'-' 기호 없이 숫자만 입력해주세요" required="true" />
+                    <form:input path="phone" type="text" class="form-control" placeholder="'-' 기호 없이 숫자만 입력해주세요"
+                                required="true"/>
                     <div class="invalid-feedback">
                         전화번호를 입력해주세요 (- 기호를 제외한 숫자만 입력해주세요)
                     </div>
                     <div>
-                        <form:errors path="phone" cssClass="text-danger" />
+                        <form:errors path="phone" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div>
@@ -114,33 +122,35 @@
                     </div>
                     <div class="mb-3">
                         <label for="zipcode">우편번호</label>
-                        <form:input path="zipcode" type="text" class="form-control" placeholder="주소 검색을 해주세요" readonly="true" />
+                        <form:input path="zipcode" type="text" class="form-control" placeholder="주소 검색을 해주세요"
+                                    readonly="true"/>
                         <div class="invalid-feedback">
                             주소 검색을 통해 우편번호가 자동 입력되도록 해주세요
                         </div>
                         <div>
-                            <form:errors path="zipcode" cssClass="text-danger" />
+                            <form:errors path="zipcode" cssClass="text-danger"/>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="address1">주소</label>
-                        <form:input path="address1" type="text" class="form-control" placeholder="주소 검색을 해주세요" readonly="true" />
+                        <form:input path="address1" type="text" class="form-control" placeholder="주소 검색을 해주세요"
+                                    readonly="true"/>
                         <div class="invalid-feedback">
                             주소 검색을 통해 주소가 자동 입력되도록 해주세요
                         </div>
                         <div>
-                            <form:errors path="address1" cssClass="text-danger" />
+                            <form:errors path="address1" cssClass="text-danger"/>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="address2">상세주소</label>
                         <form:input path="address2" type="text" class="form-control" placeholder="상세 주소를 입력해주세요 (동/호수)"
-                                    required="true" />
+                                    required="true"/>
                         <div class="invalid-feedback">
                             상세 주소를 입력해주세요
                         </div>
                         <div>
-                            <form:errors path="address2" cssClass="text-danger" />
+                            <form:errors path="address2" cssClass="text-danger"/>
                         </div>
                     </div>
                 </div>
@@ -148,14 +158,14 @@
                     <label for="type">회원구분</label>
                     <form:select path="type" class="form-select" required="true">
                         <form:option value="">회원구분 선택</form:option>
-                        <form:option value="customer">구매자</form:option>
+                        <form:option value="customer">고객</form:option>
                         <form:option value="seller">판매자</form:option>
                     </form:select>
                     <div class="invalid-feedback">
                         회원구분 중 하나를 선택해주세요
                     </div>
                     <div>
-                        <form:errors path="type" cssClass="text-danger" />
+                        <form:errors path="type" cssClass="text-danger"/>
                     </div>
                 </div>
                 <hr class="mb-4">
@@ -169,6 +179,48 @@
         <p class="mb-1">&copy; 2023 Chunjaeshop, all rights reserved</p>
     </footer>
 </div>
+
+<script>
+    let idCheck = false;
+
+    $(document).ready(function () {
+        console.log('ready');
+
+        $('#id').keyup(function () {
+            console.log('id tag key up event');
+            console.log($('#id').val());
+            let userInputId = $('#id').val();
+            if (userInputId.length >= 5 && userInputId.length <= 15) {
+                console.log('call idDuplicateCheckAjax')
+                idDuplicateCheckAjax();
+                if (idCheck) {
+                    $('#id-check-span').html('사용할 수 있는 아이디입니다');
+                } else {
+                    $('#id-check-span').html('이미 사용 중인 아이디입니다');
+                }
+            }
+        })
+    });
+    let idDuplicateCheckAjax = function () {
+        $.ajax({
+            url: '${pageContext.request.contextPath}' + '/register/id-duplicate-check',
+            method: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            dataType: 'text/plain',
+            data: {
+                id: $('#id').val(),
+            },
+            async: false,
+            success: function (result) {
+                if (result == 'canuse') idCheck = true;
+                else idCheck = false;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
 
 <script>
     /*window.addEventListener("load", () => {

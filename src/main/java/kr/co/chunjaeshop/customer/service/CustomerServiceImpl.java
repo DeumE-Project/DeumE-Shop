@@ -38,4 +38,10 @@ public class CustomerServiceImpl implements CustomerService {
         int result = customerRepository.customerRegister(registerFormDTO);
         return (result == 1) ? true : false;
     }
+
+    @Override
+    public boolean idDuplicationCheck(String id) {
+        int result = customerRepository.idDuplicationCheck(id);
+        return (result == 1) ? true : false;
+    }
 }

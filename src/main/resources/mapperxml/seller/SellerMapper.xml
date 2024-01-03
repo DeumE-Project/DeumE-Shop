@@ -16,5 +16,17 @@
 
 
     <!--    변재혁-->
+    <insert id="sellerRegister" parameterType="kr.co.chunjaeshop.security.RegisterFormDTO">
+        INSERT
+        INTO seller(seller_id, seller_name, seller_email, seller_phone, seller_password,
+                    seller_zipcode, seller_address1, seller_address2)
+        VALUES(#{id}, #{name}, #{email}, #{phone}, #{password1},
+               #{zipcode}, #{address1}, #{address2})
+    </insert>
 
+    <select id="idDuplicationCheck">
+        SELECT COUNT(seller_id)
+        FROM seller
+        WHERE seller_id = #{id}
+    </select>
 </mapper>

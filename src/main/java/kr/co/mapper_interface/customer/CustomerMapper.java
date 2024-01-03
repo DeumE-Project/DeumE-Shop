@@ -22,4 +22,5 @@ public interface CustomerMapper {
     List<CustomerDTO> getAllCustomerList();
     CustomerDTO getCustomerByUsernameForLogin(String username);
     int customerRegister(RegisterFormDTO registerFormDTO);
+    int idDuplicationCheck(String id);
 }

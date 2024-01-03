@@ -22,4 +22,5 @@ public interface CustomerRepository {
     // 변재혁
     List<CustomerDTO> getAllCustomerList();
     int customerRegister(RegisterFormDTO registerFormDTO);
+    int idDuplicationCheck(String id);
 }

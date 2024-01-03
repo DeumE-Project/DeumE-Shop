@@ -22,4 +22,5 @@ public interface CustomerService {
     // 변재혁
     List<CustomerDTO> getAllCustomerList();
     boolean customerRegister(RegisterFormDTO registerFormDTO);
+    boolean idDuplicationCheck(String id);
 }

@@ -37,4 +37,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public int customerRegister(RegisterFormDTO registerFormDTO) {
         return customerMapper.customerRegister(registerFormDTO);
     }
+
+    @Override
+    public int idDuplicationCheck(String id) {
+        return customerMapper.idDuplicationCheck(id);
+    }
 }
