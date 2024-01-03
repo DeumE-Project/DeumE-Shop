@@ -10,7 +10,16 @@
 
 
     <!--    이무현-->
+    <select id="getNotRecognizedList" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2
+        FROM seller
+        WHERE seller_recognize = 0
+    </select>
 
+    <update id="updateRecognize" >
+        UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
+    </update>
 
     <!--    유지호-->
 

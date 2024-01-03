@@ -21,7 +21,7 @@ CREATE TABLE seller (
 	seller_idx INT PRIMARY KEY AUTO_INCREMENT,
     seller_id VARCHAR(20) NOT NULL,
     seller_name VARCHAR(50) NOT NULL,
-    seller_email VARCHAR(100) NOT NULL,
+    seller_email VARCHAR(100) NOT NULL UNIQUE,
     seller_phone VARCHAR(50) NOT NULL,
     seller_password VARCHAR(150) NOT NULL,
     seller_joined DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -29,7 +29,9 @@ CREATE TABLE seller (
     seller_address1 VARCHAR(100), # api를 사용해서 받아온 주소 
     seller_address2 VARCHAR(100), # 판매자 상세주소 (동/호수)
     seller_income INT DEFAULT 0, # 판매자 매출
-    seller_authority VARCHAR(50) DEFAULT 'ROLE_SELLER'
+    seller_authority VARCHAR(50) DEFAULT 'ROLE_SELLER',
+    seller_recognize INT DEFAULT 0,
+    seller_reject_reason VARCHAR(50)
 );
 
 CREATE TABLE category (
