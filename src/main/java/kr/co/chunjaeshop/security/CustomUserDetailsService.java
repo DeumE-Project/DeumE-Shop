@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     .build();
             return new LoginUserDTO(userVO, userVO.getAuthorityList());
         } else {
-            return null;
+            throw new UsernameNotFoundException("User not exist with name: " + username);
         }
     }
 }

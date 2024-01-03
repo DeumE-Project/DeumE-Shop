@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,5 +22,10 @@ public class SecurityController {
     @GetMapping(value = "/accessError")
     public void accessDenied(HttpServletResponse httpServletResponse, Authentication auth, Model model) {
         log.info("auth = {}", auth);
+    }
+
+    @GetMapping(value = "/sample/customer")
+    public void sampleCustomer(Principal principal, HttpServletResponse httpServletResponse) {
+        log.info("principal = {}", principal);
     }
 }

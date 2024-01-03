@@ -36,6 +36,10 @@
             -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
             box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
         }
+
+        #id-check-span {
+            font-weight: bolder;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +49,7 @@
             <h2 class="mb-3">천재샵 회원가입</h2>
             <hr class="mb-4">
             <form:form modelAttribute="registerFormDTO" action="${pageContext.request.contextPath}/register"
-                       class="validation-form" novalidate="true">
+                       class="validation-form" novalidate="true" onsubmit="return submitCheckFunc()">
                 <h4 style="margin-bottom: 20px"><form:errors path="globalError" cssClass="text-danger"/></h4>
                 <div class="mb-3">
                     <label for="id">아이디</label>
@@ -170,7 +174,7 @@
                 </div>
                 <hr class="mb-4">
                 <div>
-                    <button class="btn btn-primary" type="submit">회원가입하기</button>
+                    <input class="btn btn-primary" type="submit" value="회원가입하기"/>
                 </div>
             </form:form>
         </div>
@@ -182,43 +186,67 @@
 
 <script>
     let idCheck = false;
-
     $(document).ready(function () {
         console.log('ready');
-
-        $('#id').keyup(function () {
-            console.log('id tag key up event');
-            console.log($('#id').val());
-            let userInputId = $('#id').val();
-            if (userInputId.length >= 5 && userInputId.length <= 15) {
-                console.log('call idDuplicateCheckAjax')
+        $('#id').on('input', function (event) {
+            let userInputId = event.target.value;
+            console.log(userInputId.length);
+            if (/^[a-z0-9]{5,15}$/.test(userInputId) === true) {
+                console.log('id 중복 검사...');
                 idDuplicateCheckAjax();
+                console.log('idCheck = ' + idCheck);
                 if (idCheck) {
                     $('#id-check-span').html('사용할 수 있는 아이디입니다');
+                    $('#id-check-span').removeClass('text-warning');
+                    $('#id-check-span').addClass('text-success');
                 } else {
+                    console.log('이미 사용 중인 아이디입니다');
                     $('#id-check-span').html('이미 사용 중인 아이디입니다');
+                    $('#id-check-span').removeClass('text-success');
+                    $('#id-check-span').addClass('text-warning');
                 }
+            } else {
+                idCheck = false;
+                $('#id-check-span').html('아이디는 5자부터 15자까지 영어 소문자 및 숫자만 사용할 수 있습니다');
+                $('#id-check-span').removeClass('text-success');
+                $('#id-check-span').addClass('text-warning');
             }
-        })
+        });
     });
     let idDuplicateCheckAjax = function () {
         $.ajax({
             url: '${pageContext.request.contextPath}' + '/register/id-duplicate-check',
             method: 'POST',
             contentType: 'application/x-www-form-urlencoded',
-            dataType: 'text/plain',
+            dataType: 'text',
             data: {
                 id: $('#id').val(),
             },
             async: false,
             success: function (result) {
-                if (result == 'canuse') idCheck = true;
-                else idCheck = false;
+                console.log('success!');
+                console.log('result = ' + result);
+                if (result == 'canuse') {
+                    idCheck = true;
+                } else {
+                    idCheck = false;
+                }
             },
             error: function (error) {
+                console.log('error!');
                 console.log(error);
+                idCheck = false;
             }
         });
+    }
+
+    const submitCheckFunc = function () {
+        if (idCheck === true) {
+            return true;
+        } else {
+            alert('아이디 검사에 실패해서 회원가입할 수 없습니다\n아이디 중복검사를 해주세요')
+            return false;
+        }
     }
 </script>
 

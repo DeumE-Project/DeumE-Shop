@@ -39,7 +39,7 @@
                #{zipcode}, #{address1}, #{address2})
     </insert>
 
-    <select id="idDuplicationCheck">
+    <select id="idDuplicationCheck" resultType="int">
         SELECT COUNT(customer_id)
         FROM customer
         WHERE customer_id = #{id}

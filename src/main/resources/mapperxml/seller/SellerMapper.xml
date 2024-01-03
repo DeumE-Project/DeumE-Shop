@@ -24,7 +24,7 @@
                #{zipcode}, #{address1}, #{address2})
     </insert>
 
-    <select id="idDuplicationCheck">
+    <select id="idDuplicationCheck" resultType="int">
         SELECT COUNT(seller_id)
         FROM seller
         WHERE seller_id = #{id}

@@ -4,6 +4,7 @@ import kr.co.chunjaeshop.customer.service.CustomerService;
 import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,7 @@ public class UserRegisterController {
         }
     }
 
-    @PostMapping(value = "/id-duplicate-check")
+    @PostMapping(value = "/id-duplicate-check", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> idDuplicationCheck(@RequestParam String id) {
         log.info("id = {}", id);
         // 고객이 이미 사용 중인지 확인
