@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.customer.repository;
 
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
+import kr.co.chunjaeshop.security.RegisterFormDTO;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface CustomerRepository {
 
     // 변재혁
     List<CustomerDTO> getAllCustomerList();
+    int customerRegister(RegisterFormDTO registerFormDTO);
 }
