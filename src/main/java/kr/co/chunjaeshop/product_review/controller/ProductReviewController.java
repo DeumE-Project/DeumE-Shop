@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -134,44 +135,62 @@ public class ProductReviewController {
   }
   @GetMapping("/display")
   @ResponseBody
-  public ResponseEntity<byte[]> getFile(String fileName, HttpServletRequest httpServletRequest) {
+  public ResponseEntity<byte[]> getFile(@RequestParam("fileName") String fileName, HttpServletRequest httpServletRequest) {
 
     log.info("fileName: " + fileName);
     String uploadFolder = httpServletRequest.getServletContext().getRealPath("/review");
-    File file = new File(uploadFolder + File.separator +  fileName);
-    log.info("file: " + file);
-    ResponseEntity<byte[]> result = null;
+
     try {
-      HttpHeaders header = new HttpHeaders();
-      header.add("Content-Type", Files.probeContentType(file.toPath()));
-      result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+      fileName = URLDecoder.decode(fileName, "UTF-8");
+      File file = new File(uploadFolder, fileName);
+
+      if (file.exists()) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", Files.probeContentType(file.toPath()));
+        return new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
     } catch (IOException e) {
       e.printStackTrace();
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return result;
   }
+
+
   @PostMapping("/deleteFile")
   @ResponseBody
-  public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest httpServletRequest){
+  public ResponseEntity<String> deleteFile(String fileName, String type, HttpServletRequest httpServletRequest) {
+
+    log.info("deleteFile: " + fileName);
 
     String uploadFolder = httpServletRequest.getServletContext().getRealPath("/review");
-    log.info(fileName);
-    File file;
 
-    file = new File(uploadFolder + File.separator+fileName);
+    try {
+      fileName = URLDecoder.decode(fileName, "UTF-8");
+      File file = new File(uploadFolder, fileName);
 
-    file.delete();
+      if (file.exists()) {
+        file.delete();
 
-    if (type.equals("image")) {
-      String largeFileName = file.getAbsolutePath().replace("s_", "");
+        if (type.equals("image")) {
+          String largeFileName = file.getAbsolutePath().replace("s_", "");
+          log.info("largeFileName: " + largeFileName);
 
-      file = new File(largeFileName);
-
-      file.delete();
+          File largeFile = new File(largeFileName);
+          if (largeFile.exists()) {
+            largeFile.delete();
+          }
+        }
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
+      }
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+      return new ResponseEntity<>("Error decoding file name", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return new ResponseEntity<String>("deleted", HttpStatus.OK);
   }
-
 
 
     @GetMapping("/save")
