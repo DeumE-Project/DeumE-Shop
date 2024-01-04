@@ -42,6 +42,20 @@
                                         <label class="form-label" for="password">비밀번호</label>
                                         <input type="password" id="password" class="form-control form-control-lg"/>
                                     </div>
+                                    <div>
+                                        <span>회원구분</span>&nbsp;&nbsp;
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type"
+                                                   id="inlineRadio1" value="customer">
+                                            <label class="form-check-label" for="inlineRadio1">고객</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="type"
+                                                   id="inlineRadio2" value="seller">
+                                            <label class="form-check-label" for="inlineRadio2">판매자</label>
+                                        </div>
+                                    </div>
+                                    <br/>
                                     <div class="pt-1 mb-4">
                                         <button class="btn btn-primary btn-block" type="button" onclick="loginBtn()">
                                             로그인
@@ -73,13 +87,18 @@
         }
     });
     let loginBtn = function () {
+        if ($('input[name="type"]:checked').length < 1) {
+            alert("회원구분을 선택해주세요");
+            return;
+        }
+
         const loginFormTag = document.createElement('form');
         loginFormTag.method = 'post';
         loginFormTag.action = '${pageContext.request.contextPath}' + '/login';
         const usernameTag = document.createElement('input');
         const passwordTag = document.createElement('input');
         usernameTag.setAttribute('name', 'username');
-        usernameTag.setAttribute('value', $('#username').val());
+        usernameTag.setAttribute('value', $('#username').val() + "=" + $('input[name="type"]:checked')[0].value);
         passwordTag.setAttribute('name', 'password');
         passwordTag.setAttribute('value', $('#password').val());
         loginFormTag.appendChild(usernameTag);

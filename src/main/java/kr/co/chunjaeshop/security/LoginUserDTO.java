@@ -1,9 +1,6 @@
 package kr.co.chunjaeshop.security;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,7 +14,6 @@ import java.util.List;
 public class LoginUserDTO extends User {
     private static final long serialVersionUID = 1L;
 
-    private UserVO userVO;
     private Integer idx;
     private String id;
     private String name;
@@ -30,13 +26,8 @@ public class LoginUserDTO extends User {
     private String address2;
     private String authority;
 
-    public LoginUserDTO(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-    }
-
     public LoginUserDTO(UserVO userVO, List<SimpleGrantedAuthority> authorityList) {
         super(userVO.getId(), userVO.getPassword(), authorityList);
-        this.userVO = userVO;
         this.idx = userVO.getIdx();
         this.id = userVO.getId();
         this.name = userVO.getName();
@@ -52,6 +43,7 @@ public class LoginUserDTO extends User {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class UserVO {
         private Integer idx;

@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.customer.service;
 
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 import kr.co.chunjaeshop.customer.repository.CustomerRepository;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

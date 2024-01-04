@@ -97,7 +97,8 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="password2">비밀번호 확인</label>
+                    <label for="password2">비밀번호 확인</label><br/>
+                    <form:errors path="passwordErrorMsg" cssClass="text-danger"/><br/>
                     <form:input path="password2" type="password" class="form-control" placeholder="비밀번호를 재입력해주세요"
                                 required="true"/>
                     <div class="invalid-feedback">

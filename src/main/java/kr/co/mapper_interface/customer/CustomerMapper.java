@@ -1,6 +1,7 @@
 package kr.co.mapper_interface.customer;
 
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public interface CustomerMapper {
     CustomerDTO getCustomerByUsernameForLogin(String username);
     int customerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
+    LoginUserDTO.UserVO loginCustomer(String username);
 }

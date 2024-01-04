@@ -44,4 +44,12 @@
         FROM customer
         WHERE customer_id = #{id}
     </select>
+
+    <select id="loginCustomer" resultType="kr.co.chunjaeshop.security.LoginUserDTO$UserVO">
+        SELECT customer_idx AS idx, customer_id AS id, customer_name AS name, customer_email AS email,
+            customer_phone AS phone, customer_password AS password, customer_joined AS joined, customer_zipcode AS zipcode,
+            customer_address1 AS address1, customer_address2 AS address2, customer_authority AS authority
+        FROM customer
+        WHERE customer_id = #{username}
+    </select>
 </mapper>

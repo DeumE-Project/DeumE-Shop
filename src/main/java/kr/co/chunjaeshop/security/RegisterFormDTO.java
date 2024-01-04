@@ -51,4 +51,6 @@ public class RegisterFormDTO {
     private String authority;
 
     private String globalError;
+
+    private String passwordErrorMsg;
 }
