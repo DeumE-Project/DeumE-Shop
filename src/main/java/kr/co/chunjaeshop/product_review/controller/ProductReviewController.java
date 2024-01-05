@@ -202,16 +202,13 @@ public class ProductReviewController {
     public String save(@ModelAttribute @Valid ProductReviewDTO productReviewDTO, BindingResult bindingResult) {
 
       if (bindingResult.hasErrors()) {
-      log.info("test0");
         return "review/reviewSave";
       }
-      log.info("test");
       int saveResult = productReviewService.reviewSave(productReviewDTO);
       if (saveResult > 0) {
 
-        return "redirect:/product/paging";
+        return "redirect:/product/review/list";
       } else {
-        log.info("test1");
         return "review/reviewSave";
       }
     }

@@ -296,7 +296,6 @@
             <input type="hidden" id="reviewImgSaved" name="reviewImgSaved" value="">
             <label for="customerIdx">${customerIdx}</label><input type="text" name="customerIdx" class="form-control" placeholder="작성자" id="customerIdx" autofocus onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" readonly>
         </div>
-        <form class="mb-3" name="myform" id="myform" method="post">
             <fieldset>
                 <span class="text-bold">별점을 선택해주세요</span>
                 <input type="radio" name="reviewStar" value="5" id="rate1"><label
@@ -310,8 +309,7 @@
                 <input type="radio" name="reviewStar" value="1" id="rate5"><label
                     for="rate5">★</label>
             </fieldset>
-        </form>
-        <div class="form-group">
+          <div class="form-group">
             <label for="reviewContent">상품평내용</label><textarea name="reviewContent" class="form-control" rows="5" placeholder="내용을 입력하세요" id="reviewContent" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"></textarea>
         </div>
 

@@ -19,7 +19,7 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
     // 남원우
     @Override
     public int reviewSave(ProductReviewDTO productReviewDTO) {
-      return productReviewMapper.reviewSave();
+      return productReviewMapper.reviewSave(productReviewDTO);
     }
 
     @Override

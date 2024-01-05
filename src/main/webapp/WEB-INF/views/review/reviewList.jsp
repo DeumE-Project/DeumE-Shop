@@ -27,7 +27,7 @@
         <tbody>
         <c:forEach items="${reviewList}" var="review">
             <tr>
-                <td>${review.reviewIdx}</td>
+                <td><a href="/product/review/detail">${review.reviewIdx}</a></td>
 <%--                <td>${review.customerId}</td>--%>
                 <td>${review.reviewContent}</td>
                 <td>${review.reviewStar}</td>

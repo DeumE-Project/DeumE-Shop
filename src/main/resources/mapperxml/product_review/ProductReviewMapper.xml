@@ -6,7 +6,7 @@
     <!--    남원우-->
     <insert id="reviewSave" parameterType="ProductReviewDTO">
         INSERT INTO product_review (customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved)
-        VALUES (#{customer_idx}, #{product_idx}, #{review_content}, #{review_star}, #{review_thumb_saved}, #{review_img_original}, #{review_img_saved})
+        VALUES (#{customerIdx}, #{productIdx}, #{reviewContent}, #{reviewStar}, #{reviewThumbSaved}, #{reviewImgOriginal}, #{reviewImgSaved})
     </insert>
 
     <select id="reviewList" resultType="ProductReviewDTO">
