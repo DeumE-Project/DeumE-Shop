@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.product.repository;
 
+import kr.co.chunjaeshop.product.dto.ProductDTO;
+
 public interface ProductRepository {
 
     // 남원우
@@ -15,5 +17,6 @@ public interface ProductRepository {
 
 
     // 변재혁
-
+    ProductDTO getProductInformationByProductIdx(Integer productIdx);
+    int getProductPrice(Integer productIdx);
 }

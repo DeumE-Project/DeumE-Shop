@@ -1,12 +1,16 @@
 package kr.co.chunjaeshop.customer.controller;
 
+import kr.co.chunjaeshop.customer.dto.AddToCartForm;
+import kr.co.chunjaeshop.customer.dto.CartResult;
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 import kr.co.chunjaeshop.customer.service.CustomerService;
+import kr.co.chunjaeshop.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +45,8 @@ public class CustomerController {
 
 
     // 변재혁
+    private final CustomerService cService;
+
     @GetMapping(value = "/test")
     public void test(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         log.info("/customer/test");
@@ -123,5 +129,12 @@ public class CustomerController {
         String replaced = str.replace("-", File.separator);
         log.info("replaces = {}", replaced);
         return replaced;
+    }
+
+    @PostMapping(value = "/add-cart")
+    public String addToCart(@ModelAttribute AddToCartForm addToCartForm) {
+        log.info("addToCartForm = {}", addToCartForm);
+        CartResult result = cService.addToCart(addToCartForm);
+        return null;
     }
 }

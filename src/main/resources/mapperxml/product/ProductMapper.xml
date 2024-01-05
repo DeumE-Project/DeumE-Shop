@@ -16,5 +16,17 @@
 
 
     <!--    변재혁-->
+    <select id="getProductInformationByProductIdx" resultType="ProductDTO">
+        SELECT product_name, product_explain, product_price, product_stock, product_thumb_saved,
+               product_img_original, product_img_saved, product_detail_original, product_detail_saved,
+               product_status, product_sales
+        FROM product
+        WHERE product_idx = #{productIdx}
+    </select>
 
+    <select id="getProductPrice" parameterType="ProductDTO">
+        SELECT product_price
+        FROM product
+        WHERE product_idx = #{productIdx}
+    </select>
 </mapper>

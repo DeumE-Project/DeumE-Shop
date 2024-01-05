@@ -1,5 +1,7 @@
 package kr.co.mapper_interface.product;
 
+import kr.co.chunjaeshop.product.dto.ProductDTO;
+
 public interface ProductMapper {
     // 남원우
 
@@ -14,5 +16,6 @@ public interface ProductMapper {
 
 
     // 변재혁
-
+    ProductDTO getProductInformationByProductIdx(Integer productIdx);
+    int getProductPrice(Integer productIdx);
 }
