@@ -13,6 +13,48 @@
 
 
     <!--    유지호-->
+    <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
+        select * from seller where seller_idx = #{sellerIdx}
+    </select>
+
+    <select id="getMyTotalRev" parameterType="Integer" resultType="int">
+        SELECT SUM(A.order_total_price)
+        FROM order_product A
+        LEFT JOIN order_detail B ON A.order_idx = B.order_idx
+        LEFT JOIN product C ON B.product_idx = C.product_idx
+        WHERE C.seller_idx = #{sellerIdx}
+        GROUP BY C.seller_idx
+    </select>
+
+    <select id="getDateRev" parameterType="map" resultType="int">
+        SELECT SUM(A.order_total_price) as totalRevenue
+        FROM order_product A
+        LEFT JOIN order_detail B ON A.order_idx = B.order_idx
+        LEFT JOIN product C ON B.product_idx = C.product_idx
+        WHERE C.seller_idx = #{sellerIdx}
+        AND DATE_FORMAT(A.order_date, '%Y-%m') = #{thisMonth}
+        GROUP BY C.seller_idx
+    </select>
+
+<!--    <select id="getDateRevLast" parameterType="map" resultType="int">
+        SELECT SUM(A.order_total_price) as totalRevenue
+        FROM order_product A
+        LEFT JOIN order_detail B ON A.order_idx = B.order_idx
+        LEFT JOIN product C ON B.product_idx = C.product_idx
+        WHERE C.seller_idx = #{sellerIdx}
+        AND DATE_FORMAT(A.order_date, '%Y-%m') = #{lastMonth}
+        GROUP BY C.seller_idx
+    </select>-->
+
+    <select id="avgRev" parameterType="Integer" resultType="int">
+        <![CDATA[
+        select sum(A.order_total_price)/count(distinct A.order_date)
+        from (select order_idx, customer_idx, date_format(order_date, '%Y-%m') order_date, order_total_price from order_product) A
+        left join (select order_idx, product_idx from order_detail) B on A.order_idx = B.order_idx
+        left join (select product_idx, seller_idx from product) C on B.product_idx = C.product_idx
+        where c.seller_idx = #{sellerIdx} and A.order_date < date_format(now(), '%Y-%m')
+         ]]>
+    </select>
 
 
     <!--    변재혁-->

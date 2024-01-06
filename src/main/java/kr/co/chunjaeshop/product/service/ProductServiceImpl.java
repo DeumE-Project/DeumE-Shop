@@ -1,5 +1,8 @@
 package kr.co.chunjaeshop.product.service;
 
+import kr.co.chunjaeshop.product.repository.ProductRepository;
+import kr.co.chunjaeshop.seller.dto.SellerDTO;
+import kr.co.chunjaeshop.seller.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Log4j2
 public class ProductServiceImpl implements ProductService {
+    private final ProductRepository productRepository;
 
     // 남원우
 
@@ -20,6 +24,11 @@ public class ProductServiceImpl implements ProductService {
 
     // 유지호
 
+    @Override
+    public int countMyProductCnt(Integer sellerIdx) {
+        int myCount = productRepository.countMyProductCnt(sellerIdx);
+        return myCount;
+    }
 
     // 변재혁
 
