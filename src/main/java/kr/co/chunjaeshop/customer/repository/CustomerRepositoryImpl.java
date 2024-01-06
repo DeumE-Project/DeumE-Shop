@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.customer.repository;
 
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
+import kr.co.chunjaeshop.security.RegisterFormDTO;
 import kr.co.mapper_interface.customer.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,5 +31,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public List<CustomerDTO> getAllCustomerList() {
         return customerMapper.getAllCustomerList();
+    }
+
+    @Override
+    public int customerRegister(RegisterFormDTO registerFormDTO) {
+        return customerMapper.customerRegister(registerFormDTO);
+    }
+
+    @Override
+    public int idDuplicationCheck(String id) {
+        return customerMapper.idDuplicationCheck(id);
     }
 }

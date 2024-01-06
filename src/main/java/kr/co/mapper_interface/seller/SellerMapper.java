@@ -1,10 +1,15 @@
 package kr.co.mapper_interface.seller;
 
+
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
+
+import kr.co.chunjaeshop.security.LoginUserDTO;
+import kr.co.chunjaeshop.security.RegisterFormDTO;
+
 
 public interface SellerMapper {
     // 남원우
@@ -28,5 +33,7 @@ public interface SellerMapper {
     int avgRev(Integer sellerIdx);
 
     // 변재혁
-
+    int sellerRegister(RegisterFormDTO registerFormDTO);
+    int idDuplicationCheck(String id);
+    LoginUserDTO.UserVO loginSeller(String username);
 }
