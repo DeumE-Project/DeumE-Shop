@@ -1,7 +1,14 @@
 package kr.co.chunjaeshop.seller.service;
 
-public interface SellerService {
+import kr.co.chunjaeshop.product.dto.ProductDTO;
+import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
+
+
+import java.util.List;
+import java.util.Map;
+
+public interface SellerService {
     // 남원우
 
 
@@ -12,6 +19,17 @@ public interface SellerService {
 
 
     // 유지호
+    SellerDTO mySellerInfoByIdx(Integer sellerIdx);
+
+    int getMyTotalRev(Integer sellerIdx);
+
+    int getDateRev(Integer sellerIdx, String thisMonth);
+
+    /*int getDateRevLast(Integer sellerIdx, String lastMonth);*/
+
+    List<ProductDTO> myProduct(Integer sellerIdx);
+
+    int avgRev(Integer sellerIdx);
 
 
     // 변재혁

@@ -13,7 +13,16 @@
 
 
     <!--    유지호-->
+    <select id="countMyProductCnt" parameterType="Integer" resultType="int">
+        select count(*) from product where seller_idx = #{sellerIdx}
+    </select>
 
+    <select id="myProduct" parameterType="Integer" resultType="List">
+        select A.product_name, B.category_name, A.product_stock
+        from product A left join category B
+        on A.category_idx = B.category_idx
+        where seller_idx = #{sellerIdx}
+    </select>
 
     <!--    변재혁-->
 
