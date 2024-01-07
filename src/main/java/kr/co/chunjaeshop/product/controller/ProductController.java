@@ -124,7 +124,7 @@ public class ProductController {
                 try {
                     sellerIdx = Integer.parseInt(sellerIdxObject.toString());
                 } catch (NumberFormatException e) {
-                    //sellerIdx를 Integer로 변활할 수 없는 경우 처리할 내용
+                    //sellerIdx를 Integer로 변환할 수 없는 경우 처리할 내용
                     e.printStackTrace();
                 }
             }
