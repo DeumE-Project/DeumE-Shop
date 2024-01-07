@@ -59,18 +59,19 @@ public class ProductController {
 
     @GetMapping("/save")
     public String saveForm(@ModelAttribute ProductSaveDTO productSaveDTO) {
-        return "save";
+        return "/product/productSave";
     }
 
     @PostMapping("/save")
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
                        HttpServletRequest httpServletRequest,
                        BindingResult bindingResult) {
+        // 파일 저장 경로
         String uploadFolder = httpServletRequest.getServletContext().getRealPath("/product");
 
         String uploadFolderPath = getFolder();
         File uploadPath = new File(uploadFolder, uploadFolderPath);
-
+        // 저장경로가 없으면 생성
         if (uploadPath.exists() == false) {
             uploadPath.mkdir();
         }
@@ -90,13 +91,14 @@ public class ProductController {
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
+        //uuid_OriginalFileName
         String fileImgOriginal
                 = uuid.toString() + "_" +
                 productSaveDTO.getProductImg().getOriginalFilename();
         String fileDetailOriginal
                 = uuid.toString() + "_" +
                 productSaveDTO.getProductDetailImg().getOriginalFilename();
-
+        // uuid_OriginalFileName_saved
         String fileImgSaved = uploadPath + File.separator +
                 fileImgOriginal + "_saved";
 
@@ -129,7 +131,7 @@ public class ProductController {
             if (!checkImageType(new File(fileImgSaved)) || !checkImageType(new File(fileDetailSaved))) {
                 bindingResult.addError(new FieldError("productSaveDTO", "",
                         "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
-                return "save"; // 허용되지 않는 이미지 형식일 경우 save 페이지로 리디렉션
+                return "/product/productSave"; // 허용되지 않는 이미지 형식일 경우 save 페이지로 리디렉션
             }
 
             //ProductMapper 대응하는 ProductDTO를 생성해서 DB에 저장
@@ -151,19 +153,19 @@ public class ProductController {
             if (saveResult > 0) {
                 return "redirect:/product/productDetail"; // 저장 성공 시 detail 페이지로 리디렉션
             } else {
-                log.error("상품 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
+                log.error("/상품 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
                 bindingResult.addError(new FieldError("productSaveDTO", "",
                         "상품 등록에 실패했습니다. 다시 시도해주세요.")); // 실패 메시지 바인딩
 
-                return "productSave"; // 저장 실패 시 save 페이지로 리디렉션
+                return "/product/productSave"; // 저장 실패 시 save 페이지로 리디렉션
             }
         } catch (IOException e) {
             log.error("파일 업로드에 실패했습니다.", e); // 파일 업로드 실패 메시지 로깅
             bindingResult.addError(new FieldError("productSaveDTO", "",
                     "파일 업로드에 실패했습니다. 다시 시도해주세요.")); // 파일 업로드 실패 메시지 바인딩
 
-            return "productSave"; // 저장 실패 시 save 페이지로 리디렉션
+            return "/product/productSave"; // 저장 실패 시 save 페이지로 리디렉션
         }
     }
 }
