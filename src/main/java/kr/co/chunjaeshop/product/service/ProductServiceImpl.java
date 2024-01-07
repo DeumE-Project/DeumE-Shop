@@ -14,7 +14,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int productSave(ProductDTO productDTO) {
-        return productRepository.productSave(productDTO);
+     int saveResult = productRepository.productSave(productDTO);
+     return saveResult;
     }
 
 
