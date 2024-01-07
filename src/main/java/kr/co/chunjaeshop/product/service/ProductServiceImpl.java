@@ -1,8 +1,6 @@
 package kr.co.chunjaeshop.product.service;
 
 import kr.co.chunjaeshop.product.repository.ProductRepository;
-import kr.co.chunjaeshop.seller.dto.SellerDTO;
-import kr.co.chunjaeshop.seller.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

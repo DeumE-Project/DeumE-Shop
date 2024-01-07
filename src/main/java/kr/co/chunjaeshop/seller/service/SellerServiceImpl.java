@@ -1,12 +1,9 @@
 package kr.co.chunjaeshop.seller.service;
 
-
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
-import kr.co.chunjaeshop.seller.dto.SellerDTO;
-
 import kr.co.chunjaeshop.security.RegisterFormDTO;
-
+import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,9 +19,7 @@ import java.util.Map;
 @Log4j2
 public class SellerServiceImpl implements SellerService {
     private final SellerRepository sellerRepository;
-
     private final ProductRepository productRepository;
-
 
     // 남원우
 
@@ -47,7 +42,6 @@ public class SellerServiceImpl implements SellerService {
         int myRev = sellerRepository.getMyTotalRev(sellerIdx);
         return myRev;
     }
-
 
     @Override
     public int getDateRev(Integer sellerIdx, String thisMonth) {
@@ -94,7 +88,6 @@ public class SellerServiceImpl implements SellerService {
         return myProduct;
     }
 
-
     // 변재혁
     @Override
     public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
@@ -106,7 +99,6 @@ public class SellerServiceImpl implements SellerService {
     public boolean idDuplicationCheck(String id) {
         int result = sellerRepository.idDuplicationCheck(id);
         return (result == 1) ? true : false;
-    }
-
+}
 }
 

@@ -20,6 +20,7 @@ public class ProductDTO {
     private String productDetailSaved; // 상품 상세 설명 이미지 서버에 저장된 파일명
     private Integer productStatus; // 1번: 판매가능 / 0번: 품절(판매중지) [기본 값은 1번]
     private Integer productSales; // 판매된 개수
+    private LocalDateTime productRegDate; // 상품 등록 날짜
 
     // 남원우
 
@@ -31,7 +32,6 @@ public class ProductDTO {
 
 
     // 유지호
-    private LocalDateTime productRegDate; // 상품 등록 날짜
     private String CategoryName;
 
 
