@@ -36,19 +36,20 @@
         WHERE c.customer_idx = #{customerIdx} AND c.seller_idx = #{sellerIdx}
     </select>
 
-    <update id="updateCartDetailProductInfo" parameterType="java.util.Map">
+    <update id="updateCartDetailProductInfo" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm">
         UPDATE cart_detail
         SET buy_count = buy_count + #{buyCount}
         WHERE cart_idx = #{cartIdx} AND product_idx = #{productIdx}
     </update>
 
-    <insert id="insertNewCartDetail" parameterType="java.util.Map">
+    <insert id="insertNewCartDetail" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm">
         INSERT
         INTO cart_detail(cart_idx, product_idx, buy_count, product_price)
         VALUES(#{cartIdx}, #{productIdx}, #{buyCount}, #{productPrice})
     </insert>
 
-    <insert id="insertNewCart" parameterType="java.util.Map">
+    <insert id="insertNewCart" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm"
+        useGeneratedKeys="true" keyColumn="cart_idx" keyProperty="cartIdx">
         INSERT
         INTO cart(customer_idx, seller_idx)
         VALUES(#{customerIdx}, #{sellerIdx})

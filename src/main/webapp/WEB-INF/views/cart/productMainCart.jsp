@@ -78,7 +78,7 @@
 </div>
 
 <script>
-    const productIdx = 1;
+    const productIdx = 4;
     const productPrice = '25000';
 
     const productPriceTag = $('#product-price');
@@ -116,15 +116,17 @@
     $('#add-to-cart').on('click', function () {
         const formTag = document.createElement('form');
         formTag.method = 'post';
-        formTag.action = '${pageContext.request.contextPath}' + '/customer/add-cart';
+        formTag.action = '${pageContext.request.contextPath}' + '/cart/add-cart';
 
         const productIdxTagForm = document.createElement('input');
         productIdxTagForm.setAttribute('name', 'productIdx');
         productIdxTagForm.setAttribute('value', productIdx);
+        formTag.appendChild(productIdxTagForm);
 
         const buyCountTagForm = document.createElement('input');
         buyCountTagForm.setAttribute('name', 'buyCount');
         buyCountTagForm.setAttribute('value', buyCountTag.val());
+        formTag.appendChild(buyCountTagForm);
 
         document.body.appendChild(formTag).submit();
     });

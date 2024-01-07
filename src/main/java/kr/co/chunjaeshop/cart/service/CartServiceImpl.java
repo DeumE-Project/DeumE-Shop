@@ -30,16 +30,21 @@ public class CartServiceImpl implements CartService {
         int resultCount = -1;
         CartResult cartResult = null;
 
-        Map<String, Object> parameterMap = new HashMap<>();
+        /*Map<String, Object> parameterMap = new HashMap<>();
         parameterMap.put("customerIdx", addToCartForm.getCustomerIdx());
         parameterMap.put("productIdx", addToCartForm.getProductIdx());
         parameterMap.put("buyCount", addToCartForm.getBuyCount());
         parameterMap.put("productPrice", productDTO.getProductPrice());
+        parameterMap.put("sellerIdx", productDTO.getSellerIdx());*/
+
+        addToCartForm.setSellerIdx(productDTO.getSellerIdx());
+        addToCartForm.setProductPrice(productDTO.getProductPrice());
 
         // 해당 판매자의 해당 상품이 이미 카트에 저장됐는지 체크
         CartDTO cartInformation = cartRepository.getCartInformation(addToCartForm.getCustomerIdx(), productDTO.getSellerIdx());
         if (cartInformation != null && cartInformation.getCartDetailDTOList().size() > 0) {
-            parameterMap.put("cartIdx", cartInformation.getCartIdx());
+            //parameterMap.put("cartIdx", cartInformation.getCartIdx());
+            addToCartForm.setCartIdx(cartInformation.getCartIdx());
 
             List<CartDetailDTO> cartDetailDTOList = cartInformation.getCartDetailDTOList();
             CartDetailDTO cartDetailDTO = cartDetailDTOList
@@ -50,12 +55,12 @@ public class CartServiceImpl implements CartService {
             if (cartDetailDTO != null) {
                 // 카트에 이미 해당 상품이 담겨있으므로, cart_detail 에서 수량 업데이트
                 // 필요한 것 => cart_idx, product_idx, buyCount
-                resultCount = cartRepository.updateCartDetailProductInfo(parameterMap);
+                resultCount = cartRepository.updateCartDetailProductInfo(addToCartForm);
                 cartResult = CartResult.ALREADY;
             } else {
                 // 카드에 해당 상품이 없으므로, cart_detail 새롭게 담아주기
                 // 필요한 것 => cart_idx, product_idx, buy_count, product_price
-                resultCount = cartRepository.insertNewCartDetail(parameterMap);
+                resultCount = cartRepository.insertNewCartDetail(addToCartForm);
                 cartResult = CartResult.NEW_CART_DETAIL;
             }
         } else {
@@ -63,10 +68,10 @@ public class CartServiceImpl implements CartService {
             // 1. 카트 만들어주기 (필요한 거: customer_idx, seller_idx)
             int subResultCount1 = -1;
             int subResultCount2 = -1;
-            subResultCount1 = cartRepository.insertNewCart(parameterMap);
+            subResultCount1 = cartRepository.insertNewCart(addToCartForm);
 
             // 2. 카드 디에테일에 새로 담아주기
-            subResultCount2 = cartRepository.insertNewCartDetail(parameterMap);
+            subResultCount2 = cartRepository.insertNewCartDetail(addToCartForm);
             resultCount = (subResultCount1 == 1 && subResultCount2 == 1) ? 1 : -1;
             cartResult = CartResult.NEW_CART;
         }

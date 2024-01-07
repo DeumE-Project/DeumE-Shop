@@ -17,9 +17,9 @@
 
     <!--    변재혁-->
     <select id="getProductInformationByProductIdx" resultType="ProductDTO">
-        SELECT product_name, product_explain, product_price, product_stock, product_thumb_saved,
-               product_img_original, product_img_saved, product_detail_original, product_detail_saved,
-               product_status, product_sales
+        SELECT product_idx, seller_idx, category_idx, product_name, product_explain,
+               product_price, product_stock, product_thumb_saved, product_img_original, product_img_saved,
+               product_detail_original, product_detail_saved, product_status, product_sales
         FROM product
         WHERE product_idx = #{productIdx}
     </select>

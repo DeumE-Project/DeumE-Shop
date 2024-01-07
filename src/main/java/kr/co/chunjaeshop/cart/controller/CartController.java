@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/cart")
@@ -18,6 +19,7 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping(value = "/add-cart")
+    @ResponseBody
     public String addToCart(@ModelAttribute AddToCartForm addToCartForm) {
         log.info("addToCartForm = {}", addToCartForm);
         addToCartForm.setCustomerIdx(8);
