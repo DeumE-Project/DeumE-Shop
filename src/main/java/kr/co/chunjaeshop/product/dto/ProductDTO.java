@@ -2,6 +2,8 @@ package kr.co.chunjaeshop.product.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ProductDTO {
     private Integer productIdx; // primary key, auto increment
@@ -29,6 +31,8 @@ public class ProductDTO {
 
 
     // 유지호
+    private LocalDateTime productRegDate; // 상품 등록 날짜
+    private String CategoryName;
 
 
     // 변재혁

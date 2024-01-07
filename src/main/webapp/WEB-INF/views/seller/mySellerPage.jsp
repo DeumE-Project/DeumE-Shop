@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +47,7 @@
             <div class="row gx-5 justify-content-end">
                 <div class="col-lg-6">
                     <button class="btn btn-primary" onclick="location.href='#'">상품 등록하기</button>
-                    <button class="btn btn-secondary mx-2" onclick="location.href='#'">판매 상품 관리</button>
+                    <button class="btn btn-secondary mx-2" onclick="location.href='/seller/myProduct?sellerIdx=1'">판매 상품 관리</button>
                     <button class="btn btn-outline-secondary" onclick="location.href='#'">뒤로 가기</button>
                 </div>
             </div>

@@ -83,8 +83,8 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public List<ProductDTO> myProduct(Integer sellerIdx) {
-        List<ProductDTO> productDTOList = productRepository.myProduct(sellerIdx);
-        return productDTOList;
+        List<ProductDTO> myProduct = productRepository.myProduct(sellerIdx);
+        return myProduct;
     }
 
     // 변재혁

@@ -56,7 +56,9 @@ public class SellerController {
     }
 
     @GetMapping("/myProduct")
-    public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx, Model model){
+    public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx,
+                                  /*@RequestParam(value = "page", required = false, defaultValue = "1") int page,*/
+                                  Model model){
         List<ProductDTO> productDTOList = sellerService.myProduct(sellerIdx);
         model.addAttribute("myProductList", productDTOList);
         return "/seller/myProduct";
