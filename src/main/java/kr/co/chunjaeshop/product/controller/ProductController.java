@@ -126,6 +126,11 @@ public class ProductController {
                     e.printStackTrace();
                 }
             }
+            if (!checkImageType(new File(fileImgSaved)) || !checkImageType(new File(fileDetailSaved))) {
+                bindingResult.addError(new FieldError("productSaveDTO", "",
+                        "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
+                return "save"; // 허용되지 않는 이미지 형식일 경우 save 페이지로 리디렉션
+            }
 
             //ProductMapper 대응하는 ProductDTO를 생성해서 DB에 저장
             ProductDTO productDTO = new ProductDTO();
