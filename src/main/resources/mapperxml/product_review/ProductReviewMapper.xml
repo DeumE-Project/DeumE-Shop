@@ -4,8 +4,14 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper_interface.product_review.ProductReviewMapper">
     <!--    남원우-->
+    <insert id="reviewSave" parameterType="ProductReviewDTO">
+        INSERT INTO product_review (customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved)
+        VALUES (#{customer_idx}, #{product_idx}, #{review_content}, #{review_star}, #{review_thumb_saved}, #{review_img_original}, #{review_img_saved})
+    </insert>
 
-
+    <select id="reviewList" resultType="ProductReviewDTO">
+        select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date from product_review
+    </select>
     <!--    최경락-->
 
 
