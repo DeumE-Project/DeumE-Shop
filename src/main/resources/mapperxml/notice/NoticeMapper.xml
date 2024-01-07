@@ -33,6 +33,15 @@
         update notice set notice_title=#{noticeTitle}, notice_content=#{noticeContent}
         where notice_idx=#{noticeIdx}
     </update>
+
+    <select id="noticeCount" resultType="Integer">
+        select count(notice_idx) from notice
+    </select>
+
+    <select id="noticePagingList" parameterType="java.util.HashMap" resultType="NoticeDTO">
+        select notice_idx, notice_title, notice_content, notice_date
+        from notice order by notice_idx desc limit #{start}, #{limit}
+    </select>
     <!--    유지호-->
 
 

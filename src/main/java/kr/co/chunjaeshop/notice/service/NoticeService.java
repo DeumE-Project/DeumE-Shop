@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.notice.service;
 
 import kr.co.chunjaeshop.notice.dto.NoticeDTO;
+import kr.co.chunjaeshop.notice.dto.NoticePageDTO;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public interface NoticeService {
     void delete(Integer idx);
 
     void update(NoticeDTO noticeDTO);
+
+    List<NoticeDTO> noticePagingList(int page);
+
+    NoticePageDTO noticePagingParam(int page);
+
 
     // 유지호
 

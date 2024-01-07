@@ -3,6 +3,7 @@ package kr.co.chunjaeshop.notice.repository;
 import kr.co.chunjaeshop.notice.dto.NoticeDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeRepository {
 
@@ -23,6 +24,10 @@ public interface NoticeRepository {
     void delete(Integer idx);
 
     void update(NoticeDTO noticeDTO);
+
+    int noticeCount();
+
+    List<NoticeDTO> noticePagingList(Map<String, Integer> noticePagingParams);
 
     // 유지호
 

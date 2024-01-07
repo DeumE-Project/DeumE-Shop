@@ -50,7 +50,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script>
     const listFn = () => {
-        location.href = "/notice/";
+        const page = '${page}';
+        location.href = "/notice/?page=" + page;
     }
     const updateFn = () => {
         const idx = '${notice.noticeIdx}';

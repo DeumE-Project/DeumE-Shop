@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -46,6 +47,16 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     @Override
     public void update(NoticeDTO noticeDTO) {
         noticeMapper.update(noticeDTO);
+    }
+
+    @Override
+    public int noticeCount() {
+        return noticeMapper.noticeCount();
+    }
+
+    @Override
+    public List<NoticeDTO> noticePagingList(Map<String, Integer> noticePagingParams) {
+        return noticeMapper.noticePagingList(noticePagingParams);
     }
 
     // 유지호

@@ -3,6 +3,7 @@ package kr.co.mapper_interface.notice;
 import kr.co.chunjaeshop.notice.dto.NoticeDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeMapper {
 
@@ -22,6 +23,10 @@ public interface NoticeMapper {
     void delete(Integer idx);
 
     void update(NoticeDTO noticeDTO);
+
+    int noticeCount();
+
+    List<NoticeDTO> noticePagingList(Map<String, Integer> noticePagingParams);
 
     // 유지호
 

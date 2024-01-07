@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.notice.controller;
 
 import kr.co.chunjaeshop.notice.dto.NoticeDTO;
+import kr.co.chunjaeshop.notice.dto.NoticePageDTO;
 import kr.co.chunjaeshop.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,12 +26,12 @@ public class NoticeController {
     // 이무현
     private final NoticeService noticeService;
 
-    @GetMapping("/")
-    public String noticeAllList(Model model) {
-        List<NoticeDTO> noticeDTOList = noticeService.noticeAllList();
-        model.addAttribute("noticeList", noticeDTOList);
-        return "/notice/noticeList";
-    }
+//    @GetMapping("/")
+//    public String noticeAllList(Model model) {
+//        List<NoticeDTO> noticeDTOList = noticeService.noticeAllList();
+//        model.addAttribute("noticeList", noticeDTOList);
+//        return "/notice/noticeList";
+//    }
     @GetMapping("/save")
     public String saveForm(@ModelAttribute NoticeDTO noticeDTO){
         return "/notice/noticeSaveForm";
@@ -46,9 +47,12 @@ public class NoticeController {
     }
 
     @GetMapping
-    public String findByIdx(@RequestParam("idx") Integer idx, Model model) {
+    public String findByIdx(@RequestParam("idx") Integer idx,
+                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                            Model model) {
         NoticeDTO noticeDTO = noticeService.findByIdx(idx);
         model.addAttribute("notice", noticeDTO);
+        model.addAttribute("page", page);
         return "/notice/noticeDetail";
     }
 
@@ -70,6 +74,18 @@ public class NoticeController {
     public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
         noticeService.update(noticeDTO);
         return "redirect:/notice?idx="+noticeDTO.getNoticeIdx();
+    }
+
+    @GetMapping("/")
+    public String paging(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                         Model model) {
+        System.out.println("page = " + page);
+        List<NoticeDTO> noticePagingList = noticeService.noticePagingList(page);
+        System.out.println("pagingList = " + noticePagingList);
+        NoticePageDTO noticePageDTO = noticeService.noticePagingParam(page);
+        model.addAttribute("noticeList", noticePagingList);
+        model.addAttribute("paging", noticePageDTO);
+        return "/notice/noticeList";
     }
 
     // 유지호
