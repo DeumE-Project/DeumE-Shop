@@ -19,24 +19,38 @@
     <resultMap id="cartWithCartDetail" type="kr.co.chunjaeshop.cart.dto.CartDTO">
         <id column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
         <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="seller_idx" jdbcType="INTEGER" property="sellerIdx"/>
         <collection property="cartDetailDTOList" ofType="kr.co.chunjaeshop.cart.dto.CartDetailDTO">
             <id column="cart_detail_idx" jdbcType="INTEGER" property="cartDetailIdx"/>
             <result column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
             <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
-            <result column="product_count" jdbcType="INTEGER" property="productCount"/>
+            <result column="buy_count" jdbcType="INTEGER" property="buyCount"/>
             <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
         </collection>
     </resultMap>
 
     <select id="getCartInformation" resultMap="cartWithCartDetail">
-        SELECT c.cart_idx, customer_idx, cart_detail_idx, product_idx, product_count, product_price
-        FROM cart c INNER JOIN cart_detail cd ON c.cart_idx = cd.cart_idx
-        WHERE c.customer_idx = #{customerIdx}
+        SELECT c.cart_idx, customer_idx, seller_idx, cart_detail_idx, product_idx, buy_count, product_price
+        FROM cart c INNER JOIN cart_detail cd
+            ON c.cart_idx = cd.cart_idx
+        WHERE c.customer_idx = #{customerIdx} AND c.seller_idx = #{sellerIdx}
     </select>
 
     <update id="updateCartDetailProductInfo" parameterType="java.util.Map">
         UPDATE cart_detail
-        SET product_count = product_count + #{buyCount}
-        WHERE cart_
+        SET buy_count = buy_count + #{buyCount}
+        WHERE cart_idx = #{cartIdx} AND product_idx = #{productIdx}
     </update>
+
+    <insert id="insertNewCartDetail" parameterType="java.util.Map">
+        INSERT
+        INTO cart_detail(cart_idx, product_idx, buy_count, product_price)
+        VALUES(#{cartIdx}, #{productIdx}, #{buyCount}, #{productPrice})
+    </insert>
+
+    <insert id="insertNewCart" parameterType="java.util.Map">
+        INSERT
+        INTO cart(customer_idx, seller_idx)
+        VALUES(#{customerIdx}, #{sellerIdx})
+    </insert>
 </mapper>

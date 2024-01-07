@@ -30,8 +30,8 @@ public class ProductController {
 
     // 변재혁
     private final ProductService pService;
-    private final ProductService pService2;
-    @GetMapping
+
+    @GetMapping(value = "/detail")
     public String productDetailForm(@RequestParam(required = false) Integer productIdx,
                                     Model model) {
         log.info("productIdx = {}", productIdx);

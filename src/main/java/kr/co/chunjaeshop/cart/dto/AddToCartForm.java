@@ -1,4 +1,4 @@
-package kr.co.chunjaeshop.customer.dto;
+package kr.co.chunjaeshop.cart.dto;
 
 import lombok.Data;
 

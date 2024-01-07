@@ -5,7 +5,11 @@ import kr.co.chunjaeshop.cart.dto.CartDTO;
 import java.util.Map;
 
 public interface CartRepository {
-    CartDTO getCartInformation(Integer customerIdx);
+    CartDTO getCartInformation(Integer customerIdx, Integer sellerIdx);
 
-    void updateCartDetailProductInfo(Map<String, Object> parameterMap);
+    int updateCartDetailProductInfo(Map<String, Object> parameterMap);
+
+    int insertNewCartDetail(Map<String, Object> parameterMap);
+
+    int insertNewCart(Map<String, Object> parameterMap);
 }

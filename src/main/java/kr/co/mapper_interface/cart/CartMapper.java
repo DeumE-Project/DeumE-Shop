@@ -1,11 +1,16 @@
 package kr.co.mapper_interface.cart;
 
 import kr.co.chunjaeshop.cart.dto.CartDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
 public interface CartMapper {
-    CartDTO getCartInformation(Integer customerIdx);
+    CartDTO getCartInformation(@Param("customerIdx") Integer customerIdx, @Param("sellerIdx") Integer sellerIdx);
 
-    void updateCartDetailProductInfo(Map<String, Object> parameterMap);
+    int updateCartDetailProductInfo(Map<String, Object> parameterMap);
+
+    int insertNewCartDetail(Map<String, Object> parameterMap);
+
+    int insertNewCart(Map<String, Object> parameterMap);
 }

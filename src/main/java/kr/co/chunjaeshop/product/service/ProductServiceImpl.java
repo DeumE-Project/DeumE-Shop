@@ -1,7 +1,5 @@
 package kr.co.chunjaeshop.product.service;
 
-import kr.co.chunjaeshop.customer.dto.AddToCartForm;
-import kr.co.chunjaeshop.customer.dto.CartResult;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +25,10 @@ public class ProductServiceImpl implements ProductService {
 
     // 변재혁
     private final ProductRepository pRepo;
+
     @Override
     public ProductDTO getProductInformationByProductIdx(Integer productIdx) {
         ProductDTO result = pRepo.getProductInformationByProductIdx(productIdx);
         return result;
-    }
-
-    @Override
-    public int getProductPrice(Integer productIdx) {
-        int price = pRepo.getProductPrice(productIdx);
-        return price;
     }
 }

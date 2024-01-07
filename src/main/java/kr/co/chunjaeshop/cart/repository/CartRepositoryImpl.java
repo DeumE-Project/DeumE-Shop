@@ -15,12 +15,22 @@ public class CartRepositoryImpl implements CartRepository {
     private final CartMapper cartMapper;
 
     @Override
-    public CartDTO getCartInformation(Integer customerIdx) {
-        return cartMapper.getCartInformation(customerIdx);
+    public CartDTO getCartInformation(Integer customerIdx, Integer sellerIdx) {
+        return cartMapper.getCartInformation(customerIdx, sellerIdx);
     }
 
     @Override
-    public void updateCartDetailProductInfo(Map<String, Object> parameterMap) {
-        cartMapper.updateCartDetailProductInfo(parameterMap);
+    public int updateCartDetailProductInfo(Map<String, Object> parameterMap) {
+        return cartMapper.updateCartDetailProductInfo(parameterMap);
+    }
+
+    @Override
+    public int insertNewCartDetail(Map<String, Object> parameterMap) {
+        return cartMapper.insertNewCartDetail(parameterMap);
+    }
+
+    @Override
+    public int insertNewCart(Map<String, Object> parameterMap) {
+        return cartMapper.insertNewCart(parameterMap);
     }
 }

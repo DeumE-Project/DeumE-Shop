@@ -7,6 +7,6 @@ public class CartDetailDTO {
     private Integer cartDetailIdx;
     private Integer cartIdx;
     private Integer productIdx;
-    private Integer productCount;
+    private Integer buyCount;
     private Integer productPrice;
 }
