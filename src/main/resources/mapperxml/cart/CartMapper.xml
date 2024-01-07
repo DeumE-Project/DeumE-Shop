@@ -3,26 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper_interface.cart.CartMapper">
-<!--    남원우-->
+    <!--    남원우-->
 
 
-<!--    최경락-->
+    <!--    최경락-->
 
 
-<!--    이무현-->
+    <!--    이무현-->
 
 
-<!--    유지호-->
+    <!--    유지호-->
 
 
-<!--    변재혁-->
+    <!--    변재혁-->
     <resultMap id="cartWithCartDetail" type="kr.co.chunjaeshop.cart.dto.CartDTO">
-        <id column="cart_idx" jdbcType="INTEGER" property="cartIdx" />
-        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx" />
+        <id column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
         <collection property="cartDetailDTOList" ofType="kr.co.chunjaeshop.cart.dto.CartDetailDTO">
-            <id column="cart_detail_idx" jdbcType="INTEGER" property="cartDetailIdx" />
-            <result column="cart_idx" jdbcType="INTEGER" property="cartIdx" />
-            <result column="product_"
+            <id column="cart_detail_idx" jdbcType="INTEGER" property="cartDetailIdx"/>
+            <result column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+            <result column="product_count" jdbcType="INTEGER" property="productCount"/>
+            <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
         </collection>
     </resultMap>
+
+    <select id="getCartInformation" resultMap="cartWithCartDetail">
+        SELECT c.cart_idx, customer_idx, cart_detail_idx, product_idx, product_count, product_price
+        FROM cart c INNER JOIN cart_detail cd ON c.cart_idx = cd.cart_idx
+        WHERE c.customer_idx = #{customerIdx}
+    </select>
+
+    <update id="updateCartDetailProductInfo" parameterType="java.util.Map">
+        UPDATE cart_detail
+        SET product_count = product_count + #{buyCount}
+        WHERE cart_
+    </update>
 </mapper>

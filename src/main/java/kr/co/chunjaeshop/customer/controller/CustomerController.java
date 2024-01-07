@@ -134,6 +134,7 @@ public class CustomerController {
     @PostMapping(value = "/add-cart")
     public String addToCart(@ModelAttribute AddToCartForm addToCartForm) {
         log.info("addToCartForm = {}", addToCartForm);
+        addToCartForm.setCustomerIdx(8);
         CartResult result = cService.addToCart(addToCartForm);
         return null;
     }

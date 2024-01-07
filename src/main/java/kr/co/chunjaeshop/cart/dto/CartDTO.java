@@ -8,6 +8,7 @@ import java.util.List;
 public class CartDTO {
     private Integer cartIdx;
     private Integer customerIdx;
+    private Integer sellerIdx;
 
     private List<CartDetailDTO> cartDetailDTOList;
 }

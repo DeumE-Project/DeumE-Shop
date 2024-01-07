@@ -41,14 +41,14 @@
                 <p><span class="text-primary">[4] / 5</span>&nbsp;&nbsp;<span>([50] 리뷰)</span></p>
             </div>
             <div>
-                판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="productPrice">[25000]</h2>원
+                판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="product-price">[25000]</h2>원
             </div>
             <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea.
                 Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus
                 labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd
                 rebum.</p>
             <div>
-                구매가 <h4 style="display: inline-block;"><span id="productTotalPrice">25000</span></h4>원
+                구매가 <h4 style="display: inline-block;"><span id="product-total-price">25000</span></h4>원
             </div>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 150px;">
@@ -64,7 +64,7 @@
                         </button>
                     </div>
                 </div>
-                <button class="btn btn-primary px-3" style="margin-left: 10px" id="addToCart">
+                <button class="btn btn-primary px-3" style="margin-left: 10px" id="add-to-cart">
                     <i class="fa fa-shopping-cart mr-1"></i>
                     장바구니에 추가
                 </button>
@@ -81,9 +81,9 @@
     const productIdx = 1;
     const productPrice = '25000';
 
-    const productPriceTag = $('#productPrice');
+    const productPriceTag = $('#product-price');
     const buyCountTag = $('#buy-count');
-    const productTotalPriceTag = $('#productTotalPrice');
+    const productTotalPriceTag = $('#product-total-price');
 
     $(document).ready(function () {
         let productPriceLocalStr = parseInt(productPrice).toLocaleString('ko-KR');
@@ -113,7 +113,7 @@
         productTotalPriceTag.html((productPrice * buyCountTag.val()).toLocaleString('ko-KR'));
     }
 
-    $('#addToCart').on('click', function () {
+    $('#add-to-cart').on('click', function () {
         const formTag = document.createElement('form');
         formTag.method = 'post';
         formTag.action = '${pageContext.request.contextPath}' + '/customer/add-cart';
