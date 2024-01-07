@@ -4,6 +4,7 @@ import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductRepository {
 
@@ -20,6 +21,10 @@ public interface ProductRepository {
     int countMyProductCnt(Integer sellerIdx);
 
     List<ProductDTO> myProduct(Integer sellerIdx);
+
+    List<ProductDTO> productPagingList(Map<String, Integer> pagingParams);
+
+    int productCount();
 
 
     // 변재혁

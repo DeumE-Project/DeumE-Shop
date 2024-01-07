@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.seller.controller;
 
+import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
@@ -36,14 +37,14 @@ public class SellerController {
     // 유지호
     @GetMapping("/mySellerPage")
     public String mySellerInfoByIdx(@RequestParam("sellerIdx") Integer sellerIdx,
-                                    @RequestParam("thisMonth") String thisMonth,
+
             /*@RequestParam("lastMonth") String lastMonth,*/
                                     Model model){
         log.info("sellerIdx = {}", sellerIdx);
         SellerDTO sellerDTO = sellerService.mySellerInfoByIdx(sellerIdx);
         int resultCnt = productService.countMyProductCnt(sellerIdx);
         int totalRev = sellerService.getMyTotalRev(sellerIdx);
-        int getDateRev = sellerService.getDateRev(sellerIdx, thisMonth);
+        int getDateRev = sellerService.getDateRev(sellerIdx);
         int avgRev = sellerService.avgRev(sellerIdx);
         /*int getDateRevLast = sellerService.getDateRevLast(sellerIdx, lastMonth);*/
         model.addAttribute("myCount", resultCnt);
@@ -57,10 +58,12 @@ public class SellerController {
 
     @GetMapping("/myProduct")
     public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx,
-            /*@RequestParam(value = "page", required = false, defaultValue = "1") int page,*/
+                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                   Model model){
-        List<ProductDTO> productDTOList = sellerService.myProduct(sellerIdx);
-        model.addAttribute("myProductList", productDTOList);
+        List<ProductDTO> productPagingList = sellerService.productPagingList(sellerIdx, page);
+        PageDTO sellProductPageDTO = sellerService.pagingParam(page);
+        model.addAttribute("myProductList", productPagingList);
+        model.addAttribute("sellProductpaging", sellProductPageDTO);
         return "/seller/myProduct";
     }
 
