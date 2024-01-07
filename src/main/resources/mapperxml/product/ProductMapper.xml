@@ -14,8 +14,8 @@
             product_img_original, product_img_saved,
             product_detail_original, product_detail_saved
     ) values(
-            #{sellerIdx), #{categoryId}, #{productName},
-            #{productExplain}, #{productPrice}, #{productStock},
+            #{sellerIdx), #{categoryIdx}, #{productName}, #{productExplain},
+            #{productPrice}, #{productStock},
             #{productThumbSaved}, #{productImgOriginal}, #{productImgSaved},
             #{productDetailOriginal}, #{productDetailSaved})
 

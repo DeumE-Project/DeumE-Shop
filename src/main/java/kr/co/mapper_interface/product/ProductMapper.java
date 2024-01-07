@@ -1,5 +1,7 @@
 package kr.co.mapper_interface.product;
 
+import kr.co.chunjaeshop.product.dto.ProductDTO;
+
 public interface ProductMapper {
 
 
@@ -7,7 +9,7 @@ public interface ProductMapper {
 
 
     // 최경락
-    int productSave();
+    int productSave(ProductDTO productDTO);
 
     // 이무현
 
