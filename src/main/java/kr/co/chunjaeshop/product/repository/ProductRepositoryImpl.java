@@ -14,7 +14,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public int productSave(ProductDTO productDTO) {
-        return productMapper.productSave();
+        return productMapper.productSave(productDTO);
     }
 
     // 남원우
