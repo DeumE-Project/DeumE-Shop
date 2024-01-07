@@ -2,6 +2,9 @@ package kr.co.chunjaeshop.product.repository;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 
+import java.util.List;
+
+
 public interface ProductRepository {
 
 
@@ -17,6 +20,9 @@ public interface ProductRepository {
 
 
     // 유지호
+    int countMyProductCnt(Integer sellerIdx);
+
+    List<ProductDTO> myProduct(Integer sellerIdx);
 
 
     // 변재혁

@@ -4,10 +4,12 @@ import kr.co.chunjaeshop.customer.service.CustomerService;
 import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -32,6 +34,14 @@ public class UserRegisterController {
     public String registerSubmit(@Validated @ModelAttribute RegisterFormDTO registerFormDTO,
                                  BindingResult bindingResult, Model model) {
         log.info("registerFormDTO = {}", registerFormDTO);
+
+        if (StringUtils.hasText(registerFormDTO.getPassword1()) && StringUtils.hasText((registerFormDTO.getPassword2()))) {
+            if (!registerFormDTO.getPassword1().equals(registerFormDTO.getPassword2())) {
+                bindingResult.addError(new FieldError("registerFormDTO", "passwordErrorMsg",
+                        "비밀번호와 비밀번호 확인이 일치하지 않습니다"));
+            }
+        }
+
         if (bindingResult.hasErrors()) {
             log.info("registerFormDTO has errors!");
             bindingResult.addError(new FieldError("registerFormDTO", "globalError",
@@ -58,7 +68,7 @@ public class UserRegisterController {
         }
     }
 
-    @PostMapping(value = "/id-duplicate-check")
+    @PostMapping(value = "/id-duplicate-check", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> idDuplicationCheck(@RequestParam String id) {
         log.info("id = {}", id);
         // 고객이 이미 사용 중인지 확인

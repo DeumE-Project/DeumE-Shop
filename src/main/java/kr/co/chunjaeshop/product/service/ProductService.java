@@ -1,6 +1,9 @@
 package kr.co.chunjaeshop.product.service;
 
+<<<<<<< HEAD
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+=======
+>>>>>>> main
 
 public interface ProductService {
 
@@ -16,7 +19,7 @@ public interface ProductService {
 
 
     // 유지호
-
+    int countMyProductCnt(Integer sellerIdx);
 
     // 변재혁
 
