@@ -8,9 +8,16 @@
 
     <!--    최경락-->
 <insert id="productSave" parameterType="ProductDTO">
-    INSERT INTO
-    product(seller_idx, category_idx, product_name, product_explain, product_price, product_stock, product_thumb_saved, product_img_original, product_img_saved, product_detail_original, product_detail_saved)
-    values(#{sellerIdx), #{categoryIdx), #{productName} #{productExplain}, #{productPrice}, #{productStock}, #{productThumbSaved}, #{productImgOriginal}, #{productImgSaved}, #{productDetailOriginal}, #{productDetailSaved})
+    INSERT INTO product(
+            seller_idx, category_idx, product_name, product_explain,
+            product_price, product_stock, product_thumb_saved,
+            product_img_original, product_img_saved,
+            product_detail_original, product_detail_saved
+    ) values(
+            #{sellerIdx), #{categoryId}, #{productName},
+            #{productExplain}, #{productPrice}, #{productStock},
+            #{productThumbSaved}, #{productImgOriginal}, #{productImgSaved},
+            #{productDetailOriginal}, #{productDetailSaved})
 
 </insert>
 
