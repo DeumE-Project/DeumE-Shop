@@ -1,10 +1,6 @@
 package kr.co.mapper_interface.product;
-
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-import kr.co.chunjaeshop.seller.dto.SellerDTO;
-
 import java.util.List;
-
 public interface ProductMapper {
 
     // 남원우

@@ -1,14 +1,9 @@
 package kr.co.chunjaeshop.seller.service;
 
-
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+import kr.co.chunjaeshop.security.RegisterFormDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
-
-
-import kr.co.chunjaeshop.security.RegisterFormDTO;
-
-public interface SellerService {
 
 
 import java.util.List;

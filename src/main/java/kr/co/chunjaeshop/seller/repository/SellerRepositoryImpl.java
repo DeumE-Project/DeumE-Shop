@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -55,7 +53,6 @@ public class SellerRepositoryImpl implements SellerRepository {
     }
 
     // 변재혁
-
     @Override
     public int sellerRegister(RegisterFormDTO registerFormDTO) {
         return sellerMapper.sellerRegister(registerFormDTO);
@@ -65,7 +62,6 @@ public class SellerRepositoryImpl implements SellerRepository {
     public int idDuplicationCheck(String id) {
         return sellerMapper.idDuplicationCheck(id);
     }
-
 }
 
 

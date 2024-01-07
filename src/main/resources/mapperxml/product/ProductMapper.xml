@@ -17,11 +17,12 @@
         select count(*) from product where seller_idx = #{sellerIdx}
     </select>
 
-    <select id="myProduct" parameterType="Integer" resultType="List">
+    <select id="myProduct" parameterType="Integer" resultType="ProductDTO">
         select A.product_name, B.category_name, A.product_stock
         from product A left join category B
         on A.category_idx = B.category_idx
         where seller_idx = #{sellerIdx}
+        order by A.product_reg_date
     </select>
 
     <!--    변재혁-->

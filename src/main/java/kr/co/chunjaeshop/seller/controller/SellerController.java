@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/seller")
@@ -37,7 +37,7 @@ public class SellerController {
     @GetMapping("/mySellerPage")
     public String mySellerInfoByIdx(@RequestParam("sellerIdx") Integer sellerIdx,
                                     @RequestParam("thisMonth") String thisMonth,
-                                    /*@RequestParam("lastMonth") String lastMonth,*/
+            /*@RequestParam("lastMonth") String lastMonth,*/
                                     Model model){
         log.info("sellerIdx = {}", sellerIdx);
         SellerDTO sellerDTO = sellerService.mySellerInfoByIdx(sellerIdx);
@@ -56,7 +56,9 @@ public class SellerController {
     }
 
     @GetMapping("/myProduct")
-    public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx, Model model){
+    public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx,
+            /*@RequestParam(value = "page", required = false, defaultValue = "1") int page,*/
+                                  Model model){
         List<ProductDTO> productDTOList = sellerService.myProduct(sellerIdx);
         model.addAttribute("myProductList", productDTOList);
         return "/seller/myProduct";

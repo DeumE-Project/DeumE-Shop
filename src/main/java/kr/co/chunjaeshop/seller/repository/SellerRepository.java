@@ -3,11 +3,8 @@ package kr.co.chunjaeshop.seller.repository;
 
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
-import java.util.List;
-import java.util.Map;
 
 import kr.co.chunjaeshop.security.RegisterFormDTO;
-
 
 public interface SellerRepository {
 
@@ -34,4 +31,5 @@ public interface SellerRepository {
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
+
 }
