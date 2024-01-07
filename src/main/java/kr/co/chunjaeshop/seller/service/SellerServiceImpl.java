@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.seller.service;
 
+import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +46,7 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public int getDateRev(Integer sellerIdx, String thisMonth) {
+    public int getDateRev(Integer sellerIdx) {
         LocalDate currentDate = LocalDate.now();
 
         // 현재 년도와 월 얻기
@@ -88,6 +90,42 @@ public class SellerServiceImpl implements SellerService {
         return myProduct;
     }
 
+    int pageLimit = 10; // 한 페이지당 보여줄 글 개수
+    int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
+    @Override
+    public List<ProductDTO> productPagingList(Integer sellerIdx, int page) {
+        int pagingStart = (page - 1) * pageLimit;
+        Map<String, Integer> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        pagingParams.put("sellerIdx", sellerIdx);
+        List<ProductDTO> productPagingList = productRepository.productPagingList(pagingParams);
+
+        return productPagingList;
+    }
+
+    @Override
+    public PageDTO pagingParam(int page) {
+        // 전체 글 개수 조회
+        int productCount = productRepository.productCount();
+        // 전체 페이지 개수 계산
+        int maxPage = (int) (Math.ceil((double) productCount / pageLimit));
+        // 시작 페이지 값 계산
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        // 끝 페이지 값 계산
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        PageDTO productPagingPageDTO = new PageDTO();
+        productPagingPageDTO.setPage(page);
+        productPagingPageDTO.setMaxPage(maxPage);
+        productPagingPageDTO.setStartPage(startPage);
+        productPagingPageDTO.setEndPage(endPage);
+        productPagingPageDTO.setPageLimit(pageLimit);
+        return productPagingPageDTO;
+    }
+
     // 변재혁
     @Override
     public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
@@ -99,6 +137,6 @@ public class SellerServiceImpl implements SellerService {
     public boolean idDuplicationCheck(String id) {
         int result = sellerRepository.idDuplicationCheck(id);
         return (result == 1) ? true : false;
-}
+    }
 }
 

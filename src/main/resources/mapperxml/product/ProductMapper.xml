@@ -17,12 +17,24 @@
         select count(*) from product where seller_idx = #{sellerIdx}
     </select>
 
-    <select id="myProduct" parameterType="Integer" resultType="ProductDTO">
+    <!--<select id="myProduct" parameterType="Integer" resultType="ProductDTO">
         select A.product_name, B.category_name, A.product_stock
         from product A left join category B
         on A.category_idx = B.category_idx
         where seller_idx = #{sellerIdx}
         order by A.product_reg_date
+    </select>-->
+
+    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
+        select A.product_name, A.seller_idx, B.category_name, A.product_stock
+        from product A left join category B
+        on A.category_idx = B.category_idx
+        where seller_idx = #{sellerIdx}
+        order by A.product_reg_date limit #{start}, #{limit}
+    </select>
+
+    <select id="productCount" resultType="Integer">
+        select count(product_idx) from product
     </select>
 
     <!--    변재혁-->

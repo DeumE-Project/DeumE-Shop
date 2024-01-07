@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;;
+import java.util.List;
+import java.util.Map;;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,6 +28,16 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public int countMyProductCnt(Integer sellerIdx) {
         return productMapper.countMyProductCnt(sellerIdx);
+    }
+
+    @Override
+    public List<ProductDTO> productPagingList(Map<String, Integer> pagingParams) {
+        return productMapper.sellProductPaging(pagingParams);
+    }
+
+    @Override
+    public int productCount() {
+        return productMapper.productCount();
     }
 
     @Override
