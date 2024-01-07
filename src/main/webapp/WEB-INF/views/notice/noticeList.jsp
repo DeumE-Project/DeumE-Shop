@@ -27,7 +27,7 @@
     </div>
 
     <table class="table table-bordered">
-        <thead>
+        <thead class="table-dark">
         <tr align="center">
             <th>idx</th>
             <th class="wider-column">제목</th>

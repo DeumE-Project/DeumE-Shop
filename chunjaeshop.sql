@@ -19,7 +19,7 @@ CREATE TABLE customer (
     
 CREATE TABLE seller (
 	seller_idx INT PRIMARY KEY AUTO_INCREMENT,
-    seller_id VARCHAR(20) NOT NULL,
+    seller_id VARCHAR(20) NOT NULL UNIQUE,
     seller_name VARCHAR(50) NOT NULL,
     seller_email VARCHAR(100) NOT NULL UNIQUE,
     seller_phone VARCHAR(50) NOT NULL,

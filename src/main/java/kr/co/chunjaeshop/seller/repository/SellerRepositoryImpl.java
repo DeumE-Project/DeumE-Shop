@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,6 +30,16 @@ public class SellerRepositoryImpl implements SellerRepository {
     @Override
     public void updateRecognize(int i, String id) {
         sellerMapper.updateRecognize(i,id);
+    }
+
+    @Override
+    public int notRecognizeCount() {
+        return sellerMapper.notRecognizeCount();
+    }
+
+    @Override
+    public List<SellerDTO> getNotRecognizedSellerList(Map<String, Integer> notRecognizedSellerPagingParam) {
+        return sellerMapper.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
     }
 
 

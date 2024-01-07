@@ -21,6 +21,17 @@
         UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
     </update>
 
+    <select id="notRecognizeCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 0
+    </select>
+
+    <select id="getNotRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2
+        FROM seller
+        WHERE seller_recognize = 0
+        order by seller_joined limit #{start}, #{limit}
+    </select>
     <!--    유지호-->
 
 

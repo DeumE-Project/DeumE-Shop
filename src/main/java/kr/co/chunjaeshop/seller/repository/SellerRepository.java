@@ -3,6 +3,7 @@ package kr.co.chunjaeshop.seller.repository;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SellerRepository {
 
@@ -17,6 +18,10 @@ public interface SellerRepository {
     List<SellerDTO> getNotRecognizedList();
 
     void updateRecognize(int i, String id);
+
+    int notRecognizeCount();
+
+    List<SellerDTO> getNotRecognizedSellerList(Map<String, Integer> notRecognizedSellerPagingParam);
 
     // 유지호
 

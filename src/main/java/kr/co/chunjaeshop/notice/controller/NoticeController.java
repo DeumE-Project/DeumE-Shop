@@ -26,6 +26,7 @@ public class NoticeController {
     // 이무현
     private final NoticeService noticeService;
 
+    //페이징 처리 전
 //    @GetMapping("/")
 //    public String noticeAllList(Model model) {
 //        List<NoticeDTO> noticeDTOList = noticeService.noticeAllList();
@@ -79,9 +80,9 @@ public class NoticeController {
     @GetMapping("/")
     public String paging(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          Model model) {
-        System.out.println("page = " + page);
+//        System.out.println("page = " + page);
         List<NoticeDTO> noticePagingList = noticeService.noticePagingList(page);
-        System.out.println("pagingList = " + noticePagingList);
+//        System.out.println("pagingList = " + noticePagingList);
         NoticePageDTO noticePageDTO = noticeService.noticePagingParam(page);
         model.addAttribute("noticeList", noticePagingList);
         model.addAttribute("paging", noticePageDTO);
