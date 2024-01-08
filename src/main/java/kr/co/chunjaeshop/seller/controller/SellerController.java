@@ -59,13 +59,21 @@ public class SellerController {
     @GetMapping("/myProduct")
     public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx,
                                   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                  @RequestParam(value = "searchField", required = false) String searchField,
+                                  @RequestParam(value = "searchWord", required = false) String searchWord,
                                   Model model){
-        List<ProductDTO> productPagingList = sellerService.productPagingList(sellerIdx, page);
-        PageDTO sellProductPageDTO = sellerService.pagingParam(page);
+        List<ProductDTO> productPagingList = sellerService.productPagingListWithSearch(sellerIdx, page, searchField, searchWord);
+        PageDTO sellProductPageDTO = sellerService.pagingParam(page, sellerIdx);
+        PageDTO sellProductSearchPageDTO = sellerService.pagingSearchParam(page, sellerIdx, searchField, searchWord);
         model.addAttribute("myProductList", productPagingList);
         model.addAttribute("sellProductpaging", sellProductPageDTO);
+        model.addAttribute("sellProductSearchPaging", sellProductSearchPageDTO);
+        model.addAttribute("sellerIdx", 1);
+        model.addAttribute("searchField", searchField);
+        model.addAttribute("searchWord", searchWord);
         return "/seller/myProduct";
     }
+
 
 
 

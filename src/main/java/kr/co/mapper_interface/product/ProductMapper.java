@@ -21,7 +21,12 @@ public interface ProductMapper {
 
     List<ProductDTO> sellProductPaging(Map<String, Integer> pagingParams);
 
-    int productCount();
+    int productCount(Integer sellerIdx);
+
+    List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
+
+    int searchproductCount(Map<String, Object> searchPagingParams);
+
 
     // 변재혁
 
