@@ -77,4 +77,9 @@ public class CartServiceImpl implements CartService {
         }
         return (resultCount == 1) ?  cartResult : CartResult.FAILED;
     }
+
+    @Override
+    public List<CartDTO> getAllMyCartList(Integer customerIdx) {
+        return cartRepository.getAllMyCartList(customerIdx);
+    }
 }

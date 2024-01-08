@@ -9,4 +9,6 @@ public class CartDetailDTO {
     private Integer productIdx;
     private Integer buyCount;
     private Integer productPrice;
+
+    private String productName;
 }
