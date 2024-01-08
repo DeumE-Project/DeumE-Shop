@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;;
 
@@ -36,15 +37,30 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public int productCount() {
-        return productMapper.productCount();
+    public int productCount(Integer sellerIdx) {
+        return productMapper.productCount(sellerIdx);
     }
 
     @Override
     public List<ProductDTO> myProduct(Integer sellerIdx) {
         return productMapper.myProduct(sellerIdx);
     }
+
+    @Override
+    public List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams) {
+        return productMapper.productPagingListWithSearch(pagingParams);
+    }
+
+    @Override
+    public int searchproductCount(Integer sellerIdx, String searchField, String searchWord) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("sellerIdx", sellerIdx);
+        params.put("searchField", searchField);
+        params.put("searchWord", searchWord);
+
+        return productMapper.searchproductCount(params);
+    }
+
     // 변재혁
 
 }
-
