@@ -75,6 +75,8 @@ public class NoticeServiceImpl implements NoticeService {
         noticePageDTO.setMaxPage(maxPage);
         noticePageDTO.setStartPage(startPage);
         noticePageDTO.setEndPage(endPage);
+        noticePageDTO.setTotalPage(noticeCount);
+        noticePageDTO.setPageLimit(pageLimit);
         return noticePageDTO;
     }
 
@@ -108,6 +110,8 @@ public class NoticeServiceImpl implements NoticeService {
         noticePageDTO.setMaxPage(maxPage);
         noticePageDTO.setStartPage(startPage);
         noticePageDTO.setEndPage(endPage);
+        noticePageDTO.setTotalPage(noticeSearchCount);
+        noticePageDTO.setPageLimit(pageLimit);
         return noticePageDTO;
     }
 

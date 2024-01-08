@@ -89,9 +89,7 @@ public class NoticeController {
         return "/notice/noticeList";
     }
     @GetMapping("/search")
-    public String search(
-//            @RequestParam("page") int page,
-                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+    public String search(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          @RequestParam("searchField") String searchField,
                          @RequestParam("searchWord") String searchWord,
                          Model model) {

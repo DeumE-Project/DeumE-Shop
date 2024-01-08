@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>공지사항</title>
@@ -34,7 +35,7 @@
                     <option class="title" value="title">제목</option>
                     <option class="content" value="content">내용</option>
                 </select>
-                <input type="text" class="form-control" name="searchWord" id="searchWord" style="width: 55%">&nbsp
+                <input type="text" class="form-control" name="searchWord" id="searchWord" style="width: 55%" value="${searchWord}">&nbsp
                 <button type="submit" class="btn btn-primary" style="width: 17%">검색</button>
             </div>
         </form>
@@ -44,21 +45,22 @@
     <table class="table table-bordered">
         <thead class="table-dark">
         <tr align="center">
-            <th>idx</th>
+            <th>번호</th>
             <th class="wider-column">제목</th>
             <th>작성일</th>
         </tr>
         </thead>
         <tbody>
 
-        <c:forEach items="${noticeList}" var="notice">
+        <c:forEach items="${noticeList}" var="notice" varStatus="loop">
             <tr>
-                <td align="center">${notice.noticeIdx}</td>
+<%--                <td align="center">${notice.noticeIdx}</td>--%>
+                <td align="center">${paging.totalPage - ((paging.page - 1) * paging.pageLimit + loop.index)}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/notice?idx=${notice.noticeIdx}&page=${paging.page}"
                        class="text-decoration-none">${notice.noticeTitle}</a>
                 </td>
-                <td align="center">${notice.noticeDate}</td>
+                <td align="center">${notice.noticeDateStr}</td>
             </tr>
         </c:forEach>
         </tbody>

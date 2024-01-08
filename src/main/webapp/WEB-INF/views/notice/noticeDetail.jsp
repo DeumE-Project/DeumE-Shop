@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <th>작성일</th>
-            <td>${notice.noticeDate}</td>
+            <td>${notice.noticeDateStr}</td>
         </tr>
         <tr>
             <th>내용</th>

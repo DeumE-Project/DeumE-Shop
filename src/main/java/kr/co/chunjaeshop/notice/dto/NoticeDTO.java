@@ -3,6 +3,7 @@ package kr.co.chunjaeshop.notice.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class NoticeDTO {
@@ -10,6 +11,14 @@ public class NoticeDTO {
     private String noticeTitle;
     private String noticeContent;
     private LocalDateTime noticeDate;
+
+    public String getNoticeDateStr() {
+        if (this.noticeDate != null) {
+            return this.noticeDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } else {
+            return "no date available";
+        }
+    }
 
     // 남원우
 
