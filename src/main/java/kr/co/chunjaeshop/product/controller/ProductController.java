@@ -39,9 +39,10 @@ public class ProductController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String str = sdf.format(date);
-        String replaced = str.replace("-", File.separator);
-        log.info("replaces = {}", replaced);
-        return replaced;
+//        String replaced = str.replace("-", File.separator);
+//        log.info("replaces = {}", replaced);
+//        return replaced;
+        return str;
     }
 
     private boolean checkImageType(File file) {
@@ -49,8 +50,9 @@ public class ProductController {
             String contentType = Files.probeContentType(file.toPath());
             log.info("contentType = {}", contentType);
 
-            // MIME 유형이 jpe, png, jpeg 중 하나인지 확인
-            return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png"));
+            // MIME 유형이 jpg, png, jpeg 중 하나인지 확인
+            return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png")
+                                                                            || contentType.equals("image/jpg"));
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -71,9 +73,10 @@ public class ProductController {
 
         String uploadFolderPath = getFolder();
         File uploadPath = new File(uploadFolder, uploadFolderPath);
+        log.info("upload path = {}", uploadPath);
         // 저장경로가 없으면 생성
         if (uploadPath.exists() == false) {
-            uploadPath.mkdir();
+            uploadPath.mkdirs();
         }
         if (productSaveDTO.getProductImg() == null || productSaveDTO.getProductImg().isEmpty()) {
             bindingResult.addError(new FieldError
@@ -92,27 +95,43 @@ public class ProductController {
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
         //uuid_OriginalFileName
+        /*String fileImgOriginal
+                = uuid.toString() + "_" +
+                productSaveDTO.getProductImg().getOriginalFilename();*/
         String fileImgOriginal
+                = productSaveDTO.getProductImg().getOriginalFilename();
+        log.info("fileImgOriginal={}", fileImgOriginal);
+       /* String fileDetailOriginal
                 = uuid.toString() + "_" +
-                productSaveDTO.getProductImg().getOriginalFilename();
+                productSaveDTO.getProductDetailImg().getOriginalFilename();*/
         String fileDetailOriginal
-                = uuid.toString() + "_" +
-                productSaveDTO.getProductDetailImg().getOriginalFilename();
+                = productSaveDTO.getProductDetailImg().getOriginalFilename();
+        log.info("fileDetailOriginal = {} " + fileDetailOriginal);
         // uuid_OriginalFileName_saved
-        String fileImgSaved = uploadPath + File.separator +
-                fileImgOriginal + "_saved";
+        String fileImgSaved =  "_" + uuid.toString() + fileImgOriginal;
+        /*String fileImgSaved = "saved_" + fileImgOriginal;*/
+        log.info("fileImgSaved = {} " + fileImgSaved);
+        String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
+        log.info("fileImgSavedUploadPath = {} " + fileImgSavedUploadPath);
 
-        String fileDetailSaved = uploadPath + File.separator +
-                fileDetailOriginal + "_saved";
+
+        String fileDetailSaved = "_" + uuid.toString() + fileDetailOriginal;
+        /*String fileDetailSaved = "saved_" + fileDetailOriginal;*/
+        log.info("fileDetailSaved = {} " + fileDetailSaved);
+        String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
+        log.info("fileDetailSavedUploadPath = {} " + fileDetailSavedUploadPath);
         try {
             //Original은 원본 이름을 저장하는데 사용.
-            productSaveDTO.getProductImg().transferTo(new File(fileImgSaved));
-            productSaveDTO.getProductDetailImg().transferTo(new File(fileDetailSaved));
+            productSaveDTO.getProductImg().transferTo(new File(fileImgSavedUploadPath));
+            productSaveDTO.getProductDetailImg().transferTo(new File(fileDetailSavedUploadPath));
 
             // 썸네일 저장 및 생성
-            String thumbnailFilename = "thumb_" + uuid.toString() +
-                    productSaveDTO.getProductImg().getOriginalFilename();
+            /*String thumbnailFilename = "thumb_" + uuid.toString() +
+                    productSaveDTO.getProductImg().getOriginalFilename();*/
+            String thumbnailFilename = "thumb_" + uuid.toString() + productSaveDTO.getProductImg().getOriginalFilename();
+            log.info("thumbnailFilename = {} " + thumbnailFilename);
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
+            log.info("thumbnailFilePath = {} " + thumbnailFilePath);
 
             Thumbnails.of(productSaveDTO.getProductImg().getInputStream())
                     .size(100, 100)
@@ -137,19 +156,24 @@ public class ProductController {
             //ProductMapper 대응하는 ProductDTO를 생성해서 DB에 저장
             ProductDTO productDTO = new ProductDTO();
 
-            productDTO.setSellerIdx(sellerIdx);
+            //productDTO.setSellerIdx(sellerIdx);
+            //테스트용
+            productDTO.setSellerIdx(1);
+
             productDTO.setProductName(productSaveDTO.getProductName());
             productDTO.setCategoryIdx(productSaveDTO.getCategoryIdx());
             productDTO.setProductExplain(productSaveDTO.getProductExplain());
             productDTO.setProductPrice(productSaveDTO.getProductPrice());
             productDTO.setProductStock(productSaveDTO.getProductStock());
-            productDTO.setProductThumbSaved(thumbnailFilePath);
+            productDTO.setProductThumbSaved(thumbnailFilename);
             productDTO.setProductImgOriginal(fileImgOriginal);
             productDTO.setProductImgSaved(fileImgSaved);
             productDTO.setProductDetailOriginal(fileDetailOriginal);
             productDTO.setProductDetailSaved(fileDetailSaved);
+            log.info("productDTO = {} " + productDTO);
 
             int saveResult = productService.productSave(productDTO);
+            log.info("saveResult = {} " + saveResult);
             if (saveResult > 0) {
                 return "redirect:/product/productDetail"; // 저장 성공 시 detail 페이지로 redirect
             } else {
