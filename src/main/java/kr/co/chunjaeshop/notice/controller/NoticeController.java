@@ -88,6 +88,21 @@ public class NoticeController {
         model.addAttribute("paging", noticePageDTO);
         return "/notice/noticeList";
     }
+    @GetMapping("/search")
+    public String search(
+//            @RequestParam("page") int page,
+                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                         @RequestParam("searchField") String searchField,
+                         @RequestParam("searchWord") String searchWord,
+                         Model model) {
+        List<NoticeDTO> noticeSearchList = noticeService.noticeSearchList(page,searchField,searchWord);
+        NoticePageDTO noticeSearchPageDTO = noticeService.noticeSearchParam(page,searchField,searchWord);
+        model.addAttribute("noticeList", noticeSearchList);
+        model.addAttribute("paging", noticeSearchPageDTO);
+        model.addAttribute("searchField", searchField);
+        model.addAttribute("searchWord", searchWord);
+        return "/notice/noticeList";
+    }
 
     // 유지호
 

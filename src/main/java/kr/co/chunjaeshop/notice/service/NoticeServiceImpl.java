@@ -78,6 +78,39 @@ public class NoticeServiceImpl implements NoticeService {
         return noticePageDTO;
     }
 
+    @Override
+    public List<NoticeDTO> noticeSearchList(int page, String searchField, String searchWord) {
+        int pageStart = (page-1)*pageLimit;
+        Map<String, Object> noticeSearchParams = new HashMap<>();
+        noticeSearchParams.put("start", pageStart);
+        noticeSearchParams.put("limit", pageLimit);
+        noticeSearchParams.put("searchField", searchField);
+        noticeSearchParams.put("searchWord", searchWord);
+        List<NoticeDTO> noticeSearchList = noticeRepository.noticeSearchList(noticeSearchParams);
+
+        return noticeSearchList;
+    }
+
+    @Override
+    public NoticePageDTO noticeSearchParam(int page, String searchField, String searchWord) {
+        Map<String, String> countParams = new HashMap<>();
+        countParams.put("searchField", searchField);
+        countParams.put("searchWord", searchWord);
+        int noticeSearchCount = noticeRepository.noticeSearchCount(countParams);
+        int maxPage = (int)(Math.ceil((double) noticeSearchCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        NoticePageDTO noticePageDTO = new NoticePageDTO();
+        noticePageDTO.setPage(page);
+        noticePageDTO.setMaxPage(maxPage);
+        noticePageDTO.setStartPage(startPage);
+        noticePageDTO.setEndPage(endPage);
+        return noticePageDTO;
+    }
+
     // 유지호
 
 

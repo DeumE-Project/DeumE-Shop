@@ -29,6 +29,10 @@ public interface NoticeService {
 
     NoticePageDTO noticePagingParam(int page);
 
+    List<NoticeDTO> noticeSearchList(int page, String field, String word);
+
+    NoticePageDTO noticeSearchParam(int page, String searchField, String searchWord);
+
 
     // 유지호
 

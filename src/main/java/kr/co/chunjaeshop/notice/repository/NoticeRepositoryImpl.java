@@ -59,6 +59,16 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         return noticeMapper.noticePagingList(noticePagingParams);
     }
 
+    @Override
+    public List<NoticeDTO> noticeSearchList(Map<String, Object> noticeSearchParams) {
+        return noticeMapper.noticeSearchList(noticeSearchParams);
+    }
+
+    @Override
+    public int noticeSearchCount(Map<String, String> countParams) {
+        return noticeMapper.noticeSearchCount(countParams);
+    }
+
     // 유지호
 
 

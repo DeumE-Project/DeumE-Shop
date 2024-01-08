@@ -29,6 +29,10 @@ public interface NoticeRepository {
 
     List<NoticeDTO> noticePagingList(Map<String, Integer> noticePagingParams);
 
+    List<NoticeDTO> noticeSearchList(Map<String, Object> noticeSearchParams);
+
+    int noticeSearchCount(Map<String, String> countParams);
+
     // 유지호
 
 
