@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
@@ -18,32 +19,43 @@
 <body>
 <div class="container mt-5">
     <h1>상품 등록</h1>
-    <form action="/product/productSave" method="post" enctype="multipart/form-data">
+    <form:form modelAttribute="productSaveDTO" action="/product/productSave" method="post" enctype="multipart/form-data">
+        <%--<form:input type="hidden" path="sellerIdx"/>--%>
         <div class="mb-3">
             <label for="productName" class="form-label">상품 등록</label>
-            <input type="text" class="form-control" id="productName" placeholder="상품명을 입력하세요" required autofocus>
+            <form:input type="text" class="form-control" path="productName" placeholder="상품명을 입력하세요" required="true" autofocus="autofocus"/>
         </div>
         <div class="mb-3">
-            <label for="productDescription" class="form-label">상품 설명</label>
-            <textarea class="form-control" id="productDescription" rows="3" placeholder="상품 설명을 입력하세요" required></textarea>
+            <label for="productExplain" class="form-label">상품 설명</label>
+            <form:textarea class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요" required="true"/>
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">가격</label>
-            <input type="number" class="form-control" id="productPrice" placeholder="상품 가격을 입력하세요" required>
+            <form:input type="number" class="form-control" path="productPrice" placeholder="상품 가격을 입력하세요" required="true"/>
         </div>
         <div class="mb-3">
-            <label for="productCategory" class="form-label">카테고리</label>
-            <select class="form-select" id="productCategory">
-                <option selected>카테고리 선택</option>
-                <option value="clothing">의류</option>
-                <option value="electronics">전자제품</option>
+            <label for="categoryIdx" class="form-label">카테고리</label>
+            <form:select class="form-select" path="categoryIdx" require="true">
+                <form:option value="">카테고리 선택</form:option>
+                <form:option value="1">필기구</form:option>
+                <form:option value="2">사무용품</form:option>
                 <!-- 다른 카테고리 옵션 추가 -->
-            </select>
+            </form:select>
         </div>
         <div class="mb-3">
             <label for="productStock" class="form-label">재고 수량</label>
-            <input type="number" class="form-control" id="productStock" placeholder="재고 수량을 입력하세요" required>
+            <form:input type="number" class="form-control" path="productStock" placeholder="재고 수량을 입력하세요" required="true"/>
+        </div>
+        <div class="mb-3">
+            <label for="productImg" class="form-label">제품 사진</label>
+            <form:input type="file" class="form-control" path="productImg" required="true"/>
+        </div>
+        <div class="mb-3">
+            <label for="productDetailImg" class="form-label">제품 설명 사진</label>
+            <form:input type="file" class="form-control" path="productDetailImg" required="true"/>
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
-    </form>
+        <button type="reset" class="btn btn-primary">초기화</button>
+
+    </form:form>
 </div>
