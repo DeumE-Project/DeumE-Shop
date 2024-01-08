@@ -1,9 +1,6 @@
 package kr.co.chunjaeshop.product.service;
-
-<<<<<<< HEAD
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-=======
->>>>>>> main
+
 
 public interface ProductService {
 

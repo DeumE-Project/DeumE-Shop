@@ -57,12 +57,12 @@ public class ProductController {
         return false;
     }
 
-    @GetMapping("/save")
+    @GetMapping("/productSave")
     public String saveForm(@ModelAttribute ProductSaveDTO productSaveDTO) {
         return "/product/productSave";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/productSave")
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
                        HttpServletRequest httpServletRequest,
                        BindingResult bindingResult) {
@@ -146,8 +146,8 @@ public class ProductController {
             productDTO.setProductThumbSaved(thumbnailFilePath);
             productDTO.setProductImgOriginal(fileImgOriginal);
             productDTO.setProductImgSaved(fileImgSaved);
-            productDTO.setProductDetailOriginal(fileDetailSaved);
-            productDTO.setProductDetailSaved(fileDetailOriginal);
+            productDTO.setProductDetailOriginal(fileDetailOriginal);
+            productDTO.setProductDetailSaved(fileDetailSaved);
 
             int saveResult = productService.productSave(productDTO);
             if (saveResult > 0) {
