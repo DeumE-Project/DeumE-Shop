@@ -151,7 +151,7 @@ public class ProductController {
 
             int saveResult = productService.productSave(productDTO);
             if (saveResult > 0) {
-                return "redirect:/product/productDetail"; // 저장 성공 시 detail 페이지로 리디렉션
+                return "redirect:/product/productDetail"; // 저장 성공 시 detail 페이지로 redirect
             } else {
                 log.error("/상품 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
