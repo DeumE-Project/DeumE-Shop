@@ -1,6 +1,7 @@
 package kr.co.mapper_interface.product;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public interface ProductMapper {
 
     // 최경락
     int productSave(ProductDTO productDTO);
+    ProductDTO findByProductIdx(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
 
     // 이무현
 
@@ -30,6 +32,8 @@ public interface ProductMapper {
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
     int searchproductCount(Map<String, Object> searchPagingParams);
+
+
 
 
     // 변재혁

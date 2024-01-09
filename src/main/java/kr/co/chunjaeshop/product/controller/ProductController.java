@@ -7,13 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -192,7 +190,17 @@ public class ProductController {
             return "/product/productSave"; // 저장 실패 시 save 페이지로 리디렉션
         }
     }
-}
+
+    //product/productDetail?sellerIdx=1&productIdx=1
+    // null 값일때 에러 뜨게.
+    @GetMapping("/productDetail")
+    public String findByProductIdx(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer productIdx, Model model) {
+        ProductDTO productDTO= productService.findByProductIdx(sellerIdx, productIdx);
+        model.addAttribute("sellerIdx", 1);
+        model.addAttribute("product", productDTO);
+        return "/product/productDetail";
+    }
+
 
 
 
@@ -204,5 +212,7 @@ public class ProductController {
 
 
     // 변재혁
+
+}
 
 

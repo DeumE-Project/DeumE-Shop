@@ -1,7 +1,6 @@
 package kr.co.chunjaeshop.product.service;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +23,12 @@ public class ProductServiceImpl implements ProductService {
     public int productSave(ProductDTO productDTO) {
         int saveResult = productRepository.productSave(productDTO);
         return saveResult;
+    }
+
+
+    public ProductDTO findByProductIdx(Integer sellerIdx, Integer productIdx) {
+
+        return productRepository.findByProductIdx(sellerIdx, productIdx);
     }
 
 

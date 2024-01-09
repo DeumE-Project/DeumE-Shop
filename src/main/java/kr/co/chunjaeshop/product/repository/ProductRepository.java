@@ -15,6 +15,7 @@ public interface ProductRepository {
 
     // 최경락
     int productSave(ProductDTO productDTO);
+    ProductDTO findByProductIdx(Integer sellerIdx,Integer productIdx);
 
 
     // 이무현
@@ -34,6 +35,7 @@ public interface ProductRepository {
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
     int searchproductCount(Integer sellerIdx, String searchField, String searchWord);
+
 
 
 
