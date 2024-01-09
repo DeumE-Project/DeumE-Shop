@@ -12,20 +12,36 @@
         body {
             padding-top: 20px;
         }
+        tr{
+            font-size: x-large;
+            text-align: center;
+        }
+        th,td{
+
+        }
+        .th-1{
+            width: 8%;
+        }
+        .th-2{
+            width: 30%;
+        }
+        .th-3{
+            width: 15%;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>판매자 가입 승인 페이지</h2> <br>
+    <h1>판매자 가입 승인 페이지</h1> <br>
     <div>
         <table class="table table-bordered">
             <thead class="table-dark">
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>전화번호</th>
-                <th>승인 여부</th>
+                <th class="th-1">아이디</th>
+                <th class="th-1">이름</th>
+                <th class="th-2">이메일</th>
+                <th class="th-2">전화번호</th>
+                <th class="th-3">승인 여부</th>
 <%--                <th>Reject</th>--%>
             </tr>
             </thead>
