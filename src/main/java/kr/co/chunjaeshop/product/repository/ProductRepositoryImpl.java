@@ -15,10 +15,20 @@ import java.util.Map;;
 @Log4j2
 public class ProductRepositoryImpl implements ProductRepository {
     private final ProductMapper productMapper;
+
     // 남원우
 
 
     // 최경락
+
+    public int productSave(ProductDTO productDTO) {
+        return productMapper.productSave(productDTO);
+    }
+
+    @Override
+    public ProductDTO findByProductIdx(Integer sellerIdx,Integer productIdx) {
+        return productMapper.findByProductIdx(sellerIdx, productIdx);
+    }
 
 
     // 이무현
