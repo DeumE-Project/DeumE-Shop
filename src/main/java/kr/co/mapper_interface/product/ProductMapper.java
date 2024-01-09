@@ -15,6 +15,7 @@ public interface ProductMapper {
 
     // 최경락
     int productSave(ProductDTO productDTO);
+    //@Param에 넣어준 값을 정확하게 mapper.xml에서 사용 가능.
     ProductDTO findByProductIdx(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
 
     // 이무현
