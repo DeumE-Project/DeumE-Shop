@@ -19,9 +19,9 @@
     </insert>
 
     <select id="findByProductIdx" resultType="ProductDTO">
-        Select category_idx, product_name, product_explain,
+        Select category_name, product_name, product_explain,
         product_price, product_stock, product_img_saved, product_detail_saved
-        From product
+        From product P left join category C on P.category_idx = C.category_idx
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
 
