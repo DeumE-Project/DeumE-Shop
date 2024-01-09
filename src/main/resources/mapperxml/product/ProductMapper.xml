@@ -20,7 +20,7 @@
 
     <select id="findByProductIdx" resultType="ProductDTO">
         Select category_idx, product_name, product_explain,
-        product_price, product_stock, product_img_original, product_detail_original
+        product_price, product_stock, product_img_saved, product_detail_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
