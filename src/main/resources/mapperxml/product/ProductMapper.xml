@@ -26,7 +26,7 @@
     </select>-->
 
     <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
-        select A.product_name, A.seller_idx, B.category_name, A.product_stock
+        select A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
         from product A left join category B
         on A.category_idx = B.category_idx
         where seller_idx = #{sellerIdx}
@@ -40,7 +40,7 @@
 
     <select id="productPagingListWithSearch" parameterType="java.util.Map" resultType="ProductDTO">
         SELECT
-        A.product_name, A.seller_idx, B.category_name, A.product_stock
+        A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
         FROM product A
         LEFT JOIN category B ON A.category_idx = B.category_idx
         WHERE A.seller_idx = #{sellerIdx}
@@ -61,7 +61,7 @@
 
     <select id="searchproductCount" parameterType="java.util.Map" resultType="Integer">
         SELECT
-        COUNT(*)
+        COUNT(A.product_idx)
         FROM product A
         LEFT JOIN category B ON A.category_idx = B.category_idx
         WHERE A.seller_idx = #{sellerIdx}
