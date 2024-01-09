@@ -11,32 +11,39 @@
         }
         /* Style for table headers */
         th {
-            width: 150px; /* Adjust as needed */
+            width: 120px; /* Adjust as needed */
+            text-align: center;
+            vertical-align: middle;
+            font-size: x-large;
+        }
+        td{
+            font-size: x-large;
         }
         .center-buttons {
             text-align: center;
         }
         /* Set minimum height for content */
         .content-section {
-            min-height: 200px; /* Set minimum height as needed */
-            padding: 15px;
+            font-size: x-large;
+            height: 300px;
+            overflow: auto;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>공지사항 상세보기</h2>
+    <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
         <tr>
-            <th>제목</th>
+            <th class="table-dark">제목</th>
             <td>${notice.noticeTitle}</td>
         </tr>
         <tr>
-            <th>작성일</th>
+            <th class="table-dark">작성일</th>
             <td>${notice.noticeDateStr}</td>
         </tr>
         <tr>
-            <th>내용</th>
+            <th class="table-secondary">내용</th>
             <td colspan="3" class="content-section">${notice.noticeContent}</td>
         </tr>
     </table>

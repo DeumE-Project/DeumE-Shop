@@ -13,21 +13,30 @@
         .center-buttons {
             text-align: center;
         }
+        th {
+            text-align: center;
+            vertical-align: middle;
+            font-size: x-large;
+            width: 10%;
+        }
+        td{
+            font-size: x-large;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>공지사항 등록하기</h2>
+    <h1>공지사항 등록하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="${pageContext.request.contextPath}/notice/save" method="post">
-        <table class="table">
+        <table class="table table-bordered">
             <tr>
-                <th>제목</th>
+                <th class="table-dark">제목</th>
                 <td>
                     <form:input path="noticeTitle" type="text" class="form-control" placeholder="제목을 입력하세요" required="true"/>
                 </td>
             </tr>
             <tr>
-                <th>내용</th>
+                <th class="table-secondary">내용</th>
                 <td>
                     <form:textarea path="noticeContent" cols="30" rows="10" class="form-control" placeholder="내용을 입력하세요" required="true"></form:textarea>
                 </td>

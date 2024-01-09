@@ -17,11 +17,15 @@
         .float-end {
             float: right;
         }
+        a{
+            color: black;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>공지사항</h2><br>
+    <h1>공지사항</h1><br>
 
     <div class="d-flex justify-content-end mb-3">
         <a href="${pageContext.request.contextPath}/notice/save" class="btn btn-primary float-end">글작성</a>
@@ -42,12 +46,12 @@
     </div>
 
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr align="center">
-            <th>번호</th>
+            <th style="width: 5%">번호</th>
             <th class="wider-column">제목</th>
-            <th>작성일</th>
+            <th style="width: 10%">작성일</th>
         </tr>
         </thead>
         <tbody>

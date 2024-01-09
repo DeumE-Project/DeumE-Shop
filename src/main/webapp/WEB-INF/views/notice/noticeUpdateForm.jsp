@@ -16,22 +16,31 @@
         .center-buttons {
             text-align: center;
         }
+        th{
+            text-align: center;
+            vertical-align: middle;
+            font-size: x-large;
+            width: 10%;
+        }
+        td{
+            font-size: x-large;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>공지사항 수정하기</h2>
+    <h1>공지사항 수정하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="/notice/update" method="post" name="updateForm">
         <form:input path="noticeIdx" type="hidden" name="idx" value="${notice.noticeIdx}" readonly="true"/>
         <table class="table table-bordered">
             <tr>
-                <th>제목</th>
+                <th class="table-dark">제목</th>
                 <td>
                     <form:input path="noticeTitle" type="text" class="form-control"/>
                 </td>
             </tr>
             <tr>
-                <th>내용</th>
+                <th class="table-secondary">내용</th>
                 <td>
                     <form:textarea path="noticeContent" name="noticeContent" cols="30" rows="10" class="form-control"/>
                 </td>
