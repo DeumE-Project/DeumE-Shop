@@ -79,7 +79,7 @@
                                     <th>삭제</th>
                                 </tr>
                                 </thead>
-                                <tbody class="align-middle">
+                                <tbody class="align-middle ancestor-tbody">
                                 <c:forEach items="${cart.cartDetailDTOList}" var="cartDetail" varStatus="innerIndex">
                                     <tr>
                                         <td class="align-middle"><c:out value="${innerIndex.index + 1}"/></td>
@@ -87,37 +87,49 @@
                                                                       style="width: 100px; height: 100px;">
                                             <c:out value="${cartDetail.productName}"/>
                                         </td>
-                                        <td class="align-middle"><c:out value="${cartDetail.productPrice}"/></td>
+                                        <td class="align-middle product-price" id="product-price-${cartDetail.cartDetailIdx}"><c:out value="${cartDetail.productPrice}"/></td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-btn" style="margin-right: 5px;">
-                                                    <button class="btn btn-sm btn-primary btn-minus"
-                                                            data-button-type="minus"
-                                                            data-cart-detail-idx='<c:out value="${cartDetail.cartDetailIdx}"/>'>
-                                                        <i class="fa fa-minus"></i>
+                                                    <button class="btn btn-sm btn-primary btn-minus" id="minus-button"
+                                                            data-buttontype="minus"
+                                                            data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                            onclick="minusBtnClick(event)">
+                                                        <i class="fa fa-minus"
+                                                           data-buttontype="minus"
+                                                           data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                        ></i>
                                                     </button>
                                                 </div>
-                                                <input id="buy-count"
+                                                <input id='buy-count-<c:out value="${cartDetail.cartDetailIdx}"/>'
                                                        type="text"
-                                                       class="form-control form-control-sm bg-light text-center"
+                                                       class="form-control form-control-sm bg-light text-center buy-count"
                                                        value='<c:out value="${cartDetail.buyCount}"/>'
                                                        style="margin-right: 5px;" readonly>
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-primary btn-plus"
-                                                            data-button-type="plus"
-                                                            data-cart-detail-idx='<c:out value="${cartDetail.cartDetailIdx}"/>'>
-                                                        <i class="fa fa-plus"></i>
+                                                            data-buttontype="plus"
+                                                            data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                            onclick="plusBtnClick(event)">
+                                                        <i class="fa fa-plus"
+                                                           data-buttontype="plus"
+                                                           data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                        ></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="align-middle"><c:out
+                                        <td class="align-middle" id="sub-product-total-${cartDetail.cartDetailIdx}"><c:out
                                                 value="${cartDetail.buyCount * cartDetail.productPrice}"/></td>
                                         <td class="align-middle">
                                             <button class="btn btn-sm btn-warning"
-                                                    data-button-type="delete"
-                                                    data-cart-detail-idx='<c:out value="${cartDetail.cartDetailIdx}"/>'>
-                                                <i class="fa fa-times"></i></button>
+                                                    data-buttontype="delete"
+                                                    data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                    onclick="deleteBtnClick(event)">
+                                                <i class="fa fa-times"
+                                                   data-buttontype="delete"
+                                                   data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
+                                                ></i></button>
                                         </td>
                                     </tr>
                                     <c:set var="oneCartTotal"
@@ -133,17 +145,17 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
-                                        <h6 class="font-weight-medium">물품합계(&#8361;)</h6>
+                                        <h6 class="font-weight-medium">물품</h6>
                                         <h6 class="font-weight-medium"><c:out value="${oneCartTotal}"/></h6>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <h6 class="font-weight-medium">배송비(&#8361;)</h6>
+                                        <h6 class="font-weight-medium">배송</h6>
                                         <h6 class="font-weight-medium">2,500</h6>
                                     </div>
                                 </div>
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
-                                        <h5 class="font-weight-bold">총합계(&#8361;)</h5>
+                                        <h5 class="font-weight-bold">합계(&#8361;)</h5>
                                         <h5 class="font-weight-bold"><c:out value="${oneCartTotal + 2500}"/></h5>
                                     </div>
                                     <button class="btn btn-block btn-primary my-3 py-3" style="width: 100%;">주문하기
@@ -160,16 +172,107 @@
 </div> <!--가장 바깥쪽 div 끝-->
 
 <script>
-    const minusBtnClick = function (event) {
+    const decreaseBuyCount = function (cartDetailIdx, event) {
+        let buyCount = $('#buy-count-' + cartDetailIdx).val();
+        console.log('checkBuyCount - buyCount = ' + buyCount);
+        if (buyCount <= 1) {
+            alert('최소 수량은 한 개 입니다');
+        } else {
+            $('#buy-count-' + cartDetailIdx).attr('value', buyCount - 1);
+            sendAjaxRequestUpdateCartDetail(cartDetailIdx);
+            recalculateSubTotalPrice(cartDetailIdx);
+            recalculateTotalProductPriceWithoutDeliveryFee(event);
+        }
+    }
 
+    const extractCartDetailIdx = function (event) {
+        const clickedTag = $(event.target);
+        const cartDetailIdxStr = clickedTag.data('cartdetailidx');
+        const cartDetailIdx = parseInt(cartDetailIdxStr);
+        console.log("cartDetailIdx = " + cartDetailIdx);
+        return cartDetailIdx;
+    }
+
+    const increaseBuyCount = function (cartDetailIdx, event) {
+        let buyCount = $('#buy-count-' + cartDetailIdx).val();
+        $('#buy-count-' + cartDetailIdx).attr('value', parseInt(buyCount) + 1);
+
+        sendAjaxRequestUpdateCartDetail(cartDetailIdx);
+        recalculateSubTotalPrice(cartDetailIdx);
+        recalculateTotalProductPriceWithoutDeliveryFee(event);
+    }
+
+    const sendAjaxRequestUpdateCartDetail = function (cartDetailIdx) {
+        $.ajax({
+            url: '/cart/change-cart-detail-buy-count',
+            method: 'post',
+            contentType: 'application/x-www-form-urlencoded',
+            //dataType: 'text',
+            data: {
+                cartDetailIdx: cartDetailIdx,
+                buyCount: $('#buy-count-' + cartDetailIdx).val()
+            },
+            async: false,
+            success: function (result) {
+                console.log('success');
+                console.log(result);
+            },
+            error: function (errorMsg) {
+                console.log('error');
+                console.log(errorMsg);
+            }
+        });
+    }
+
+    const minusBtnClick = function (event) {
+        event.stopPropagation();
+        console.log("minusBtn");
+
+        const cartDetailIdx = extractCartDetailIdx(event);
+
+        decreaseBuyCount(cartDetailIdx, event);
     }
 
     const plusBtnClick = function (event) {
+        event.stopPropagation();
+        console.log("plusBtn");
 
+        const cartDetailIdx = extractCartDetailIdx(event);
+
+        increaseBuyCount(cartDetailIdx, event);
     }
 
     const deleteBtnClick = function (event) {
-        
+        event.stopPropagation();
+        console.log("deleteBtn");
+    }
+
+    const recalculateSubTotalPrice = function (cartDetailIdx) {
+        // const testPrice = parseInt('15,000,000'.replace(/,/g, ''), 10);
+        const productPrice = parseInt($('#product-price-' + cartDetailIdx).text().replace(/,/g, ''), 10);
+        const buyCount = parseInt($('#buy-count-' + cartDetailIdx).val());
+        console.log('productPrice = ' + productPrice);
+        console.log('buyCount = ' + buyCount);
+        $('#sub-product-total-' + cartDetailIdx).html(productPrice * buyCount);
+    }
+
+    const recalculateTotalProductPriceWithoutDeliveryFee = function (event) {
+        let total = 0;
+        const eventTarget = $(event.target);
+        console.log(eventTarget);
+        let ancestorTbodyTag = eventTarget.closest('.ancestor-tbody');
+        let allTrTags = ancestorTbodyTag.children('tr');
+        console.log(allTrTags);
+        $.each(allTrTags, function () {
+            const price = commaStrToInt($(this).find('.product-price').html());
+            const buyCount = commaStrToInt($(this).find('.buy-count').val());
+            total += (price * buyCount);
+        });
+        console.log('calculatedPrice = ', total);
+    }
+
+    const commaStrToInt = function (str) {
+        return parseInt(str.replace(/,/g, ''), 10);
     }
 </script>
 </body>

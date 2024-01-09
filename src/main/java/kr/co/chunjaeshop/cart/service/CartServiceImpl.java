@@ -1,19 +1,14 @@
 package kr.co.chunjaeshop.cart.service;
 
-import kr.co.chunjaeshop.cart.dto.CartDTO;
-import kr.co.chunjaeshop.cart.dto.CartDetailDTO;
+import kr.co.chunjaeshop.cart.dto.*;
 import kr.co.chunjaeshop.cart.repository.CartRepository;
-import kr.co.chunjaeshop.cart.dto.AddToCartForm;
-import kr.co.chunjaeshop.cart.dto.CartResult;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -81,5 +76,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartDTO> getAllMyCartList(Integer customerIdx) {
         return cartRepository.getAllMyCartList(customerIdx);
+    }
+
+    @Override
+    public CartDetailResult changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO) {
+        int result = cartRepository.changeCartDetailBuyCount(changeCartDetailDTO);
+        if (result == 1) {
+            return CartDetailResult.CHANGED;
+        } else {
+            return CartDetailResult.FAILED;
+        }
     }
 }

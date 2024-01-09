@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.cart.repository;
 
 import kr.co.chunjaeshop.cart.dto.AddToCartForm;
 import kr.co.chunjaeshop.cart.dto.CartDTO;
+import kr.co.chunjaeshop.cart.dto.ChangeCartDetailDTO;
 import kr.co.mapper_interface.cart.CartMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -38,5 +39,10 @@ public class CartRepositoryImpl implements CartRepository {
     @Override
     public List<CartDTO> getAllMyCartList(Integer customerIdx) {
         return cartMapper.getAllMyCartList(customerIdx);
+    }
+
+    @Override
+    public int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO) {
+        return cartMapper.changeCartDetailBuyCount(changeCartDetailDTO);
     }
 }

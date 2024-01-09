@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.cart.repository;
 
 import kr.co.chunjaeshop.cart.dto.AddToCartForm;
 import kr.co.chunjaeshop.cart.dto.CartDTO;
+import kr.co.chunjaeshop.cart.dto.ChangeCartDetailDTO;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface CartRepository {
     int insertNewCart(AddToCartForm parameterMap);
 
     List<CartDTO> getAllMyCartList(Integer customerIdx);
+
+    int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO);
 }

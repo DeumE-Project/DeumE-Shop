@@ -78,4 +78,10 @@
                 INNER JOIN seller s ON p.seller_idx = s.seller_idx
         WHERE c.customer_idx = #{customerIdx}
     </select>
+
+    <update id="changeCartDetailBuyCount" parameterType="kr.co.chunjaeshop.cart.dto.ChangeCartDetailDTO">
+        UPDATE cart_detail
+        SET buy_count = #{buyCount}
+        WHERE cart_detail_idx = #{cartDetailIdx}
+    </update>
 </mapper>
