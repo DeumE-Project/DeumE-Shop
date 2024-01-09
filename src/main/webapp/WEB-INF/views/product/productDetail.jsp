@@ -15,7 +15,8 @@
     <div class="row">
         <div class="col-lg-6">
             <!-- 메인 이미지 -->
-            <img src="상품_메인_이미지_주소" alt="상품 이미지" class="img-fluid">
+            <%--/uploadPath/${productImgSaved}--%>
+            <img src="/product/${product.productImgSaved}" alt="상품 이미지" class="img-fluid">
         </div>
         <div class="col-lg-6">
             <!-- 상품 정보 -->
@@ -32,7 +33,7 @@
     <div class="row mt-4">
         <div class="col-lg-12">
             <h3>상품 설명 사진</h3>
-            <img src="상품_설명_이미지_주소" alt="상품 설명 사진" class="img-fluid">
+            <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
         </div>
     </div>
 </div>
