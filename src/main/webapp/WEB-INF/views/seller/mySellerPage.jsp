@@ -46,7 +46,8 @@
             <!-- 작업 버튼 -->
             <div class="row gx-5 justify-content-end">
                 <div class="col-lg-6">
-                    <button class="btn btn-primary" onclick="location.href='#'">상품 등록하기</button>
+
+                    <button class="btn btn-primary" onclick="location.href='/product/productSave'">상품 등록하기</button>
                     <button class="btn btn-secondary mx-2" onclick="location.href='/seller/myProduct?sellerIdx=${sellerIdx}'">판매 상품 관리</button>
                     <button class="btn btn-outline-secondary" onclick="location.href='#'">뒤로 가기</button>
                 </div>
