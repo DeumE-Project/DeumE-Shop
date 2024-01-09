@@ -52,6 +52,7 @@ public class SellerController {
         model.addAttribute("myRev", totalRev);
         model.addAttribute("dateRev", getDateRev);
         model.addAttribute("avgRev", avgRev);
+        model.addAttribute("sellerIdx", 1);
         /*model.addAttribute("lastDateRev", getDateRevLast);*/
         return "/seller/mySellerPage";
     }
