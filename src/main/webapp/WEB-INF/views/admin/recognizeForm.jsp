@@ -15,15 +15,13 @@
         tr{
             font-size: x-large;
             text-align: center;
-        }
-        th,td{
-
+            vertical-align: middle;
         }
         .th-1{
-            width: 8%;
+            width: 9%;
         }
         .th-2{
-            width: 30%;
+            width: 50%;
         }
         .th-3{
             width: 15%;
@@ -38,9 +36,9 @@
             <thead class="table-dark">
             <tr>
                 <th class="th-1">아이디</th>
-                <th class="th-1">이름</th>
-                <th class="th-2">이메일</th>
-                <th class="th-2">전화번호</th>
+                <th class="th-1">대표자명</th>
+                <th class="th-3">사업자등록번호</th>
+                <th class="th-2">사업장소재지</th>
                 <th class="th-3">승인 여부</th>
 <%--                <th>Reject</th>--%>
             </tr>
@@ -50,9 +48,11 @@
                 <tr>
                     <td>${seller.sellerId}</td>
                     <td>${seller.sellerName}</td>
-                    <td>${seller.sellerEmail}</td>
-                    <td>${seller.sellerPhone}</td>
-                    <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>&nbsp<button class="btn btn-danger" onclick="rejectFn('${seller.sellerId}')">거절</button></td>
+                    <td>${seller.sellerTaxId}</td>
+                    <td>${seller.sellerAddress1}</td>
+                    <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
+                        <button class="btn btn-danger" onclick="rejectFn('${seller.sellerId}')">거절</button>
+                        <a class="btn btn-danger" data-bs-toggle="modal" href="#exampleModalToggle" role="button">모달 거절</a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -106,6 +106,39 @@
                 </c:otherwise>
             </c:choose>
         </ul>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Show a second modal and hide this one with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Hide this modal and show the first with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Bootstrap 5 JS -->

@@ -30,6 +30,7 @@ CREATE TABLE seller (
     seller_address2 VARCHAR(100), # 판매자 상세주소 (동/호수)
     seller_income INT DEFAULT 0, # 판매자 매출
     seller_authority VARCHAR(50) DEFAULT 'ROLE_SELLER',
+    seller_tax_id VARCHAR(20) NOT NULL,
     seller_recognize INT DEFAULT 0,
     seller_reject_reason VARCHAR(50)
 );

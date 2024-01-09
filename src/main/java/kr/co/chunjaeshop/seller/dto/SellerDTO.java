@@ -28,7 +28,7 @@ public class SellerDTO {
     // 이무현
     private Integer sellerRecognize;
     private String sellerRejectReason;
-
+    private String sellerTaxId;
     // 유지호
 
 
