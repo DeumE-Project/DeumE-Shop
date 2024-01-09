@@ -30,7 +30,7 @@ public class CartController {
 
     @GetMapping(value = "/list")
     public String myCartList(Model model) {
-        Integer customerIdx = 1;
+        Integer customerIdx = 8;
         List<CartDTO> allMyCartList = cartService.getAllMyCartList(customerIdx);
         log.info("allMyCartList = {}", allMyCartList);
         model.addAttribute("cartList", allMyCartList);
