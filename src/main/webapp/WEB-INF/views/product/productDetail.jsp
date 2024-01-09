@@ -21,11 +21,13 @@
         <div class="col-lg-6">
             <!-- 상품 정보 -->
             <h2> 상품 상세보기</h2>
+            <p> </p>
             <p>상품명 : ${product.productName}</p>
-            <p>카테고리: ${product.categoryIdx}</p>
+            <p>카테고리: ${product.categoryName}</p>
             <p>상품 설명: ${product.productExplain}</p>
             <p>가격: ${product.productPrice}</p>
             <p>재고: ${product.productStock}</p>
+
         </div>
     </div>
 
