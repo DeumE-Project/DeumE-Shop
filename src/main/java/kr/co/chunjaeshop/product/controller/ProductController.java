@@ -71,8 +71,8 @@ public class ProductController {
         // 파일 저장 경로
         String uploadFolder = httpServletRequest.getServletContext().getRealPath("/product");
 
-        String uploadFolderPath = getFolder();
-        File uploadPath = new File(uploadFolder, uploadFolderPath);
+        String uploadFolderPath = getFolder(); // yyyy-MM-dd
+        File uploadPath = new File(uploadFolder, uploadFolderPath);// /product/yyyy-MM-dd
         log.info("upload path = {}", uploadPath);
         // 저장경로가 없으면 생성
         if (uploadPath.exists() == false) {
@@ -108,14 +108,14 @@ public class ProductController {
                 = productSaveDTO.getProductDetailImg().getOriginalFilename();
         log.info("fileDetailOriginal = {} " + fileDetailOriginal);
         // uuid_OriginalFileName_saved
-        String fileImgSaved =  "_" + uuid.toString() + fileImgOriginal;
+        String fileImgSaved = uuid.toString()+ "_"+  fileImgOriginal;
         /*String fileImgSaved = "saved_" + fileImgOriginal;*/
         log.info("fileImgSaved = {} " + fileImgSaved);
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
         log.info("fileImgSavedUploadPath = {} " + fileImgSavedUploadPath);
 
 
-        String fileDetailSaved = "_" + uuid.toString() + fileDetailOriginal;
+        String fileDetailSaved = uuid.toString()+ "_"+ fileDetailOriginal;
         /*String fileDetailSaved = "saved_" + fileDetailOriginal;*/
         log.info("fileDetailSaved = {} " + fileDetailSaved);
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
@@ -167,9 +167,9 @@ public class ProductController {
             productDTO.setProductStock(productSaveDTO.getProductStock());
             productDTO.setProductThumbSaved(thumbnailFilename);
             productDTO.setProductImgOriginal(fileImgOriginal);
-            productDTO.setProductImgSaved(fileImgSaved);
+            productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
             productDTO.setProductDetailOriginal(fileDetailOriginal);
-            productDTO.setProductDetailSaved(fileDetailSaved);
+            productDTO.setProductDetailSaved(uploadFolderPath + "/" + fileDetailSaved);
             log.info("productDTO = {} " + productDTO);
 
             int saveResult = productService.productSave(productDTO);
