@@ -120,7 +120,7 @@
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
                         <td>${product.productStock}</td>
-                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세 관리</a></td>
+                        <td><a href="/product/productDetail?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}" class="btn btn-outline-secondary btn-sm">상세 관리</a></td>
                         <td><a href="#" class="btn btn-outline-primary btn-sm">판매 관리</a></td>
                     </tr>
                 </c:forEach>
