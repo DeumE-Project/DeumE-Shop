@@ -12,6 +12,20 @@
     <select id="reviewList" resultType="ProductReviewDTO">
         select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date from product_review
     </select>
+
+    <select id="findByIdx" resultType="ProductReviewDTO">
+        select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date from product_review where review_idx= #{review_idx}
+    </select>
+
+    <update id="update" parameterType="ProductReviewDTO">
+        UPDATE product_review
+        SET review_star = #{reviewStar} , review_content = #{reviewContent} , math = #{math} , review_thumb_saved =#{reviewThumbSaved}, review_img_original=#{reviewImgOriginal}, review_img_saved=#{reviewImgSaved}
+        WHERE review_idx = #{reviewIdx}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from product_review where review_idx = #{reviewIdx}
+    </delete>
     <!--    최경락-->
 
 

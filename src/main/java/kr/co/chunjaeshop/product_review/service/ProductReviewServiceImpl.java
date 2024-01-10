@@ -29,7 +29,26 @@ public class ProductReviewServiceImpl implements ProductReviewService {
     public List<ProductReviewDTO> reviewList() {
       return productReviewRepository.reviewList();
     }
-    // 최경락
+    @Override
+    public ProductReviewDTO findByIdx(String reviewIdx) {
+     return productReviewRepository.findByIdx(reviewIdx);
+    }
+
+  @Override
+  public boolean update(ProductReviewDTO productReviewDTO) {
+    int result = productReviewRepository.update(productReviewDTO);
+    if (result>0){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  @Override
+  public void delete(String reviewIdx) {
+    productReviewRepository.delete(reviewIdx);
+  }
+  // 최경락
 
 
     // 이무현

@@ -21,11 +21,25 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
     public int reviewSave(ProductReviewDTO productReviewDTO) {
       return productReviewMapper.reviewSave(productReviewDTO);
     }
-
     @Override
     public List<ProductReviewDTO> reviewList() {
      return productReviewMapper.reviewList();
    }
+
+  @Override
+  public ProductReviewDTO findByIdx(String reviewIdx) {
+    return productReviewMapper.findByIdx(reviewIdx);
+  }
+
+  @Override
+  public int update(ProductReviewDTO productReviewDTO) {
+    return productReviewMapper.update(productReviewDTO);
+  }
+
+  @Override
+  public void delete(String reviewIdx) {
+    productReviewMapper.delete(reviewIdx);
+  }
   // 최경락
 
 

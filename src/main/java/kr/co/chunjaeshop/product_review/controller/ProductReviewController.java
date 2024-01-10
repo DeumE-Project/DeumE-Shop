@@ -221,7 +221,38 @@ public class ProductReviewController {
       return "review/reviewList";
     }
 
-    // 최경락
+  @GetMapping
+  public String findById(@RequestParam("reviewIdx") String reviewIdx, Model model) {
+    ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
+    model.addAttribute("productReview", productReviewDTO);
+    return "review/reviewDetail";
+  }
+  @GetMapping("/update")
+  public String updateForm(@RequestParam("reviewIdx") String reviewIdx, Model model) {
+    ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
+    model.addAttribute("productReview", productReviewDTO);
+    System.out.println("test");
+    return "review/reviewUpdate";
+  }
+  //수정
+  @PostMapping("/update")
+  public String update(@ModelAttribute ProductReviewDTO productReviewDTO ) {
+    boolean result = productReviewService.update(productReviewDTO);
+
+    if (result) {
+      return "redirect:/review/reviewList";
+    } else {
+      return "index";
+    }
+  }
+
+  @GetMapping("/delete")
+  public String delete(@RequestParam("reviewIdx") String reviewIdx) {
+    productReviewService.delete(reviewIdx);
+    return "redirect:/review/reviewList";
+
+  }
+  // 최경락
 
 
     // 이무현

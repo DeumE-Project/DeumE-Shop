@@ -12,6 +12,12 @@ public interface ProductReviewMapper {
 
     List<ProductReviewDTO> reviewList();
 
+    ProductReviewDTO findByIdx(String reviewIdx);
+
+    int update(ProductReviewDTO productReviewDTO);
+
+    void delete(String reviewIdx);
+
     // 최경락
 
 

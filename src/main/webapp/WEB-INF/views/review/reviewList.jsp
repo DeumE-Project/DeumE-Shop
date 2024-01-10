@@ -16,7 +16,7 @@
         <thead>
         <tr>
             <th>번호</th>
- <%--           <th>작성자</th>--%>
+            <th>작성자</th>
             <th>내용</th>
             <th>별점</th>
             <th>파일이름</th>
@@ -27,8 +27,8 @@
         <tbody>
         <c:forEach items="${reviewList}" var="review">
             <tr>
-                <td><a href="/product/review/detail">${review.reviewIdx}</a></td>
-<%--                <td>${review.customerId}</td>--%>
+                <td><a href="/product/review?reviewIdx=${review.reviewIdx}">${review.reviewIdx}</a></td>
+                <td>${review.customerIdx}</td>
                 <td>${review.reviewContent}</td>
                 <td>${review.reviewStar}</td>
                 <td>${review.reviewImgSaved}</td>

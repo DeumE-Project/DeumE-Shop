@@ -11,6 +11,9 @@ public interface ProductReviewService {
 
     public int reviewSave(ProductReviewDTO productReviewDTO);
     List<ProductReviewDTO> reviewList();
+    ProductReviewDTO findByIdx(String reviewIdx);
+    boolean update(ProductReviewDTO productReviewDTO);
+    void delete(String reviewIdx);
 
     // 최경락
 

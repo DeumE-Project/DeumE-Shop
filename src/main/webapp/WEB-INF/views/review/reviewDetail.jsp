@@ -15,27 +15,27 @@
     <table class="table">
         <tr>
             <th>번호</th>
-            <td>${board.id}</td>
+            <td>${productReview.reviewIdx}</td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td>${board.boardWriter}</td>
-        </tr>
-        <tr>
-            <th>작성시간</th>
-            <td>${board.boardCreatedTime}</td>
-        </tr>
-        <tr>
-            <th>조회수</th>
-            <td>${board.boardHits}</td>
-        </tr>
-        <tr>
-            <th>제목</th>
-            <td>${board.boardTitle}</td>
+            <td>${productReview.customerIdx}</td>
         </tr>
         <tr>
             <th>내용</th>
-            <td>${board.boardContents}</td>
+            <td>${productReview.reviewContent}</td>
+        </tr>
+        <tr>
+            <th>별점</th>
+            <td>${productReview.reviewStar}</td>
+        </tr>
+        <tr>
+            <th>파일이름</th>
+            <td>${productReview.reviewImgSaved}</td>
+        </tr>
+        <tr>
+            <th>작성시간</th>
+            <td>${productReview.reviewDate}</td>
         </tr>
     </table>
 
@@ -51,7 +51,7 @@
         <button class="btn btn-success" id="comment-write-btn" onclick="commentWrite()"  onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" >댓글작성</button>
     </div>
 
-    <div id="comment-list">
+   <%-- <div id="comment-list">
         <table class="table table-striped">
             <tr>
                 <th>댓글번호</th>
@@ -70,27 +70,27 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>
+    </div>--%>
 </div>
 
 </body>
 <script>
     const listFn = () => {
         const page = '${page}';
-        location.href = "/board/paging?page=" + page;
+        location.href = "/product/review/paging?page=" + page;
     }
     const updateFn = () => {
-        const id = '${board.id}';
-        location.href = "/board/update?id=" + id;
+        const reviewIdx = '${productReview.reviewIdx}';
+        location.href = "/product/review/update?reviewIdx=" + reviewIdx;
     }
     const deleteFn = () => {
-        const id = `${board.id}`;
+        const reviewIdx = `${productReview.reviewIdx}`;
 
         const isConfirmed = window.confirm("정말 삭제하시겠습니까?");
 
         if (isConfirmed) {
             alert("삭제 되었습니다.");
-            location.href = "/board/delete?id=" + id;
+            location.href = "/product/review/delete?reviewIdx=" + reviewIdx;
         } else {
             alert("삭제가 취소되었습니다.");
         }
