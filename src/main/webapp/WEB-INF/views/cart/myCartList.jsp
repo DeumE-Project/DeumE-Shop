@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
@@ -87,7 +88,9 @@
                                                                       style="width: 100px; height: 100px;">
                                             <c:out value="${cartDetail.productName}"/>
                                         </td>
-                                        <td class="align-middle product-price" id="product-price-${cartDetail.cartDetailIdx}"><c:out value="${cartDetail.productPrice}"/></td>
+                                        <td class="align-middle product-price" id="product-price-${cartDetail.cartDetailIdx}">
+                                            <fmt:formatNumber value="${cartDetail.productPrice}" pattern="#,###"/>
+                                        </td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-btn" style="margin-right: 5px;">
@@ -119,8 +122,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="align-middle" id="sub-product-total-${cartDetail.cartDetailIdx}"><c:out
-                                                value="${cartDetail.buyCount * cartDetail.productPrice}"/></td>
+                                        <td class="align-middle" id="sub-product-total-${cartDetail.cartDetailIdx}">
+                                            <fmt:formatNumber value="${cartDetail.buyCount * cartDetail.productPrice}" pattern="#,###"/>
+                                        </td>
                                         <td class="align-middle">
                                             <button class="btn btn-sm btn-warning"
                                                     data-buttontype="delete"
@@ -146,7 +150,9 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between mb-3 pt-1">
                                         <h6 class="font-weight-medium">물품</h6>
-                                        <h6 class="font-weight-medium"><c:out value="${oneCartTotal}"/></h6>
+                                        <h6 class="font-weight-medium total-product-price-without-deliveryfee">
+                                            <fmt:formatNumber value="${oneCartTotal}" pattern="#,###"/>
+                                        </h6>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <h6 class="font-weight-medium">배송</h6>
@@ -156,7 +162,9 @@
                                 <div class="card-footer border-secondary bg-transparent">
                                     <div class="d-flex justify-content-between mt-2">
                                         <h5 class="font-weight-bold">합계(&#8361;)</h5>
-                                        <h5 class="font-weight-bold"><c:out value="${oneCartTotal + 2500}"/></h5>
+                                        <h5 class="font-weight-bold total-product-price-with-deliveryfee">
+                                            <fmt:formatNumber value="${oneCartTotal + 2500}" pattern="#,###"/>
+                                        </h5>
                                     </div>
                                     <button class="btn btn-block btn-primary my-3 py-3" style="width: 100%;">주문하기
                                     </button>
@@ -182,6 +190,7 @@
             sendAjaxRequestUpdateCartDetail(cartDetailIdx);
             recalculateSubTotalPrice(cartDetailIdx);
             recalculateTotalProductPriceWithoutDeliveryFee(event);
+            recalculateTotalProductPriceWithDeliveryFee(event);
         }
     }
 
@@ -200,6 +209,7 @@
         sendAjaxRequestUpdateCartDetail(cartDetailIdx);
         recalculateSubTotalPrice(cartDetailIdx);
         recalculateTotalProductPriceWithoutDeliveryFee(event);
+        recalculateTotalProductPriceWithDeliveryFee(event);
     }
 
     const sendAjaxRequestUpdateCartDetail = function (cartDetailIdx) {
@@ -253,7 +263,7 @@
         const buyCount = parseInt($('#buy-count-' + cartDetailIdx).val());
         console.log('productPrice = ' + productPrice);
         console.log('buyCount = ' + buyCount);
-        $('#sub-product-total-' + cartDetailIdx).html(productPrice * buyCount);
+        $('#sub-product-total-' + cartDetailIdx).html((productPrice * buyCount).toLocaleString('ko-KR'));
     }
 
     const recalculateTotalProductPriceWithoutDeliveryFee = function (event) {
@@ -269,6 +279,24 @@
             total += (price * buyCount);
         });
         console.log('calculatedPrice = ', total);
+
+        const outerCartDivTag = eventTarget.closest('.outer-cart-div');
+        console.log(outerCartDivTag);
+        const totalProductPriceWODeliveryFeeTag = outerCartDivTag.find('.total-product-price-without-deliveryfee');
+        console.log(totalProductPriceWODeliveryFeeTag)
+        totalProductPriceWODeliveryFeeTag.html(total.toLocaleString('ko-KR'));
+    }
+
+    const recalculateTotalProductPriceWithDeliveryFee = function (event) {
+        const eventTarget = $(event.target);
+        console.log(eventTarget);
+
+        let outerCartDivTag = eventTarget.closest('.outer-cart-div');
+        const totalProductPriceWODeliveryFeeTag = outerCartDivTag.find('.total-product-price-without-deliveryfee');
+        const totalProductPriceWithDeliveryFeeTag = outerCartDivTag.find('.total-product-price-with-deliveryfee');
+        totalProductPriceWithDeliveryFeeTag.html(
+            (commaStrToInt(totalProductPriceWODeliveryFeeTag.html().trim()) + 2500).toLocaleString('ko-KR')
+        )
     }
 
     const commaStrToInt = function (str) {
