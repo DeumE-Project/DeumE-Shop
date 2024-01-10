@@ -33,7 +33,7 @@ public interface ProductMapper {
 
     int searchproductCount(Map<String, Object> searchPagingParams);
 
-
+    /*List<ProductDTO> sellProductManage(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);*/
 
 
     // 변재혁

@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.seller.controller;
 
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
@@ -73,6 +74,22 @@ public class SellerController {
         model.addAttribute("searchField", searchField);
         model.addAttribute("searchWord", searchWord);
         return "/seller/myProduct";
+    }
+
+    @GetMapping("/detailMyProduct")
+    public String sellManage(@RequestParam("sellerIdx") Integer sellerIdx,
+                             @RequestParam("productIdx") Integer productIdx,
+                             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                             @RequestParam(value = "searchField", required = false) String searchField,
+                             @RequestParam(value = "searchWord", required = false) String searchWord,
+                             Model model){
+        log.info("productIdx = {}", productIdx);
+        List<OrderProductDTO> OrderproductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
+
+        model.addAttribute("detailMyPd", OrderproductDTOList);
+        model.addAttribute("sellerIdx", 1);
+        return "/seller/detailMyProduct";
+
     }
 
 

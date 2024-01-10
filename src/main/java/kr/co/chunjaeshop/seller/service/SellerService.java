@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.seller.service;
 
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
@@ -42,10 +43,13 @@ public interface SellerService {
 
     PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord);
 
+    List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx, int page, String searchField, String searchWord);
+
 
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
+
 
 
 }

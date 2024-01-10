@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>판매 상품 관리</title>
+    <title>판매 관리</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -83,57 +83,69 @@
     <section class="bg-light py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">판매 상품 관리</h1>
+                <h1 class="fw-bolder">판매관리</h1>
             </div>
 
             <!-- 검색 폼 -->
-            <form class="row gx-2 justify-content-center mb-4" method="get" action="/seller/myProduct">
+            <form id="searchForm" class="row gx-2 justify-content-center mb-4" method="get" action="/seller/myProduct">
                 <input type="hidden" name="sellerIdx" value="${sellerIdx}"/>
                 <div class="col-lg-2">
                     <select class="form-select" name="searchField" id="select-option">
-                        <option value="title">상품명</option>
-                        <option value="category">카테고리</option>
+                        <option value="customer">고객명</option>
                     </select>
                 </div>
                 <div class="col-lg-4">
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
-                        <button class="btn btn-primary" type="submit" <c:if test="${empty myProductList}">disabled</c:if>>검색</button>
+                        <button class="btn btn-primary" type="submit">검색</button>
                     </div>
                 </div>
             </form>
 
-            <c:if test="${empty myProductList}">
-                <div class="text-center my-5">
-                    <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
-                </div>
+            <c:if test="${empty detailMyPd}">
+            <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
+            <script>
+                // 검색 폼 비활성화
+                document.getElementById('searchForm').style.display = 'none';
+                // 뒤로가기
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
-            <c:if test="${not empty myProductList}">
+            <c:if test="${not empty detailMyPd}">
             <table class="table table-bordered">
                 <thead class="table-dark">
                 <tr>
-                    <th style="width: 10%;">번호</th>
-                    <th style="width: 20%;">상품명</th>
-                    <th style="width: 20%;">카테고리</th>
-                    <th style="width: 15%;">재고</th>
-                    <th style="width: 15%;">상세 관리</th>
-                    <th style="width: 20%;">판매 관리</th>
+                    <th style="width: 5%;">번호</th>
+                    <th style="width: 10%;">상품명</th>
+                    <th style="width: 10%;">고객명</th>
+                    <th style="width: 10%;">가격</th>
+                    <th style="width: 5%;">개수</th>
+                    <th style="width: 10%;">총 가격</th>
+                    <th style="width: 15%;">주문날짜</th>
+                    <th style="width: 20%;">배송지</th>
+                    <th style="width: 10%;">주문 상태</th>
                 </tr>
                 </thead>
-                <c:forEach items="${myProductList}" var="product" varStatus="loop">
+                <c:forEach items="${detailMyPd}" var="sellDetail" varStatus="loop">
                     <tr>
-                        <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
-                        <td>${product.productName}</td>
-                        <td>${product.categoryName}</td>
-                        <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
-                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
-                        <td><a href="/seller/detailMyProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
+                        <td>${loop.index + 1}</td>
+                        <td>${sellDetail.productName}</td>
+                        <td>${sellDetail.customerName}</td>
+                        <td>${sellDetail.productPrice}</td>
+                        <td>${sellDetail.productCount}</td>
+                        <td>${sellDetail.orderTotalPrice}</td>
+                        <td>${sellDetail.orderDate}</td>
+                        <td>${sellDetail.orderAddress}</td>
+                        <td>${sellDetail.orderStatus}</td>
                     </tr>
                 </c:forEach>
             </table>
-
+            </c:if>
             <!-- 페이지네이션 추가 -->
-            <div class="d-flex justify-content-center mt-4">
+            <%--<div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <c:if test="${searchWord eq null}">
@@ -232,14 +244,13 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:if>
-                        </c:if>
 
 
 
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div>--%>
     </section>
 </main>
 </body>

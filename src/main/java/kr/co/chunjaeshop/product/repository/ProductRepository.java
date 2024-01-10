@@ -28,15 +28,13 @@ public interface ProductRepository {
 
     List<ProductDTO> productPagingList(Map<String, Integer> pagingParams);
 
-
-
     int productCount(Integer sellerIdx);
 
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
     int searchproductCount(Integer sellerIdx, String searchField, String searchWord);
 
-
+    /*List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx);*/
 
 
     // 변재혁

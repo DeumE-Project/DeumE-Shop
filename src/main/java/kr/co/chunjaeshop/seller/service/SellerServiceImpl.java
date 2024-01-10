@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
+import kr.co.chunjaeshop.order_product.repository.OrderProductRepository;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
@@ -21,6 +23,7 @@ import java.util.Map;
 public class SellerServiceImpl implements SellerService {
     private final SellerRepository sellerRepository;
     private final ProductRepository productRepository;
+    private final OrderProductRepository orderProductRepository;
 
     // 남원우
 
@@ -168,13 +171,32 @@ public class SellerServiceImpl implements SellerService {
         return searchProductPagingPageDTO;
     }
 
-
-    // 변재혁
     @Override
-    public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
-        int result = sellerRepository.sellerRegister(registerFormDTO);
-        return (result == 1) ? true : false;
+    public List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx, int page, String searchField, String searchWord) {
+        int pagingStart = (page - 1) * pageLimit;
+        Map<String, Object> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        pagingParams.put("sellerIdx", sellerIdx);
+        pagingParams.put("productIdx", productIdx);
+
+        // 검색어가 제공된 경우에만 검색 조건 추가
+        if (searchField != null && searchWord != null) {
+            pagingParams.put("searchField", searchField);
+            pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
+        }
+
+        List<OrderProductDTO> sellProductManagePaging = orderProductRepository.sellProductManagePaging(pagingParams);
+        return sellProductManagePaging;
     }
+
+        // 변재혁
+        @Override
+        public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
+            int result = sellerRepository.sellerRegister(registerFormDTO);
+            return (result == 1) ? true : false;
+    }
+
 
     @Override
     public boolean idDuplicationCheck(String id) {

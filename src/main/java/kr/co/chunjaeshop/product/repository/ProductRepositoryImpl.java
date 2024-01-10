@@ -71,6 +71,11 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.searchproductCount(params);
     }
 
+/*    @Override
+    public List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
+        return productMapper.sellProductManage(sellerIdx, productIdx);
+    }*/
+
     // 변재혁
 
 }
