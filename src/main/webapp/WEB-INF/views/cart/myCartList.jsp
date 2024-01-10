@@ -187,7 +187,7 @@
             alert('최소 수량은 한 개 입니다');
         } else {
             $('#buy-count-' + cartDetailIdx).attr('value', buyCount - 1);
-            sendAjaxRequestUpdateCartDetail(cartDetailIdx);
+            sendAjaxRequestChangeCartDetail(cartDetailIdx);
             recalculateSubTotalPrice(cartDetailIdx);
             recalculateTotalProductPriceWithoutDeliveryFee(event);
             recalculateTotalProductPriceWithDeliveryFee(event);
@@ -206,13 +206,13 @@
         let buyCount = $('#buy-count-' + cartDetailIdx).val();
         $('#buy-count-' + cartDetailIdx).attr('value', parseInt(buyCount) + 1);
 
-        sendAjaxRequestUpdateCartDetail(cartDetailIdx);
+        sendAjaxRequestChangeCartDetail(cartDetailIdx);
         recalculateSubTotalPrice(cartDetailIdx);
         recalculateTotalProductPriceWithoutDeliveryFee(event);
         recalculateTotalProductPriceWithDeliveryFee(event);
     }
 
-    const sendAjaxRequestUpdateCartDetail = function (cartDetailIdx) {
+    const sendAjaxRequestChangeCartDetail = function (cartDetailIdx) {
         $.ajax({
             url: '/cart/change-cart-detail-buy-count',
             method: 'post',
