@@ -16,6 +16,10 @@ public interface ProductRepository {
     // 최경락
     int productSave(ProductDTO productDTO);
     ProductDTO findByProductIdx(Integer sellerIdx,Integer productIdx);
+    //ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx);
+    ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx);
+    int productInfoUpdate(ProductDTO productDTO);
+
 
 
     // 이무현

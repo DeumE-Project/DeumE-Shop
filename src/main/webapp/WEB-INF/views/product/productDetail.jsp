@@ -21,13 +21,15 @@
         <div class="col-lg-6">
             <!-- 상품 정보 -->
             <h2> 상품 상세보기</h2>
-            <p> </p>
-            <p>상품명 : ${product.productName}</p>
+            <input type="hidden" value="${product.sellerIdx}">
+            <input type="hidden" value="${product.productIdx}">
+                        <p>상품명 : ${product.productName}</p>
             <p>카테고리: ${product.categoryName}</p>
             <p>상품 설명: ${product.productExplain}</p>
             <p>가격: ${product.productPrice}</p>
             <p>재고: ${product.productStock}</p>
-
+            <input type="button" value="상세정보수정"
+                   onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">
         </div>
     </div>
 

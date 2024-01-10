@@ -31,6 +31,22 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByProductIdx(sellerIdx, productIdx);
     }
 
+    @Override
+    public ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx) {
+
+        return productRepository.findByProductIdx2(sellerIdx, productIdx);
+    }
+    @Override
+    public boolean productInfoUpdate(ProductDTO productDTO) {
+        int result = productRepository.productInfoUpdate(productDTO);
+        return result > 0;
+    }
+
+    /*@Override
+    public ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx) {
+        return productRepository.productInfoUpdate(sellerIdx,productIdx);
+    }*/
+
 
     // 이무현
 
@@ -42,6 +58,9 @@ public class ProductServiceImpl implements ProductService {
         int myCount = productRepository.countMyProductCnt(sellerIdx);
         return myCount;
     }
+
+
+
 
     // 변재혁
 
