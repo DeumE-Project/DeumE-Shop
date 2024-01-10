@@ -31,14 +31,6 @@ public class AdminController {
     // 이무현
     private final SellerService sellerService;
 
-    //페이징 처리 전
-//    @GetMapping("/recognize")
-//    public String recognizeForm(Model model) {
-//        List<SellerDTO> sellerDTOList = sellerService.getNotRecognizedList();
-//        log.info(sellerDTOList);
-//        model.addAttribute("notRecognizedList",sellerDTOList);
-//        return "/admin/recognizeForm";
-//    }
     @GetMapping("/recognize")
     public String recognizeForm(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                 Model model) {
@@ -59,11 +51,14 @@ public class AdminController {
         return "redirect:/admin/recognize";
     }
     @GetMapping("/reject")
-    public String reject(@RequestParam("id") String id) {
+    public String reject(@RequestParam("id") String id,
+                         @RequestParam("rejectReason") String reason) {
+        log.info(id);
+        log.info(reason);
         sellerService.updateRecognize(2, id);
+        sellerService.insertRejectReason(reason,id);
         return "redirect:/admin/recognize";
     }
-
 
     // 유지호
 

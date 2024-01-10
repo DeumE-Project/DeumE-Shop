@@ -32,6 +32,10 @@
         WHERE seller_recognize = 0
         order by seller_joined limit #{start}, #{limit}
     </select>
+
+    <update id="insertRejectReason" parameterType="java.util.HashMap">
+        UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
+    </update>
     <!--    유지호-->
 
 

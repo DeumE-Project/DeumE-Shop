@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Seller registration approval page</title>
@@ -51,8 +52,10 @@
                     <td>${seller.sellerTaxId}</td>
                     <td>${seller.sellerAddress1}</td>
                     <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
-                        <button class="btn btn-danger" onclick="rejectFn('${seller.sellerId}')">거절</button>
-                        <a class="btn btn-danger" data-bs-toggle="modal" href="#exampleModalToggle" role="button">모달 거절</a></td>
+<%--                        <button class="btn btn-danger" onclick="rejectFn('${seller.sellerId}')">거절</button>--%>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
+                           href="#exampleModalToggle" role="button" >모달 거절</a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -109,49 +112,50 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Show a second modal and hide this one with the button below.
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Hide this modal and show the first with the button below.
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
-            </div>
-        </div>
-    </div>
-</div>
+<jsp:include page="rejectModal.jsp" flush="true"/>
+
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script>
+    var RID="";
+    var rejectReason="";
+    $(document).ready(function() {
+        $('#exampleModalToggle').on('show.bs.modal', function(event) {
+            // console.log($(event.relatedTarget).data('sellerid'));
+            RID = $(event.relatedTarget).data('sellerid');
+        });
+    });
+
     const acceptFn = (id) => {
         console.log(id);
-        const page = '${paging.page}';
-        location.href = "/admin/accept?id=" + id +"&page=" + page;
+        let check = confirm("승인하시겠습니까?");
+        if (check) {
+            alert("승인완료")
+            location.href = "/admin/accept?id=" + id;
+        }
+
     }
-    const rejectFn = (id) => {
-        console.log(id);
-        location.href = "/admin/reject?id=" + id;
+    const rejectFn = () => {
+        console.log(RID);
+        if (rejectReason==0){
+            alert("거절 이유를 선택해 주세요");
+            return false;
+        }
+        let check = confirm("거절하시겠습니까?");
+        if (check) {
+            alert("거절완료")
+            // document.rj.submit();
+            location.href = "/admin/reject?id=" + RID + "&rejectReason="+rejectReason;
+        }
+
+    }
+
+
+    function changeFn(){
+        rejectReason  = document.getElementById("rejectReason");
+        var value = (rejectReason.options[rejectReason.selectedIndex].value);
+        // alert("value = "+value);
+        rejectReason = value;
     }
 </script>
 </body>

@@ -23,6 +23,8 @@ public interface SellerMapper {
 
     List<SellerDTO> getNotRecognizedSellerList(Map<String, Integer> notRecognizedSellerPagingParam);
 
+    void insertRejectReason(Map<String, Object> reason);
+
     // 유지호
 
 

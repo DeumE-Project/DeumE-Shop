@@ -42,6 +42,11 @@ public class SellerRepositoryImpl implements SellerRepository {
         return sellerMapper.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
     }
 
+    @Override
+    public void insertRejectReason(Map<String, Object> reason) {
+        sellerMapper.insertRejectReason(reason);
+    }
+
 
     // 유지호
 

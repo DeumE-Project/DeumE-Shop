@@ -23,6 +23,8 @@ public interface SellerService {
 
     List<SellerDTO> getNotRecognizedSellerList(int page);
 
+    void insertRejectReason(String reason, String id);
+
     // 유지호
 
 

@@ -1,7 +1,6 @@
 package kr.co.chunjaeshop.seller.service;
 
 import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
-import kr.co.chunjaeshop.notice.dto.NoticeDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +47,15 @@ public class SellerServiceImpl implements SellerService {
 
         return notRecognizedSellerList;
     }
+
+    @Override
+    public void insertRejectReason(String reason, String id) {
+        Map<String, Object> rejectParam = new HashMap<>();
+        rejectParam.put("reason", reason);
+        rejectParam.put("id", id);
+        sellerRepository.insertRejectReason(rejectParam);
+    }
+
     @Override
     public NotRecognizePageDTO notRecognizedSellerPagingParam(int page) {
         int notRecognizeCount = sellerRepository.notRecognizeCount();
