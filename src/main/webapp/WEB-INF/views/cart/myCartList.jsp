@@ -11,13 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니 목록</title>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <!-- Customized Bootstrap Stylesheet -->
+    <!-- Default CSS -->
     <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
     <!-- jQuery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -84,7 +80,7 @@
                                 <c:forEach items="${cart.cartDetailDTOList}" var="cartDetail" varStatus="innerIndex">
                                     <tr>
                                         <td class="align-middle"><c:out value="${innerIndex.index + 1}"/></td>
-                                        <td class="align-middle"><img src="img/product-1.jpg" alt=""
+                                        <td class="align-middle"><img src="" alt=""
                                                                       style="width: 100px; height: 100px;">
                                             <c:out value="${cartDetail.productName}"/>
                                         </td>
@@ -166,7 +162,8 @@
                                             <fmt:formatNumber value="${oneCartTotal + 2500}" pattern="#,###"/>
                                         </h5>
                                     </div>
-                                    <button class="btn btn-block btn-primary my-3 py-3" style="width: 100%;">주문하기
+                                    <button class="btn btn-block btn-primary my-3 py-3" style="width: 100%;"
+                                    data-cart-idx="${cart.cartIdx}">주문하기
                                     </button>
                                 </div>
                             </div>

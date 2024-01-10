@@ -8,8 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -47,5 +50,29 @@ public class CartController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
+    }
+
+    @GetMapping(value = "/order")
+    public String orderPageForm(@ModelAttribute OrderProductForm orderProductForm,
+                                Model model) {
+        Integer cartIdx = orderProductForm.getCartIdx();
+        if (cartIdx == null) {
+            log.warn("cartIdx is null");
+            return "redirect:/cart/list";
+        }
+        orderProductForm.setCartIdx(1);
+        model.addAttribute("cartIdx", orderProductForm.getCartIdx());
+
+        return "cart/orderPage";
+    }
+
+    @PostMapping(value = "/order")
+    public String order(@Validated @ModelAttribute OrderProductForm orderProductForm,
+                        BindingResult bindingResult) {
+        log.info("orderProductForm = {}", orderProductForm);
+        if (bindingResult.hasErrors()) {
+            return "cart/orderPage";
+        }
+        return null;
     }
 }
