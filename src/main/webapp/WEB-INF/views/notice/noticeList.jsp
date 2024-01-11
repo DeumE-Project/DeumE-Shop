@@ -39,7 +39,8 @@
                     <option class="title" value="title" selected>제목</option>
                     <option class="content" value="content">내용</option>
                 </select>
-                <input type="text" class="form-control" name="searchWord" id="searchWord" style="width: 55%" value="${searchWord}">&nbsp
+                <input type="text" class="form-control" name="searchWord" id="searchWord" style="width: 55%"
+                       value="<c:out value="${searchWord}"/>">&nbsp
                 <button type="submit" class="btn btn-primary" style="width: 17%">검색</button>
             </div>
         </form>
