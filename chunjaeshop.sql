@@ -102,6 +102,7 @@ CREATE TABLE order_product (
     order_request VARCHAR(100), # 배송 요청사항
     order_name VARCHAR(50), # 받는 사람 이름
     order_phone VARCHAR(20), # 받는 사람 전화번호
+    order_email VARCHAR(50), # 받는 사람 이메일
     FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
 

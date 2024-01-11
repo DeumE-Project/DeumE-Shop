@@ -19,11 +19,24 @@
     </insert>
 
     <select id="findByProductIdx" resultType="ProductDTO">
-        Select category_idx, product_name, product_explain,
-        product_price, product_stock, product_img_original, product_detail_original
+        Select seller_idx, product_idx, category_name, product_name, product_explain,
+        product_price, product_stock, product_img_saved, product_detail_saved
+        From product P left join category C on P.category_idx = C.category_idx
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
+    <select id="findByProductIdx2" resultType="ProductDTO">
+        Select seller_idx, product_idx, category_idx, product_name, product_explain, product_price, product_stock
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
+
+    <update id="productInfoUpdate" parameterType="ProductDTO">
+        update product
+        set product_name=#{productName}, product_price=#{productPrice}, product_stock=#{productStock},
+        category_idx=#{categoryIdx}, product_explain=#{productExplain}
+        Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
+    </update>
 
     <!--    이무현-->
 

@@ -12,12 +12,17 @@ public interface ProductService {
     // 최경락
     int productSave(ProductDTO productDTO);
     ProductDTO findByProductIdx(Integer sellerIdx, Integer productIdx);
+    ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx);
+
+    //ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx);
+    boolean productInfoUpdate(ProductDTO productDTO);
 
     // 이무현
 
 
     // 유지호
     int countMyProductCnt(Integer sellerIdx);
+
 
 
 

@@ -20,7 +20,7 @@
 <div class="container mt-5">
     <h1>상품 등록</h1>
     <form:form modelAttribute="productSaveDTO" action="/product/productSave" method="post" enctype="multipart/form-data">
-        <%--<form:input type="hidden" path="sellerIdx"/>--%>
+
         <div class="mb-3">
             <label for="productName" class="form-label">상품 등록</label>
             <form:input type="text" class="form-control" path="productName" placeholder="상품명을 입력하세요" required="true" autofocus="autofocus"/>

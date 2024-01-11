@@ -20,7 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     // 최경락
-
+    @Override
     public int productSave(ProductDTO productDTO) {
         return productMapper.productSave(productDTO);
     }
@@ -29,6 +29,23 @@ public class ProductRepositoryImpl implements ProductRepository {
     public ProductDTO findByProductIdx(Integer sellerIdx,Integer productIdx) {
         return productMapper.findByProductIdx(sellerIdx, productIdx);
     }
+
+    @Override
+    public ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx) {
+        return productMapper.findByProductIdx2(sellerIdx, productIdx);
+    }
+    @Override
+    public int productInfoUpdate(ProductDTO productDTO) {
+        return  productMapper.productInfoUpdate(productDTO);
+    }
+
+   /* @Override
+    public ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx) {
+        return productMapper.productInfoUpdate(sellerIdx, productIdx);
+    }*/
+
+
+
 
 
     // 이무현
@@ -73,10 +90,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.searchproductCount(params);
     }
 
+
 /*    @Override
     public List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
         return productMapper.sellProductManage(sellerIdx, productIdx);
     }*/
+
 
     // 변재혁
 

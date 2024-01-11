@@ -157,7 +157,6 @@ public class ProductController {
             //productDTO.setSellerIdx(sellerIdx);
             //테스트용
             productDTO.setSellerIdx(1);
-
             productDTO.setProductName(productSaveDTO.getProductName());
             productDTO.setCategoryIdx(productSaveDTO.getCategoryIdx());
             productDTO.setProductExplain(productSaveDTO.getProductExplain());
@@ -173,7 +172,7 @@ public class ProductController {
             int saveResult = productService.productSave(productDTO);
             log.info("saveResult = {} " + saveResult);
             if (saveResult > 0) {
-                return "redirect:/product/productDetail"; // 저장 성공 시 detail 페이지로 redirect
+                return "redirect:/seller/myProduct?sellerIdx="+productDTO.getSellerIdx(); // 저장 성공 시 detail 페이지로 redirect
             } else {
                 log.error("/상품 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -196,10 +195,34 @@ public class ProductController {
     @GetMapping("/productDetail")
     public String findByProductIdx(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer productIdx, Model model) {
         ProductDTO productDTO= productService.findByProductIdx(sellerIdx, productIdx);
-        model.addAttribute("sellerIdx", 1);
+        model.addAttribute("sellerIdx", sellerIdx);
         model.addAttribute("product", productDTO);
         return "/product/productDetail";
     }
+
+    @GetMapping("/productInfoUpdate")
+    public String productInfoUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer productIdx, Model model) {
+        ProductDTO productDTO = productService.findByProductIdx2(sellerIdx, productIdx);
+        log.info("sellerIdx",sellerIdx );
+        log.info("productIdx", productIdx);
+        model.addAttribute("sellerIdx", sellerIdx);
+        model.addAttribute("productIdx", productIdx);
+        model.addAttribute("product", productDTO);
+       // log.error("productDTO={}" + productDTO);
+        return "/product/productInfoUpdate";
+    }
+
+    @PostMapping("/productInfoUpdate")
+    public String productInfoUpdate(@ModelAttribute ProductDTO productDTO) {
+        boolean result = productService.productInfoUpdate(productDTO);
+        if (result) {
+            return "redirect:/seller/myProduct?sellerIdx="+productDTO.getSellerIdx();
+        } else {
+        }
+        return "redirect:/seller/mySellerPage?sellerIdx="+productDTO.getSellerIdx();
+
+    }
+
 
 
 
