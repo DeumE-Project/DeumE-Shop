@@ -10,8 +10,32 @@
 
 
     <!--    이무현-->
+    <select id="getNotRecognizedList" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+    </select>
 
+    <update id="updateRecognize" >
+        UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
+    </update>
 
+    <select id="notRecognizeCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 0
+    </select>
+
+    <select id="getNotRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+        order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <update id="insertRejectReason" parameterType="java.util.HashMap">
+        UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
+    </update>
     <!--    유지호-->
     <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
         select seller_idx, seller_name, seller_Phone from seller where seller_idx = #{sellerIdx}

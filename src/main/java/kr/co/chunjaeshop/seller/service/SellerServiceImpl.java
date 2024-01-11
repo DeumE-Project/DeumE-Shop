@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
+
+import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.order_product.repository.OrderProductRepository;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -25,6 +27,7 @@ public class SellerServiceImpl implements SellerService {
     private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
 
+
     // 남원우
 
 
@@ -32,6 +35,55 @@ public class SellerServiceImpl implements SellerService {
 
 
     // 이무현
+    @Override
+    public List<SellerDTO> getNotRecognizedList() {
+        return sellerRepository.getNotRecognizedList();
+    }
+
+    @Override
+    public void updateRecognize(int i, String id) {
+        sellerRepository.updateRecognize(i,id);
+    }
+
+    int pageLimit = 3;
+    int blockLimit = 3;
+    @Override
+    public List<SellerDTO> getNotRecognizedSellerList(int page) {
+        int pageStart = (page-1)*pageLimit;
+        Map<String, Integer> notRecognizedSellerPagingParam = new HashMap<>();
+        notRecognizedSellerPagingParam.put("start", pageStart);
+        notRecognizedSellerPagingParam.put("limit", pageLimit);
+        List<SellerDTO> notRecognizedSellerList = sellerRepository.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
+
+        return notRecognizedSellerList;
+    }
+
+    @Override
+    public void insertRejectReason(String reason, String id) {
+        Map<String, Object> rejectParam = new HashMap<>();
+        rejectParam.put("reason", reason);
+        rejectParam.put("id", id);
+        sellerRepository.insertRejectReason(rejectParam);
+    }
+
+    @Override
+    public NotRecognizePageDTO notRecognizedSellerPagingParam(int page) {
+        int notRecognizeCount = sellerRepository.notRecognizeCount();
+        int maxPage = (int)(Math.ceil((double) notRecognizeCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        NotRecognizePageDTO notRecognizePageDTO = new NotRecognizePageDTO();
+        notRecognizePageDTO.setPage(page);
+        notRecognizePageDTO.setMaxPage(maxPage);
+        notRecognizePageDTO.setStartPage(startPage);
+        notRecognizePageDTO.setEndPage(endPage);
+        return notRecognizePageDTO;
+
+    }
+
 
 
     // 유지호
