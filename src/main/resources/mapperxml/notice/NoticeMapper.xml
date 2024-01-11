@@ -37,17 +37,13 @@
     <select id="noticeCount" resultType="Integer">
         select count(notice_idx) from notice
     </select>
-    <select id="noticeSearchCount" resultType="Integer">
+    <select id="noticeSearchCount" parameterType="java.util.HashMap" resultType="Integer">
         select count(notice_idx) from notice
-        <if test="#{searchWord} != null and !#{searchWord}.equals('')">
-            <choose>
-                <when test="#{searchField} == 'title'">
-                    WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
-                </when>
-                <otherwise>
-                    WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
-                </otherwise>
-            </choose>
+        <if test='searchField=="title"'>
+            WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        <if test='searchField == "content"'>
+            WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
         </if>
     </select>
 
@@ -59,15 +55,11 @@
     <select id="noticeSearchList" parameterType="java.util.HashMap" resultType="NoticeDTO">
         select notice_idx, notice_title, notice_content, notice_date
         from notice
-        <if test="#{searchWord} != null and !#{searchWord}.equals('')">
-            <choose>
-                <when test="#{searchField} == 'title'">
-                    WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
-                </when>
-                <otherwise>
-                    WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
-                </otherwise>
-            </choose>
+        <if test="searchField == 'title'">
+            WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        <if test="searchField == 'content'">
+            WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
         </if>
         order by notice_idx desc
         limit #{start}, #{limit}

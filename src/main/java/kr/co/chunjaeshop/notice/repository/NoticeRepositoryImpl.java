@@ -66,6 +66,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
 
     @Override
     public int noticeSearchCount(Map<String, String> countParams) {
+        log.info("qqqqqqq"+countParams);
         return noticeMapper.noticeSearchCount(countParams);
     }
 

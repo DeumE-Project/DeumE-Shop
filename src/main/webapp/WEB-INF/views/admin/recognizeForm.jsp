@@ -27,6 +27,9 @@
         .th-3{
             width: 15%;
         }
+        .th-4{
+            width: 11%;
+        }
     </style>
 </head>
 <body>
@@ -40,7 +43,7 @@
                 <th class="th-1">대표자명</th>
                 <th class="th-3">사업자등록번호</th>
                 <th class="th-2">사업장소재지</th>
-                <th class="th-3">승인 여부</th>
+                <th class="th-4">승인 여부</th>
 <%--                <th>Reject</th>--%>
             </tr>
             </thead>
@@ -54,7 +57,7 @@
                     <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
 <%--                        <button class="btn btn-danger" onclick="rejectFn('${seller.sellerId}')">거절</button>--%>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
-                           href="#exampleModalToggle" role="button" >모달 거절</a>
+                           href="#exampleModalToggle" role="button" >거절</a>
                     </td>
                 </tr>
             </c:forEach>

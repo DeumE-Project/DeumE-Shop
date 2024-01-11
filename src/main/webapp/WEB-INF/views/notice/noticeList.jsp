@@ -36,7 +36,7 @@
             <input type="hidden" name="page" id="page" value="1">
             <div class="input-group">
                 <select class="form-select" name="searchField" id="searchField" style="width: 25%">
-                    <option class="title" value="title">제목</option>
+                    <option class="title" value="title" selected>제목</option>
                     <option class="content" value="content">내용</option>
                 </select>
                 <input type="text" class="form-control" name="searchWord" id="searchWord" style="width: 55%" value="${searchWord}">&nbsp
@@ -58,11 +58,10 @@
 
         <c:forEach items="${noticeList}" var="notice" varStatus="loop">
             <tr>
-<%--                <td align="center">${notice.noticeIdx}</td>--%>
                 <td align="center">${paging.totalPage - ((paging.page - 1) * paging.pageLimit + loop.index)}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/notice?idx=${notice.noticeIdx}&page=${paging.page}"
-                       class="text-decoration-none">${notice.noticeTitle}</a>
+                       class="text-decoration-none"><c:out value="${notice.noticeTitle}"/> </a>
                 </td>
                 <td align="center">${notice.noticeDateStr}</td>
             </tr>
@@ -150,14 +149,14 @@
                 </c:forEach>
 
                 <c:choose>
-                    <c:when test="${paging.page >= paging.maxPage}">
+                    <c:when test="${paging2.page >= paging2.maxPage}">
                         <li class="page-item disabled">
                             <span class="page-link">다음</span>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="page-item">
-                            <a class="page-link" href="/notice/search?page=${paging.page + 1}&searchField=${searchField}&searchWord=${searchWord}" aria-label="Next">다음</a>
+                            <a class="page-link" href="/notice/search?page=${paging2.page + 1}&searchField=${searchField}&searchWord=${searchWord}" aria-label="Next">다음</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

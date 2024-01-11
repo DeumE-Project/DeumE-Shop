@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>detail.jsp</title>
@@ -36,7 +37,7 @@
     <table class="table table-bordered">
         <tr>
             <th class="table-dark">제목</th>
-            <td>${notice.noticeTitle}</td>
+            <td><c:out value="${notice.noticeTitle}"/></td>
         </tr>
         <tr>
             <th class="table-dark">작성일</th>
@@ -44,7 +45,7 @@
         </tr>
         <tr>
             <th class="table-secondary">내용</th>
-            <td colspan="3" class="content-section">${notice.noticeContent}</td>
+            <td colspan="3" class="content-section"><c:out value="${notice.noticeContent}"/></td>
         </tr>
     </table>
     <div class="center-buttons">

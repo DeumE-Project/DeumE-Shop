@@ -95,6 +95,11 @@ public class NoticeController {
                          Model model) {
         List<NoticeDTO> noticeSearchList = noticeService.noticeSearchList(page,searchField,searchWord);
         NoticePageDTO noticeSearchPageDTO = noticeService.noticeSearchParam(page,searchField,searchWord);
+
+        log.info(noticeSearchList);
+        log.info(noticeSearchPageDTO);
+        log.info(searchField);
+        log.info(searchWord);
         model.addAttribute("noticeList", noticeSearchList);
         model.addAttribute("paging", noticeSearchPageDTO);
         model.addAttribute("searchField", searchField);

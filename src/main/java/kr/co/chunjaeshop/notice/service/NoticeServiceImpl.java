@@ -98,6 +98,7 @@ public class NoticeServiceImpl implements NoticeService {
         Map<String, String> countParams = new HashMap<>();
         countParams.put("searchField", searchField);
         countParams.put("searchWord", searchWord);
+
         int noticeSearchCount = noticeRepository.noticeSearchCount(countParams);
         int maxPage = (int)(Math.ceil((double) noticeSearchCount / pageLimit));
         int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
@@ -105,6 +106,7 @@ public class NoticeServiceImpl implements NoticeService {
         if (endPage > maxPage) {
             endPage = maxPage;
         }
+
         NoticePageDTO noticePageDTO = new NoticePageDTO();
         noticePageDTO.setPage(page);
         noticePageDTO.setMaxPage(maxPage);
