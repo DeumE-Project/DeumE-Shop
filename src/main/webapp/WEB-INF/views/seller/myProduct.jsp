@@ -107,6 +107,12 @@
                 <div class="text-center my-5">
                     <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
                 </div>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+                <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
             <c:if test="${not empty myProductList}">
             <table class="table table-bordered">
@@ -127,7 +133,7 @@
                         <td>${product.categoryName}</td>
                         <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
                         <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
-                        <td><a href="/seller/detailMyProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
+                        <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
                 </c:forEach>
             </table>

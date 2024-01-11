@@ -35,7 +35,6 @@ public interface SellerService {
 
     /*List<ProductDTO> productPagingList(Integer sellerIdx, int page);*/
 
-    List<ProductDTO> productPagingList(Integer sellerIdx, int page);
 
     PageDTO pagingParam(int page, Integer sellerIdx);
 
@@ -45,11 +44,13 @@ public interface SellerService {
 
     List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx, int page, String searchField, String searchWord);
 
+    PageDTO orderManagePagingParm(int page, Integer sellerIdx, Integer productIdx);
+
+    PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord);
 
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
-
 
 
 }

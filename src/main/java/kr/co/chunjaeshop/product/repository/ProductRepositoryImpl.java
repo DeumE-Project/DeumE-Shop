@@ -41,10 +41,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.countMyProductCnt(sellerIdx);
     }
 
+/*
     @Override
     public List<ProductDTO> productPagingList(Map<String, Integer> pagingParams) {
         return productMapper.sellProductPaging(pagingParams);
     }
+*/
 
     @Override
     public int productCount(Integer sellerIdx) {

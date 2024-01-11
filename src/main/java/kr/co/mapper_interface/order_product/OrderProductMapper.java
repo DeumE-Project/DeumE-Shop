@@ -20,7 +20,11 @@ public interface OrderProductMapper {
     // 유지호
     /*List<OrderProductDTO> sellProductManage(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);*/
 
-    List<OrderProductDTO> sellProductManagePaging(@Param("managePagingParams") Map<String, Object> managePagingParams);
+    List<OrderProductDTO> sellProductManagePaging(Map<String, Object> managePagingParams);
+
+    int orderProductCount(Integer productIdx);
+
+    int orderSearchProductCount(Map<String, Object> params);
 
     // 변재혁
 

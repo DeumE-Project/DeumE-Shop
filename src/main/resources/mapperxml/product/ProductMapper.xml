@@ -41,13 +41,13 @@
         order by A.product_reg_date
     </select>-->
 
-    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
+<!--    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
         select A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
         from product A left join category B
         on A.category_idx = B.category_idx
         where seller_idx = #{sellerIdx}
         order by A.product_reg_date limit #{start}, #{limit}
-    </select>
+    </select>-->
 
     <select id="productCount" parameterType="Integer" resultType="Integer">
         select count(product_idx) from product

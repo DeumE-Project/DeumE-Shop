@@ -96,7 +96,7 @@ public class SellerServiceImpl implements SellerService {
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
 
 
-    @Override
+/*    @Override
     public List<ProductDTO> productPagingList(Integer sellerIdx, int page) {
         int pagingStart = (page - 1) * pageLimit;
         Map<String, Integer> pagingParams = new HashMap<>();
@@ -106,8 +106,24 @@ public class SellerServiceImpl implements SellerService {
         List<ProductDTO> productPagingList = productRepository.productPagingList(pagingParams);
 
         return productPagingList;
+    }*/
+@Override
+public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
+    int pagingStart = (page - 1) * pageLimit;
+    Map<String, Object> pagingParams = new HashMap<>();
+    pagingParams.put("start", pagingStart);
+    pagingParams.put("limit", pageLimit);
+    pagingParams.put("sellerIdx", sellerIdx);
+
+    // 검색어가 제공된 경우에만 검색 조건 추가
+    if (searchField != null && searchWord != null) {
+        pagingParams.put("searchField", searchField);
+        pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
     }
 
+    List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
+    return productPagingListWithSearch;
+}
     @Override
     public PageDTO pagingParam(int page, Integer sellerIdx) {
         // 전체 글 개수 조회
@@ -130,23 +146,7 @@ public class SellerServiceImpl implements SellerService {
         return productPagingPageDTO;
     }
 
-    @Override
-    public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
-        int pagingStart = (page - 1) * pageLimit;
-        Map<String, Object> pagingParams = new HashMap<>();
-        pagingParams.put("start", pagingStart);
-        pagingParams.put("limit", pageLimit);
-        pagingParams.put("sellerIdx", sellerIdx);
 
-        // 검색어가 제공된 경우에만 검색 조건 추가
-        if (searchField != null && searchWord != null) {
-            pagingParams.put("searchField", searchField);
-            pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
-        }
-
-        List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
-        return productPagingListWithSearch;
-    }
 
     @Override
     public PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord) {
@@ -190,11 +190,56 @@ public class SellerServiceImpl implements SellerService {
         return sellProductManagePaging;
     }
 
-        // 변재혁
-        @Override
-        public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
-            int result = sellerRepository.sellerRegister(registerFormDTO);
-            return (result == 1) ? true : false;
+    @Override
+    public PageDTO orderManagePagingParm(int page, Integer sellerIdx, Integer productIdx) {
+        // 전체 글 개수 조회
+        int orderProductCount = orderProductRepository.orderProductCount(productIdx);
+        // 전체 페이지 개수 계산
+        int maxPage = (int) (Math.ceil((double) orderProductCount / pageLimit));
+        // 시작 페이지 값 계산
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        // 끝 페이지 값 계산
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        PageDTO orderProductPagingPageDTO = new PageDTO();
+        orderProductPagingPageDTO.setPage(page);
+        orderProductPagingPageDTO.setMaxPage(maxPage);
+        orderProductPagingPageDTO.setStartPage(startPage);
+        orderProductPagingPageDTO.setEndPage(endPage);
+        orderProductPagingPageDTO.setPageLimit(pageLimit);
+        return orderProductPagingPageDTO;
+    }
+
+    @Override
+    public PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord) {
+        // 전체 글 개수 조회
+        int orderSearchProductCount = orderProductRepository.orderSearchProductCount(productIdx, searchField, searchWord);
+        // 전체 페이지 개수 계산
+        int maxPage = (int) (Math.ceil((double) orderSearchProductCount / pageLimit));
+        // 시작 페이지 값 계산
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        // 끝 페이지 값 계산
+        int endPage = startPage + blockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        PageDTO orderSearchProductPagingPageDTO = new PageDTO();
+        orderSearchProductPagingPageDTO.setPage(page);
+        orderSearchProductPagingPageDTO.setMaxPage(maxPage);
+        orderSearchProductPagingPageDTO.setStartPage(startPage);
+        orderSearchProductPagingPageDTO.setEndPage(endPage);
+        orderSearchProductPagingPageDTO.setPageLimit(pageLimit);
+        return orderSearchProductPagingPageDTO;
+    }
+
+
+    // 변재혁
+    @Override
+    public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
+        int result = sellerRepository.sellerRegister(registerFormDTO);
+        return (result == 1) ? true : false;
     }
 
 

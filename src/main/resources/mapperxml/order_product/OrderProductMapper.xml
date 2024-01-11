@@ -26,10 +26,30 @@
         on A.customer_idx = C.customer_idx
         left join (select product_idx, seller_idx, product_name from product) D
         on B.product_idx = D.product_idx
-        where D.seller_idx = #{managePagingParams.sellerIdx} and B.product_idx = #{managePagingParams.productIdx}
+        where D.seller_idx = #{sellerIdx} and B.product_idx = #{productIdx}
+        <if test="searchField != null and searchWord != null">
+            and C.customer_name like concat('%', #{searchWord}, '%')
+        </if>
         order by A.order_date desc
-        limit #{managePagingParams.start}, #{managePagingParams.limit}
+        limit #{start}, #{limit}
     </select>
+
+    <select id="orderProductCount" parameterType="Integer" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        where B.product_idx = #{productIdx};
+    </select>
+
+    <select id="orderSearchProductCount" parameterType="java.util.Map" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        left join customer C
+        on A.customer_idx = C.customer_idx
+        where B.product_idx = #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
+    </select>
+
 
 
     <!--    변재혁-->

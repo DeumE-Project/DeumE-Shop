@@ -76,7 +76,7 @@ public class SellerController {
         return "/seller/myProduct";
     }
 
-    @GetMapping("/detailMyProduct")
+    @GetMapping("/manageProduct")
     public String sellManage(@RequestParam("sellerIdx") Integer sellerIdx,
                              @RequestParam("productIdx") Integer productIdx,
                              @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -84,11 +84,18 @@ public class SellerController {
                              @RequestParam(value = "searchWord", required = false) String searchWord,
                              Model model){
         log.info("productIdx = {}", productIdx);
-        List<OrderProductDTO> OrderproductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
-
-        model.addAttribute("detailMyPd", OrderproductDTOList);
-        model.addAttribute("sellerIdx", 1);
-        return "/seller/detailMyProduct";
+        List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
+        PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);
+        log.info("qqqq"+searchWord);
+        PageDTO orderManageSearchPageDTO = sellerService.orderManageSearchPagingParm(page, sellerIdx, productIdx, searchField, searchWord);
+        log.info("eeee"+orderManageSearchPageDTO);
+        model.addAttribute("detailMyPd", orderProductDTOList);
+        model.addAttribute("orderManagePaging", orderManagePageDTO);
+        model.addAttribute("orderManageSearchPaging", orderManageSearchPageDTO);
+        model.addAttribute("sellerIdx", sellerIdx);
+        model.addAttribute("productIdx", productIdx);
+        model.addAttribute("searchWord", searchWord);
+        return "/seller/manageProduct";
 
     }
 

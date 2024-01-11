@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,22 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
         return orderProductMapper.sellProductManagePaging(managePagingParams);
     }
 
-/*
+    @Override
+    public int orderProductCount(Integer productIdx) {
+        return orderProductMapper.orderProductCount(productIdx);
+    }
+
+    @Override
+    public int orderSearchProductCount(Integer productIdx, String searchField, String searchWord) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("productIdx", productIdx);
+        params.put("searchField", searchField);
+        params.put("searchWord", searchWord);
+        log.info("wwwww"+params);
+        return orderProductMapper.orderSearchProductCount(params);
+    }
+
+    /*
     @Override
     public List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
         return orderProductMapper.sellProductManage(sellerIdx, productIdx);
