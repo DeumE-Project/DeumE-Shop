@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +41,14 @@ public class NoticeController {
         return "/notice/noticeSaveForm";
     }
     @PostMapping("/save")
-    public String save(@ModelAttribute NoticeDTO noticeDTO) {
+    public String save(@Validated @ModelAttribute NoticeDTO noticeDTO,
+                       BindingResult bindingResult,
+                       Model model) {
+        if (bindingResult.hasErrors()){
+            FieldError fieldError = bindingResult.getFieldError();
+            model.addAttribute("error", fieldError.getDefaultMessage());
+            return "/notice/noticeSaveForm";
+        }
         int saveResult = noticeService.noticeSave(noticeDTO);
         if (saveResult > 0) {
             return "redirect:/notice/";
@@ -72,7 +82,16 @@ public class NoticeController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
+    public String update(@Validated @ModelAttribute NoticeDTO noticeDTO,
+                         BindingResult bindingResult,
+                         Model model) {
+        if (bindingResult.hasErrors()){
+            FieldError fieldError = bindingResult.getFieldError();
+            log.info(fieldError.getDefaultMessage());
+            model.addAttribute("error", fieldError.getDefaultMessage());
+//            return "redirect:/notice/update?idx="+noticeDTO.getNoticeIdx();
+            return "/notice/noticeUpdateForm";
+        }
         noticeService.update(noticeDTO);
         return "redirect:/notice?idx="+noticeDTO.getNoticeIdx();
     }

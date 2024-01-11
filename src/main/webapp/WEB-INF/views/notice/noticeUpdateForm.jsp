@@ -54,10 +54,25 @@
 </div>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     const cancelFn = () => {
         const idx = '${noticeDTO.noticeIdx}';
         location.href = "/notice?idx=" + idx;
+    }
+
+    var error='${error}';
+
+    if (error){
+        // alert(error);
+        // Swal.fire(error);
+        Swal.fire({
+            title: error,
+            icon: 'warning',
+            className: 'swal-wide',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+        });
     }
 </script>
 </body>

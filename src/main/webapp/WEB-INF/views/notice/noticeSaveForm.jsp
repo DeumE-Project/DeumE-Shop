@@ -32,13 +32,13 @@
             <tr>
                 <th class="table-dark">제목</th>
                 <td>
-                    <form:input path="noticeTitle" type="text" class="form-control" placeholder="제목을 입력하세요" required="true"/>
+                    <form:input path="noticeTitle" type="text" class="form-control" placeholder="제목을 입력하세요"/>
                 </td>
             </tr>
             <tr>
                 <th class="table-secondary">내용</th>
                 <td>
-                    <form:textarea path="noticeContent" cols="30" rows="10" class="form-control" placeholder="내용을 입력하세요" required="true"></form:textarea>
+                    <form:textarea path="noticeContent" cols="30" rows="10" class="form-control" placeholder="내용을 입력하세요"></form:textarea>
                 </td>
             </tr>
         </table>
@@ -50,9 +50,23 @@
 </div>
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     const cancelFn = () => {
         location.href = "/notice/";
+    }
+    var error='${error}';
+
+    if (error){
+        // alert(error);
+        // Swal.fire(error);
+        Swal.fire({
+            title: error,
+            icon: 'warning',
+            className: 'swal-wide',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+        });
     }
 </script>
 </body>
