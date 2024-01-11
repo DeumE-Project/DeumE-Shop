@@ -104,15 +104,18 @@
             </form>
 
             <c:if test="${empty detailMyPd}">
-            <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
-            <script>
-                function goBack() {
-                    window.history.back();
-                }
-            </script>
-            <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
+                <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+                <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
             <c:if test="${not empty detailMyPd}">
+
+
+
             <table class="table table-bordered">
                 <thead class="table-dark">
                 <tr>
@@ -129,15 +132,22 @@
                 </thead>
                 <c:forEach items="${detailMyPd}" var="sellDetail" varStatus="loop">
                     <tr>
-                        <td>${loop.index + 1}</td>
-                        <td>${sellDetail.productName}</td>
-                        <td>${sellDetail.customerName}</td>
-                        <td>${sellDetail.productPrice}</td>
-                        <td>${sellDetail.productCount}</td>
-                        <td>${sellDetail.orderTotalPrice}</td>
-                        <td>${sellDetail.orderDate}</td>
-                        <td>${sellDetail.orderAddress}</td>
-                        <td>${sellDetail.orderStatus}</td>
+                        <c:choose>
+                            <c:when test="${searchWord eq '' || searchWord eq null}">
+                                <td>${orderManagePaging.totalCount - ((orderManagePaging.page - 1) * orderManagePaging.pageLimit + loop.index)}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${orderManageSearchPaging.totalCount - ((orderManageSearchPaging.page - 1) * orderManageSearchPaging.pageLimit + loop.index)}</td>
+                            </c:otherwise>
+                        </c:choose>
+                            <td>${sellDetail.productName}</td>
+                            <td>${sellDetail.customerName}</td>
+                            <td>${sellDetail.productPrice}</td>
+                            <td>${sellDetail.productCount}</td>
+                            <td>${sellDetail.orderTotalPrice}</td>
+                            <td>${sellDetail.orderDate}</td>
+                            <td>${sellDetail.orderAddress}</td>
+                            <td>${sellDetail.orderStatus}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -147,50 +157,50 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <c:if test="${searchWord eq null}">
-                        <c:choose>
-                            <c:when test="${orderManagePaging.page > 1}">
-                                <li class="page-item">
-                                    <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page - 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo; 이전</span>
-                                    </a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item disabled">
-                                    <span class="page-link" aria-hidden="true">&laquo; 이전</span>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
+                            <c:choose>
+                                <c:when test="${orderManagePaging.page > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page - 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo; 이전</span>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&laquo; 이전</span>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                        <!-- 페이지 번호 -->
-                        <c:forEach begin="${orderManagePaging.startPage}" end="${orderManagePaging.endPage}" var="i" step="1">
-                            <li class="page-item">
-                                <c:choose>
-                                    <c:when test="${i eq orderManagePaging.page}">
-                                        <span class="page-link current">${i}</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="page-link" href="/seller/manageProduct?page=${i}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </li>
-                        </c:forEach>
-
-                        <!-- 다음 페이지 -->
-                        <c:choose>
-                            <c:when test="${orderManagePaging.page < orderManagePaging.maxPage}">
+                            <!-- 페이지 번호 -->
+                            <c:forEach begin="${orderManagePaging.startPage}" end="${orderManagePaging.endPage}" var="i" step="1">
                                 <li class="page-item">
-                                    <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
-                                        <span aria-hidden="true">다음 &raquo;</span>
-                                    </a>
+                                    <c:choose>
+                                        <c:when test="${i eq orderManagePaging.page}">
+                                            <span class="page-link current">${i}</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a class="page-link" href="/seller/manageProduct?page=${i}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item disabled">
-                                    <span class="page-link" aria-hidden="true">다음 &raquo;</span>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
+                            </c:forEach>
+
+                            <!-- 다음 페이지 -->
+                            <c:choose>
+                                <c:when test="${orderManagePaging.page < orderManagePaging.maxPage}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
+                                            <span aria-hidden="true">다음 &raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">다음 &raquo;</span>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
                         </c:if>
 
 

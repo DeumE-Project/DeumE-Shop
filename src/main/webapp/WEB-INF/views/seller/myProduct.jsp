@@ -128,7 +128,14 @@
                 </thead>
                 <c:forEach items="${myProductList}" var="product" varStatus="loop">
                     <tr>
-                        <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
+                        <c:choose>
+                            <c:when test="${searchWord eq '' || searchWord eq null}">
+                                <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${(sellProductSearchPaging.page - 1) * sellProductSearchPaging.pageLimit + loop.index +1}</td>
+                            </c:otherwise>
+                        </c:choose>
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
                         <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
