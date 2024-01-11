@@ -97,7 +97,7 @@ CREATE TABLE order_product (
     customer_idx INT, # 외래키
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     order_total_price INT NOT NULL, # 주문 총 가격 합계
-    order_status INT NOT NULL DEFAULT 1, # 1번:배송중/2번:배송완료
+    order_status VARCHAR(10) NOT NULL DEFAULT 1, # 1번:배송중/2번:배송완료
     order_zipcode VARCHAR(20), # 받는 사람 우편번호
     order_address1 VARCHAR(100), # 받는 사람 API 주소
     order_address2 VARCHAR(100), # 받는 사람 상세주소 (동/호수)

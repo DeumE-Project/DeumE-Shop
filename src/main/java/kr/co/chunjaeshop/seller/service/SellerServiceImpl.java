@@ -45,14 +45,14 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.updateRecognize(i,id);
     }
 
-    int pageLimit = 3;
-    int blockLimit = 3;
+    int recognizePageLimit = 3;
+    int recognizeBlockLimit = 3;
     @Override
     public List<SellerDTO> getNotRecognizedSellerList(int page) {
-        int pageStart = (page-1)*pageLimit;
+        int pageStart = (page-1)*recognizePageLimit;
         Map<String, Integer> notRecognizedSellerPagingParam = new HashMap<>();
         notRecognizedSellerPagingParam.put("start", pageStart);
-        notRecognizedSellerPagingParam.put("limit", pageLimit);
+        notRecognizedSellerPagingParam.put("limit", recognizePageLimit);
         List<SellerDTO> notRecognizedSellerList = sellerRepository.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
 
         return notRecognizedSellerList;
@@ -69,9 +69,9 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public NotRecognizePageDTO notRecognizedSellerPagingParam(int page) {
         int notRecognizeCount = sellerRepository.notRecognizeCount();
-        int maxPage = (int)(Math.ceil((double) notRecognizeCount / pageLimit));
-        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = startPage + blockLimit - 1;
+        int maxPage = (int)(Math.ceil((double) notRecognizeCount / recognizePageLimit));
+        int startPage = (((int)(Math.ceil((double) page / recognizeBlockLimit))) - 1) * recognizeBlockLimit + 1;
+        int endPage = startPage + recognizeBlockLimit - 1;
         if (endPage > maxPage) {
             endPage = maxPage;
         }
