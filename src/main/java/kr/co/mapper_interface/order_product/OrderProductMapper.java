@@ -1,6 +1,13 @@
 package kr.co.mapper_interface.order_product;
 
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
+
 public interface OrderProductMapper {
+
     // 남원우
 
 
@@ -11,7 +18,13 @@ public interface OrderProductMapper {
 
 
     // 유지호
+    /*List<OrderProductDTO> sellProductManage(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);*/
 
+    List<OrderProductDTO> sellProductManagePaging(Map<String, Object> managePagingParams);
+
+    int orderProductCount(Integer productIdx);
+
+    int orderSearchProductCount(Map<String, Object> params);
 
     // 변재혁
 

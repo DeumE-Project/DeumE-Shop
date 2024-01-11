@@ -43,7 +43,7 @@
 
     <!--    유지호-->
     <select id="countMyProductCnt" parameterType="Integer" resultType="int">
-        select count(*) from product where seller_idx = #{sellerIdx}
+        select ifnull(count(product_idx), 0) as countProduct  from product where seller_idx = #{sellerIdx}
     </select>
 
     <!--<select id="myProduct" parameterType="Integer" resultType="ProductDTO">
@@ -54,13 +54,13 @@
         order by A.product_reg_date
     </select>-->
 
-    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
+<!--    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
         select A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
         from product A left join category B
         on A.category_idx = B.category_idx
         where seller_idx = #{sellerIdx}
         order by A.product_reg_date limit #{start}, #{limit}
-    </select>
+    </select>-->
 
     <select id="productCount" parameterType="Integer" resultType="Integer">
         select count(product_idx) from product
@@ -106,8 +106,24 @@
             </choose>
             )
         </if>
-
     </select>
+
+<!--    <select id="sellProductManage" resultType="ProductDTO">
+        select D.product_name, C.customer_name, B.product_price, B.product_count, A.order_total_price, A.order_date, &lt;!&ndash;A.order_address,&ndash;&gt;
+        case when A.order_status = 1 then '배송중'
+        when A.order_Status = 2 then '배송완료'
+        else '기타'
+        end as order_status
+        from (select order_idx, customer_idx, order_date, order_total_price, concat(order_address1, order_address2) order_address, order_status from order_product) A
+        left join (select order_idx, product_idx, product_price, product_count from order_detail) B
+        on A.order_idx = B.order_idx
+        left join (select customer_idx, customer_name from customer) C
+        on A.customer_idx = C.customer_idx
+        left join (select product_idx, seller_idx, product_name from product) D
+        on B.product_idx = D.product_idx
+        where D.seller_idx = #{sellerIdx} and B.product_idx = #{productIdx}
+        order by A.order_date desc
+    </select>-->
 
     <!--    변재혁-->
 

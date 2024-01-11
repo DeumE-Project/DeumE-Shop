@@ -29,7 +29,7 @@ public interface ProductMapper {
 
     List<ProductDTO> myProduct(Integer sellerIdx);
 
-    List<ProductDTO> sellProductPaging(Map<String, Integer> pagingParams);
+/*    List<ProductDTO> sellProductPaging(Map<String, Integer> pagingParams);*/
 
     int productCount(Integer sellerIdx);
 
@@ -37,7 +37,7 @@ public interface ProductMapper {
 
     int searchproductCount(Map<String, Object> searchPagingParams);
 
-
+    /*List<ProductDTO> sellProductManage(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);*/
 
 
     // 변재혁

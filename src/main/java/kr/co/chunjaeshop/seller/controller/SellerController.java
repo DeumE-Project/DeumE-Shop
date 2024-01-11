@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.seller.controller;
 
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
@@ -73,6 +74,29 @@ public class SellerController {
         model.addAttribute("searchField", searchField);
         model.addAttribute("searchWord", searchWord);
         return "/seller/myProduct";
+    }
+
+    @GetMapping("/manageProduct")
+    public String sellManage(@RequestParam("sellerIdx") Integer sellerIdx,
+                             @RequestParam("productIdx") Integer productIdx,
+                             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                             @RequestParam(value = "searchField", required = false) String searchField,
+                             @RequestParam(value = "searchWord", required = false) String searchWord,
+                             Model model){
+        log.info("productIdx = {}", productIdx);
+        List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
+        PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);
+        log.info("qqqq"+searchWord);
+        PageDTO orderManageSearchPageDTO = sellerService.orderManageSearchPagingParm(page, sellerIdx, productIdx, searchField, searchWord);
+        log.info("eeee"+orderManageSearchPageDTO);
+        model.addAttribute("detailMyPd", orderProductDTOList);
+        model.addAttribute("orderManagePaging", orderManagePageDTO);
+        model.addAttribute("orderManageSearchPaging", orderManageSearchPageDTO);
+        model.addAttribute("sellerIdx", sellerIdx);
+        model.addAttribute("productIdx", productIdx);
+        model.addAttribute("searchWord", searchWord);
+        return "/seller/manageProduct";
+
     }
 
 

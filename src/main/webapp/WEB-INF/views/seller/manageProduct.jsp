@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>판매 상품 관리</title>
+    <title>판매 관리</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -83,57 +83,61 @@
     <section class="bg-light py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">판매 상품 관리</h1>
+                <h1 class="fw-bolder">판매관리</h1>
             </div>
 
             <!-- 검색 폼 -->
-            <form class="row gx-2 justify-content-center mb-4" method="get" action="/seller/myProduct">
+            <form id="searchForm" class="row gx-2 justify-content-center mb-4" method="get" action="/seller/manageProduct">
                 <input type="hidden" name="sellerIdx" value="${sellerIdx}"/>
+                <input type="hidden" name="productIdx" value="${productIdx}"/>
                 <div class="col-lg-2">
                     <select class="form-select" name="searchField" id="select-option">
-                        <option value="title">상품명</option>
-                        <option value="category">카테고리</option>
+                        <option value="customer">고객명</option>
                     </select>
                 </div>
                 <div class="col-lg-4">
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
-                        <button class="btn btn-primary" type="submit" <c:if test="${empty myProductList}">disabled</c:if>>검색</button>
+                        <button class="btn btn-primary" type="submit" <c:if test="${empty detailMyPd}">disabled</c:if>>검색</button>
                     </div>
                 </div>
             </form>
 
-            <c:if test="${empty myProductList}">
-                <div class="text-center my-5">
-                    <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
-                </div>
-                <script>
-                    function goBack() {
-                        window.history.back();
-                    }
-                </script>
-                <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
+            <c:if test="${empty detailMyPd}">
+            <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
-            <c:if test="${not empty myProductList}">
+            <c:if test="${not empty detailMyPd}">
             <table class="table table-bordered">
                 <thead class="table-dark">
                 <tr>
-                    <th style="width: 10%;">번호</th>
-                    <th style="width: 20%;">상품명</th>
-                    <th style="width: 20%;">카테고리</th>
-                    <th style="width: 15%;">재고</th>
-                    <th style="width: 15%;">상세 관리</th>
-                    <th style="width: 20%;">판매 관리</th>
+                    <th style="width: 5%;">번호</th>
+                    <th style="width: 10%;">상품명</th>
+                    <th style="width: 10%;">고객명</th>
+                    <th style="width: 10%;">가격</th>
+                    <th style="width: 5%;">개수</th>
+                    <th style="width: 10%;">총 가격</th>
+                    <th style="width: 15%;">주문날짜</th>
+                    <th style="width: 20%;">배송지</th>
+                    <th style="width: 10%;">주문 상태</th>
                 </tr>
                 </thead>
-                <c:forEach items="${myProductList}" var="product" varStatus="loop">
+                <c:forEach items="${detailMyPd}" var="sellDetail" varStatus="loop">
                     <tr>
-                        <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
-                        <td>${product.productName}</td>
-                        <td>${product.categoryName}</td>
-                        <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
-                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
-                        <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
+                        <td>${loop.index + 1}</td>
+                        <td>${sellDetail.productName}</td>
+                        <td>${sellDetail.customerName}</td>
+                        <td>${sellDetail.productPrice}</td>
+                        <td>${sellDetail.productCount}</td>
+                        <td>${sellDetail.orderTotalPrice}</td>
+                        <td>${sellDetail.orderDate}</td>
+                        <td>${sellDetail.orderAddress}</td>
+                        <td>${sellDetail.orderStatus}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -144,9 +148,9 @@
                     <ul class="pagination">
                         <c:if test="${searchWord eq null}">
                         <c:choose>
-                            <c:when test="${sellProductpaging.page > 1}">
+                            <c:when test="${orderManagePaging.page > 1}">
                                 <li class="page-item">
-                                    <a class="page-link" href="/seller/myProduct?page=${sellProductpaging.page - 1}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
+                                    <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page - 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
                                         <span aria-hidden="true">&laquo; 이전</span>
                                     </a>
                                 </li>
@@ -159,14 +163,14 @@
                         </c:choose>
 
                         <!-- 페이지 번호 -->
-                        <c:forEach begin="${sellProductpaging.startPage}" end="${sellProductpaging.endPage}" var="i" step="1">
+                        <c:forEach begin="${orderManagePaging.startPage}" end="${orderManagePaging.endPage}" var="i" step="1">
                             <li class="page-item">
                                 <c:choose>
-                                    <c:when test="${i eq sellProductpaging.page}">
+                                    <c:when test="${i eq orderManagePaging.page}">
                                         <span class="page-link current">${i}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="page-link" href="/seller/myProduct?page=${i}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
+                                        <a class="page-link" href="/seller/manageProduct?page=${i}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
                                     </c:otherwise>
                                 </c:choose>
                             </li>
@@ -174,9 +178,9 @@
 
                         <!-- 다음 페이지 -->
                         <c:choose>
-                            <c:when test="${sellProductpaging.page < sellProductpaging.maxPage}">
+                            <c:when test="${orderManagePaging.page < orderManagePaging.maxPage}">
                                 <li class="page-item">
-                                    <a class="page-link" href="/seller/myProduct?page=${sellProductpaging.page + 1}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
+                                    <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
                                         <span aria-hidden="true">다음 &raquo;</span>
                                     </a>
                                 </li>
@@ -191,12 +195,11 @@
 
 
 
-
                         <c:if test="${searchWord ne null}">
                             <c:choose>
-                                <c:when test="${sellProductSearchPaging.page > 1}">
+                                <c:when test="${orderManageSearchPaging.page > 1}">
                                     <li class="page-item">
-                                        <a class="page-link" href="/seller/myProduct?page=${sellProductpaging.page - 1}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
+                                        <a class="page-link" href="/seller/manageProduct?page=${orderManageSearchPaging.page - 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo; 이전</span>
                                         </a>
                                     </li>
@@ -209,14 +212,14 @@
                             </c:choose>
 
                             <!-- 페이지 번호 -->
-                            <c:forEach begin="${sellProductSearchPaging.startPage}" end="${sellProductSearchPaging.endPage}" var="i" step="1">
+                            <c:forEach begin="${orderManageSearchPaging.startPage}" end="${orderManageSearchPaging.endPage}" var="i" step="1">
                                 <li class="page-item">
                                     <c:choose>
-                                        <c:when test="${i eq sellProductSearchPaging.page}">
+                                        <c:when test="${i eq orderManageSearchPaging.page}">
                                             <span class="page-link current">${i}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <a class="page-link" href="/seller/myProduct?page=${i}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
+                                            <a class="page-link" href="/seller/manageProduct?page=${i}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}">${i}</a>
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
@@ -224,9 +227,9 @@
 
                             <!-- 다음 페이지 -->
                             <c:choose>
-                                <c:when test="${sellProductSearchPaging.page < sellProductSearchPaging.maxPage}">
+                                <c:when test="${orderManageSearchPaging.page < orderManageSearchPaging.maxPage}">
                                     <li class="page-item">
-                                        <a class="page-link" href="/seller/myProduct?page=${sellProductSearchPaging.page + 1}&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
+                                        <a class="page-link" href="/seller/manageProduct?page=${orderManageSearchPaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
                                             <span aria-hidden="true">다음 &raquo;</span>
                                         </a>
                                     </li>
@@ -239,9 +242,6 @@
                             </c:choose>
                         </c:if>
                         </c:if>
-
-
-
                     </ul>
                 </nav>
             </div>

@@ -32,8 +32,7 @@ public class ProductDTO {
 
 
     // 유지호
-    private String CategoryName;
-
+    private String categoryName;
 
     // 변재혁
 
