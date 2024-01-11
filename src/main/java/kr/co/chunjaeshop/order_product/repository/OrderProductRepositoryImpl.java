@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.order_product.repository;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
+import kr.co.mapper_interface.order_product.OrderProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 @Log4j2
 public class OrderProductRepositoryImpl implements OrderProductRepository {
+    private final OrderProductMapper orderProductMapper;
 
     // 남원우
 
@@ -22,5 +25,8 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
 
     // 변재혁
-
+    @Override
+    public int insertNewOrder(OrderProductForm orderProductForm) {
+        return orderProductMapper.insertNewOrder(orderProductForm);
+    }
 }

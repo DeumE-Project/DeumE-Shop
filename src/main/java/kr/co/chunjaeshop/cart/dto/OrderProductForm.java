@@ -10,12 +10,12 @@ import javax.validation.constraints.Pattern;
 public class OrderProductForm {
     private Integer orderIdx; // db에서 받아오는 값
     private Integer customerIdx; // 시큐리티에서 받는 값
-    private Integer totalPrice; // 카트 조회해서 계산필요
+    private Integer orderTotalPrice; // 계산해서 넣어줘야 함
 
     @NotBlank(message = "우편번호는 필수 입력값입니다")
     @Pattern(regexp = "^(\\d{3}-\\d{3}|\\d{5})$",
             message = "올바른 우편번호를 입력해주세요")
-    private String zipcode; // 사용자에게
+    private String orderZipcode; // 사용자에게
 
     @NotBlank(message = "주소는 필수 입력값입니다")
     private String orderAddress1; // 사용자에게

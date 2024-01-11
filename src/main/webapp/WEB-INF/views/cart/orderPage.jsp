@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
@@ -47,45 +48,54 @@
                     </h4>
                 </div>
 
-                <form:form modelAttribute="orderProductForm" method="post" action="/cart/order">
-                    <input type="hidden" name="cartIdx" value="${cartIdx}"/>
+                <form:form modelAttribute="orderProductForm" method="post" action="/cart/order?cartIdx=${cartIdx}">
+<%--                    <input type="hidden" name="cartIdx" value="${cartIdx}"/>--%>
                     <div style="margin-top: 15px;">
                         <div class="form-group">
                             <label>수취인</label>
                             <form:input path="orderName" class="form-control" type="text"
                                         placeholder="이름을 입력해주세요"/>
                             <form:errors path="orderName" cssClass="red"/>
-                        </div><br/>
+                        </div>
+                        <br/>
                         <div class="form-group">
                             <label>이메일</label>
                             <form:input path="orderEmail" class="form-control" type="text"
                                         placeholder="이메일을 입력해주세요"/>
                             <form:errors path="orderEmail" cssClass="red"/>
-                        </div><br/>
+                        </div>
+                        <br/>
                         <div class="form-group">
                             <label>전화번호</label>
                             <form:input path="orderPhone" class="form-control" type="text"
                                         placeholder="숫자만 입력해주세요"/>
                             <form:errors path="orderPhone" cssClass="red"/>
-                        </div><br/>
+                        </div>
+                        <br/>
                         <div class="form-group">
-                            <label>우편번호</label>
-                            <form:input path="zipcode" class="form-control" type="text"
+                            <label>우편번호</label><br/>
+                            <button type="button" class="btn btn-link"
+                                    onclick="sample6_execDaumPostcode()">우편번호 검색
+                            </button><br/>
+                            <form:input path="orderZipcode" class="form-control" type="text"
                                         placeholder="우편번호 검색을 클릭해주세요" readonly="true"/>
-                            <form:errors path="zipcode" cssClass="red"/>
-                        </div><br/>
+                            <form:errors path="orderZipcode" cssClass="red"/>
+                        </div>
+                        <br/>
                         <div class="form-group">
                             <label>주소</label>
                             <form:input path="orderAddress1" class="form-control" type="text"
                                         placeholder="우편번호 검색을 통해 입력되게 해주세요" readonly="true"/>
                             <form:errors path="orderAddress1" cssClass="red"/>
-                        </div><br/>
+                        </div>
+                        <br/>
                         <div class="form-group">
                             <label>상세주소</label>
                             <form:input path="orderAddress2" class="form-control" type="text"
                                         placeholder="동/호수 등 상세주소를 입력해주세요"/>
                             <form:errors path="orderAddress2" cssClass="red"/>
-                        </div><br/>
+                        </div>
+                        <br/>
                         <div class="form-group">
                             <label>배송요청사항</label>
                             <form:select path="orderRequest" class="form-control">
@@ -103,7 +113,7 @@
             <div style="margin-top: 2.5rem;">
                 <!-- 여기서부터 장바구니 한 개 시작 -->
                 <div>
-                    <h5 class="seller-name">판매자 이름: []</h5>
+                    <h5 class="seller-name">판매자 이름: <c:out value="${cart.sellerName}"/></h5>
                     <div>
                         <div class="table-responsive mb-5">
                             <table class="table table-bordered text-center mb-0">
@@ -116,21 +126,30 @@
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                <tr>
-                                    <td class="align-middle"><img src="" alt=""
-                                                                  style="width: 100px; height: 100px;"> Colorful Stylish
-                                        Shirt
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <input type="text"
-                                                   class="form-control form-control-sm text-center"
-                                                   value="1" readonly>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$150</td>
-                                </tr>
+                                <c:set var="productTotalPriceWithoutDeliveryFee" value="0"/>
+                                <c:forEach items="${cart.cartDetailDTOList}" var="cartDetailDTO">
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="" alt="" style="width: 100px; height: 100px;">
+                                            <c:out value="${cartDetailDTO.productName}"/>
+                                        </td>
+                                        <td class="align-middle">
+                                            <fmt:formatNumber value="${cartDetailDTO.productPrice}" pattern="#,###"/>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <input type="text"
+                                                       class="form-control form-control-sm text-center"
+                                                       value="${cartDetailDTO.buyCount}" readonly>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <fmt:formatNumber value="${cartDetailDTO.productPrice * cartDetailDTO.buyCount}" pattern="#,###"/>
+                                        </td>
+                                    </tr>
+                                    <c:set var="productTotalPriceWithoutDeliveryFee"
+                                           value="${productTotalPriceWithoutDeliveryFee + (cartDetailDTO.productPrice * cartDetailDTO.buyCount)}"/>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -147,17 +166,23 @@
 
                     <div class="d-flex justify-content-between mb-3 pt-1">
                         <h6 class="font-weight-medium">상품</h6>
-                        <h6 class="font-weight-medium">$150</h6>
+                        <h6 class="font-weight-medium">
+                            <fmt:formatNumber value="${productTotalPriceWithoutDeliveryFee}" pattern="#,###"/>
+                        </h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">배송</h6>
-                        <h6 class="font-weight-medium">$10</h6>
+                        <h6 class="font-weight-medium">
+                            <fmt:formatNumber value="${2500}" pattern="#,###"/>
+                        </h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">합계</h5>
-                        <h5 class="font-weight-bold">$160</h5>
+                        <h5 class="font-weight-bold">
+                            <fmt:formatNumber value="${productTotalPriceWithoutDeliveryFee + 2500}" pattern="#,###"/>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -183,6 +208,39 @@
 </div>
 <!-- Checkout End -->
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                var addr = '';
+                var extraAddr = '';
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else {
+                    addr = data.jibunAddress;
+                }
+                if (data.userSelectedType === 'R') {
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    addr += extraAddr;
+
+                }
+                document.getElementById('orderZipcode').value = data.zonecode;
+                document.getElementById("orderAddress1").value = addr;
+                document.getElementById("orderAddress2").focus();
+            }
+        }).open();
+    }
+</script>
+
 <script>
     $('#submit-btn').on('click', function () {
         $('#orderProductForm').submit();

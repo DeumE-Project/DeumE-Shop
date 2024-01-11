@@ -87,4 +87,9 @@ public class CartServiceImpl implements CartService {
             return CartDetailResult.FAILED;
         }
     }
+
+    @Override
+    public CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx) {
+        return cartRepository.getSpecificCart(customerIdx, cartIdx);
+    }
 }

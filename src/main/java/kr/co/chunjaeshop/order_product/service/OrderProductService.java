@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.order_product.service;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
+
 public interface OrderProductService {
 
     // 남원우
@@ -15,5 +17,5 @@ public interface OrderProductService {
 
 
     // 변재혁
-
+    boolean insertNewOrder(OrderProductForm orderProductForm);
 }

@@ -163,7 +163,7 @@
                                         </h5>
                                     </div>
                                     <button class="btn btn-block btn-primary my-3 py-3" style="width: 100%;"
-                                    data-cart-idx="${cart.cartIdx}">주문하기
+                                    data-cart-idx="${cart.cartIdx}" onclick="orderBtn(event)">주문하기
                                     </button>
                                 </div>
                             </div>
@@ -298,6 +298,24 @@
 
     const commaStrToInt = function (str) {
         return parseInt(str.replace(/,/g, ''), 10);
+    }
+
+    const orderBtn = function (event) {
+        const eventTarget = $(event.target);
+        const cartIdx = parseInt(eventTarget.data('cart-idx'));
+
+        const formTag = document.createElement('form');
+        formTag.method = 'get';
+        formTag.action = '/cart/order';
+
+        const cartIdxInputTag = document.createElement('input');
+        cartIdxInputTag.setAttribute('name', 'cartIdx');
+        cartIdxInputTag.setAttribute('value', cartIdx);
+        formTag.appendChild(cartIdxInputTag);
+
+        document.body.appendChild(formTag);
+
+        formTag.submit();
     }
 </script>
 </body>

@@ -45,4 +45,9 @@ public class CartRepositoryImpl implements CartRepository {
     public int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO) {
         return cartMapper.changeCartDetailBuyCount(changeCartDetailDTO);
     }
+
+    @Override
+    public CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx) {
+        return cartMapper.getSpecificCart(customerIdx, cartIdx);
+    }
 }

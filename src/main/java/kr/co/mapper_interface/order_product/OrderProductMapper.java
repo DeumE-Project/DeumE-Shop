@@ -1,5 +1,7 @@
 package kr.co.mapper_interface.order_product;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
+
 public interface OrderProductMapper {
     // 남원우
 
@@ -14,5 +16,5 @@ public interface OrderProductMapper {
 
 
     // 변재혁
-
+    int insertNewOrder(OrderProductForm orderProductForm);
 }

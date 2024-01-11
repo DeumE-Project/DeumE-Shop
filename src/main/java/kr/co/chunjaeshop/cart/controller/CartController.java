@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.cart.controller;
 
 import kr.co.chunjaeshop.cart.dto.*;
 import kr.co.chunjaeshop.cart.service.CartService;
+import kr.co.chunjaeshop.order_product.service.OrderProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.List;
 @Log4j2
 public class CartController {
     private final CartService cartService;
+    private final OrderProductService orderProductService;
 
     @PostMapping(value = "/add-cart")
     @ResponseBody
@@ -60,19 +62,42 @@ public class CartController {
             log.warn("cartIdx is null");
             return "redirect:/cart/list";
         }
-        orderProductForm.setCartIdx(1);
         model.addAttribute("cartIdx", orderProductForm.getCartIdx());
+
+        CartDTO cart = cartService.getSpecificCart(8, cartIdx);
+        model.addAttribute("cart", cart);
 
         return "cart/orderPage";
     }
 
     @PostMapping(value = "/order")
     public String order(@Validated @ModelAttribute OrderProductForm orderProductForm,
-                        BindingResult bindingResult) {
+                        BindingResult bindingResult,
+                        Model model) {
         log.info("orderProductForm = {}", orderProductForm);
+        Integer cartIdx = orderProductForm.getCartIdx();
+        model.addAttribute("cartIdx", cartIdx);
+
+        CartDTO cart = cartService.getSpecificCart(8, cartIdx);
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("cart", cart);
             return "cart/orderPage";
         }
+
+        int orderTotalPrice = 0;
+
+        for (CartDetailDTO cartDetailDTO : cart.getCartDetailDTOList()) {
+            orderTotalPrice += cartDetailDTO.getProductPrice();
+        }
+
+        orderProductForm.setOrderTotalPrice(orderTotalPrice);
+        orderProductForm.setCustomerIdx(8);
+
+        log.info("after setting orderProductForm = {}", orderProductForm);
+        boolean result = orderProductService.insertNewOrder(orderProductForm);
+        log.info("order_product_idx = {}", orderProductForm.getOrderIdx());
+
         return null;
     }
 }

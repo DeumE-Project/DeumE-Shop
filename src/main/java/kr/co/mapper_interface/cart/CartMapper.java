@@ -14,4 +14,5 @@ public interface CartMapper {
     int insertNewCart(AddToCartForm parameterMap);
     List<CartDTO> getAllMyCartList(Integer customerIdx);
     int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO);
+    CartDTO getSpecificCart(@Param("customerIdx") Integer customerIdx, @Param("cartIdx") Integer cartIdx);
 }
