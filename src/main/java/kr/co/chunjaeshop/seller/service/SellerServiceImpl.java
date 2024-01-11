@@ -143,6 +143,7 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         productPagingPageDTO.setStartPage(startPage);
         productPagingPageDTO.setEndPage(endPage);
         productPagingPageDTO.setPageLimit(pageLimit);
+        productPagingPageDTO.setTotalCount(productCount);
         return productPagingPageDTO;
     }
 
@@ -168,6 +169,7 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         searchProductPagingPageDTO.setStartPage(startPage);
         searchProductPagingPageDTO.setEndPage(endPage);
         searchProductPagingPageDTO.setPageLimit(pageLimit);
+        searchProductPagingPageDTO.setTotalCount(searchproductCount);
         return searchProductPagingPageDTO;
     }
 
@@ -209,6 +211,7 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         orderProductPagingPageDTO.setStartPage(startPage);
         orderProductPagingPageDTO.setEndPage(endPage);
         orderProductPagingPageDTO.setPageLimit(pageLimit);
+        orderProductPagingPageDTO.setTotalCount(orderProductCount);
         return orderProductPagingPageDTO;
     }
 
@@ -231,6 +234,7 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         orderSearchProductPagingPageDTO.setStartPage(startPage);
         orderSearchProductPagingPageDTO.setEndPage(endPage);
         orderSearchProductPagingPageDTO.setPageLimit(pageLimit);
+        orderSearchProductPagingPageDTO.setTotalCount(orderSearchProductCount);
         return orderSearchProductPagingPageDTO;
     }
 
