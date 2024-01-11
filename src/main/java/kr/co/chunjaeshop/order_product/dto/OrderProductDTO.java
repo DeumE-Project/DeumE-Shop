@@ -10,7 +10,7 @@ public class OrderProductDTO {
     private Integer customerIdx;
     private LocalDateTime orderDate;
     private Integer orderTotalPrice;
-    private Integer orderStatus;
+    /*private Integer orderStatus;*/
     private String orderZipcode;
     private String orderAddress1;
     private String orderAddress2;
@@ -29,6 +29,13 @@ public class OrderProductDTO {
 
 
     // 유지호
+    private String productName;
+    private String customerName;
+    private Integer productPrice;
+    private Integer productCount;
+    private String orderAddress;
+    private String orderStatus;
+    private Integer productIdx;
 
 
     // 변재혁

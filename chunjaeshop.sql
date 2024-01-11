@@ -55,6 +55,7 @@ CREATE TABLE product (
     product_detail_saved VARCHAR(150) NOT NULL, # 상품 상세 설명이미지 서버에 저장된 파일명
     product_status INT NOT NULL DEFAULT 1, # 1번: 판매가능 / 0번: 품절(판매중지)
     product_sales INT DEFAULT 0, # 판매된 개수
+    product_reg_date DATETIME DEFAULT CURRENT_TIMESTAMP, # 상품 등록 날짜
     FOREIGN KEY (seller_idx) REFERENCES seller (seller_idx) ON UPDATE CASCADE ON DELETE SET NULL,
     FOREIGN KEY (category_idx) REFERENCES category (category_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
@@ -104,6 +105,7 @@ CREATE TABLE order_product (
     order_request VARCHAR(100), # 배송 요청사항
     order_name VARCHAR(50), # 받는 사람 이름
     order_phone VARCHAR(20), # 받는 사람 전화번호
+    order_email VARCHAR(50), # 받는 사람 이메일
     FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
