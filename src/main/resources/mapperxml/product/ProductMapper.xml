@@ -38,13 +38,25 @@
         category_idx=#{categoryIdx}, product_explain=#{productExplain}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
+
+    <select id="findMainImg" resultType="ProductDTO">
+        Select seller_idx, product_idx, product_thumb_saved, product_img_original, product_img_saved
+        From product
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
     <update id="productImgUpdate" parameterType="ProductDTO">
         update product
         set product_thumb_saved=#{productThumbSaved}, product_img_original=#{productImgOriginal},
         product_img_saved=#{productImgSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
-
     </update>
+
+    <select id="findDetailImg" resultType="ProductDTO">
+        Select seller_idx, product_idx, product_detail_original, product_detail_saved
+        From product
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
 
     <update id="productDetailImgUpdate" parameterType="ProductDTO">
         update product
