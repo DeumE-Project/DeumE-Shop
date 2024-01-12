@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
@@ -36,19 +37,28 @@
             </div>
         </div>
         <div class="col-lg-7 pb-5">
-            <h1 class="font-weight-semi-bold">[상품명]</h1>
+            <h1 class="font-weight-semi-bold">
+                <c:out value="${productDTO.productName}"/>
+            </h1>
+            <div class="d-flex mb-3">
+                <p>판매자: <c:out value="${productDTO.sellerName}"/></p>
+            </div>
             <div class="d-flex mb-3">
                 <p><span class="text-primary">[4] / 5</span>&nbsp;&nbsp;<span>([50] 리뷰)</span></p>
             </div>
             <div>
-                판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="product-price">[25000]</h2>원
+                판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="product-price">
+                <fmt:formatNumber value="${productDTO.productPrice}" pattern="#,###"/></h2>원
             </div>
-            <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea.
-                Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus
-                labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd
-                rebum.</p>
+            <p class="mb-4">
+                <c:out value="${productDTO.productExplain}"/>
+            </p>
             <div>
-                구매가 <h4 style="display: inline-block;"><span id="product-total-price">25000</span></h4>원
+                구매가 <h4 style="display: inline-block;">
+                <span id="product-total-price">
+                    <fmt:formatNumber value="${productDTO.productPrice}" pattern="#,###"/>
+                </span>
+            </h4>원
             </div>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 150px;">
@@ -78,8 +88,15 @@
 </div>
 
 <script>
-    const productIdx = 4;
-    const productPrice = '25000';
+    const cartMsg = '<c:out value="${cartMsg}"/>';
+    if (cartMsg.trim()) {
+        alert(cartMsg);
+    }
+</script>
+
+<script>
+    const productIdx = '<c:out value="${productIdx}"/>';
+    const productPrice = '<c:out value="${productDTO.productPrice}"/>';
 
     const productPriceTag = $('#product-price');
     const buyCountTag = $('#buy-count');

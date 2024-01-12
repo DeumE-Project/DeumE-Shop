@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.order_product.service;
 
+import kr.co.chunjaeshop.cart.dto.CartDTO;
 import kr.co.chunjaeshop.cart.dto.OrderProductForm;
 
 public interface OrderProductService {
@@ -17,5 +18,5 @@ public interface OrderProductService {
 
 
     // 변재혁
-    boolean insertNewOrder(OrderProductForm orderProductForm);
+    boolean insertNewOrder(OrderProductForm orderProductForm, CartDTO cartDTO);
 }

@@ -41,6 +41,7 @@ public class ProductController {
         ProductDTO productDTO = pService.getProductInformationByProductIdx(productIdx);
         log.info("productDTO = {}", productDTO);
         model.addAttribute("productDTO", productDTO);
+        model.addAttribute("productIdx", productIdx);
         return "cart/productMainCart";
     }
 }

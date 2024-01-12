@@ -25,13 +25,6 @@ public class CartServiceImpl implements CartService {
         int resultCount = -1;
         CartResult cartResult = null;
 
-        /*Map<String, Object> parameterMap = new HashMap<>();
-        parameterMap.put("customerIdx", addToCartForm.getCustomerIdx());
-        parameterMap.put("productIdx", addToCartForm.getProductIdx());
-        parameterMap.put("buyCount", addToCartForm.getBuyCount());
-        parameterMap.put("productPrice", productDTO.getProductPrice());
-        parameterMap.put("sellerIdx", productDTO.getSellerIdx());*/
-
         addToCartForm.setSellerIdx(productDTO.getSellerIdx());
         addToCartForm.setProductPrice(productDTO.getProductPrice());
 
