@@ -23,15 +23,15 @@
 
         <div class="mb-3">
             <label for="productName" class="form-label">상품 등록</label>
-            <form:input type="text" class="form-control" path="productName" placeholder="상품명을 입력하세요" required="true" autofocus="autofocus"/>
+            <form:input type="text" class="form-control" path="productName" placeholder="상품명을 입력하세요" autofocus="autofocus"/>
         </div>
         <div class="mb-3">
             <label for="productExplain" class="form-label">상품 설명</label>
-            <form:textarea class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요" required="true"/>
+            <form:textarea class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요" />
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">가격</label>
-            <form:input type="number" class="form-control" path="productPrice" placeholder="상품 가격을 입력하세요" required="true"/>
+            <form:input type="number" class="form-control" path="productPrice" placeholder="상품 가격을 입력하세요" />
         </div>
         <div class="mb-3">
             <label for="categoryIdx" class="form-label">카테고리</label>
@@ -44,18 +44,45 @@
         </div>
         <div class="mb-3">
             <label for="productStock" class="form-label">재고 수량</label>
-            <form:input type="number" class="form-control" path="productStock" placeholder="재고 수량을 입력하세요" required="true"/>
+            <form:input type="number" class="form-control" path="productStock" placeholder="재고 수량을 입력하세요" />
         </div>
         <div class="mb-3">
             <label for="productImg" class="form-label">제품 사진</label>
-            <form:input type="file" class="form-control" path="productImg" required="true"/>
+            <form:input type="file" class="form-control" path="productImg" />
+        </div>
+        <div class="mb-3">
+            <label for="productImg" class="form-label">제품 사진 미리보기</label>
+            <img id="productImgPreview" class="thumbnail" />
         </div>
         <div class="mb-3">
             <label for="productDetailImg" class="form-label">제품 설명 사진</label>
-            <form:input type="file" class="form-control" path="productDetailImg" required="true"/>
+            <form:input type="file" class="form-control" path="productDetailImg" />
+        </div>
+        <div class="mb-3">
+            <label for="productDetailImg" class="form-label">제품 설명 사진 미리보기</label>
+            <img id="productDetailImgPreview" class="thumbnail" />
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
         <button type="reset" class="btn btn-primary">초기화</button>
 
     </form:form>
+
+    <script>
+        function previewImage(input, targetId) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var targetElement = document.getElementById(targetId);
+                targetElement.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        document.getElementById('productImg').onchange = function () {
+            previewImage(this, 'productImgPreview');
+        };
+
+        document.getElementById('productDetailImg').onchange = function () {
+            previewImage(this, 'productDetailImgPreview');
+        };
+    </script>
 </div>

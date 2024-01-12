@@ -30,6 +30,10 @@
             <p>재고: ${product.productStock}</p>
             <input type="button" value="상세정보수정"
                    onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">
+            <input type="button" value="상품사진수정"
+                   onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">
+            <input type="button" value="상품설명사진수정"
+                   onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">
         </div>
     </div>
 

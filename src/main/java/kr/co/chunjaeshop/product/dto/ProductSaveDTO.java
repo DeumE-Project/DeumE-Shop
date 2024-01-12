@@ -27,5 +27,18 @@ public class ProductSaveDTO {
     private Integer productStock;
     private MultipartFile productImg;
     private MultipartFile productDetailImg;
+
+    /*private Integer productIdx; // primary key, auto increment
+    private Integer sellerIdx; // 외래키
+
+    private String existingProductImg;
+    private String existingDetailImg;*/
+
+   /* private String productThumbSaved; // 상품 리스트 페이지에서 보여질 썸네일 파일명
+    private String productImgOriginal; // 상품 메인 이미지 판매자가 올린 원래 파일명
+    private String productImgSaved; // 상품 메인이미지 서버에 저장된 파일명
+    private String productDetailOriginal; // 상품 상세 설명 이미지 판매자가 올린 원래 파일명
+    private String productDetailSaved; // 상품 상세 설명 이미지 서버에 저장된 파일명*/
+
     
 }

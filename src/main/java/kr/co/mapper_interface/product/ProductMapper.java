@@ -1,10 +1,11 @@
 package kr.co.mapper_interface.product;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
+import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
 import java.util.Map;
 
 
@@ -20,6 +21,10 @@ public interface ProductMapper {
     //ProductDTO productInfoUpdate(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
     ProductDTO findByProductIdx2(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
     int productInfoUpdate(ProductDTO productDTO);
+    ProductDTO findMainImg(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
+    int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
+    ProductDTO findDetailImg(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
+    int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
 
     // 이무현
 
