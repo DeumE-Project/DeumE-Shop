@@ -126,3 +126,21 @@ CREATE TABLE notice (
     notice_content VARCHAR(500) NOT NULL,
     notice_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE cart (
+	cart_idx INT PRIMARY KEY AUTO_INCREMENT,
+	customer_idx INT,
+	seller_idx INT,
+	FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx),
+	FOREIGN KEY (seller_idx) REFERENCES seller (seller_idx)
+);
+
+CREATE TABLE cart_detail (
+	cart_detail_idx INT PRIMARY KEY AUTO_INCREMENT,
+	cart_idx INT,
+	product_idx INT,
+	buy_count INT,
+	product_price INT,
+	FOREIGN KEY (cart_idx) REFERENCES cart (cart_idx),
+	FOREIGN KEY (product_idx) REFERENCES product (product_idx)
+);
