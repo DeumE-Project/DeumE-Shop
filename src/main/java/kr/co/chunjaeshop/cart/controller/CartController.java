@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -119,12 +120,16 @@ public class CartController {
 
         if (orderProductInsertResult) {
             log.info("order_product_idx = {}", orderProductForm.getOrderIdx());
-            boolean result = orderDetailService.insertNewOrderDetails(orderProductForm.getOrderIdx(),
+            boolean orderDetailsInsertResult = orderDetailService.insertNewOrderDetails(orderProductForm.getOrderIdx(),
                                                                         cart.getCartDetailDTOList());
+            if (orderDetailsInsertResult) {
+                log.info("새로운 주문 및 주문 디테일 저장 완료");
+            } else {
+                log.error("새로운 주문 및 주문 디테일 저장 실패");
+            }
         } else {
-
+            log.error("새로운 주문 저장 실패");
         }
-
-        return null;
+        return "redirect:/";
     }
 }
