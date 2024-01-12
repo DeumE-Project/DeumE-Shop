@@ -1,8 +1,9 @@
 package kr.co.chunjaeshop.customer.service;
 
+import kr.co.chunjaeshop.cart.repository.CartRepository;
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 import kr.co.chunjaeshop.customer.repository.CustomerRepository;
-import kr.co.chunjaeshop.security.LoginUserDTO;
+import kr.co.chunjaeshop.product.repository.ProductRepository;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,6 +30,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     // 변재혁
+    private final ProductRepository pRepo;
+    private final CartRepository cartRepo;
+
     @Override
     public List<CustomerDTO> getAllCustomerList() {
         return customerRepository.getAllCustomerList();

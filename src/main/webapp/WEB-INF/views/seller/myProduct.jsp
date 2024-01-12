@@ -98,11 +98,23 @@
                 <div class="col-lg-4">
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
-                        <button class="btn btn-primary" type="submit">검색</button>
+                        <button class="btn btn-primary" type="submit" <c:if test="${empty myProductList}">disabled</c:if>>검색</button>
                     </div>
                 </div>
             </form>
 
+            <c:if test="${empty myProductList}">
+                <div class="text-center my-5">
+                    <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
+                </div>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+                <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
+            </c:if>
+            <c:if test="${not empty myProductList}">
             <table class="table table-bordered">
                 <thead class="table-dark">
                 <tr>
@@ -116,12 +128,19 @@
                 </thead>
                 <c:forEach items="${myProductList}" var="product" varStatus="loop">
                     <tr>
-                        <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
+                        <c:choose>
+                            <c:when test="${searchWord eq '' || searchWord eq null}">
+                                <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${(sellProductSearchPaging.page - 1) * sellProductSearchPaging.pageLimit + loop.index +1}</td>
+                            </c:otherwise>
+                        </c:choose>
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
-                        <td>${product.productStock}</td>
-                        <td><a href="/product/productDetail?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}" class="btn btn-outline-secondary btn-sm">상세 관리</a></td>
-                        <td><a href="#" class="btn btn-outline-primary btn-sm">판매 관리</a></td>
+                        <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
+                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
+                        <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -225,6 +244,7 @@
                                     </li>
                                 </c:otherwise>
                             </c:choose>
+                        </c:if>
                         </c:if>
 
 

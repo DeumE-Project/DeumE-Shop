@@ -16,5 +16,9 @@
 
 
     <!--    변재혁-->
-
+    <insert id="insertNewOrderDetail" parameterType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
+        INSERT
+        INTO order_detail(order_idx, product_idx, product_price, product_count, product_total_price)
+        VALUES(#{orderIdx}, #{productIdx}, #{productPrice}, #{productCount}, #{productTotalPrice})
+    </insert>
 </mapper>

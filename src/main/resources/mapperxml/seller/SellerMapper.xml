@@ -10,30 +10,52 @@
 
 
     <!--    이무현-->
+    <select id="getNotRecognizedList" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+    </select>
 
+    <update id="updateRecognize" >
+        UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
+    </update>
 
+    <select id="notRecognizeCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 0
+    </select>
+
+    <select id="getNotRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+        order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <update id="insertRejectReason" parameterType="java.util.HashMap">
+        UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
+    </update>
     <!--    유지호-->
     <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
-        select * from seller where seller_idx = #{sellerIdx}
+        select seller_idx, seller_name, seller_Phone from seller where seller_idx = #{sellerIdx}
     </select>
 
     <select id="getMyTotalRev" parameterType="Integer" resultType="int">
-        SELECT SUM(A.order_total_price)
+        SELECT ifnull(sum(A.order_total_price), 0) as order_total_price
         FROM order_product A
         LEFT JOIN order_detail B ON A.order_idx = B.order_idx
         LEFT JOIN product C ON B.product_idx = C.product_idx
         WHERE C.seller_idx = #{sellerIdx}
-        GROUP BY C.seller_idx
     </select>
 
     <select id="getDateRev" parameterType="map" resultType="int">
-        SELECT SUM(A.order_total_price) as totalRevenue
+        SELECT ifnull(SUM(A.order_total_price), 0) as totalRevenue
         FROM order_product A
         LEFT JOIN order_detail B ON A.order_idx = B.order_idx
         LEFT JOIN product C ON B.product_idx = C.product_idx
         WHERE C.seller_idx = #{sellerIdx}
         AND DATE_FORMAT(A.order_date, '%Y-%m') = #{thisMonth}
-        GROUP BY C.seller_idx
     </select>
 
     <!--    <select id="getDateRevLast" parameterType="map" resultType="int">
@@ -48,7 +70,7 @@
 
     <select id="avgRev" parameterType="Integer" resultType="int">
         <![CDATA[
-        select avg(sum_Rev)
+        select ifnull(avg(sum_Rev), 0) as AvgsumRev
         from (select A.order_date, sum(A.order_total_price) sum_Rev
         from (select order_idx, customer_idx, date_format(order_date, '%Y-%m') order_date, order_total_price from order_product) A
         left join (select order_idx, product_idx from order_detail) B on A.order_idx = B.order_idx

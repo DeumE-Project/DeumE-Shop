@@ -82,10 +82,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.countMyProductCnt(sellerIdx);
     }
 
+/*
     @Override
     public List<ProductDTO> productPagingList(Map<String, Integer> pagingParams) {
         return productMapper.sellProductPaging(pagingParams);
     }
+*/
 
     @Override
     public int productCount(Integer sellerIdx) {
@@ -113,8 +115,22 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
 
+/*    @Override
+    public List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
+        return productMapper.sellProductManage(sellerIdx, productIdx);
+    }*/
 
 
     // 변재혁
+    private final ProductMapper pMap;
+    @Override
+    public ProductDTO getProductInformationByProductIdx(Integer productIdx) {
+        return pMap.getProductInformationByProductIdx(productIdx);
+    }
 
+    @Override
+    public int getProductPrice(Integer productIdx) {
+        return pMap.getProductPrice(productIdx);
+    }
 }
+

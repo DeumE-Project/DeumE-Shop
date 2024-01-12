@@ -87,5 +87,11 @@ public class ProductServiceImpl implements ProductService {
 
 
     // 변재혁
+    private final ProductRepository pRepo;
 
+    @Override
+    public ProductDTO getProductInformationByProductIdx(Integer productIdx) {
+        ProductDTO result = pRepo.getProductInformationByProductIdx(productIdx);
+        return result;
+    }
 }

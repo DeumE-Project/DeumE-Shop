@@ -1,8 +1,10 @@
 package kr.co.chunjaeshop.product.controller;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
+
 import kr.co.chunjaeshop.product.dto.ProductSaveDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,9 @@ import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -545,7 +550,21 @@ public class ProductController {
 
 
     // 변재혁
+    private final ProductService pService;
 
+    @GetMapping(value = "/detail")
+    public String productDetailForm(@RequestParam(required = false) Integer productIdx,
+                                    Model model) {
+        log.info("productIdx = {}", productIdx);
+        if (productIdx == null) {
+            return "cart/productMainCart";
+        }
+        ProductDTO productDTO = pService.getProductInformationByProductIdx(productIdx);
+        log.info("productDTO = {}", productDTO);
+        model.addAttribute("productDTO", productDTO);
+        model.addAttribute("productIdx", productIdx);
+        return "cart/productMainCart";
+    }
 }
 
 

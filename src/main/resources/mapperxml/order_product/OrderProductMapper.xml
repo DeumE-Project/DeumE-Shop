@@ -12,9 +12,53 @@
     <!--    이무현-->
 
 
-    <!--    유지호-->
+    <!--    유지호 <select id="sellProductManage" resultType="OrderProductDTO">-->
+    <select id="sellProductManagePaging" parameterType="java.util.HashMap" resultType="OrderProductDTO">
+        select D.product_name, C.customer_name, B.product_price, B.product_count, A.order_total_price, A.order_date, A.order_address,
+        case when A.order_status = '1' then '배송중'
+        when A.order_Status = '2' then '배송완료'
+        else '기타'
+        end as order_status
+        from (select order_idx, customer_idx, order_date, order_total_price, concat(order_address1, ' ', order_address2) order_address, order_status from order_product) A
+        left join (select order_idx, product_idx, product_price, product_count from order_detail) B
+        on A.order_idx = B.order_idx
+        left join (select customer_idx, customer_name from customer) C
+        on A.customer_idx = C.customer_idx
+        left join (select product_idx, seller_idx, product_name from product) D
+        on B.product_idx = D.product_idx
+        where D.seller_idx = #{sellerIdx} and B.product_idx = #{productIdx}
+        <if test="searchField != null and searchWord != null">
+            and C.customer_name like concat('%', #{searchWord}, '%')
+        </if>
+        order by A.order_date desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="orderProductCount" parameterType="Integer" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        where B.product_idx = #{productIdx};
+    </select>
+
+    <select id="orderSearchProductCount" parameterType="java.util.Map" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        left join customer C
+        on A.customer_idx = C.customer_idx
+        where B.product_idx = #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
+    </select>
+
 
 
     <!--    변재혁-->
-
+    <insert id="insertNewOrder" parameterType="kr.co.chunjaeshop.cart.dto.OrderProductForm"
+            useGeneratedKeys="true" keyColumn="order_idx" keyProperty="orderIdx">
+        INSERT
+        INTO order_product(customer_idx, order_total_price, order_zipcode, order_address1, order_address2,
+            order_request, order_name, order_phone, order_email)
+        VALUES(#{customerIdx}, #{orderTotalPrice}, #{orderZipcode}, #{orderAddress1}, #{orderAddress2},
+            #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail})
+    </insert>
 </mapper>

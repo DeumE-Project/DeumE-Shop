@@ -1,11 +1,12 @@
 package kr.co.chunjaeshop.seller.service;
 
+
+import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
+import kr.co.chunjaeshop.seller.dto.SellerDTO;
+import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
-import kr.co.chunjaeshop.seller.dto.SellerDTO;
-
-
 
 import java.util.List;
 
@@ -17,7 +18,15 @@ public interface SellerService {
 
 
     // 이무현
+    List<SellerDTO> getNotRecognizedList();
 
+    void updateRecognize(int i, String id);
+
+    NotRecognizePageDTO notRecognizedSellerPagingParam(int page);
+
+    List<SellerDTO> getNotRecognizedSellerList(int page);
+
+    void insertRejectReason(String reason, String id);
 
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
@@ -34,7 +43,6 @@ public interface SellerService {
 
     /*List<ProductDTO> productPagingList(Integer sellerIdx, int page);*/
 
-    List<ProductDTO> productPagingList(Integer sellerIdx, int page);
 
     PageDTO pagingParam(int page, Integer sellerIdx);
 
@@ -42,6 +50,11 @@ public interface SellerService {
 
     PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord);
 
+    List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx, int page, String searchField, String searchWord);
+
+    PageDTO orderManagePagingParm(int page, Integer sellerIdx, Integer productIdx);
+
+    PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord);
 
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
