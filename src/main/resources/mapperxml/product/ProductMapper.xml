@@ -7,13 +7,123 @@
 
 
     <!--    최경락-->
+    <insert id="productSave" parameterType="ProductDTO">
+        INSERT INTO product(seller_idx, category_idx, product_name, product_explain,
+        product_price, product_stock, product_thumb_saved,
+        product_img_original, product_img_saved,
+        product_detail_original, product_detail_saved)
+        values(#{sellerIdx}, #{categoryIdx}, #{productName}, #{productExplain},
+        #{productPrice}, #{productStock},
+        #{productThumbSaved}, #{productImgOriginal}, #{productImgSaved},
+        #{productDetailOriginal}, #{productDetailSaved})
+    </insert>
 
+    <select id="findByProductIdx" resultType="ProductDTO">
+        Select seller_idx, product_idx, category_name, product_name, product_explain,
+        product_price, product_stock, product_img_saved, product_detail_saved
+        From product P left join category C on P.category_idx = C.category_idx
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
+    <select id="findByProductIdx2" resultType="ProductDTO">
+        Select seller_idx, product_idx, category_idx, product_name, product_explain, product_price, product_stock
+        From product
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
+    <update id="productInfoUpdate" parameterType="ProductDTO">
+        update product
+        set product_name=#{productName}, product_price=#{productPrice}, product_stock=#{productStock},
+        category_idx=#{categoryIdx}, product_explain=#{productExplain}
+        Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
+    </update>
 
     <!--    이무현-->
 
 
     <!--    유지호-->
+    <select id="countMyProductCnt" parameterType="Integer" resultType="int">
+        select ifnull(count(product_idx), 0) as countProduct  from product where seller_idx = #{sellerIdx}
+    </select>
 
+    <!--<select id="myProduct" parameterType="Integer" resultType="ProductDTO">
+        select A.product_name, B.category_name, A.product_stock
+        from product A left join category B
+        on A.category_idx = B.category_idx
+        where seller_idx = #{sellerIdx}
+        order by A.product_reg_date
+    </select>-->
+
+<!--    <select id="sellProductPaging" parameterType="java.util.HashMap" resultType="ProductDTO">
+        select A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
+        from product A left join category B
+        on A.category_idx = B.category_idx
+        where seller_idx = #{sellerIdx}
+        order by A.product_reg_date limit #{start}, #{limit}
+    </select>-->
+
+    <select id="productCount" parameterType="Integer" resultType="Integer">
+        select count(product_idx) from product
+        where seller_idx = #{seller_idx}
+    </select>
+
+    <select id="productPagingListWithSearch" parameterType="java.util.Map" resultType="ProductDTO">
+        SELECT
+        A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx
+        FROM product A
+        LEFT JOIN category B ON A.category_idx = B.category_idx
+        WHERE A.seller_idx = #{sellerIdx}
+        <if test="searchField != null and searchWord != null">
+            AND (
+            <choose>
+                <when test="searchField == 'title'">
+                    A.product_name LIKE CONCAT('%', #{searchWord}, '%')
+                </when>
+                <otherwise>
+                    B.category_name LIKE CONCAT('%', #{searchWord}, '%')
+                </otherwise>
+            </choose>
+            )
+        </if>
+        ORDER BY A.product_reg_date LIMIT #{start}, #{limit}
+    </select>
+
+    <select id="searchproductCount" parameterType="java.util.Map" resultType="Integer">
+        SELECT
+        COUNT(A.product_idx)
+        FROM product A
+        LEFT JOIN category B ON A.category_idx = B.category_idx
+        WHERE A.seller_idx = #{sellerIdx}
+        <if test="searchField != null and searchWord != null">
+            AND (
+            <choose>
+                <when test="searchField == 'title'">
+                    A.product_name LIKE CONCAT('%', #{searchWord}, '%')
+                </when>
+                <otherwise>
+                    B.category_name LIKE CONCAT('%', #{searchWord}, '%')
+                </otherwise>
+            </choose>
+            )
+        </if>
+    </select>
+
+<!--    <select id="sellProductManage" resultType="ProductDTO">
+        select D.product_name, C.customer_name, B.product_price, B.product_count, A.order_total_price, A.order_date, &lt;!&ndash;A.order_address,&ndash;&gt;
+        case when A.order_status = 1 then '배송중'
+        when A.order_Status = 2 then '배송완료'
+        else '기타'
+        end as order_status
+        from (select order_idx, customer_idx, order_date, order_total_price, concat(order_address1, order_address2) order_address, order_status from order_product) A
+        left join (select order_idx, product_idx, product_price, product_count from order_detail) B
+        on A.order_idx = B.order_idx
+        left join (select customer_idx, customer_name from customer) C
+        on A.customer_idx = C.customer_idx
+        left join (select product_idx, seller_idx, product_name from product) D
+        on B.product_idx = D.product_idx
+        where D.seller_idx = #{sellerIdx} and B.product_idx = #{productIdx}
+        order by A.order_date desc
+    </select>-->
 
     <!--    변재혁-->
     <select id="getProductInformationByProductIdx" resultType="ProductDTO">
@@ -30,3 +140,4 @@
         WHERE product_idx = #{productIdx}
     </select>
 </mapper>
+

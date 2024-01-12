@@ -10,8 +10,60 @@
 
 
     <!--    이무현-->
+    <insert id="noticeSave" parameterType="NoticeDTO">
+        insert into notice(notice_title, notice_content)
+        values(#{noticeTitle}, #{noticeContent})
+    </insert>
 
+    <select id="noticeAllList" resultType="NoticeDTO">
+        select notice_idx, notice_title, notice_content, notice_date
+        from notice order by notice_idx desc
+    </select>
 
+    <select id="findByIdx" parameterType="Integer" resultType="NoticeDTO">
+        select notice_idx, notice_title, notice_content, notice_date
+        from notice where notice_idx=#{idx}
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        delete from notice where notice_idx=#{idx}
+    </delete>
+
+    <update id="update" parameterType="NoticeDTO">
+        update notice set notice_title=#{noticeTitle}, notice_content=#{noticeContent}
+        where notice_idx=#{noticeIdx}
+    </update>
+
+    <select id="noticeCount" resultType="Integer">
+        select count(notice_idx) from notice
+    </select>
+    <select id="noticeSearchCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(notice_idx) from notice
+        <if test='searchField=="title"'>
+            WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        <if test='searchField == "content"'>
+            WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+    </select>
+
+    <select id="noticePagingList" parameterType="java.util.HashMap" resultType="NoticeDTO">
+        select notice_idx, notice_title, notice_content, notice_date
+        from notice order by notice_idx desc limit #{start}, #{limit}
+    </select>
+
+    <select id="noticeSearchList" parameterType="java.util.HashMap" resultType="NoticeDTO">
+        select notice_idx, notice_title, notice_content, notice_date
+        from notice
+        <if test="searchField == 'title'">
+            WHERE notice_title LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        <if test="searchField == 'content'">
+            WHERE notice_content LIKE CONCAT('%', #{searchWord}, '%')
+        </if>
+        order by notice_idx desc
+        limit #{start}, #{limit}
+    </select>
     <!--    유지호-->
 
 
