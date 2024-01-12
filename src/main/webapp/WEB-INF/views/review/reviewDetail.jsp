@@ -13,6 +13,11 @@
 <body class="bg-light">
 <div class="container mt-4">
     <table class="table">
+        <input type="hidden" value="${productReview.productIdx}">
+        <tr>
+            <th>리뷰사진</th>
+            <td><img src="/review/${productReview.reviewImgSaved}" alt="리뷰 이미지" class="img-fluid"></td>
+        </tr>
         <tr>
             <th>번호</th>
             <td>${productReview.reviewIdx}</td>
@@ -22,20 +27,16 @@
             <td>${productReview.customerIdx}</td>
         </tr>
         <tr>
-            <th>내용</th>
-            <td>${productReview.reviewContent}</td>
+            <th>리뷰내용</th>
+            <td><c:out value="${productReview.reviewContent}"/></td>
         </tr>
         <tr>
-            <th>별점</th>
+            <th>리뷰별점</th>
             <td>${productReview.reviewStar}</td>
         </tr>
         <tr>
-            <th>파일이름</th>
-            <td>${productReview.reviewImgSaved}</td>
-        </tr>
-        <tr>
             <th>작성시간</th>
-            <td>${productReview.reviewDate}</td>
+            <td>${productReview.reviewDateStr}</td>
         </tr>
     </table>
 
@@ -51,7 +52,7 @@
         <button class="btn btn-success" id="comment-write-btn" onclick="commentWrite()"  onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" >댓글작성</button>
     </div>
 
-   <%-- <div id="comment-list">
+    <div id="comment-list">
         <table class="table table-striped">
             <tr>
                 <th>댓글번호</th>
@@ -70,7 +71,7 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>--%>
+    </div>
 </div>
 
 </body>

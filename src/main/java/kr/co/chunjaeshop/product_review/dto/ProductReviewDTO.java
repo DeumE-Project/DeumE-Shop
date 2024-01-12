@@ -2,7 +2,9 @@ package kr.co.chunjaeshop.product_review.dto;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class ProductReviewDTO {
@@ -16,7 +18,15 @@ public class ProductReviewDTO {
         private String reviewImgSaved; // 고객이 업로드한 이미지 서버에 저장된 파일명
         private LocalDateTime reviewDate; // 리뷰 일자
 
-    // 남원우
+        public String getReviewDateStr() {
+                if (this.reviewDate != null) {
+                        return this.reviewDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                } else {
+                        return "no date available";
+                }
+        }
+
+        // 남원우
 
 
     // 최경락
