@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
+
+import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.order_product.repository.OrderProductRepository;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -26,6 +28,7 @@ public class SellerServiceImpl implements SellerService {
     private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
 
+
     // 남원우
 
 
@@ -33,6 +36,55 @@ public class SellerServiceImpl implements SellerService {
 
 
     // 이무현
+    @Override
+    public List<SellerDTO> getNotRecognizedList() {
+        return sellerRepository.getNotRecognizedList();
+    }
+
+    @Override
+    public void updateRecognize(int i, String id) {
+        sellerRepository.updateRecognize(i,id);
+    }
+
+    int recognizePageLimit = 3;
+    int recognizeBlockLimit = 3;
+    @Override
+    public List<SellerDTO> getNotRecognizedSellerList(int page) {
+        int pageStart = (page-1)*recognizePageLimit;
+        Map<String, Integer> notRecognizedSellerPagingParam = new HashMap<>();
+        notRecognizedSellerPagingParam.put("start", pageStart);
+        notRecognizedSellerPagingParam.put("limit", recognizePageLimit);
+        List<SellerDTO> notRecognizedSellerList = sellerRepository.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
+
+        return notRecognizedSellerList;
+    }
+
+    @Override
+    public void insertRejectReason(String reason, String id) {
+        Map<String, Object> rejectParam = new HashMap<>();
+        rejectParam.put("reason", reason);
+        rejectParam.put("id", id);
+        sellerRepository.insertRejectReason(rejectParam);
+    }
+
+    @Override
+    public NotRecognizePageDTO notRecognizedSellerPagingParam(int page) {
+        int notRecognizeCount = sellerRepository.notRecognizeCount();
+        int maxPage = (int)(Math.ceil((double) notRecognizeCount / recognizePageLimit));
+        int startPage = (((int)(Math.ceil((double) page / recognizeBlockLimit))) - 1) * recognizeBlockLimit + 1;
+        int endPage = startPage + recognizeBlockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        NotRecognizePageDTO notRecognizePageDTO = new NotRecognizePageDTO();
+        notRecognizePageDTO.setPage(page);
+        notRecognizePageDTO.setMaxPage(maxPage);
+        notRecognizePageDTO.setStartPage(startPage);
+        notRecognizePageDTO.setEndPage(endPage);
+        return notRecognizePageDTO;
+
+    }
+
 
 
     // 유지호

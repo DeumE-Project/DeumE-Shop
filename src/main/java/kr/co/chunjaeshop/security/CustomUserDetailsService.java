@@ -1,6 +1,5 @@
 package kr.co.chunjaeshop.security;
 
-import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 import kr.co.mapper_interface.customer.CustomerMapper;
 import kr.co.mapper_interface.seller.SellerMapper;
 import lombok.extern.log4j.Log4j2;

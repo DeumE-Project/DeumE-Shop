@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.order_product.repository;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface OrderProductRepository {
     int orderSearchProductCount(Integer productIdx, String searchField, String searchWord);
 
     // 변재혁
-
+    int insertNewOrder(OrderProductForm orderProductForm);
 }

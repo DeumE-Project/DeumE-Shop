@@ -26,7 +26,8 @@
     </select>
 
     <select id="findByProductIdx2" resultType="ProductDTO">
-        Select seller_idx, product_idx, category_idx, product_name, product_explain, product_price, product_stock
+        Select seller_idx, product_idx, category_idx, product_name, product_explain, product_price, product_stock,
+        product_thumb_saved, product_img_original, product_img_saved, product_detail_original, product_detail_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
@@ -35,6 +36,31 @@
         update product
         set product_name=#{productName}, product_price=#{productPrice}, product_stock=#{productStock},
         category_idx=#{categoryIdx}, product_explain=#{productExplain}
+        Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
+    </update>
+
+    <select id="findMainImg" resultType="ProductDTO">
+        Select seller_idx, product_idx, product_thumb_saved, product_img_original, product_img_saved
+        From product
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
+    <update id="productImgUpdate" parameterType="ProductDTO">
+        update product
+        set product_thumb_saved=#{productThumbSaved}, product_img_original=#{productImgOriginal},
+        product_img_saved=#{productImgSaved}
+        Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
+    </update>
+
+    <select id="findDetailImg" resultType="ProductDTO">
+        Select seller_idx, product_idx, product_detail_original, product_detail_saved
+        From product
+        Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
+    </select>
+
+    <update id="productDetailImgUpdate" parameterType="ProductDTO">
+        update product
+        set product_detail_original=#{productDetailOriginal}, product_detail_saved=#{productDetailSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
@@ -126,5 +152,18 @@
     </select>-->
 
     <!--    변재혁-->
+    <select id="getProductInformationByProductIdx" resultType="ProductDTO">
+        SELECT product_idx, p.seller_idx, category_idx, product_name, product_explain,
+               product_price, product_stock, product_thumb_saved, product_img_original, product_img_saved,
+               product_detail_original, product_detail_saved, product_status, product_sales, s.seller_name
+        FROM product p INNER JOIN seller s ON p.seller_idx = s.seller_idx
+        WHERE product_idx = #{productIdx}
+    </select>
 
+    <select id="getProductPrice" parameterType="ProductDTO">
+        SELECT product_price
+        FROM product
+        WHERE product_idx = #{productIdx}
+    </select>
 </mapper>
+

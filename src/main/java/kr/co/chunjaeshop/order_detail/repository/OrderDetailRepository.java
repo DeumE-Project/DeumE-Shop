@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.order_detail.repository;
 
+import kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO;
+
 public interface OrderDetailRepository {
 
     // 남원우
@@ -15,5 +17,5 @@ public interface OrderDetailRepository {
 
 
     // 변재혁
-
+    int insertNewOrderDetail(OrderDetailDTO orderDetailDTO);
 }

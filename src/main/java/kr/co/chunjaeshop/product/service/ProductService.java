@@ -1,7 +1,8 @@
 package kr.co.chunjaeshop.product.service;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-
+import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
+import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 
 public interface ProductService {
 
@@ -13,9 +14,11 @@ public interface ProductService {
     int productSave(ProductDTO productDTO);
     ProductDTO findByProductIdx(Integer sellerIdx, Integer productIdx);
     ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx);
-
-    //ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx);
     boolean productInfoUpdate(ProductDTO productDTO);
+    ProductDTO findMainImg(Integer sellerIdx, Integer productIdx);
+    boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
+    ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx);
+    boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
 
     // 이무현
 
@@ -27,5 +30,5 @@ public interface ProductService {
 
 
     // 변재혁
-
+    ProductDTO getProductInformationByProductIdx(Integer productIdx);
 }

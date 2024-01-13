@@ -1,5 +1,7 @@
 package kr.co.chunjaeshop.order_product.repository;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
+import kr.co.mapper_interface.order_product.OrderProductMapper;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.mapper_interface.order_product.OrderProductMapper;
 import kr.co.mapper_interface.product.ProductMapper;
@@ -58,5 +60,8 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
 
     // 변재혁
-
+    @Override
+    public int insertNewOrder(OrderProductForm orderProductForm) {
+        return orderProductMapper.insertNewOrder(orderProductForm);
+    }
 }

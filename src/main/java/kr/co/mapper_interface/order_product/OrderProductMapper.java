@@ -1,5 +1,6 @@
 package kr.co.mapper_interface.order_product;
 
+import kr.co.chunjaeshop.cart.dto.OrderProductForm;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,5 +28,5 @@ public interface OrderProductMapper {
     int orderSearchProductCount(Map<String, Object> params);
 
     // 변재혁
-
+    int insertNewOrder(OrderProductForm orderProductForm);
 }

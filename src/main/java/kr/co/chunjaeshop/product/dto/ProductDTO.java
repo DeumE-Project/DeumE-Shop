@@ -35,5 +35,5 @@ public class ProductDTO {
     private String categoryName;
 
     // 변재혁
-
+    private String sellerName;
 }

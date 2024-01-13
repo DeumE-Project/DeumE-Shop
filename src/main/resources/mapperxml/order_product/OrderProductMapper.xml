@@ -53,5 +53,12 @@
 
 
     <!--    변재혁-->
-
+    <insert id="insertNewOrder" parameterType="kr.co.chunjaeshop.cart.dto.OrderProductForm"
+            useGeneratedKeys="true" keyColumn="order_idx" keyProperty="orderIdx">
+        INSERT
+        INTO order_product(customer_idx, order_total_price, order_zipcode, order_address1, order_address2,
+            order_request, order_name, order_phone, order_email)
+        VALUES(#{customerIdx}, #{orderTotalPrice}, #{orderZipcode}, #{orderAddress1}, #{orderAddress2},
+            #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail})
+    </insert>
 </mapper>
