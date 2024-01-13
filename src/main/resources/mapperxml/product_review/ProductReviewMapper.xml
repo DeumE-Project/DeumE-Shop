@@ -12,11 +12,15 @@
     </insert>
 
     <select id="reviewList" resultType="ProductReviewDTO">
-        select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date from product_review
+        SELECT review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
+        FROM product_review
     </select>
 
+
     <select id="findByIdx" resultType="ProductReviewDTO">
-        select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date from product_review where review_idx= #{review_idx}
+        select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
+        from product_review
+        where review_idx= #{review_idx}
     </select>
 
     <update id="update" parameterType="ProductReviewDTO">
