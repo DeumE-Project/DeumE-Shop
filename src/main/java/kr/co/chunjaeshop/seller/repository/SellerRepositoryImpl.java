@@ -1,5 +1,8 @@
 package kr.co.chunjaeshop.seller.repository;
 
+
+
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 import kr.co.mapper_interface.seller.SellerMapper;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+
 
 
 @Repository
@@ -74,6 +78,17 @@ public class SellerRepositoryImpl implements SellerRepository {
     @Override
     public int avgRev(Integer sellerIdx) {
         return sellerMapper.avgRev(sellerIdx);
+    }
+
+
+    @Override
+    public List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx) {
+        return sellerMapper.monthlySalesList(sellerIdx);
+    }
+
+    @Override
+    public List<SellDashBoardDTO> categorySalesList(Integer sellerIdx) {
+        return sellerMapper.categorySalesList(sellerIdx);
     }
 
     // 변재혁

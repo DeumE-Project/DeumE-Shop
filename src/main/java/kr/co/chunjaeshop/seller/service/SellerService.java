@@ -7,6 +7,8 @@ import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
+
 
 import java.util.List;
 
@@ -56,9 +58,14 @@ public interface SellerService {
 
     PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord);
 
+    List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> categorySales(Integer sellerIdx);
+
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
+
 
 
 }
