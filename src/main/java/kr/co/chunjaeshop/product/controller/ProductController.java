@@ -41,19 +41,16 @@ public class ProductController {
 
     // 최경락
     private String getFolder() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //ex) 2024-01-13
         Date date = new Date();
         String str = sdf.format(date);
-//        String replaced = str.replace("-", File.separator);
-//        log.info("replaces = {}", replaced);
-//        return replaced;
         return str;
     }
 
     private boolean checkImageType(File file) {
         try {
             String contentType = Files.probeContentType(file.toPath());
-            log.info("contentType = {}", contentType);
+            log.info("contentType={}", contentType);
 
             // MIME 유형이 jpg, png, jpeg 중 하나인지 확인
             return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png")
@@ -72,12 +69,12 @@ public class ProductController {
     @PostMapping("/productSave")
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
                        BindingResult bindingResult, HttpServletRequest request) {
-        // 파일 저장 경로
+        // 파일 저장 경로 : product/yyyy-MM-dd
         String uploadFolder = request.getServletContext().getRealPath("/product");
 
         String uploadFolderPath = getFolder(); // yyyy-MM-dd
         File uploadPath = new File(uploadFolder, uploadFolderPath);// /product/yyyy-MM-dd
-        log.info("upload path = {}", uploadPath);
+        log.info("upload path={}", uploadPath);
         // 저장경로가 없으면 생성
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
@@ -93,11 +90,11 @@ public class ProductController {
         if (bindingResult.hasErrors()) {
             log.error("productSaveDTO has error");
         }
-        log.info("productSaveDTO = {} " + productSaveDTO);
+        log.info("productSaveDTO=} " + productSaveDTO);
 
 
         // 파일 업로드하는 로직
-        UUID uuid = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID(); //random uuid 생성
 
         String fileImgOriginal
                 = productSaveDTO.getProductImg().getOriginalFilename();
@@ -105,19 +102,19 @@ public class ProductController {
 
         String fileDetailOriginal
                 = productSaveDTO.getProductDetailImg().getOriginalFilename();
-        log.info("fileDetailOriginal = {} " + fileDetailOriginal);
+        log.info("fileDetailOriginal=} ", fileDetailOriginal);
 
         String fileImgSaved = uuid.toString()+ "_"+  fileImgOriginal;
-        log.info("fileImgSaved = {} " + fileImgSaved);
+        log.info("fileImgSaved={} ",fileImgSaved);
 
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
-        log.info("fileImgSavedUploadPath = {} " + fileImgSavedUploadPath);
+        log.info("fileImgSavedUploadPath={} ",fileImgSavedUploadPath);
 
         String fileDetailSaved = uuid.toString()+ "_"+ fileDetailOriginal;
-        log.info("fileDetailSaved = {} " + fileDetailSaved);
+        log.info("fileDetailSaved={} ",fileDetailSaved);
 
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
-        log.info("fileDetailSavedUploadPath = {} " + fileDetailSavedUploadPath);
+        log.info("fileDetailSavedUploadPath={} ",fileDetailSavedUploadPath);
         try {
             //Original은 원본 이름을 저장하는데 사용.
             productSaveDTO.getProductImg().transferTo(new File(fileImgSavedUploadPath));
@@ -125,9 +122,9 @@ public class ProductController {
 
             // 썸네일 생성 및 저장
             String thumbnailFilename = "thumb_" + uuid.toString() + productSaveDTO.getProductImg().getOriginalFilename();
-            log.info("thumbnailFilename = {} " + thumbnailFilename);
+            log.info("thumbnailFilename={} ",thumbnailFilename);
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
-            log.info("thumbnailFilePath = {} " + thumbnailFilePath);
+            log.info("thumbnailFilePath={} ", thumbnailFilePath);
 
             Thumbnails.of(productSaveDTO.getProductImg().getInputStream())
                     .size(100, 100)
@@ -165,10 +162,10 @@ public class ProductController {
             productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
             productDTO.setProductDetailOriginal(fileDetailOriginal);
             productDTO.setProductDetailSaved(uploadFolderPath + "/" + fileDetailSaved);
-            log.info("productDTO = {} " + productDTO);
+            log.info("productDTO={} ", productDTO);
 
             int saveResult = productService.productSave(productDTO);
-            log.info("saveResult = {} " + saveResult);
+            log.info("saveResult={} ",saveResult);
             if (saveResult > 0) {
                 return "redirect:/seller/myProduct?sellerIdx="+productDTO.getSellerIdx(); // 저장 성공 시 상품 목록 페이지로 redirect
             } else {
@@ -221,7 +218,7 @@ public class ProductController {
 
         boolean result = productService.productInfoUpdate(productDTO);
         if (result) {
-            return "redirect:/product/productDetail?sellerIdx="+productDTO.getSellerIdx()+"&"+"productIdx="+productDTO.getProductIdx();
+            return "redirect:/product/productDetail?sellerIdx="+productDTO.getSellerIdx()+"&productIdx="+productDTO.getProductIdx();
         } else {
         }
         return "redirect:/seller/mySellerPage?sellerIdx="+productDTO.getSellerIdx();
@@ -246,7 +243,7 @@ public class ProductController {
     @PostMapping("/productImgUpdate")
     public String productImgUpdate(@Validated @ModelAttribute ProductMainImgUpdateDTO productMainImgUpdateDTO,
                                    BindingResult bindingResult, HttpServletRequest request) {
-        log.info("mainImg = {}", productMainImgUpdateDTO);
+        log.info("mainImg={}", productMainImgUpdateDTO);
 
         String uploadFolder = request.getServletContext().getRealPath("/product");
 
@@ -260,25 +257,25 @@ public class ProductController {
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
-        log.info("uuid{}" + uuid);
+        log.info("uuid={}",uuid);
 
         String fileImgOriginal
                 = productMainImgUpdateDTO.getMainImg().getOriginalFilename();
-        log.info("fileImgOriginal={}"+  fileImgOriginal);
+        log.info("fileImgOriginal={}",fileImgOriginal);
 
         String fileImgSaved = uuid.toString() + "_" + fileImgOriginal;
-        log.info("fileImgSaved = {} " + fileImgSaved);
+        log.info("fileImgSaved={}",fileImgSaved);
 
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
-        log.info("fileImgSavedUploadPath = {} " + fileImgSavedUploadPath);
+        log.info("fileImgSavedUploadPath={}",fileImgSavedUploadPath);
         try {
             //Original은 원본 이름을 저장하는데 사용.
             productMainImgUpdateDTO.getMainImg().transferTo(new File(fileImgSavedUploadPath));
 
             String thumbnailFilename = "thumb_" + uuid.toString() + productMainImgUpdateDTO.getMainImg().getOriginalFilename();
-            log.info("thumbnailFilename = {} " + thumbnailFilename);
+            log.info("thumbnailFilename={}",thumbnailFilename);
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
-            log.info("thumbnailFilePath = {} " + thumbnailFilePath);
+            log.info("thumbnailFilePath={}",thumbnailFilePath);
 
             Thumbnails.of(productMainImgUpdateDTO.getMainImg().getInputStream())
                     .size(100, 100)
@@ -295,10 +292,10 @@ public class ProductController {
                 return "redirect:/product/productDetail?sellerIdx=" + productMainImgUpdateDTO.getSellerIdx() + "&productIdx=" + productMainImgUpdateDTO.getProductIdx();
             } else {
                 log.error("사진 등록에 실패했습니다.");
-                bindingResult.addError(new FieldError("productSaveDTO", "",
+                bindingResult.addError(new FieldError("productMainImgUpdateDTO", "",
                         "사진 등록에 실패했습니다. 다시 시도해주세요."));
                 // 에러 처리 로직 추가
-                log.error("productDTO, sellerIdx, 또는 productIdx가 null입니다.");
+                log.error("productMainImgUpdateDTO, sellerIdx, 또는 productIdx가 null입니다.");
                 // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
                 return "redirect:/errorPage";
             }
@@ -332,7 +329,7 @@ public class ProductController {
     @PostMapping("/productDetailImgUpdate")
     public String productDetailImgUpdate(@Validated @ModelAttribute ProductDetailImgUpdateDTO productDetailImgUpdateDTO,
                                    BindingResult bindingResult, HttpServletRequest request) {
-        log.info("detailImg = {}", productDetailImgUpdateDTO);
+        log.info("detailImg={}", productDetailImgUpdateDTO);
 
         String uploadFolder = request.getServletContext().getRealPath("/product");
 
@@ -346,17 +343,17 @@ public class ProductController {
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
-        log.info("uuid{}" + uuid);
+        log.info("uuid = {}",uuid);
 
         String fileDetailOriginal
                 = productDetailImgUpdateDTO.getDetailImg().getOriginalFilename();
-        log.info("fileDetailOriginal={}"+  fileDetailOriginal);
+        log.info("fileDetailOriginal = {}",fileDetailOriginal);
 
         String fileDetailSaved = uuid.toString() + "_" + fileDetailOriginal;
-        log.info("fileDetailSaved = {} " + fileDetailSaved);
+        log.info("fileDetailSaved = {}",fileDetailSaved);
 
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
-        log.info("fileImgSavedUploadPath = {} " + fileDetailSavedUploadPath);
+        log.info("filDetailSavedUploadPath = {}" ,fileDetailSavedUploadPath);
         try {
             //Original은 원본 이름을 저장하는데 사용.
             productDetailImgUpdateDTO.getDetailImg().transferTo(new File(fileDetailSavedUploadPath));
@@ -373,10 +370,10 @@ public class ProductController {
                 return "redirect:/product/productDetail?sellerIdx=" + productDetailImgUpdateDTO.getSellerIdx() + "&productIdx=" + productDetailImgUpdateDTO.getProductIdx();
             } else {
                 log.error("사진 등록에 실패했습니다.");
-                bindingResult.addError(new FieldError("productSaveDTO", "",
+                bindingResult.addError(new FieldError("productDetailImgUpdateDTO", "",
                         "사진 등록에 실패했습니다. 다시 시도해주세요."));
                 // 에러 처리 로직 추가
-                log.error("productDTO, sellerIdx, 또는 productIdx가 null입니다.");
+                log.error("productDetailImgUpdateDTO, sellerIdx, 또는 productIdx가 null입니다.");
                 // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
                 return "redirect:/errorPage";
             }
