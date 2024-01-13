@@ -51,7 +51,7 @@
             <form:input type="file" class="form-control" path="productImg" />
         </div>
         <div class="mb-3">
-            <label for="productImg" class="form-label">제품 사진 미리보기</label>
+            <label for="productImg" class="form-label">제품 사진</label>
             <img id="productImgPreview" class="thumbnail" />
         </div>
         <div class="mb-3">
@@ -59,7 +59,7 @@
             <form:input type="file" class="form-control" path="productDetailImg" />
         </div>
         <div class="mb-3">
-            <label for="productDetailImg" class="form-label">제품 설명 사진 미리보기</label>
+            <label for="productDetailImg" class="form-label">제품 상세 설명 사진</label>
             <img id="productDetailImgPreview" class="thumbnail" />
         </div>
         <button type="submit" class="btn btn-primary">등록</button>

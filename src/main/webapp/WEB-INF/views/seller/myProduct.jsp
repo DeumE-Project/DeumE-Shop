@@ -139,7 +139,7 @@
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
                         <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
-                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
+                        <td><a href="/product/productDetail?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
                         <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
                 </c:forEach>
