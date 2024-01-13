@@ -8,6 +8,7 @@ import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
@@ -290,6 +291,17 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         return orderSearchProductPagingPageDTO;
     }
 
+    @Override
+    public List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx) {
+        List<SellDashBoardDTO> monthlySalesList = sellerRepository.monthlySalesList(sellerIdx);
+        return monthlySalesList;
+    }
+
+    @Override
+    public List<SellDashBoardDTO> categorySales(Integer sellerIdx) {
+        List<SellDashBoardDTO> categorySalesList = sellerRepository.categorySalesList(sellerIdx);
+        return categorySalesList;
+    }
 
     // 변재혁
     @Override
