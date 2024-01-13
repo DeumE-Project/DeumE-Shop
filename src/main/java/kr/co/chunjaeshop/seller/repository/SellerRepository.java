@@ -1,10 +1,13 @@
 package kr.co.chunjaeshop.seller.repository;
 
 
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 
 
 import kr.co.chunjaeshop.security.RegisterFormDTO;
+
+import java.util.List;
 
 public interface SellerRepository {
 
@@ -28,8 +31,14 @@ public interface SellerRepository {
 
     int avgRev(Integer sellerIdx);
 
+    List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> categorySalesList(Integer sellerIdx);
+
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
+
+
 
 }
