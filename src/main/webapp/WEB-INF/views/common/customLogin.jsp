@@ -81,9 +81,14 @@
 </section>
 <script>
     const loginFailMsg = '<c:out value="${loginFailMsg}" />'
+    const sellerLoginFailMsg = '<c:out value="${sellerLoginFailMsg}"/>';
+
     $(document).ready(function () {
         if (loginFailMsg) {
             alert(loginFailMsg);
+        }
+        if (sellerLoginFailMsg) {
+            alert(sellerLoginFailMsg);
         }
     });
     let loginBtn = function () {

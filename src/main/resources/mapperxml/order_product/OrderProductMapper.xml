@@ -61,4 +61,68 @@
         VALUES(#{customerIdx}, #{orderTotalPrice}, #{orderZipcode}, #{orderAddress1}, #{orderAddress2},
             #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail})
     </insert>
+
+    <resultMap id="orderWithOrderDetails" type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO">
+        <id column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
+        <result column="order_total_price" jdbcType="INTEGER" property="orderTotalPrice"/>
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus"/>
+        <result column="order_zipcode" jdbcType="VARCHAR" property="orderZipcode"/>
+        <result column="order_address1" jdbcType="VARCHAR" property="orderAddress1"/>
+        <result column="order_address2" jdbcType="VARCHAR" property="orderAddress2"/>
+        <result column="order_payment" jdbcType="INTEGER" property="orderPayment"/>
+        <result column="order_request" jdbcType="VARCHAR" property="orderRequest"/>
+        <result column="order_name" jdbcType="VARCHAR" property="orderName"/>
+        <result column="order_phone" jdbcType="VARCHAR" property="orderPhone"/>
+        <result column="order_email" jdbcType="VARCHAR" property="orderEmail"/>
+
+        <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
+            <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
+            <result column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+            <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+            <result column="product_count" jdbcType="INTEGER" property="productCount"/>
+            <result column="product_total_price" jdbcType="INTEGER" property="productTotalPrice"/>
+        </collection>
+    </resultMap>
+
+    <select id="getOrderProductWithOrderDetails" resultMap="orderWithOrderDetails">
+        SELECT op.order_idx, customer_idx, order_date, order_total_price, order_status,
+               order_zipcode, order_address1, order_address2, order_payment, order_request,
+               order_name, order_phone, order_email, order_detail_idx, product_idx,
+               product_price, product_count, product_total_price
+        FROM order_product op INNER JOIN order_detail od
+            ON op.order_idx = od.order_idx
+        WHERE op.order_idx = #{orderIdx} AND customer_idx = #{customerIdx}
+    </select>
+
+    <resultMap id="orderWithOrderDetailsForOrderHistoryList" type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO">
+        <id column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
+        <result column="order_total_price" jdbcType="INTEGER" property="orderTotalPrice"/>
+
+        <result column="order_detail_count" jdbcType="INTEGER" property="orderDetailCount"/>
+
+        <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
+            <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
+            <result column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+
+            <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
+                <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+                <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="selectOrderProductHistoryList" resultMap="orderWithOrderDetailsForOrderHistoryList">
+        SELECT op.order_idx, customer_idx, order_date, order_total_price, count(op.order_idx) AS order_detail_count,
+            order_detail_idx, od.product_idx, p.product_name
+        FROM order_product op INNER JOIN order_detail od ON op.order_idx = od.order_idx
+            INNER JOIN product p ON od.product_idx = p.product_idx
+        WHERE op.customer_idx = #{customerIdx}
+        GROUP BY op.order_idx;
+    </select>
 </mapper>

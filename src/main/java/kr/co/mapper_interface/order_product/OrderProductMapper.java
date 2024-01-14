@@ -29,4 +29,9 @@ public interface OrderProductMapper {
 
     // 변재혁
     int insertNewOrder(OrderProductForm orderProductForm);
+
+    OrderProductDTO getOrderProductWithOrderDetails(@Param("orderIdx") Integer orderIdx,
+                                                    @Param("customerIdx") Integer customerIdx);
+
+    List<OrderProductDTO> selectOrderProductHistoryList(Integer customerIdx);
 }

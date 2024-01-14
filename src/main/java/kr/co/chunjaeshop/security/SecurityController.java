@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -27,5 +28,34 @@ public class SecurityController {
     @GetMapping(value = "/sample/customer")
     public void sampleCustomer(Principal principal, HttpServletResponse httpServletResponse) {
         log.info("principal = {}", principal);
+    }
+
+    @GetMapping(value = "/sample/seller")
+    public void sampleSeller(Principal principal, HttpServletResponse httpServletResponse) {
+        log.info("principal = {}", principal);
+    }
+
+    @GetMapping(value = "/sample/admin")
+    public void sampleAdmin(Principal principal, HttpServletResponse httpServletResponse) {
+        log.info("principal = {}", principal);
+    }
+
+    @GetMapping(value = "/session-test")
+    public void sessionTest(HttpSession httpSession) {
+        log.info("httpSession id = {}", httpSession.getId());
+        httpSession.invalidate();
+    }
+
+    @GetMapping(value = "/seller-login-fail")
+    public String sellerLoginFail(Principal principal,
+                                HttpServletResponse httpServletResponse,
+                                HttpSession httpSession) {
+        log.info("principal = {}", principal);
+        log.info("session id = {}", httpSession.getId());
+        String sellerLoginFailMsg = (String) httpSession.getAttribute("sellerLoginFailMsg");
+        log.info("sellerLoginFailMsg = {}", sellerLoginFailMsg);
+        httpSession.invalidate();
+        log.info("after invalidate session id = {}", httpSession.getId());
+        return "common/customLogin";
     }
 }

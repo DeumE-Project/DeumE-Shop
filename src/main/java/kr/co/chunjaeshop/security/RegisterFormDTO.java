@@ -53,4 +53,6 @@ public class RegisterFormDTO {
     private String globalError;
 
     private String passwordErrorMsg;
+
+    private String sellerTaxId;
 }

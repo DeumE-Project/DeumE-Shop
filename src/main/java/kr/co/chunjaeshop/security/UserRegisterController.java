@@ -15,6 +15,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+
 @Controller
 @RequestMapping("/register")
 @RequiredArgsConstructor
@@ -42,12 +44,25 @@ public class UserRegisterController {
             }
         }
 
+        if (StringUtils.hasText(registerFormDTO.getType())) {
+            if (registerFormDTO.getType().equals("seller")) {
+                model.addAttribute("userType", "seller");
+                if (!StringUtils.hasText(registerFormDTO.getSellerTaxId()) ||
+                        !Pattern.matches("^([0-9]{3})-([0-9]{2})-([0-9]{5})$", registerFormDTO.getSellerTaxId())) {
+                    bindingResult.addError(new FieldError("registerFormDTO", "sellerTaxId",
+                            registerFormDTO.getSellerTaxId(), false, null, null,
+                            "사업자 번호는 xxx-xx-xxxxx 입니다"));
+                }
+            }
+        }
+
         if (bindingResult.hasErrors()) {
             log.info("registerFormDTO has errors!");
             bindingResult.addError(new FieldError("registerFormDTO", "globalError",
                     "회원가입 양식에 맞게 모든 값을 입력해주세요"));
             return "common/customRegister";
         }
+
         // 비밀번호 암호화
         registerFormDTO.setPassword1(passwordEncoder.encode(registerFormDTO.getPassword1()));
         boolean registerResult = false;
@@ -55,10 +70,10 @@ public class UserRegisterController {
             log.info("고객 회원가입");
             registerResult = customerService.customerRegister(registerFormDTO);
         } else if (registerFormDTO.getType().equals("seller")) {
-            log.info("고객 회원가입");
+            log.info("판매자 회원가입");
             registerResult = sellerService.sellerRegister(registerFormDTO);
         } else {
-            log.info("register type error");
+            log.error("register type error");
         }
         if (registerResult) {
             log.info("회원가입 성공");

@@ -86,7 +86,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="password1">비밀번호</label>
+                    <label for="password1">
+                        비밀번호<br/>
+                        5자리 이상 16자리 이하, 영어 대소문자 각각 한 개 이상, 숫자 한 개 이상, 특수기호 !, @, #, $ 중 한 개 이상
+                    </label>
                     <form:input path="password1" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"
                                 required="true"/>
                     <div class="invalid-feedback">
@@ -98,13 +101,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="password2">비밀번호 확인</label><br/>
-                    <form:errors path="passwordErrorMsg" cssClass="text-danger"/><br/>
                     <form:input path="password2" type="password" class="form-control" placeholder="비밀번호를 재입력해주세요"
                                 required="true"/>
                     <div class="invalid-feedback">
                         비밀번호를 다시 한 번 입력해주세요
                     </div>
                     <div>
+                        <form:errors path="passwordErrorMsg" cssClass="text-danger"/><br/>
                         <form:errors path="password2" cssClass="text-danger"/>
                     </div>
                 </div>
@@ -173,6 +176,12 @@
                         <form:errors path="type" cssClass="text-danger"/>
                     </div>
                 </div>
+                <div class="mb-3" id="div-seller-tax-id">
+                    <label for="sellerTaxId">사업자등록번호</label>
+                    <form:input path="sellerTaxId" type="text" class="form-control"
+                                placeholder="사업자등록번호를 입력해주세요"/>
+                    <form:errors path="sellerTaxId" cssClass="text-danger"/>
+                </div>
                 <hr class="mb-4">
                 <div>
                     <input class="btn btn-primary" type="submit" value="회원가입하기"/>
@@ -184,6 +193,23 @@
         <p class="mb-1">&copy; 2023 Chunjaeshop, all rights reserved</p>
     </footer>
 </div>
+
+<script>
+    const userType = '<c:out value="${userType}"/>';
+    const divSellerTaxIdTag = document.getElementById("div-seller-tax-id");
+    if (userType != 'seller') {
+        divSellerTaxIdTag.style.display = 'none';
+    }
+
+    $('#type').on('change', function () {
+        let selectedType = $('#type option:selected').val();
+        if (selectedType == 'seller') {
+            divSellerTaxIdTag.style.display = 'block';
+        } else {
+            divSellerTaxIdTag.style.display = 'none';
+        }
+    })
+</script>
 
 <script>
     let idCheck = false;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@ToString
 public class LoginUserDTO extends User {
     private static final long serialVersionUID = 1L;
 
@@ -24,6 +25,10 @@ public class LoginUserDTO extends User {
     private String address2;
     private String authority;
 
+    private String type;
+    private Integer sellerRecognize;
+    private String sellerRejectReason;
+
     public LoginUserDTO(UserVO userVO, List<SimpleGrantedAuthority> authorityList) {
         super(userVO.getId(), userVO.getPassword(), authorityList);
         this.idx = userVO.getIdx();
@@ -37,6 +42,9 @@ public class LoginUserDTO extends User {
         this.address1 = userVO.getAddress1();
         this.address2 = userVO.getAddress2();
         this.authority = userVO.getAuthority();
+        this.type = userVO.getType();
+        this.sellerRecognize = userVO.getSellerRecognize();
+        this.sellerRejectReason = userVO.getSellerRejectReason();
     }
 
     @Data
@@ -55,6 +63,10 @@ public class LoginUserDTO extends User {
         private String address1;
         private String address2;
         private String authority;
+
+        private String type;
+        private Integer sellerRecognize; // 0 > not yet, 1 > ok, 2 > has reason
+        private String sellerRejectReason;
 
         public List<SimpleGrantedAuthority> getAuthorityList() {
             List<SimpleGrantedAuthority> authorityList = new ArrayList<>();

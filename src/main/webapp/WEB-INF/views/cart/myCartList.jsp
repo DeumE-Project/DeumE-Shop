@@ -73,7 +73,7 @@
                                     <th>가격(&#8361;)</th>
                                     <th>수량</th>
                                     <th>합계(&#8361;)</th>
-                                    <th>삭제</th>
+<%--                                    <th>삭제</th>--%>
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle ancestor-tbody">
@@ -121,16 +121,16 @@
                                         <td class="align-middle" id="sub-product-total-${cartDetail.cartDetailIdx}">
                                             <fmt:formatNumber value="${cartDetail.buyCount * cartDetail.productPrice}" pattern="#,###"/>
                                         </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-sm btn-warning"
-                                                    data-buttontype="delete"
-                                                    data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
-                                                    onclick="deleteBtnClick(event)">
-                                                <i class="fa fa-times"
-                                                   data-buttontype="delete"
-                                                   data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
-                                                ></i></button>
-                                        </td>
+<%--                                        <td class="align-middle">--%>
+<%--                                            <button class="btn btn-sm btn-warning"--%>
+<%--                                                    data-buttontype="delete"--%>
+<%--                                                    data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'--%>
+<%--                                                    onclick="deleteBtnClick(event)">--%>
+<%--                                                <i class="fa fa-times"--%>
+<%--                                                   data-buttontype="delete"--%>
+<%--                                                   data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'--%>
+<%--                                                ></i></button>--%>
+<%--                                        </td>--%>
                                     </tr>
                                     <c:set var="oneCartTotal"
                                            value="${oneCartTotal + (cartDetail.buyCount * cartDetail.productPrice)}"/>
@@ -175,6 +175,13 @@
         </c:otherwise>
     </c:choose>
 </div> <!--가장 바깥쪽 div 끝-->
+
+<script>
+    const orderProductErrorMsg = '<c:out value="${orderProductErrorMsg}"/>';
+    if (orderProductErrorMsg) {
+        alert(orderProductErrorMsg);
+    }
+</script>
 
 <script>
     const decreaseBuyCount = function (cartDetailIdx, event) {
