@@ -126,6 +126,7 @@
 
 <!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var RID="";
     var rejectReason="";
@@ -138,28 +139,60 @@
 
     const acceptFn = (id) => {
         console.log(id);
-        let check = confirm("승인하시겠습니까?");
-        if (check) {
-            alert("승인완료")
-            location.href = "/admin/accept?id=" + id;
-        }
-
+        Swal.fire({
+            title: '승인하시겠습니까?',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: '승인완료',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '확인',
+                }).then((result) => {
+                    if (result.value){
+                        location.href = "/admin/accept?id=" + id;
+                    }
+                })
+            }
+        })
     }
     const rejectFn = () => {
         console.log(RID);
         if (rejectReason==0){
-            alert("거절 이유를 선택해 주세요");
+            Swal.fire({
+                title: '거절 이유를 선택해 주세요',
+                icon: 'info',
+                confirmButtonText: '확인',
+            });
             return false;
         }
-        let check = confirm("거절하시겠습니까?");
-        if (check) {
-            alert("거절완료")
-            // document.rj.submit();
-            location.href = "/admin/reject?id=" + RID + "&rejectReason="+rejectReason;
-        }
-
+        Swal.fire({
+            title: '거절하시겠습니까?',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: '거절완료',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '확인',
+                }).then((result) => {
+                    if (result.value){
+                        location.href = "/admin/reject?id=" + RID + "&rejectReason="+rejectReason;
+                    }
+                })
+            }
+        })
     }
-
 
     function changeFn(){
         rejectReason  = document.getElementById("rejectReason");

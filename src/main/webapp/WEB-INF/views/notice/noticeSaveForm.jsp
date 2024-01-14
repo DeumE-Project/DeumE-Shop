@@ -63,7 +63,6 @@
         Swal.fire({
             title: error,
             icon: 'warning',
-            className: 'swal-wide',
             confirmButtonColor: '#3085d6',
             confirmButtonText: '확인',
         });
