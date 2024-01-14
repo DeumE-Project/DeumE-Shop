@@ -30,6 +30,12 @@ public interface SellerService {
 
     void insertRejectReason(String reason, String id);
 
+    List<SellerDTO> getRejectSellerList(int page);
+
+    NotRecognizePageDTO rejectSellerPagingParam(int page);
+
+
+
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
 
@@ -65,7 +71,6 @@ public interface SellerService {
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
-
 
 
 }

@@ -1,14 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>판매자 가입 승인 페이지</title>
+    <title>판매자 거절 회원 목록</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Optional custom styles */
         body {
             padding-top: 20px;
         }
@@ -21,50 +20,52 @@
             width: 9%;
         }
         .th-2{
-            width: 50%;
+            width: 35%;
         }
         .th-3{
             width: 15%;
         }
         .th-4{
-            width: 11%;
+            width: 12%;
+        }
+        .th-5{
+            width: 22%;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>판매자 가입 승인 페이지</h1> <br>
-
-    <c:if test="${empty notRecognizedList}">
+    <h1>판매자 거절 회원 목록</h1> <br>
+    <c:if test="${empty rejectSellerList}">
         <div class="text-center my-5">
-            <h3 class="fw-bolder">가입 신청한 판매자가 없습니다</h3>
+            <h3 class="fw-bolder">거절 상태인 판매자가 없습니다.</h3>
         </div>
     </c:if>
-    <c:if test="${not empty notRecognizedList}">
+    <c:if test="${not empty rejectSellerList}">
         <div>
             <table class="table table-bordered">
                 <thead class="table-dark">
-                    <tr>
-                        <th class="th-1">아이디</th>
-                        <th class="th-1">대표자명</th>
-                        <th class="th-3">사업자등록번호</th>
-                        <th class="th-2">사업장소재지</th>
-                        <th class="th-4">승인 여부</th>
-                    </tr>
+                <tr>
+                    <th class="th-1">아이디</th>
+                    <th class="th-1">대표자명</th>
+                    <th class="th-3">사업자등록번호</th>
+                    <th class="th-2">거절 사유</th>
+                    <th class="th-5">전화번호</th>
+                    <th class="th-4">승인 변경</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${notRecognizedList}" var="seller">
-                        <tr>
-                            <td>${seller.sellerId}</td>
-                            <td>${seller.sellerName}</td>
-                            <td>${seller.sellerTaxId}</td>
-                            <td>${seller.sellerAddress1}</td>
-                            <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
-                                <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
-                                   href="#exampleModalToggle" role="button" >거절</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                <c:forEach items="${rejectSellerList}" var="seller">
+                    <tr>
+                        <td>${seller.sellerId}</td>
+                        <td>${seller.sellerName}</td>
+                        <td>${seller.sellerTaxId}</td>
+                        <td>${seller.sellerRejectReason}</td>
+                        <td>${seller.sellerPhone}</td>
+                        <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -82,7 +83,7 @@
                     <%-- If it is not page 1, clicking [Previous] will request a page 1 smaller than the current page --%>
                     <c:otherwise>
                         <li class="page-item">
-                            <a class="page-link" href="${pageContext.request.contextPath}/admin/recognize?page=${paging.page - 1}" aria-label="Previous">이전</a>
+                            <a class="page-link" href="${pageContext.request.contextPath}/admin/change?page=${paging.page - 1}" aria-label="Previous">이전</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -97,7 +98,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="page-item">
-                                <a class="page-link" href="${pageContext.request.contextPath}/admin/recognize?page=${i}">${i}</a>
+                                <a class="page-link" href="${pageContext.request.contextPath}/admin/change?page=${i}">${i}</a>
                             </li>
                         </c:otherwise>
                     </c:choose>
@@ -111,7 +112,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item">
-                            <a class="page-link" href="${pageContext.request.contextPath}/admin/recognize?page=${paging.page + 1}" aria-label="Next">다음</a>
+                            <a class="page-link" href="${pageContext.request.contextPath}/admin/change?page=${paging.page + 1}" aria-label="Next">다음</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -119,26 +120,14 @@
         </div>
     </c:if>
 </div>
-
-<jsp:include page="rejectModal.jsp" flush="true"/>
-
-<!-- Bootstrap 5 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
-    var RID="";
-    var rejectReason="";
-    $(document).ready(function() {
-        $('#exampleModalToggle').on('show.bs.modal', function(event) {
-            // console.log($(event.relatedTarget).data('sellerid'));
-            RID = $(event.relatedTarget).data('sellerid');
-        });
-    });
-
     const acceptFn = (id) => {
         console.log(id);
         Swal.fire({
             title: '승인하시겠습니까?',
+            text: '거절된 판매자를 승인하시겠습니까?',
             icon: 'warning',
             confirmButtonColor: '#3085d6',
             confirmButtonText: '확인',
@@ -153,50 +142,11 @@
                     confirmButtonText: '확인',
                 }).then((result) => {
                     if (result.value){
-                        location.href = "/admin/accept?id=" + id + "&type=1";
+                        location.href = "/admin/accept?id=" + id + "&type=2";
                     }
                 })
             }
         })
-    }
-    const rejectFn = () => {
-        console.log(RID);
-        if (rejectReason==0){
-            Swal.fire({
-                title: '거절 이유를 선택해 주세요',
-                icon: 'info',
-                confirmButtonText: '확인',
-            });
-            return false;
-        }
-        Swal.fire({
-            title: '거절하시겠습니까?',
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: '확인',
-            showCancelButton: true,
-            cancelButtonText: '취소',
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire({
-                    title: '거절 완료',
-                    icon: 'error',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: '확인',
-                }).then((result) => {
-                    if (result.value){
-                        location.href = "/admin/reject?id=" + RID + "&rejectReason="+rejectReason;
-                    }
-                })
-            }
-        })
-    }
-
-    function changeFn(){
-        rejectReason  = document.getElementById("rejectReason");
-        var value = (rejectReason.options[rejectReason.selectedIndex].value);
-        // alert("value = "+value);
-        rejectReason = value;
     }
 </script>
 </body>

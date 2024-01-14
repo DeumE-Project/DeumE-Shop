@@ -53,6 +53,16 @@ public class SellerRepositoryImpl implements SellerRepository {
         sellerMapper.insertRejectReason(reason);
     }
 
+    @Override
+    public List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam) {
+        return sellerMapper.getRejectSellerList(rejectSellerPagingParam);
+    }
+
+    @Override
+    public int rejectSellerCount() {
+        return sellerMapper.rejectSellerCount();
+    }
+
 
     // 유지호
     @Override

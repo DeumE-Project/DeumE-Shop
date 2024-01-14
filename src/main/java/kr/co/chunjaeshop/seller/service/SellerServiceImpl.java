@@ -85,6 +85,35 @@ public class SellerServiceImpl implements SellerService {
 
     }
 
+    @Override
+    public List<SellerDTO> getRejectSellerList(int page) {
+        int pageStart = (page-1)*recognizePageLimit;
+        Map<String, Integer> rejectSellerPagingParam = new HashMap<>();
+        rejectSellerPagingParam.put("start", pageStart);
+        rejectSellerPagingParam.put("limit", recognizePageLimit);
+        List<SellerDTO> rejectSellerList = sellerRepository.getRejectSellerList(rejectSellerPagingParam);
+
+        return rejectSellerList;
+    }
+
+    @Override
+    public NotRecognizePageDTO rejectSellerPagingParam(int page) {
+        int rejectSellerCount = sellerRepository.rejectSellerCount();
+        int maxPage = (int)(Math.ceil((double) rejectSellerCount / recognizePageLimit));
+        int startPage = (((int)(Math.ceil((double) page / recognizeBlockLimit))) - 1) * recognizeBlockLimit + 1;
+        int endPage = startPage + recognizeBlockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        NotRecognizePageDTO rejectSellerPageDTO = new NotRecognizePageDTO();
+        rejectSellerPageDTO.setPage(page);
+        rejectSellerPageDTO.setMaxPage(maxPage);
+        rejectSellerPageDTO.setStartPage(startPage);
+        rejectSellerPageDTO.setEndPage(endPage);
+        return rejectSellerPageDTO;
+    }
+
+
 
 
     // 유지호
@@ -160,23 +189,23 @@ public class SellerServiceImpl implements SellerService {
 
         return productPagingList;
     }*/
-@Override
-public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
-    int pagingStart = (page - 1) * pageLimit;
-    Map<String, Object> pagingParams = new HashMap<>();
-    pagingParams.put("start", pagingStart);
-    pagingParams.put("limit", pageLimit);
-    pagingParams.put("sellerIdx", sellerIdx);
+    @Override
+    public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
+        int pagingStart = (page - 1) * pageLimit;
+        Map<String, Object> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        pagingParams.put("sellerIdx", sellerIdx);
 
-    // 검색어가 제공된 경우에만 검색 조건 추가
-    if (searchField != null && searchWord != null) {
-        pagingParams.put("searchField", searchField);
-        pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
+        // 검색어가 제공된 경우에만 검색 조건 추가
+        if (searchField != null && searchWord != null) {
+            pagingParams.put("searchField", searchField);
+            pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
+        }
+
+        List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
+        return productPagingListWithSearch;
     }
-
-    List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
-    return productPagingListWithSearch;
-}
     @Override
     public PageDTO pagingParam(int page, Integer sellerIdx) {
         // 전체 글 개수 조회
@@ -316,4 +345,6 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         int result = sellerRepository.idDuplicationCheck(id);
         return (result == 1) ? true : false;
     }
+
+
 }

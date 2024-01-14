@@ -25,11 +25,23 @@
         select count(seller_idx) from seller where seller_recognize = 0
     </select>
 
+    <select id="rejectSellerCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 2
+    </select>
+
     <select id="getNotRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
         SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
         seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
         FROM seller
         WHERE seller_recognize = 0
+        order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <select id="getRejectSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id, seller_reject_reason
+        FROM seller
+        WHERE seller_recognize = 2
         order by seller_joined limit #{start}, #{limit}
     </select>
 

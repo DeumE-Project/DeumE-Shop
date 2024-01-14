@@ -40,15 +40,26 @@ public class AdminController {
         model.addAttribute("paging", notRecognizePageDTO);
         return "/admin/recognizeForm";
     }
+    @GetMapping("/change")
+    public String change(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                         Model model) {
+        List<SellerDTO> rejectSellerList = sellerService.getRejectSellerList(page);
+        NotRecognizePageDTO rejectSellerPageDTO = sellerService.rejectSellerPagingParam(page);
+
+        model.addAttribute("rejectSellerList", rejectSellerList);
+        model.addAttribute("paging", rejectSellerPageDTO);
+        return "/admin/rejectSellerList";
+    }
 
     @GetMapping("/accept")
-    public String accept(@RequestParam("id") String id) {
+    public String accept(@RequestParam("id") String id,
+                         @RequestParam("type") int type) {
         sellerService.updateRecognize(1, id);
-
-        //승인 또는 거절 누른 후 해당 페이지에 남아있을지?
-        //@RequestParam(value = "page", required = false, defaultValue = "1") int page
-        //return "redirect:/admin/recognize?page=" + page;
-        return "redirect:/admin/recognize";
+        if (type == 1) {
+            return "redirect:/admin/recognize";
+        } else {
+            return "redirect:/admin/change";
+        }
     }
     @GetMapping("/reject")
     public String reject(@RequestParam("id") String id,

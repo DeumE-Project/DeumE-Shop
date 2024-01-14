@@ -30,6 +30,12 @@ public interface SellerMapper {
 
     void insertRejectReason(Map<String, Object> reason);
 
+    List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam);
+
+    int rejectSellerCount();
+
+
+
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
 
