@@ -121,3 +121,15 @@ CREATE TABLE notice (
     notice_content VARCHAR(500) NOT NULL,
     notice_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE comment (
+                         comment_idx  INT PRIMARY KEY AUTO_INCREMENT,
+                         review_idx INT, #외래키
+                                      customer_idx INT, # 외래키
+                             product_idx INT, # 외래키
+                             commentContents varchar(200),
+                         commentCreatedTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                         FOREIGN KEY (review_idx) REFERENCES product_review (review_idx) ON UPDATE CASCADE ON DELETE SET NULL,
+                         FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx) ON UPDATE CASCADE ON DELETE SET NULL,
+                         FOREIGN KEY (product_idx) REFERENCES product (product_idx) ON UPDATE CASCADE ON DELETE SET NULL
+);

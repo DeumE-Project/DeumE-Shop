@@ -2,7 +2,6 @@ package kr.co.chunjaeshop.product_review.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

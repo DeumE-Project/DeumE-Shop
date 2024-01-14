@@ -2,7 +2,6 @@ package kr.co.chunjaeshop.product_review.service;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.chunjaeshop.product_review.repository.ProductReviewRepository;
-import kr.co.chunjaeshop.product_review.repository.ProductReviewRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
