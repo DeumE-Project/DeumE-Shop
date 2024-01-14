@@ -17,7 +17,7 @@
         WHERE seller_recognize = 0
     </select>
 
-    <update id="updateRecognize" >
+    <update id="updateRecognize">
         UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
     </update>
 
@@ -36,9 +36,10 @@
     <update id="insertRejectReason" parameterType="java.util.HashMap">
         UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
     </update>
+
     <!--    유지호-->
     <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
-        select seller_idx, seller_name, seller_Phone from seller where seller_idx = #{sellerIdx}
+        select seller_idx, seller_name, seller_Phone, seller_joined from seller where seller_idx = #{sellerIdx}
     </select>
 
     <select id="getMyTotalRev" parameterType="Integer" resultType="int">
@@ -50,14 +51,13 @@
     </select>
 
     <select id="getDateRev" parameterType="map" resultType="int">
-        select IFNULL(SUM(A.product_total_price), 0) AS order_thisMonth_product_price
+        select ifnull(SUM(A.product_total_price), 0) AS order_thisMonth_product_price
         from (select order_idx, product_idx, product_total_price from order_detail) A
         left join (select order_idx, order_date from order_product) B on A.order_idx = B.order_idx
         left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
         where C.seller_idx = #{sellerIdx}
         and date_format(B.order_date, '%Y-%m') = #{thisMonth}
     </select>
-
 
 
     <select id="avgRev" parameterType="Integer" resultType="int">
@@ -75,12 +75,29 @@
 
     <select id="monthlySalesList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
         <![CDATA[
-          select B.order_date as salesDate, sum(A.product_total_price) as sales
-         from (select order_idx, product_idx, product_total_price from order_detail) A
-         left join (select order_idx, date_format(order_date, '%Y-%m') order_date from order_product) B on A.order_idx = B.order_idx
-         left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
-         where C.seller_idx = #{sellerIdx} and B.order_date <= date_format(now(), '%Y-%m')
-         group by B.order_date
+         with dateData as (SELECT DISTINCT DATE_FORMAT(DATE_ADD(MIN(D.seller_joined), INTERVAL seq - 1 MONTH), '%Y-%m') AS date
+            FROM (
+                    SELECT @num := @num + 1 AS seq
+                    FROM information_schema.tables a
+                    , information_schema.tables b
+                    , (SELECT @num := 0) c
+                   ) T
+        CROSS JOIN seller D
+        WHERE D.seller_idx = #{sellerIdx}
+        AND DATE_ADD(D.seller_joined, INTERVAL seq - 1 MONTH) <= NOW()
+        GROUP BY seq
+        order by date)
+        select dD.date as salesDate, ifnull(sale.sales, 0) sales
+        from dateData dD
+        left join (select B.order_date as salesDate, sum(A.product_total_price) as sales
+        from (select order_idx, product_idx, product_total_price from order_detail) A
+        left join (select order_idx, date_format(order_date, '%Y-%m') order_date from order_product) B on A.order_idx = B.order_idx
+        left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
+        where C.seller_idx = #{sellerIdx} and B.order_date <= date_format(now(), '%Y-%m')
+        group by B.order_date) sale
+        on dD.date = sale.salesDate
+        order by dD.date desc
+        limit 6
         ]]>
     </select>
 
@@ -92,8 +109,6 @@
         where B.seller_idx = #{sellerIdx}
         group by C.category_name
     </select>
-
-
 
 
     <!--    변재혁-->
