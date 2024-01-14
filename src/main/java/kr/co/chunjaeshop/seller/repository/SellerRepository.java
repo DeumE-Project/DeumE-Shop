@@ -33,6 +33,12 @@ public interface SellerRepository {
 
     int rejectSellerCount();
 
+    List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
+
+    int recognizedSellerCount();
+
+    SellerDTO getInfoBySellerId(String id);
+
 
 
     // 유지호

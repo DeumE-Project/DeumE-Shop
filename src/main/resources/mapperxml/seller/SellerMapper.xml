@@ -25,6 +25,10 @@
         select count(seller_idx) from seller where seller_recognize = 0
     </select>
 
+    <select id="recognizedSellerCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 1
+    </select>
+
     <select id="rejectSellerCount" resultType="Integer">
         select count(seller_idx) from seller where seller_recognize = 2
     </select>
@@ -35,6 +39,14 @@
         FROM seller
         WHERE seller_recognize = 0
         order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <select id="getRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id, seller_income
+        FROM seller
+        WHERE seller_recognize = 1
+        order by seller_id limit #{start}, #{limit}
     </select>
 
     <select id="getRejectSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
@@ -48,6 +60,18 @@
     <update id="insertRejectReason" parameterType="java.util.HashMap">
         UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
     </update>
+
+    <select id="getInfoBySellerId" resultType="SellerDTO">
+        SELECT seller_id, seller_name, seller_email, seller_phone, seller_joined,
+        seller_zipcode, seller_address1, seller_address2, seller_income, seller_tax_id
+        FROM seller
+        WHERE seller_id = #{sellerId}
+    </select>
+
+
+
+
+
     <!--    유지호-->
     <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
         select seller_idx, seller_name, seller_Phone from seller where seller_idx = #{sellerIdx}

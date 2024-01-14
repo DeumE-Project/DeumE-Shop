@@ -1,10 +1,6 @@
 package kr.co.chunjaeshop.admin.controller;
 
-import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
-import kr.co.chunjaeshop.customer.dto.CustomerDTO;
-import kr.co.chunjaeshop.customer.service.CustomerService;
-import kr.co.chunjaeshop.notice.dto.NoticeDTO;
-import kr.co.chunjaeshop.notice.dto.NoticePageDTO;
+import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
@@ -35,20 +31,36 @@ public class AdminController {
     public String recognizeForm(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                 Model model) {
         List<SellerDTO> notRecognizedSellerList = sellerService.getNotRecognizedSellerList(page);
-        NotRecognizePageDTO notRecognizePageDTO = sellerService.notRecognizedSellerPagingParam(page);
+        AdminPageDTO notRecognizePageDTO = sellerService.notRecognizedSellerPagingParam(page);
+
         model.addAttribute("notRecognizedList", notRecognizedSellerList);
         model.addAttribute("paging", notRecognizePageDTO);
+
         return "/admin/recognizeForm";
     }
+
     @GetMapping("/change")
     public String change(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          Model model) {
         List<SellerDTO> rejectSellerList = sellerService.getRejectSellerList(page);
-        NotRecognizePageDTO rejectSellerPageDTO = sellerService.rejectSellerPagingParam(page);
+        AdminPageDTO rejectSellerPageDTO = sellerService.rejectSellerPagingParam(page);
 
         model.addAttribute("rejectSellerList", rejectSellerList);
         model.addAttribute("paging", rejectSellerPageDTO);
+
         return "/admin/rejectSellerList";
+    }
+
+    @GetMapping("/manage")
+    public String manageSeller(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               Model model) {
+        List<SellerDTO> recognizedSellerList = sellerService.getRecognizedSellerList(page);
+        AdminPageDTO recognizedSellerPageDTO = sellerService.recognizedSellerPagingParam(page);
+
+        model.addAttribute("recognizedSellerList", recognizedSellerList);
+        model.addAttribute("paging", recognizedSellerPageDTO);
+
+        return "/admin/manageSellerList";
     }
 
     @GetMapping("/accept")
@@ -61,15 +73,35 @@ public class AdminController {
             return "redirect:/admin/change";
         }
     }
+
     @GetMapping("/reject")
     public String reject(@RequestParam("id") String id,
-                         @RequestParam("rejectReason") String reason) {
+                         @RequestParam("rejectReason") String reason,
+                         @RequestParam("type") int type) {
         log.info(id);
         log.info(reason);
         sellerService.updateRecognize(2, id);
-        sellerService.insertRejectReason(reason,id);
-        return "redirect:/admin/recognize";
+        sellerService.insertRejectReason(reason, id);
+        if (type == 1) {
+            return "redirect:/admin/recognize";
+        } else {
+            return "redirect:/admin/manage";
+        }
+
     }
+
+    @GetMapping("/info")
+    public String info(@RequestParam("id") String id,
+                       @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                       Model model) {
+        SellerDTO sellerDTO = sellerService.getInfoBySellerId(id);
+
+        model.addAttribute("seller", sellerDTO);
+        model.addAttribute("page", page);
+
+        return "/admin/sellerManageDetail";
+    }
+
 
     // 유지호
 

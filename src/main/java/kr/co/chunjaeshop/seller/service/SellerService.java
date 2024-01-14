@@ -1,7 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
 
-import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
+import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -24,7 +24,7 @@ public interface SellerService {
 
     void updateRecognize(int i, String id);
 
-    NotRecognizePageDTO notRecognizedSellerPagingParam(int page);
+    AdminPageDTO notRecognizedSellerPagingParam(int page);
 
     List<SellerDTO> getNotRecognizedSellerList(int page);
 
@@ -32,8 +32,13 @@ public interface SellerService {
 
     List<SellerDTO> getRejectSellerList(int page);
 
-    NotRecognizePageDTO rejectSellerPagingParam(int page);
+    AdminPageDTO rejectSellerPagingParam(int page);
 
+    List<SellerDTO> getRecognizedSellerList(int page);
+
+    AdminPageDTO recognizedSellerPagingParam(int page);
+
+    SellerDTO getInfoBySellerId(String id);
 
 
     // 유지호
@@ -71,6 +76,7 @@ public interface SellerService {
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
+
 
 
 }

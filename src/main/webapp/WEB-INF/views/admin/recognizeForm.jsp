@@ -61,7 +61,7 @@
                             <td>${seller.sellerAddress1}</td>
                             <td><button class="btn btn-success" onclick="acceptFn('${seller.sellerId}')">승인</button>
                                 <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
-                                   href="#exampleModalToggle" role="button" >거절</a>
+                                   href="#rejectModal" role="button" >거절</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -129,7 +129,7 @@
     var RID="";
     var rejectReason="";
     $(document).ready(function() {
-        $('#exampleModalToggle').on('show.bs.modal', function(event) {
+        $('#rejectModal').on('show.bs.modal', function(event) {
             // console.log($(event.relatedTarget).data('sellerid'));
             RID = $(event.relatedTarget).data('sellerid');
         });
@@ -185,7 +185,7 @@
                     confirmButtonText: '확인',
                 }).then((result) => {
                     if (result.value){
-                        location.href = "/admin/reject?id=" + RID + "&rejectReason="+rejectReason;
+                        location.href = "/admin/reject?id=" + RID + "&rejectReason="+ rejectReason + "&type=1";
                     }
                 })
             }

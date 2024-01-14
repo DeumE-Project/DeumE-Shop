@@ -34,6 +34,7 @@ public interface SellerMapper {
 
     int rejectSellerCount();
 
+    SellerDTO getInfoBySellerId(String id);
 
 
     // 유지호
@@ -56,6 +57,10 @@ public interface SellerMapper {
     int idDuplicationCheck(String id);
     LoginUserDTO.UserVO loginSeller(String username);
 
+
+    List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
+
+    int recognizedSellerCount();
 
 
 }
