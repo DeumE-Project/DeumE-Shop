@@ -110,39 +110,57 @@
 
                 <script language="JavaScript">
                     window.onload = function () {
-                    // 라벨과 데이터 배열 초기화
-                    let labelsBarChart = [];
-                    let dataBarChart = [];
+                        // 라벨과 데이터 배열 초기화
+                        let labelsBarChart = [];
+                        let dataBarChart = [];
 
-                    // 월간 판매 리스트에 대한 반복
-                    <c:forEach items="${monthlySalesList}" var="monthly" varStatus="loop">
-                    // 라벨을 라벨 배열에 추가
-                    labelsBarChart.push("${monthly.salesDate}");
-                    // 데이터를 데이터 배열에 추가 (따옴표로 감싸기)
-                    dataBarChart.push(parseInt("${monthly.sales}"));
-                    </c:forEach>
+                        // 월간 판매 리스트에 대한 반복
+                        <c:forEach items="${monthlySalesList}" var="monthly" varStatus="loop">
+                        // 라벨을 라벨 배열에 추가
+                        labelsBarChart.push("${monthly.salesDate}");
+                        // 데이터를 데이터 배열에 추가 (따옴표로 감싸기)
+                        dataBarChart.push(parseInt("${monthly.sales}"));
+                        </c:forEach>
 
-                    // 생성된 라벨과 데이터를 사용하여 바 차트 생성
-                    new Chart(document.getElementById("bar-chart"), {
-                    type: 'bar',
-                    data: {
-                    labels: labelsBarChart,
-                    datasets: [
-                {
-                    label: "월간 판매량",
-                    backgroundColor: "#3e95cd", // 필요에 따라 색상을 조절할 수 있습니다.
-                    data: dataBarChart
-                }
-                    ]
-                },
-                    options: {
-                    legend: {display: false},
-                    title: {
-                    display: true,
-                    text: '월간 판매량 차트'
-                }
-                }
-                });
+                        labelsBarChart.reverse();
+                        dataBarChart.reverse();
+
+                        // 만약 데이터가 6개를 초과하면, 6개까지만 자르기
+                        if (dataBarChart.length > 6) {
+                            labelsBarChart = labelsBarChart.slice(0, 6);
+                            dataBarChart = dataBarChart.slice(0, 6);
+                        }
+
+                        // 생성된 라벨과 데이터를 사용하여 바 차트 생성
+                        let barChartElement = document.getElementById("bar-chart");
+
+                        if (dataBarChart.every(value => value === 0)) {
+                            // 만약 데이터가 모두 0이면, 판매된 수익이 없다는 메시지 표시
+                            let noRevenueMessage = document.createElement('p');
+                            noRevenueMessage.className = 'text-center lead fw-bold';
+                            noRevenueMessage.textContent = '판매된 수익이 없습니다.';
+                            barChartElement.insertAdjacentElement('afterend', noRevenueMessage);
+                        } else {
+                            new Chart(barChartElement, {
+                                type: 'bar',
+                                data: {
+                                    labels: labelsBarChart,
+                                    datasets: [
+                                        {
+                                            label: "월간 판매량",
+                                            backgroundColor: "#3e95cd",
+                                            data: dataBarChart
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    legend: {display: false},
+                                    title: {
+                                        display: true,
+                                        text: '월간 판매량 차트'
+                                    }
+                                }
+                            });
 
                     // 라벨과 데이터 배열 초기화
                     let labelsDonutChart = [];
@@ -152,6 +170,7 @@
                     labelsDonutChart.push("${catSales.category}");
                     dataDonutChart.push(parseInt("${catSales.categorySales}"));
                     </c:forEach>
+                            console.log(labelsDonutChart)
 
                     // 데이터의 총합 계산
                     let totalDonutChart = dataDonutChart.reduce((acc, value) => acc + value, 0);
@@ -200,7 +219,8 @@
                 }
                     return color;
                 }
-                };
+                        };
+                    }
             </script>
 
             <br>
