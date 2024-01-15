@@ -1,8 +1,15 @@
 package kr.co.chunjaeshop.order_detail.dto;
 
+import kr.co.chunjaeshop.product.dto.ProductDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderDetailDTO {
     private Integer orderDetailIdx;
     private Integer orderIdx;
@@ -24,5 +31,5 @@ public class OrderDetailDTO {
 
 
     // 변재혁
-
+    private ProductDTO productDTO;
 }

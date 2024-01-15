@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -32,8 +33,17 @@ public class SellerDTO {
 
 
     // 이무현
+    private Integer sellerRecognize;
+    private String sellerRejectReason;
+    private String sellerTaxId;
 
-
+    public String getSellerJoinedDateStr() {
+        if (this.sellerJoined != null) {
+            return this.sellerJoined.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } else {
+            return "no date available";
+        }
+    }
     // 유지호
 
 

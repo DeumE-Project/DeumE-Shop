@@ -1,5 +1,7 @@
 package kr.co.mapper_interface.order_detail;
 
+import kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO;
+
 public interface OrderDetailMapper {
     // 남원우
 
@@ -14,5 +16,5 @@ public interface OrderDetailMapper {
 
 
     // 변재혁
-
+    int insertNewOrderDetail(OrderDetailDTO orderDetailDTO);
 }

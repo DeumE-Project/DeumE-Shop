@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper_interface.cart.CartMapper">
+    <!--    남원우-->
+
+
+    <!--    최경락-->
+
+
+    <!--    이무현-->
+
+
+    <!--    유지호-->
+
+
+    <!--    변재혁-->
+    <resultMap id="cartWithCartDetail" type="kr.co.chunjaeshop.cart.dto.CartDTO">
+        <id column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="seller_idx" jdbcType="INTEGER" property="sellerIdx"/>
+        <collection property="cartDetailDTOList" ofType="kr.co.chunjaeshop.cart.dto.CartDetailDTO">
+            <id column="cart_detail_idx" jdbcType="INTEGER" property="cartDetailIdx"/>
+            <result column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+            <result column="buy_count" jdbcType="INTEGER" property="buyCount"/>
+            <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="cartWithCartDetail_sellerName_productName" type="kr.co.chunjaeshop.cart.dto.CartDTO">
+        <id column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="seller_idx" jdbcType="INTEGER" property="sellerIdx"/>
+        <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+        <collection property="cartDetailDTOList" ofType="kr.co.chunjaeshop.cart.dto.CartDetailDTO">
+            <id column="cart_detail_idx" jdbcType="INTEGER" property="cartDetailIdx"/>
+            <result column="cart_idx" jdbcType="INTEGER" property="cartIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+            <result column="buy_count" jdbcType="INTEGER" property="buyCount"/>
+            <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+            <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCartInformation" resultMap="cartWithCartDetail">
+        SELECT c.cart_idx, customer_idx, seller_idx, cart_detail_idx, product_idx, buy_count, product_price
+        FROM cart c INNER JOIN cart_detail cd
+            ON c.cart_idx = cd.cart_idx
+        WHERE c.customer_idx = #{customerIdx} AND c.seller_idx = #{sellerIdx}
+    </select>
+
+    <update id="updateCartDetailProductInfo" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm">
+        UPDATE cart_detail
+        SET buy_count = buy_count + #{buyCount}
+        WHERE cart_idx = #{cartIdx} AND product_idx = #{productIdx}
+    </update>
+
+    <insert id="insertNewCartDetail" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm">
+        INSERT
+        INTO cart_detail(cart_idx, product_idx, buy_count, product_price)
+        VALUES(#{cartIdx}, #{productIdx}, #{buyCount}, #{productPrice})
+    </insert>
+
+    <insert id="insertNewCart" parameterType="kr.co.chunjaeshop.cart.dto.AddToCartForm"
+        useGeneratedKeys="true" keyColumn="cart_idx" keyProperty="cartIdx">
+        INSERT
+        INTO cart(customer_idx, seller_idx)
+        VALUES(#{customerIdx}, #{sellerIdx})
+    </insert>
+
+    <select id="getAllMyCartList" resultMap="cartWithCartDetail_sellerName_productName">
+        SELECT c.cart_idx, c.customer_idx, c.seller_idx, s.seller_name, cd.cart_detail_idx , cd.product_idx,
+               cd.buy_count, p.product_price, p.product_name
+            FROM cart c INNER JOIN cart_detail cd ON c.cart_idx = cd.cart_idx
+                INNER JOIN product p ON cd.product_idx = p.product_idx
+                INNER JOIN seller s ON p.seller_idx = s.seller_idx
+        WHERE c.customer_idx = #{customerIdx}
+    </select>
+
+    <update id="changeCartDetailBuyCount" parameterType="kr.co.chunjaeshop.cart.dto.ChangeCartDetailDTO">
+        UPDATE cart_detail
+        SET buy_count = #{buyCount}
+        WHERE cart_detail_idx = #{cartDetailIdx}
+    </update>
+
+    <select id="getSpecificCart" resultMap="cartWithCartDetail_sellerName_productName">
+        SELECT c.cart_idx, c.customer_idx, c.seller_idx, s.seller_name, cd.cart_detail_idx , cd.product_idx,
+               cd.buy_count, p.product_price, p.product_name
+            FROM cart c INNER JOIN cart_detail cd ON c.cart_idx = cd.cart_idx
+                INNER JOIN product p ON cd.product_idx = p.product_idx
+                INNER JOIN seller s ON p.seller_idx = s.seller_idx
+        WHERE c.customer_idx = #{customerIdx} AND c.cart_idx = #{cartIdx}
+    </select>
+</mapper>

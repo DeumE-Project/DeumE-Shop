@@ -12,9 +12,126 @@
     <!--    이무현-->
 
 
-    <!--    유지호-->
+    <!--    유지호 <select id="sellProductManage" resultType="OrderProductDTO">-->
+    <select id="sellProductManagePaging" parameterType="java.util.HashMap" resultType="OrderProductDTO">
+        select D.product_name, C.customer_name, B.product_price, B.product_count, A.order_total_price, A.order_date, A.order_address,
+        case when A.order_status = '1' then '배송중'
+        when A.order_Status = '2' then '배송완료'
+        else '기타'
+        end as order_status
+        from (select order_idx, customer_idx, order_date, order_total_price, concat(order_address1, ' ', order_address2) order_address, order_status from order_product) A
+        left join (select order_idx, product_idx, product_price, product_count from order_detail) B
+        on A.order_idx = B.order_idx
+        left join (select customer_idx, customer_name from customer) C
+        on A.customer_idx = C.customer_idx
+        left join (select product_idx, seller_idx, product_name from product) D
+        on B.product_idx = D.product_idx
+        where D.seller_idx = #{sellerIdx} and B.product_idx = #{productIdx}
+        <if test="searchField != null and searchWord != null">
+            and C.customer_name like concat('%', #{searchWord}, '%')
+        </if>
+        order by A.order_date desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="orderProductCount" parameterType="Integer" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        where B.product_idx = #{productIdx};
+    </select>
+
+    <select id="orderSearchProductCount" parameterType="java.util.Map" resultType="Integer">
+        select count(B.product_idx)
+        from order_product A left join order_detail B
+        on A.order_idx = B.order_idx
+        left join customer C
+        on A.customer_idx = C.customer_idx
+        where B.product_idx = #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
+    </select>
+
 
 
     <!--    변재혁-->
+    <insert id="insertNewOrder" parameterType="kr.co.chunjaeshop.cart.dto.OrderProductForm"
+            useGeneratedKeys="true" keyColumn="order_idx" keyProperty="orderIdx">
+        INSERT
+        INTO order_product(customer_idx, order_total_price, order_zipcode, order_address1, order_address2,
+            order_request, order_name, order_phone, order_email, order_payment)
+        VALUES(#{customerIdx}, #{orderTotalPrice}, #{orderZipcode}, #{orderAddress1}, #{orderAddress2},
+            #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail}, 1)
+    </insert>
 
+    <resultMap id="orderWithOrderDetails" type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO">
+        <id column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
+        <result column="order_total_price" jdbcType="INTEGER" property="orderTotalPrice"/>
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus"/>
+        <result column="order_zipcode" jdbcType="VARCHAR" property="orderZipcode"/>
+        <result column="order_address1" jdbcType="VARCHAR" property="orderAddress1"/>
+        <result column="order_address2" jdbcType="VARCHAR" property="orderAddress2"/>
+        <result column="order_payment" jdbcType="INTEGER" property="orderPayment"/>
+        <result column="order_request" jdbcType="VARCHAR" property="orderRequest"/>
+        <result column="order_name" jdbcType="VARCHAR" property="orderName"/>
+        <result column="order_phone" jdbcType="VARCHAR" property="orderPhone"/>
+        <result column="order_email" jdbcType="VARCHAR" property="orderEmail"/>
+
+        <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
+            <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
+            <result column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+            <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+            <result column="product_count" jdbcType="INTEGER" property="productCount"/>
+            <result column="product_total_price" jdbcType="INTEGER" property="productTotalPrice"/>
+
+            <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
+                <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+                <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+                <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getOrderProductWithOrderDetails" resultMap="orderWithOrderDetails">
+        SELECT op.order_idx, customer_idx, order_date, order_total_price, order_status,
+               order_zipcode, order_address1, order_address2, order_payment, order_request,
+               order_name, order_phone, order_email, order_detail_idx, od.product_idx,
+               od.product_price, od.product_count, od.product_total_price, p.product_idx, p.product_name, s.seller_name
+        FROM order_product op
+            INNER JOIN order_detail od ON op.order_idx = od.order_idx
+            INNER JOIN product p ON od.product_idx  = p.product_idx
+            INNER JOIN seller s ON s.seller_idx = p.seller_idx
+        WHERE op.order_idx = #{orderIdx} AND customer_idx = #{customerIdx}
+    </select>
+
+    <resultMap id="orderWithOrderDetailsForOrderHistoryList" type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO">
+        <id column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+        <result column="customer_idx" jdbcType="INTEGER" property="customerIdx"/>
+        <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
+        <result column="order_total_price" jdbcType="INTEGER" property="orderTotalPrice"/>
+
+        <result column="order_detail_count" jdbcType="INTEGER" property="orderDetailCount"/>
+
+        <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
+            <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
+            <result column="order_idx" jdbcType="INTEGER" property="orderIdx"/>
+            <result column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+
+            <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
+                <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+                <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="selectOrderProductHistoryList" resultMap="orderWithOrderDetailsForOrderHistoryList">
+        SELECT op.order_idx, customer_idx, order_date, order_total_price, count(op.order_idx) AS order_detail_count,
+            order_detail_idx, od.product_idx, p.product_name
+        FROM order_product op INNER JOIN order_detail od ON op.order_idx = od.order_idx
+            INNER JOIN product p ON od.product_idx = p.product_idx
+        WHERE op.customer_idx = #{customerIdx}
+        GROUP BY op.order_idx
+        ORDER BY order_date DESC;
+    </select>
 </mapper>

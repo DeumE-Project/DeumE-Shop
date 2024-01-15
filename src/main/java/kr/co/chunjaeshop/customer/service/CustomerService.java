@@ -1,7 +1,6 @@
 package kr.co.chunjaeshop.customer.service;
 
 import kr.co.chunjaeshop.customer.dto.CustomerDTO;
-import kr.co.chunjaeshop.security.LoginUserDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 
 import java.util.List;

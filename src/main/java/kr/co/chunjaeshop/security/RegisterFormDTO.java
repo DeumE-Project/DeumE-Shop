@@ -32,7 +32,7 @@ public class RegisterFormDTO {
     private String password2;
 
     @Pattern(regexp = "^0([0-9]{2,3})([0-9]{3,4})([0-9]{4})$",
-             message = "- 기호를 제외한 숫자만 입력해주세요") //
+             message = "- 기호를 제외한 숫자만 입력해주세요")
     private String phone;
 
     @Pattern(regexp = "^(\\d{3}-\\d{3}|\\d{5})$",
@@ -53,4 +53,6 @@ public class RegisterFormDTO {
     private String globalError;
 
     private String passwordErrorMsg;
+
+    private String sellerTaxId;
 }

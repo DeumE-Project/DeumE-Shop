@@ -10,18 +10,148 @@
 
 
     <!--    이무현-->
+    <select id="getNotRecognizedList" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+    </select>
 
+    <update id="updateRecognize">
+        UPDATE seller SET seller_recognize = #{i} WHERE seller_id = #{id}
+    </update>
+
+    <select id="notRecognizeCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 0
+    </select>
+
+    <select id="recognizedSellerCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 1
+    </select>
+
+    <select id="rejectSellerCount" resultType="Integer">
+        select count(seller_idx) from seller where seller_recognize = 2
+    </select>
+
+    <select id="getNotRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id
+        FROM seller
+        WHERE seller_recognize = 0
+        order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <select id="getRecognizedSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id, seller_income
+        FROM seller
+        WHERE seller_recognize = 1
+        order by seller_id limit #{start}, #{limit}
+    </select>
+
+    <select id="getRejectSellerList" parameterType="java.util.HashMap" resultType="SellerDTO">
+        SELECT seller_idx, seller_id, seller_name, seller_email, seller_phone,
+        seller_joined, seller_zipcode, seller_address1, seller_address2, seller_tax_id, seller_reject_reason
+        FROM seller
+        WHERE seller_recognize = 2
+        order by seller_joined limit #{start}, #{limit}
+    </select>
+
+    <update id="insertRejectReason" parameterType="java.util.HashMap">
+        UPDATE seller SET seller_reject_reason = #{reason} WHERE seller_id = #{id}
+    </update>
+
+    <select id="getInfoBySellerId" resultType="SellerDTO">
+        SELECT seller_id, seller_name, seller_email, seller_phone, seller_joined,
+        seller_zipcode, seller_address1, seller_address2, seller_income, seller_tax_id
+        FROM seller
+        WHERE seller_id = #{sellerId}
+    </select>
+
+
+  
 
     <!--    유지호-->
+    <select id="mySellerInfoByIdx" parameterType="Integer" resultType="SellerDTO">
+        select seller_idx, seller_name, seller_Phone, seller_joined from seller where seller_idx = #{sellerIdx}
+    </select>
+
+    <select id="getMyTotalRev" parameterType="Integer" resultType="int">
+        select IFNULL(SUM(A.product_total_price), 0) AS order_total_product_price
+        from (select order_idx, product_idx, product_total_price from order_detail) A
+        left join (select order_idx, order_date from order_product) B on A.order_idx = B.order_idx
+        left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
+        where C.seller_idx = #{sellerIdx}
+    </select>
+
+    <select id="getDateRev" parameterType="map" resultType="int">
+        select ifnull(SUM(A.product_total_price), 0) AS order_thisMonth_product_price
+        from (select order_idx, product_idx, product_total_price from order_detail) A
+        left join (select order_idx, order_date from order_product) B on A.order_idx = B.order_idx
+        left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
+        where C.seller_idx = #{sellerIdx}
+        and date_format(B.order_date, '%Y-%m') = #{thisMonth}
+    </select>
+
+
+    <select id="avgRev" parameterType="Integer" resultType="int">
+        <![CDATA[
+        select round(ifnull(avg(sum_Rev), 0), 1) as AvgsumRev
+        from
+        (select B.order_date, sum(A.product_total_price) sum_Rev
+         from (select order_idx, product_idx, product_total_price from order_detail) A
+         left join (select order_idx, date_format(order_date, '%Y-%m') order_date from order_product) B on A.order_idx = B.order_idx
+         left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
+         where C.seller_idx = #{sellerIdx} and B.order_date < date_format(now(), '%Y-%m')
+         group by B.order_date) D;
+         ]]>
+    </select>
+
+    <select id="monthlySalesList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
+        <![CDATA[
+         with dateData as (SELECT DISTINCT DATE_FORMAT(DATE_ADD(MIN(D.seller_joined), INTERVAL seq - 1 MONTH), '%Y-%m') AS date
+            FROM (
+                    SELECT @num := @num + 1 AS seq
+                    FROM information_schema.tables a
+                    , information_schema.tables b
+                    , (SELECT @num := 0) c
+                   ) T
+        CROSS JOIN seller D
+        WHERE D.seller_idx = #{sellerIdx}
+        AND DATE_ADD(D.seller_joined, INTERVAL seq - 1 MONTH) <= NOW()
+        GROUP BY seq
+        order by date)
+        select dD.date as salesDate, ifnull(sale.sales, 0) sales
+        from dateData dD
+        left join (select B.order_date as salesDate, sum(A.product_total_price) as sales
+        from (select order_idx, product_idx, product_total_price from order_detail) A
+        left join (select order_idx, date_format(order_date, '%Y-%m') order_date from order_product) B on A.order_idx = B.order_idx
+        left join (select product_idx, seller_idx from product) C on A.product_idx = C.product_idx
+        where C.seller_idx = #{sellerIdx} and B.order_date <= date_format(now(), '%Y-%m')
+        group by B.order_date) sale
+        on dD.date = sale.salesDate
+        order by dD.date desc
+        limit 6
+        ]]>
+    </select>
+
+    <select id="categorySalesList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
+        select C.category_name as category, sum(A.product_total_price) as categorySales
+        from (select order_detail_idx, order_idx, product_idx, product_total_price from order_detail) A
+        left join (select product_idx, seller_idx, category_idx from product) B on A.product_idx = B.product_idx
+        left join (select category_idx, category_name from category) C on B.category_idx = C.category_idx
+        where B.seller_idx = #{sellerIdx}
+        group by C.category_name
+    </select>
 
 
     <!--    변재혁-->
     <insert id="sellerRegister" parameterType="kr.co.chunjaeshop.security.RegisterFormDTO">
         INSERT
         INTO seller(seller_id, seller_name, seller_email, seller_phone, seller_password,
-                    seller_zipcode, seller_address1, seller_address2)
+            seller_zipcode, seller_address1, seller_address2, seller_tax_id)
         VALUES(#{id}, #{name}, #{email}, #{phone}, #{password1},
-               #{zipcode}, #{address1}, #{address2})
+            #{zipcode}, #{address1}, #{address2}, #{sellerTaxId})
     </insert>
 
     <select id="idDuplicationCheck" resultType="int">
@@ -33,7 +163,8 @@
     <select id="loginSeller" resultType="kr.co.chunjaeshop.security.LoginUserDTO$UserVO">
         SELECT seller_idx AS idx, seller_id AS id, seller_name AS name, seller_email AS email,
             seller_phone AS phone, seller_password AS password, seller_joined AS joined, seller_zipcode AS zipcode,
-            seller_address1 AS address1, seller_address2 AS address2, seller_authority AS authority
+            seller_address1 AS address1, seller_address2 AS address2, seller_authority AS authority,
+            seller_recognize, seller_reject_reason
         FROM seller
         WHERE seller_id = #{username}
     </select>

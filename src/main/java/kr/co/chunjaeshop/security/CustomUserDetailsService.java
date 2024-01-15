@@ -1,6 +1,5 @@
 package kr.co.chunjaeshop.security;
 
-import kr.co.chunjaeshop.customer.dto.CustomerDTO;
 import kr.co.mapper_interface.customer.CustomerMapper;
 import kr.co.mapper_interface.seller.SellerMapper;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("realUsername = {}", realUsername);
 
         LoginUserDTO.UserVO result = null;
+
         if (type.equals("customer")) {
             result = customerMapper.loginCustomer(realUsername);
         } else if (type.equals("seller")) {
@@ -53,6 +53,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                     .address1(result.getAddress1())
                     .address2(result.getAddress2())
                     .authority(result.getAuthority())
+                    .type(type)
+                    .sellerRecognize(result.getSellerRecognize())
                     .build();
             return new LoginUserDTO(userVO, userVO.getAuthorityList());
         } else {
