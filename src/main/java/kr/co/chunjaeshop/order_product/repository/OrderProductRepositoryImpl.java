@@ -64,4 +64,14 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     public int insertNewOrder(OrderProductForm orderProductForm) {
         return orderProductMapper.insertNewOrder(orderProductForm);
     }
+
+    @Override
+    public OrderProductDTO getOrderProductWithOrderDetails(Integer orderIdx, Integer customerIdx) {
+        return orderProductMapper.getOrderProductWithOrderDetails(orderIdx, customerIdx);
+    }
+
+    @Override
+    public List<OrderProductDTO> selectOrderProductHistoryList(Integer customerIdx) {
+        return orderProductMapper.selectOrderProductHistoryList(customerIdx);
+    }
 }

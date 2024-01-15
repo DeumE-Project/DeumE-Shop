@@ -26,4 +26,8 @@ public interface OrderProductRepository {
 
     // 변재혁
     int insertNewOrder(OrderProductForm orderProductForm);
+
+    OrderProductDTO getOrderProductWithOrderDetails(Integer orderIdx, Integer customerIdx);
+
+    List<OrderProductDTO> selectOrderProductHistoryList(Integer customerIdx);
 }

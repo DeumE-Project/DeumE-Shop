@@ -29,6 +29,18 @@ public interface SellerRepository {
 
     void insertRejectReason(Map<String, Object> reason);
 
+    List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam);
+
+    int rejectSellerCount();
+
+    List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
+
+    int recognizedSellerCount();
+
+    SellerDTO getInfoBySellerId(String id);
+
+
+
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
 

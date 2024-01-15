@@ -4,10 +4,12 @@ import kr.co.chunjaeshop.cart.dto.*;
 import kr.co.chunjaeshop.cart.service.CartService;
 import kr.co.chunjaeshop.order_detail.service.OrderDetailService;
 import kr.co.chunjaeshop.order_product.service.OrderProductService;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +17,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -29,11 +30,14 @@ public class CartController {
 
     @PostMapping(value = "/add-cart")
     public String addToCart(@ModelAttribute AddToCartForm addToCartForm,
-                            RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes,
+                            Authentication auth) {
         log.info("addToCartForm = {}", addToCartForm);
 
         // security 에서 받아와야 함
-        Integer customerIdx = 8;
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
         addToCartForm.setCustomerIdx(customerIdx);
         CartResult result = cartService.addToCart(addToCartForm);
         if (result == CartResult.NEW_CART) {
@@ -49,9 +53,12 @@ public class CartController {
     }
 
     @GetMapping(value = "/list")
-    public String myCartList(Model model) {
+    public String myCartList(Model model,
+                             Authentication auth) {
         // security 에서 받아와야 함
-        Integer customerIdx = 8;
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
         List<CartDTO> allMyCartList = cartService.getAllMyCartList(customerIdx);
         log.info("allMyCartList = {}", allMyCartList);
         model.addAttribute("cartList", allMyCartList);
@@ -72,20 +79,27 @@ public class CartController {
 
     @GetMapping(value = "/order")
     public String orderPageForm(@ModelAttribute OrderProductForm orderProductForm,
-                                Model model) {
+                                Model model,
+                                Authentication auth,
+                                RedirectAttributes redirectAttributes) {
         Integer cartIdx = orderProductForm.getCartIdx();
         if (cartIdx == null) {
             log.warn("cartIdx is null");
+            redirectAttributes.addFlashAttribute("orderProductErrorMsg", "잘못된 주문 요청입니다");
             return "redirect:/cart/list";
         }
         model.addAttribute("cartIdx", orderProductForm.getCartIdx());
 
         // security에서 받아와야 함
-        Integer customerIdx = 8;
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
         CartDTO cart = cartService.getSpecificCart(customerIdx, cartIdx);
 
         if (cart == null) {
             log.warn("사용자의 장바구니가 아닙니다");
+            redirectAttributes.addFlashAttribute("orderProductErrorMsg", "고객님의 장바구니가 아닙니다");
+            return "redirect:/cart/list";
         }
 
         model.addAttribute("cart", cart);
@@ -96,16 +110,22 @@ public class CartController {
     @PostMapping(value = "/order")
     public String order(@Validated @ModelAttribute OrderProductForm orderProductForm,
                         BindingResult bindingResult,
-                        Model model) {
+                        Model model,
+                        Authentication auth,
+                        RedirectAttributes redirectAttributes) {
         log.info("orderProductForm = {}", orderProductForm);
         Integer cartIdx = orderProductForm.getCartIdx();
         model.addAttribute("cartIdx", cartIdx);
 
-        Integer customerIdx = 8;
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
         CartDTO cart = cartService.getSpecificCart(customerIdx, cartIdx);
 
         if (cart == null) {
             log.warn("사용자의 장바구니가 아닙니다.");
+            redirectAttributes.addFlashAttribute("orderProductErrorMsg", "고객님의 장바구니가 아닙니다");
+            return "redirect:/cart/list";
         }
 
         if (bindingResult.hasErrors()) {
@@ -114,8 +134,8 @@ public class CartController {
         }
 
         orderProductForm.setCustomerIdx(customerIdx);
-
         log.info("after setting orderProductForm = {}", orderProductForm);
+
         boolean orderProductInsertResult = orderProductService.insertNewOrder(orderProductForm, cart);
 
         if (orderProductInsertResult) {
@@ -130,6 +150,7 @@ public class CartController {
         } else {
             log.error("새로운 주문 저장 실패");
         }
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("orderSuccessMsg", "주문이 완료되었습니다");
+        return "redirect:/order/product/list";
     }
 }

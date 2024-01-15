@@ -30,6 +30,13 @@ public interface SellerMapper {
 
     void insertRejectReason(Map<String, Object> reason);
 
+    List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam);
+
+    int rejectSellerCount();
+
+    SellerDTO getInfoBySellerId(String id);
+
+
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
 
@@ -50,6 +57,10 @@ public interface SellerMapper {
     int idDuplicationCheck(String id);
     LoginUserDTO.UserVO loginSeller(String username);
 
+
+    List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
+
+    int recognizedSellerCount();
 
 
 }

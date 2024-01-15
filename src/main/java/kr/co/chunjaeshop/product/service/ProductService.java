@@ -4,6 +4,8 @@ import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 
+import java.util.List;
+
 public interface ProductService {
 
 
@@ -31,4 +33,5 @@ public interface ProductService {
 
     // 변재혁
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
+    List<ProductDTO> getProductListForMainPage();
 }

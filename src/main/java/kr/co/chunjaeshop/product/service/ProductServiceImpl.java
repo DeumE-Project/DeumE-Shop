@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -93,5 +95,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO getProductInformationByProductIdx(Integer productIdx) {
         ProductDTO result = pRepo.getProductInformationByProductIdx(productIdx);
         return result;
+    }
+
+    @Override
+    public List<ProductDTO> getProductListForMainPage() {
+        return pRepo.getProductListForMainPage();
     }
 }

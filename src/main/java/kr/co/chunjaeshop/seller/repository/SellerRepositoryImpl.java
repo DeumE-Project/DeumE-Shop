@@ -44,6 +44,21 @@ public class SellerRepositoryImpl implements SellerRepository {
     }
 
     @Override
+    public int rejectSellerCount() {
+        return sellerMapper.rejectSellerCount();
+    }
+
+    @Override
+    public int recognizedSellerCount() {
+        return sellerMapper.recognizedSellerCount();
+    }
+
+    @Override
+    public SellerDTO getInfoBySellerId(String id) {
+        return sellerMapper.getInfoBySellerId(id);
+    }
+
+    @Override
     public List<SellerDTO> getNotRecognizedSellerList(Map<String, Integer> notRecognizedSellerPagingParam) {
         return sellerMapper.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
     }
@@ -52,6 +67,19 @@ public class SellerRepositoryImpl implements SellerRepository {
     public void insertRejectReason(Map<String, Object> reason) {
         sellerMapper.insertRejectReason(reason);
     }
+
+    @Override
+    public List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam) {
+        return sellerMapper.getRejectSellerList(rejectSellerPagingParam);
+    }
+
+
+    @Override
+    public List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam) {
+        return sellerMapper.getRecognizedSellerList(recognizedSellerPagingParam);
+    }
+
+
 
 
     // 유지호

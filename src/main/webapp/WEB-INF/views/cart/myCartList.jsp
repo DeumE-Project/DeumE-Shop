@@ -1,23 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
-<html>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니 목록</title>
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <!-- Default CSS -->
-    <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
-    <!-- jQuery cdn -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <style>
         .outer-cart-div {
@@ -36,7 +26,7 @@
         }
     </style>
 </head>
-<body>
+
 <!-- Page Header Start -->
 <div class="container-fluid">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -73,7 +63,7 @@
                                     <th>가격(&#8361;)</th>
                                     <th>수량</th>
                                     <th>합계(&#8361;)</th>
-                                    <th>삭제</th>
+<%--                                    <th>삭제</th>--%>
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle ancestor-tbody">
@@ -90,7 +80,7 @@
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-btn" style="margin-right: 5px;">
-                                                    <button class="btn btn-sm btn-primary btn-minus" id="minus-button"
+                                                    <button class="btn btn-sm btn-light btn-minus" id="minus-button"
                                                             data-buttontype="minus"
                                                             data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
                                                             onclick="minusBtnClick(event)">
@@ -106,7 +96,7 @@
                                                        value='<c:out value="${cartDetail.buyCount}"/>'
                                                        style="margin-right: 5px;" readonly>
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-primary btn-plus"
+                                                    <button class="btn btn-sm btn-info btn-plus"
                                                             data-buttontype="plus"
                                                             data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
                                                             onclick="plusBtnClick(event)">
@@ -121,16 +111,16 @@
                                         <td class="align-middle" id="sub-product-total-${cartDetail.cartDetailIdx}">
                                             <fmt:formatNumber value="${cartDetail.buyCount * cartDetail.productPrice}" pattern="#,###"/>
                                         </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-sm btn-warning"
-                                                    data-buttontype="delete"
-                                                    data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
-                                                    onclick="deleteBtnClick(event)">
-                                                <i class="fa fa-times"
-                                                   data-buttontype="delete"
-                                                   data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'
-                                                ></i></button>
-                                        </td>
+<%--                                        <td class="align-middle">--%>
+<%--                                            <button class="btn btn-sm btn-warning"--%>
+<%--                                                    data-buttontype="delete"--%>
+<%--                                                    data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'--%>
+<%--                                                    onclick="deleteBtnClick(event)">--%>
+<%--                                                <i class="fa fa-times"--%>
+<%--                                                   data-buttontype="delete"--%>
+<%--                                                   data-cartdetailidx='<c:out value="${cartDetail.cartDetailIdx}"/>'--%>
+<%--                                                ></i></button>--%>
+<%--                                        </td>--%>
                                     </tr>
                                     <c:set var="oneCartTotal"
                                            value="${oneCartTotal + (cartDetail.buyCount * cartDetail.productPrice)}"/>
@@ -175,6 +165,13 @@
         </c:otherwise>
     </c:choose>
 </div> <!--가장 바깥쪽 div 끝-->
+
+<script>
+    const orderProductErrorMsg = '<c:out value="${orderProductErrorMsg}"/>';
+    if (orderProductErrorMsg) {
+        alert(orderProductErrorMsg);
+    }
+</script>
 
 <script>
     const decreaseBuyCount = function (cartDetailIdx, event) {

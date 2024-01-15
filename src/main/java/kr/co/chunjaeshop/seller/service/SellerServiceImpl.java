@@ -1,7 +1,7 @@
 package kr.co.chunjaeshop.seller.service;
 
 
-import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
+import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.order_product.repository.OrderProductRepository;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -46,14 +46,14 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.updateRecognize(i,id);
     }
 
-    int recognizePageLimit = 3;
-    int recognizeBlockLimit = 3;
+    int adminPageLimit = 3;
+    int adminBlockLimit = 3;
     @Override
     public List<SellerDTO> getNotRecognizedSellerList(int page) {
-        int pageStart = (page-1)*recognizePageLimit;
+        int pageStart = (page-1)*adminPageLimit;
         Map<String, Integer> notRecognizedSellerPagingParam = new HashMap<>();
         notRecognizedSellerPagingParam.put("start", pageStart);
-        notRecognizedSellerPagingParam.put("limit", recognizePageLimit);
+        notRecognizedSellerPagingParam.put("limit", adminPageLimit);
         List<SellerDTO> notRecognizedSellerList = sellerRepository.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
 
         return notRecognizedSellerList;
@@ -68,21 +68,81 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public NotRecognizePageDTO notRecognizedSellerPagingParam(int page) {
+    public AdminPageDTO notRecognizedSellerPagingParam(int page) {
         int notRecognizeCount = sellerRepository.notRecognizeCount();
-        int maxPage = (int)(Math.ceil((double) notRecognizeCount / recognizePageLimit));
-        int startPage = (((int)(Math.ceil((double) page / recognizeBlockLimit))) - 1) * recognizeBlockLimit + 1;
-        int endPage = startPage + recognizeBlockLimit - 1;
+        int maxPage = (int)(Math.ceil((double) notRecognizeCount / adminPageLimit));
+        int startPage = (((int)(Math.ceil((double) page / adminBlockLimit))) - 1) * adminBlockLimit + 1;
+        int endPage = startPage + adminBlockLimit - 1;
         if (endPage > maxPage) {
             endPage = maxPage;
         }
-        NotRecognizePageDTO notRecognizePageDTO = new NotRecognizePageDTO();
+        AdminPageDTO notRecognizePageDTO = new AdminPageDTO();
         notRecognizePageDTO.setPage(page);
         notRecognizePageDTO.setMaxPage(maxPage);
         notRecognizePageDTO.setStartPage(startPage);
         notRecognizePageDTO.setEndPage(endPage);
         return notRecognizePageDTO;
+    }
 
+    @Override
+    public List<SellerDTO> getRejectSellerList(int page) {
+        int pageStart = (page-1)*adminPageLimit;
+        Map<String, Integer> rejectSellerPagingParam = new HashMap<>();
+        rejectSellerPagingParam.put("start", pageStart);
+        rejectSellerPagingParam.put("limit", adminPageLimit);
+        List<SellerDTO> rejectSellerList = sellerRepository.getRejectSellerList(rejectSellerPagingParam);
+
+        return rejectSellerList;
+    }
+
+    @Override
+    public AdminPageDTO rejectSellerPagingParam(int page) {
+        int rejectSellerCount = sellerRepository.rejectSellerCount();
+        int maxPage = (int)(Math.ceil((double) rejectSellerCount / adminPageLimit));
+        int startPage = (((int)(Math.ceil((double) page / adminBlockLimit))) - 1) * adminBlockLimit + 1;
+        int endPage = startPage + adminBlockLimit - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        AdminPageDTO rejectSellerPageDTO = new AdminPageDTO();
+        rejectSellerPageDTO.setPage(page);
+        rejectSellerPageDTO.setMaxPage(maxPage);
+        rejectSellerPageDTO.setStartPage(startPage);
+        rejectSellerPageDTO.setEndPage(endPage);
+        return rejectSellerPageDTO;
+    }
+
+    @Override
+    public List<SellerDTO> getRecognizedSellerList(int page) {
+        int pageStart = (page-1)*adminPageLimit;
+        Map<String, Integer> recognizedSellerPagingParam = new HashMap<>();
+        recognizedSellerPagingParam.put("start", pageStart);
+        recognizedSellerPagingParam.put("limit", adminPageLimit);
+        List<SellerDTO> recognizedSellerList = sellerRepository.getRecognizedSellerList(recognizedSellerPagingParam);
+
+        return recognizedSellerList;
+    }
+
+    @Override
+    public AdminPageDTO recognizedSellerPagingParam(int page) {
+        int recognizedSellerCount = sellerRepository.recognizedSellerCount();
+        int maxPage = (int)(Math.ceil((double) recognizedSellerCount / adminPageLimit));
+        int startPage = (((int)(Math.ceil((double) page / adminBlockLimit))) - 1) * adminBlockLimit + 1;
+        int endPage = startPage + adminBlockLimit  - 1;
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        AdminPageDTO recognizedSellerPageDTO = new AdminPageDTO();
+        recognizedSellerPageDTO.setPage(page);
+        recognizedSellerPageDTO.setMaxPage(maxPage);
+        recognizedSellerPageDTO.setStartPage(startPage);
+        recognizedSellerPageDTO.setEndPage(endPage);
+        return recognizedSellerPageDTO;
+    }
+
+    @Override
+    public SellerDTO getInfoBySellerId(String id) {
+        return sellerRepository.getInfoBySellerId(id);
     }
 
 
@@ -160,23 +220,23 @@ public class SellerServiceImpl implements SellerService {
 
         return productPagingList;
     }*/
-@Override
-public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
-    int pagingStart = (page - 1) * pageLimit;
-    Map<String, Object> pagingParams = new HashMap<>();
-    pagingParams.put("start", pagingStart);
-    pagingParams.put("limit", pageLimit);
-    pagingParams.put("sellerIdx", sellerIdx);
+    @Override
+    public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
+        int pagingStart = (page - 1) * pageLimit;
+        Map<String, Object> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        pagingParams.put("sellerIdx", sellerIdx);
 
-    // 검색어가 제공된 경우에만 검색 조건 추가
-    if (searchField != null && searchWord != null) {
-        pagingParams.put("searchField", searchField);
-        pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
+        // 검색어가 제공된 경우에만 검색 조건 추가
+        if (searchField != null && searchWord != null) {
+            pagingParams.put("searchField", searchField);
+            pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
+        }
+
+        List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
+        return productPagingListWithSearch;
     }
-
-    List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
-    return productPagingListWithSearch;
-}
     @Override
     public PageDTO pagingParam(int page, Integer sellerIdx) {
         // 전체 글 개수 조회
@@ -316,4 +376,6 @@ public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page,
         int result = sellerRepository.idDuplicationCheck(id);
         return (result == 1) ? true : false;
     }
+
+
 }

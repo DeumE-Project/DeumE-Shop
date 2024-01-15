@@ -1,14 +1,23 @@
 package kr.co.chunjaeshop.product_review.repository;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductReviewRepository {
 
     // 남원우
     public int reviewSave(ProductReviewDTO productReviewDTO);
     public List<ProductReviewDTO> reviewList();
+    ProductReviewDTO findByIdx(String reviewIdx);
+    int update(ProductReviewDTO productReviewDTO);
+    void delete(String reviewIdx);
+
+    int boardCount();
+    List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams);
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
 
     // 최경락
 

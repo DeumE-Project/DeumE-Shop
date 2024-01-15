@@ -1,6 +1,8 @@
 package kr.co.chunjaeshop.product_review.service;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 
 import java.util.List;
 
@@ -11,6 +13,14 @@ public interface ProductReviewService {
 
     public int reviewSave(ProductReviewDTO productReviewDTO);
     List<ProductReviewDTO> reviewList();
+    ProductReviewDTO findByIdx(String reviewIdx);
+    boolean update(ProductReviewDTO productReviewDTO);
+    void delete(String reviewIdx);
+    List<ProductReviewDTO> pagingList(int page);
+
+    public ProductReviewPageDTO pagingParam(int page);
+
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
 
     // 최경락
 

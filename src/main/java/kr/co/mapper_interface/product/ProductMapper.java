@@ -47,4 +47,5 @@ public interface ProductMapper {
     // 변재혁
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     int getProductPrice(Integer productIdx);
+    List<ProductDTO> getProductListForMainPage();
 }

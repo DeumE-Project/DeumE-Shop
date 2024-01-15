@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.order_detail.dto;
 
+import kr.co.chunjaeshop.product.dto.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,5 +31,5 @@ public class OrderDetailDTO {
 
 
     // 변재혁
-
+    private ProductDTO productDTO;
 }

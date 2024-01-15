@@ -18,6 +18,7 @@
         <typeAlias type="kr.co.chunjaeshop.product_answer.dto.ProductAnswerDTO" alias="ProductAnswerDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product_question.dto.ProductQuestionDTO" alias="ProductQuestionDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product_review.dto.ProductReviewDTO" alias="ProductReviewDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product_comment.dto.CommentDTO" alias="CommentDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.seller.dto.SellerDTO" alias="SellerDTO"></typeAlias>
     </typeAliases>
 </configuration>

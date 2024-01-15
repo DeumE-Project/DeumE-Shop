@@ -1,19 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
-<html>
+<%@ include file="./topNavigation.jsp" %>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
 
-    <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
 </head>
+
 <body>
 <section class="vh-100" style="background-color: #fff;">
     <div class="container py-5 h-100">
@@ -81,11 +77,17 @@
 </section>
 <script>
     const loginFailMsg = '<c:out value="${loginFailMsg}" />'
+    const sellerLoginFailMsg = '<c:out value="${sellerLoginFailMsg}"/>';
+
     $(document).ready(function () {
         if (loginFailMsg) {
             alert(loginFailMsg);
         }
+        if (sellerLoginFailMsg) {
+            alert(sellerLoginFailMsg);
+        }
     });
+
     let loginBtn = function () {
         if ($('input[name="type"]:checked').length < 1) {
             alert("회원구분을 선택해주세요");
@@ -106,7 +108,6 @@
         document.body.appendChild(loginFormTag);
         loginFormTag.submit();
     }
-
 </script>
 </body>
 </html>
