@@ -22,6 +22,10 @@ public class CartServiceImpl implements CartService {
         // 해당 상품에 대한 판매자 idx 가져오기
         ProductDTO productDTO = productRepository.getProductInformationByProductIdx(addToCartForm.getProductIdx());
 
+        if (productDTO == null) {
+            return CartResult.FAILED;
+        }
+
         int resultCount = -1;
         CartResult cartResult = null;
 

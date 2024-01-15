@@ -55,6 +55,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     .authority(result.getAuthority())
                     .type(type)
                     .sellerRecognize(result.getSellerRecognize())
+                    .sellerRejectReason(result.getSellerRejectReason())
                     .build();
             return new LoginUserDTO(userVO, userVO.getAuthorityList());
         } else {
