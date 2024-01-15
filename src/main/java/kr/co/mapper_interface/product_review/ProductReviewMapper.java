@@ -1,6 +1,7 @@
 package kr.co.mapper_interface.product_review;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ public interface ProductReviewMapper {
 
     ProductReviewDTO findByIdx(String reviewIdx);
 
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
     int update(ProductReviewDTO productReviewDTO);
 
     void delete(String reviewIdx);

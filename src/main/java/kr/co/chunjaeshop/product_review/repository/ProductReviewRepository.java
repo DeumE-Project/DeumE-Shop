@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.product_review.repository;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public interface ProductReviewRepository {
 
     int boardCount();
     List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams);
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
 
     // 최경락
 

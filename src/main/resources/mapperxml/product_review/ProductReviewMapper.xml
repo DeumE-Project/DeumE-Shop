@@ -22,9 +22,16 @@
         where review_idx= #{review_idx}
     </select>
 
+    <select id="findByIdxReviewSaveDTO" resultType="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO">
+        select review_star, review_content  , review_idx
+        from product_review
+        where review_idx= #{review_idx}
+    </select>
+
     <update id="update" parameterType="ProductReviewDTO">
         UPDATE product_review
-        SET review_star = #{reviewStar} , review_content = #{reviewContent}
+        SET review_star = #{reviewStar} , review_content = #{reviewContent} , review_thumb_saved =#{reviewThumbSaved}, review_img_original=#{reviewImgOriginal}
+        , review_img_saved = #{reviewImgSaved}
         WHERE review_idx = #{reviewIdx}
     </update>
 

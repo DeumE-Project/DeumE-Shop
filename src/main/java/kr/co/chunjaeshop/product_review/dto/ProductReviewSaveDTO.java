@@ -21,4 +21,6 @@ public class ProductReviewSaveDTO {
     @ValidFile(message = "리뷰 사진은 필수 입니다.")
     private MultipartFile reviewImg;
 
+    private Integer reviewIdx;
+
   }

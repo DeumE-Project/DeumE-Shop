@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.product_review.repository;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 import kr.co.mapper_interface.customer.CustomerMapper;
 import kr.co.mapper_interface.product_review.ProductReviewMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,12 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
     public int reviewSave(ProductReviewDTO productReviewDTO) {
       return productReviewMapper.reviewSave(productReviewDTO);
     }
+
+    @Override
+    public ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx) {
+        return productReviewMapper.findByIdxReviewSaveDTO(reviewIdx);
+    }
+
     @Override
     public List<ProductReviewDTO> reviewList() {
      return productReviewMapper.reviewList();

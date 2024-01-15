@@ -1,38 +1,86 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <title>update</title>
-    <jsp:include page="#"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product review save</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 썸네일 이미지 스타일 */
+        .thumbnail {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+
+<body>
 <div class="container mt-5">
-    <form action="/product/review/update" method="post" name="updateForm" onsubmit="return validate();">
-        <div class="form-group">
-            <input type="hidden" name="id" value="${productReview.reviewIdx}" class="form-control" readonly onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <h1>리뷰 수정</h1>
+
+    <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
+    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update" method="post" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <form:hidden path="reviewIdx" />
+
+            <p>${productReviewSaveDTO.reviewIdx}</p>
+            <label for="reviewStar" class="form-label">별점</label>
+            <form:select class="form-select" path="reviewStar">
+                <form:option value="">별점 선택</form:option>
+                <form:option value="1">★☆☆☆☆</form:option>
+                <form:option value="2">★★☆☆☆</form:option>
+                <form:option value="3">★★★☆☆</form:option>
+                <form:option value="4">★★★★★</form:option>
+                <form:option value="5">★★★★★</form:option>
+            </form:select>
         </div>
-        <div class="form-group">
-            <label for="customerIdx">작성자</label>
-            <input type="text" name="customerIdx" value="${productReview.customerIdx}" class="form-control" readonly onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+        <div>
+            <form:errors path="reviewStar" cssClass="text-danger"/>
         </div>
-        <div class="form-group">
-            <label for="reviewStar">별점</label>
-            <input type="text" name="reviewStar" value="${productReview.reviewStar}" class="form-control" id="reviewStar" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+
+        <div class="mb-3">
+            <label for="reviewContent" class="form-label">리뷰 내용</label>
+            <form:textarea class="form-control" path="reviewContent" rows="3" placeholder="리뷰 내용을 입력하세요" />
         </div>
-        <div class="form-group">
-            <label for="reviewContent">내용</label>
-            <textarea name="reviewContent" class="form-control" rows="5" id="reviewContent" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">${productReview.reviewContent}</textarea>
+        <div>
+            <form:errors path="reviewContent" cssClass="text-danger"/>
         </div>
-        <button type="button" class="btn btn-primary" onclick="updateReqFn()">수정</button>
-    </form>
+        <div class="mb-3">
+            <label for="reviewImg" class="form-label">리뷰 사진</label>
+            <form:input type="file" class="form-control" path="reviewImg" multiple="multiple"/>
+        </div>
+        <div>
+            <form:errors path="reviewImg" cssClass="text-danger"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="reviewImg" class="form-label"></label>
+            <img id="reviewImgPreview" class="thumbnail" />
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <button type="reset" class="btn btn-primary">초기화</button>
+
+    </form:form>
+
+    <script>
+        function previewImage(input, targetId) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var targetElement = document.getElementById(targetId);
+                targetElement.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+        document.getElementById('reviewImg').onchange = function () {
+            previewImage(this, 'reviewImgPreview');
+        };
+    </script>
 </div>
 </body>
-<script>
-    const updateReqFn = () => {
-        document.updateForm.submit();
-    }
-</script>
 </html>

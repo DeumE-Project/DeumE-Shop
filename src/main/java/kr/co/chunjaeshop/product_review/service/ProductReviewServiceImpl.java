@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.product_review.service;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 import kr.co.chunjaeshop.product_review.repository.ProductReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -36,6 +37,11 @@ public class ProductReviewServiceImpl implements ProductReviewService {
     public ProductReviewDTO findByIdx(String reviewIdx) {
      return productReviewRepository.findByIdx(reviewIdx);
     }
+
+  @Override
+  public ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx) {
+    return productReviewRepository.findByIdxReviewSaveDTO(reviewIdx);
+  }
 
   @Override
   public boolean update(ProductReviewDTO productReviewDTO) {

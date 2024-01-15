@@ -23,8 +23,8 @@
         <c:forEach items="${commentList}" var="comment">
             <tr>
                 <td>${comment.commentIdx}</td>
-                <td>${comment.commentWriter}</td>
-                <td>${comment.commentContents}</td>
+                <td><c:out value="${comment.commentWriter}"/></td>
+                <td><c:out value="${comment.commentContents}"/><</td>
                 <td>${comment.commentCreatedTimeStr}</td>
             </tr>
         </c:forEach>
