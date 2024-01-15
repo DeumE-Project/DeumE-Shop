@@ -1,10 +1,8 @@
 package kr.co.chunjaeshop.product.controller;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
-
 import kr.co.chunjaeshop.product.dto.ProductSaveDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +10,6 @@ import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -159,7 +155,7 @@ public class ProductController {
             productDTO.setProductExplain(productSaveDTO.getProductExplain());
             productDTO.setProductPrice(productSaveDTO.getProductPrice());
             productDTO.setProductStock(productSaveDTO.getProductStock());
-            productDTO.setProductThumbSaved(thumbnailFilename);
+            productDTO.setProductThumbSaved(uploadFolderPath + "/" + thumbnailFilename);
             productDTO.setProductImgOriginal(fileImgOriginal);
             productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
             productDTO.setProductDetailOriginal(fileDetailOriginal);
@@ -302,7 +298,7 @@ public class ProductController {
 
             productMainImgUpdateDTO.setProductIdx(productMainImgUpdateDTO.getProductIdx());
             productMainImgUpdateDTO.setSellerIdx(productMainImgUpdateDTO.getSellerIdx());
-            productMainImgUpdateDTO.setProductThumbSaved(thumbnailFilename);
+            productMainImgUpdateDTO.setProductThumbSaved(uploadFolderPath + "/" + thumbnailFilename);
             productMainImgUpdateDTO.setProductImgOriginal(fileImgOriginal);
             productMainImgUpdateDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
 
@@ -417,6 +413,32 @@ public class ProductController {
             return "/product/productDetail_ImgUpdateForm";
         }
     }
+
+    @GetMapping("/productList")
+    public String productList(Model model) {
+        List<ProductDTO> productListDTO = productService.getList();
+        model.addAttribute("productList", productListDTO);
+        log.info(productListDTO);
+        return "/product/productList";
+    }
+
+    /*@GetMapping("/productList")
+    public String myProductManage(@RequestParam("productIdx") Integer productIdx,
+                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                  @RequestParam(value = "searchField", required = false) String searchField,
+                                  @RequestParam(value = "searchWord", required = false) String searchWord,
+                                  Model model){
+        List<ProductDTO> productPagingList = productService.productPagingListWithSearch(productIdx, page, searchField, searchWord);
+        PageDTO productPageDTO = productService.pagingParam(page, productIdx);
+        PageDTO productSearchPageDTO = productService.pagingSearchParam(page, productIdx, searchField, searchWord);
+        model.addAttribute("productList", productPagingList);
+        model.addAttribute("productPaging", productPageDTO);
+        model.addAttribute("productSerchPaging", productSearchPageDTO);
+        model.addAttribute("productIdx", productIdx);
+        model.addAttribute("searchField", searchField);
+        model.addAttribute("searchWord", searchWord);
+        return "/product/productList";
+    }*/
 
 
     // 이무현

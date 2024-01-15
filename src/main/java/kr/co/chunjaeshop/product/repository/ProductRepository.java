@@ -23,6 +23,7 @@ public interface ProductRepository {
     int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
+    List<ProductDTO> getList();
 
 
 
@@ -51,4 +52,6 @@ public interface ProductRepository {
     int getProductPrice(Integer productIdx);
 
     List<ProductDTO> getProductListForMainPage();
+
+
 }

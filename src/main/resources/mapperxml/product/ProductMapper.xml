@@ -64,6 +64,11 @@
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
+    <select id="getList" resultType="ProductDTO">
+        Select product_idx, category_idx, product_name, product_price, product_stock, product_thumb_saved
+        From product
+    </select>
+
     <!--    이무현-->
 
 

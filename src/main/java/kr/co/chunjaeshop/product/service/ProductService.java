@@ -21,6 +21,8 @@ public interface ProductService {
     boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
+    // List<ProductDTO> productPagingListWithSearch(Integer productIdx, int page, String searchField, String searchWord);
+    List<ProductDTO> getList();
 
     // 이무현
 
@@ -34,4 +36,7 @@ public interface ProductService {
     // 변재혁
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     List<ProductDTO> getProductListForMainPage();
+
+
+
 }

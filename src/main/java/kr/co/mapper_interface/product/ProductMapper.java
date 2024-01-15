@@ -24,6 +24,7 @@ public interface ProductMapper {
     int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
     int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
+    List<ProductDTO> getList();
 
     // 이무현
 
@@ -48,4 +49,6 @@ public interface ProductMapper {
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     int getProductPrice(Integer productIdx);
     List<ProductDTO> getProductListForMainPage();
+
+
 }

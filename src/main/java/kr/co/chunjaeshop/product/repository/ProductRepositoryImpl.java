@@ -63,6 +63,11 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.productDetailImgUpdate(productDetailImgUpdateDTO);
     }
 
+    @Override
+    public List<ProductDTO> getList() {
+        return productMapper.getList();
+    }
+
    /* @Override
     public ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx) {
         return productMapper.productInfoUpdate(sellerIdx, productIdx);
