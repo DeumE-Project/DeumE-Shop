@@ -1,6 +1,8 @@
 package kr.co.chunjaeshop.product.service;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
+import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 import kr.co.chunjaeshop.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -42,6 +44,28 @@ public class ProductServiceImpl implements ProductService {
     public boolean productInfoUpdate(ProductDTO productDTO) {
         int result = productRepository.productInfoUpdate(productDTO);
         return result > 0;
+    }
+    @Override
+    public ProductDTO findMainImg(Integer sellerIdx, Integer productIdx) {
+
+        return productRepository.findMainImg(sellerIdx, productIdx);
+    }
+    @Override
+    public boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO) {
+
+        int result = productRepository.productImgUpdate(productMainImgUpdateDTO);
+        log.info(productMainImgUpdateDTO);
+        return  result > 0;
+
+    }
+    @Override
+    public ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
+        return productRepository.findDetailImg(sellerIdx, productIdx);
+    }
+    @Override
+    public boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO) {
+        int result = productRepository.productDetailImgUpdate(productDetailImgUpdateDTO);
+        return result >0;
     }
 
     /*@Override

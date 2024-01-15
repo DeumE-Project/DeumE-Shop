@@ -1,6 +1,7 @@
 package kr.co.chunjaeshop.seller.repository;
 
 
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,18 @@ public interface SellerRepository {
 
     void insertRejectReason(Map<String, Object> reason);
 
+    List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam);
+
+    int rejectSellerCount();
+
+    List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
+
+    int recognizedSellerCount();
+
+    SellerDTO getInfoBySellerId(String id);
+
+
+
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
 
@@ -39,8 +52,14 @@ public interface SellerRepository {
 
     int avgRev(Integer sellerIdx);
 
+    List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> categorySalesList(Integer sellerIdx);
+
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
+
+
 
 }

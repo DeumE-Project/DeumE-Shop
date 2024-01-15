@@ -1,6 +1,8 @@
 package kr.co.chunjaeshop.product.repository;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
+import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
+import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 import kr.co.mapper_interface.product.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -8,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;;
+import java.util.Map;
+
+;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,6 +41,26 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public int productInfoUpdate(ProductDTO productDTO) {
         return  productMapper.productInfoUpdate(productDTO);
+    }
+
+    @Override
+    public ProductDTO findMainImg(Integer sellerIdx, Integer productIdx) {
+        return productMapper.findMainImg(sellerIdx, productIdx);
+    }
+    @Override
+    public int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO) {
+        log.info(productMainImgUpdateDTO);
+
+        return productMapper.productImgUpdate(productMainImgUpdateDTO);
+    }
+    @Override
+    public ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
+        return productMapper.findDetailImg(sellerIdx, productIdx);
+    }
+
+    @Override
+    public int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO) {
+        return productMapper.productDetailImgUpdate(productDetailImgUpdateDTO);
     }
 
    /* @Override

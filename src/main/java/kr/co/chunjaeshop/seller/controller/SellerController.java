@@ -4,6 +4,7 @@ import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,8 @@ public class SellerController {
         int totalRev = sellerService.getMyTotalRev(sellerIdx);
         int getDateRev = sellerService.getDateRev(sellerIdx);
         int avgRev = sellerService.avgRev(sellerIdx);
+        List<SellDashBoardDTO> monthlySalesList = sellerService.monthlySalesList(sellerIdx);
+        List<SellDashBoardDTO> categorySales = sellerService.categorySales(sellerIdx);
         /*int getDateRevLast = sellerService.getDateRevLast(sellerIdx, lastMonth);*/
         model.addAttribute("myCount", resultCnt);
         model.addAttribute("mySeller", sellerDTO);
@@ -54,6 +57,8 @@ public class SellerController {
         model.addAttribute("dateRev", getDateRev);
         model.addAttribute("avgRev", avgRev);
         model.addAttribute("sellerIdx", 1);
+        model.addAttribute("monthlySalesList", monthlySalesList);
+        model.addAttribute("categorySales", categorySales);
         /*model.addAttribute("lastDateRev", getDateRevLast);*/
         return "/seller/mySellerPage";
     }

@@ -83,7 +83,7 @@
     <section class="bg-light py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">판매 상품 관리</h1>
+                <h1 class="fw-bolder" onclick="goToFirstPage()" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">판매 상품 관리</h1>
             </div>
 
             <!-- 검색 폼 -->
@@ -139,7 +139,7 @@
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
                         <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
-                        <td><a href="#" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
+                        <td><a href="/product/productDetail?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
                         <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
                 </c:forEach>
@@ -256,4 +256,10 @@
     </section>
 </main>
 </body>
+<script>
+    // jQuery를 사용하여 페이지 이동 함수 정의
+    function goToFirstPage() {
+        window.location.href = "/seller/myProduct?page=1&sellerIdx=${myProductList[0].sellerIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}";
+    }
+</script>
 </html>

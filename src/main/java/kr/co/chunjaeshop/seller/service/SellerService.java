@@ -1,12 +1,14 @@
 package kr.co.chunjaeshop.seller.service;
 
 
-import kr.co.chunjaeshop.admin.dto.NotRecognizePageDTO;
+import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
+
 
 import java.util.List;
 
@@ -22,11 +24,22 @@ public interface SellerService {
 
     void updateRecognize(int i, String id);
 
-    NotRecognizePageDTO notRecognizedSellerPagingParam(int page);
+    AdminPageDTO notRecognizedSellerPagingParam(int page);
 
     List<SellerDTO> getNotRecognizedSellerList(int page);
 
     void insertRejectReason(String reason, String id);
+
+    List<SellerDTO> getRejectSellerList(int page);
+
+    AdminPageDTO rejectSellerPagingParam(int page);
+
+    List<SellerDTO> getRecognizedSellerList(int page);
+
+    AdminPageDTO recognizedSellerPagingParam(int page);
+
+    SellerDTO getInfoBySellerId(String id);
+
 
     // 유지호
     SellerDTO mySellerInfoByIdx(Integer sellerIdx);
@@ -56,9 +69,14 @@ public interface SellerService {
 
     PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord);
 
+    List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> categorySales(Integer sellerIdx);
+
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
+
 
 
 }

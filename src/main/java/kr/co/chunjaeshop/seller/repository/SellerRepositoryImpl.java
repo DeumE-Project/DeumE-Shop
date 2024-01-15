@@ -1,5 +1,8 @@
 package kr.co.chunjaeshop.seller.repository;
 
+
+
+import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
 import kr.co.mapper_interface.seller.SellerMapper;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+
 
 
 @Repository
@@ -40,6 +44,21 @@ public class SellerRepositoryImpl implements SellerRepository {
     }
 
     @Override
+    public int rejectSellerCount() {
+        return sellerMapper.rejectSellerCount();
+    }
+
+    @Override
+    public int recognizedSellerCount() {
+        return sellerMapper.recognizedSellerCount();
+    }
+
+    @Override
+    public SellerDTO getInfoBySellerId(String id) {
+        return sellerMapper.getInfoBySellerId(id);
+    }
+
+    @Override
     public List<SellerDTO> getNotRecognizedSellerList(Map<String, Integer> notRecognizedSellerPagingParam) {
         return sellerMapper.getNotRecognizedSellerList(notRecognizedSellerPagingParam);
     }
@@ -48,6 +67,19 @@ public class SellerRepositoryImpl implements SellerRepository {
     public void insertRejectReason(Map<String, Object> reason) {
         sellerMapper.insertRejectReason(reason);
     }
+
+    @Override
+    public List<SellerDTO> getRejectSellerList(Map<String, Integer> rejectSellerPagingParam) {
+        return sellerMapper.getRejectSellerList(rejectSellerPagingParam);
+    }
+
+
+    @Override
+    public List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam) {
+        return sellerMapper.getRecognizedSellerList(recognizedSellerPagingParam);
+    }
+
+
 
 
     // 유지호
@@ -74,6 +106,17 @@ public class SellerRepositoryImpl implements SellerRepository {
     @Override
     public int avgRev(Integer sellerIdx) {
         return sellerMapper.avgRev(sellerIdx);
+    }
+
+
+    @Override
+    public List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx) {
+        return sellerMapper.monthlySalesList(sellerIdx);
+    }
+
+    @Override
+    public List<SellDashBoardDTO> categorySalesList(Integer sellerIdx) {
+        return sellerMapper.categorySalesList(sellerIdx);
     }
 
     // 변재혁
