@@ -8,10 +8,13 @@
     <title>Product Detail</title>
     <!-- 부트스트랩 5 CSS 링크 추가 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 나눔고딕 폰트 링크 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-nanum@1.0.16/dist/nanum.min.css">
     <style>
         /* 추가적인 스타일링이 필요한 경우 여기에 작성하세요. */
         body {
             background-color: #f8f9fa;
+            font-family: 'Nanum Gothic', sans-serif; /* 나눔고딕 폰트 적용 */
         }
 
         .container {
@@ -24,45 +27,45 @@
 
         h2 {
             color: #007bff;
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
         h3 {
             color: #343a40;
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
-        img.img-fluid {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        p.product-name {
+            font-size: 1.5em; /* 상품명 폰트 크기 조절 */
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
-        .product-description p {
-            margin-bottom: 10px;
+        p.product-category, p.product-description {
+            font-size: 1.2em; /* 카테고리와 상품설명 폰트 크기 조절 */
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
         .price {
             font-weight: bold;
             font-size: 1.2em;
             color: #28a745;
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
         .stock {
             font-weight: bold;
             color: #dc3545;
+            font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
 
         @media (min-width: 768px) {
             /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
-            .product-image {
+            .product-image, .product-description {
                 order: 1; /* 왼쪽에 배치 */
             }
 
-            .product-description {
-                order: 2; /* 오른쪽에 배치 */
-            }
-
             .description-image {
+                order: 2; /* 오른쪽에 배치 */
                 text-align: center; /* 가운데 정렬 */
             }
         }
@@ -82,9 +85,9 @@
             <h2>상품 정보 상세보기</h2>
             <input type="hidden" value="${product.sellerIdx}">
             <input type="hidden" value="${product.productIdx}">
-            <p>상품명: <c:out value="${product.productName}"/></p>
-            <p>카테고리: <c:out value="${product.categoryName}"/></p>
-            <p>상품 설명: <c:out value="${product.productExplain}"/></p>
+            <p class="product-name">상품명: <c:out value="${product.productName}"/></p>
+            <p class="product-category">카테고리: <c:out value="${product.categoryName}"/></p>
+            <p class="product-description">상품 설명: <c:out value="${product.productExplain}"/></p>
             <p class="price">가격: <fmt:formatNumber value="${product.productPrice}"/>원</p>
             <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>
             <div class="mb-3">

@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         return result > 0;
     }
     @Override
-    public ProductDTO findMainImg(Integer sellerIdx, Integer productIdx) {
+    public ProductMainImgUpdateDTO findMainImg(Integer sellerIdx, Integer productIdx) {
 
         return productRepository.findMainImg(sellerIdx, productIdx);
     }
@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
     }
     @Override
-    public ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
+    public ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
         return productRepository.findDetailImg(sellerIdx, productIdx);
     }
     @Override
