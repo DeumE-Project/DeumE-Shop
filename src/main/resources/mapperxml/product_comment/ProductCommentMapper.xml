@@ -10,5 +10,6 @@
 
     <select id="commentList"  resultType="CommentDTO">
         select * from comment
+        where product_idx = 2;
     </select>
 </mapper>

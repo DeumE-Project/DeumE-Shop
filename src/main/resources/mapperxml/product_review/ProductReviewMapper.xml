@@ -16,7 +16,6 @@
         FROM product_review
     </select>
 
-
     <select id="findByIdx" resultType="ProductReviewDTO">
         select review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
         from product_review
@@ -35,7 +34,9 @@
 
     <select id="pagingList" parameterType="java.util.HashMap" resultType="ProductReviewDTO">
         SELECT review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
-        from product_review order by review_idx desc limit #{start}, #{limit}
+        from product_review
+        where product_idx = 2
+        order by review_idx desc limit #{start}, #{limit}
     </select>
 
     <select id="boardCount" resultType="Integer">
