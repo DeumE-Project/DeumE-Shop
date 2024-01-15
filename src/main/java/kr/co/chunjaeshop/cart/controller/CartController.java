@@ -150,6 +150,7 @@ public class CartController {
         } else {
             log.error("새로운 주문 저장 실패");
         }
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("orderSuccessMsg", "주문이 완료되었습니다");
+        return "redirect:/order/product/list";
     }
 }

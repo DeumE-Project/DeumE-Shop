@@ -1,35 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>주문내역 리스트</title>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 
-    <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
-    <!-- jQuery cdn -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<title>주문내역 리스트</title>
+<style>
+    td {
+        vertical-align: middle;
+    }
 
-    <style>
-        td {
-            vertical-align: middle;
-        }
+    .container-history {
+        border-top: 1px solid black;
+        padding: 0px;
+    }
+</style>
 
-        .container-history {
-            border-top: 1px solid black;
-            padding: 0px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h4>주문 히스토리</h4>
+
+<div class="container" style="margin-top: 2rem;">
+    <h4>주문 내역</h4>
 </div>
 <br/>
 
@@ -66,7 +54,7 @@
                                     수량: <c:out value="${orderProduct.orderDetailCount}"/> 건
                                 </c:when>
                                 <c:otherwise>
-                                    외 총 <c:out value="${orderProduct.orderDetailCount - 1}"/> 건
+                                    외 <c:out value="${orderProduct.orderDetailCount - 1}"/> 건
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -88,4 +76,19 @@
     </c:otherwise>
 </c:choose>
 </body>
+
+<script>
+    const orderDetailErrorMsg = '<c:out value="${orderDetailErrorMsg}"/>';
+    if (orderDetailErrorMsg) {
+        alert(orderDetailErrorMsg);
+    }
+    const globalErrorMsg = '<c:out value="${globalErrorMsg}"/>';
+    if (globalErrorMsg) {
+        alert(globalErrorMsg);
+    }
+    const orderSuccessMsg = '<c:out value="${orderSuccessMsg}"/>';
+    if (orderSuccessMsg) {
+        alert(orderSuccessMsg);
+    }
+</script>
 </html>

@@ -57,9 +57,9 @@
             useGeneratedKeys="true" keyColumn="order_idx" keyProperty="orderIdx">
         INSERT
         INTO order_product(customer_idx, order_total_price, order_zipcode, order_address1, order_address2,
-            order_request, order_name, order_phone, order_email)
+            order_request, order_name, order_phone, order_email, order_payment)
         VALUES(#{customerIdx}, #{orderTotalPrice}, #{orderZipcode}, #{orderAddress1}, #{orderAddress2},
-            #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail})
+            #{orderRequest}, #{orderName}, #{orderPhone}, #{orderEmail}, 1)
     </insert>
 
     <resultMap id="orderWithOrderDetails" type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO">
@@ -84,16 +84,24 @@
             <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
             <result column="product_count" jdbcType="INTEGER" property="productCount"/>
             <result column="product_total_price" jdbcType="INTEGER" property="productTotalPrice"/>
+
+            <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
+                <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
+                <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+                <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+            </association>
         </collection>
     </resultMap>
 
     <select id="getOrderProductWithOrderDetails" resultMap="orderWithOrderDetails">
         SELECT op.order_idx, customer_idx, order_date, order_total_price, order_status,
                order_zipcode, order_address1, order_address2, order_payment, order_request,
-               order_name, order_phone, order_email, order_detail_idx, product_idx,
-               product_price, product_count, product_total_price
-        FROM order_product op INNER JOIN order_detail od
-            ON op.order_idx = od.order_idx
+               order_name, order_phone, order_email, order_detail_idx, od.product_idx,
+               od.product_price, od.product_count, od.product_total_price, p.product_idx, p.product_name, s.seller_name
+        FROM order_product op
+            INNER JOIN order_detail od ON op.order_idx = od.order_idx
+            INNER JOIN product p ON od.product_idx  = p.product_idx
+            INNER JOIN seller s ON s.seller_idx = p.seller_idx
         WHERE op.order_idx = #{orderIdx} AND customer_idx = #{customerIdx}
     </select>
 
@@ -123,6 +131,7 @@
         FROM order_product op INNER JOIN order_detail od ON op.order_idx = od.order_idx
             INNER JOIN product p ON od.product_idx = p.product_idx
         WHERE op.customer_idx = #{customerIdx}
-        GROUP BY op.order_idx;
+        GROUP BY op.order_idx
+        ORDER BY order_date DESC;
     </select>
 </mapper>

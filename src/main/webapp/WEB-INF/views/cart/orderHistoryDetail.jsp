@@ -1,23 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
-<html>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문상세</title>
-
-    <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
-    <!-- jQuery cdn -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
 </head>
-<body>
+
 <!-- Page Header Start -->
 <div class="container-fluid">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -39,76 +28,56 @@
                 <div class="card-header border-0" style="background-color: #EDF1FF; padding: 10px 0px; padding-left: 10px;
                     border-top-left-radius: 5px; border-top-right-radius: 5px;">
                     <h4 class="font-weight-semi-bold m-0">
-                        배송지 입력
+                        배송지
                     </h4>
                 </div>
-
-                <form:form modelAttribute="orderProductForm" method="post" action="/cart/order?cartIdx=${cartIdx}">
-                    <%--                    <input type="hidden" name="cartIdx" value="${cartIdx}"/>--%>
-                    <div style="margin-top: 15px;">
-                        <div class="form-group">
-                            <label>수취인</label>
-                            <form:input path="orderName" class="form-control" type="text"
-                                        placeholder="이름을 입력해주세요"/>
-                            <form:errors path="orderName" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>이메일</label>
-                            <form:input path="orderEmail" class="form-control" type="text"
-                                        placeholder="이메일을 입력해주세요"/>
-                            <form:errors path="orderEmail" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>전화번호</label>
-                            <form:input path="orderPhone" class="form-control" type="text"
-                                        placeholder="숫자만 입력해주세요"/>
-                            <form:errors path="orderPhone" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>우편번호</label><br/>
-                            <button type="button" class="btn btn-link"
-                                    onclick="sample6_execDaumPostcode()">우편번호 검색
-                            </button><br/>
-                            <form:input path="orderZipcode" class="form-control" type="text"
-                                        placeholder="우편번호 검색을 클릭해주세요" readonly="true"/>
-                            <form:errors path="orderZipcode" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>주소</label>
-                            <form:input path="orderAddress1" class="form-control" type="text"
-                                        placeholder="우편번호 검색을 통해 입력되게 해주세요" readonly="true"/>
-                            <form:errors path="orderAddress1" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>상세주소</label>
-                            <form:input path="orderAddress2" class="form-control" type="text"
-                                        placeholder="동/호수 등 상세주소를 입력해주세요"/>
-                            <form:errors path="orderAddress2" cssClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-group">
-                            <label>배송요청사항</label>
-                            <form:select path="orderRequest" class="form-control">
-                                <option value="op-none">주문 요청사항 선택</option>
-                                <option value="op-text">배송 전 문자 남겨주세요</option>
-                                <option value="op-call">배송 전 전화 해주세요</option>
-                                <option value="op-security">경비실에 맡겨주세요</option>
-                            </form:select><br/>
-                        </div>
+                <div style="margin-top: 15px;">
+                    <div class="form-group">
+                        <label>수취인</label>
+                        <input type="text" class="form-control" value="${order.orderName}" disabled/>
                     </div>
-                </form:form>
+                    <br/>
+                    <div class="form-group">
+                        <label>이메일</label>
+                        <input class="form-control" type="text" value="${order.orderEmail}" disabled/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label>전화번호</label>
+                        <input class="form-control" type="text" value="${order.orderPhone}" disabled/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label>우편번호</label><br/>
+                        <input class="form-control" type="text" value="${order.orderZipcode}" disabled/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label>주소</label>
+                        <input class="form-control" type="text" value="${order.orderAddress1}" disabled/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label>상세주소</label>
+                        <input class="form-control" type="text" value="${order.orderAddress2}" disabled/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label>배송요청사항</label>
+                        <select class="form-control" disabled>
+                            <option ${order.orderRequest == "op-none" ? 'selected' : ''}>요청사항 없음</option>
+                            <option ${order.orderRequest == "op-text" ? 'selected' : ''}>배송 전 문자 남겨주세요</option>
+                            <option ${order.orderRequest == "op-call" ? 'selected' : ''}>배송 전 전화 해주세요</option>
+                            <option ${order.orderRequest == "op-security" ? 'selected' : ''}>경비실에 맡겨주세요</option>
+                        </select><br/>
+                    </div>
+                </div>
             </div>
-
-
             <div style="margin-top: 2.5rem;">
                 <!-- 여기서부터 장바구니 한 개 시작 -->
                 <div>
-                    <h5 class="seller-name">판매자 이름: <c:out value="${cart.sellerName}"/></h5>
+                    <h5 class="seller-name">판매자 이름: <c:out
+                            value="${order.orderDetailList.get(0).productDTO.sellerName}"/></h5>
                     <div>
                         <div class="table-responsive mb-5">
                             <table class="table table-bordered text-center mb-0">
@@ -121,29 +90,28 @@
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                <c:set var="productTotalPriceWithoutDeliveryFee" value="0"/>
-                                <c:forEach items="${cart.cartDetailDTOList}" var="cartDetailDTO">
+                                <c:forEach items="${order.orderDetailList}" var="orderDetailDTO">
                                     <tr>
                                         <td class="align-middle">
                                             <img src="" alt="" style="width: 100px; height: 100px;">
-                                            <c:out value="${cartDetailDTO.productName}"/>
+                                            <c:out value="${orderDetailDTO.productDTO.productName}"/>
                                         </td>
                                         <td class="align-middle">
-                                            <fmt:formatNumber value="${cartDetailDTO.productPrice}" pattern="#,###"/>
+                                            <fmt:formatNumber value="${orderDetailDTO.productPrice}" pattern="#,###"/>
                                         </td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <input type="text"
                                                        class="form-control form-control-sm text-center"
-                                                       value="${cartDetailDTO.buyCount}" readonly>
+                                                       value="${orderDetailDTO.productCount}" readonly>
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            <fmt:formatNumber value="${cartDetailDTO.productPrice * cartDetailDTO.buyCount}" pattern="#,###"/>
+                                            <fmt:formatNumber
+                                                    value="${orderDetailDTO.productTotalPrice}"
+                                                    pattern="#,###"/>
                                         </td>
                                     </tr>
-                                    <c:set var="productTotalPriceWithoutDeliveryFee"
-                                           value="${productTotalPriceWithoutDeliveryFee + (cartDetailDTO.productPrice * cartDetailDTO.buyCount)}"/>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -158,11 +126,10 @@
                     <h4 class="font-weight-semi-bold m-0">주문 요약</h4>
                 </div>
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between mb-3 pt-1">
                         <h6 class="font-weight-medium">상품</h6>
                         <h6 class="font-weight-medium">
-                            <fmt:formatNumber value="${productTotalPriceWithoutDeliveryFee}" pattern="#,###"/>
+                            <fmt:formatNumber value="${order.orderTotalPrice}" pattern="#,###"/>
                         </h6>
                     </div>
                     <div class="d-flex justify-content-between">
@@ -176,7 +143,7 @@
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">합계</h5>
                         <h5 class="font-weight-bold">
-                            <fmt:formatNumber value="${productTotalPriceWithoutDeliveryFee + 2500}" pattern="#,###"/>
+                            <fmt:formatNumber value="${order.orderTotalPrice + 2500}" pattern="#,###"/>
                         </h5>
                     </div>
                 </div>
@@ -194,13 +161,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer border-secondary bg-transparent">
-                    <button class="btn btn-primary font-weight-bold" style="width: 100%;" id="submit-btn">주문하기</button>
-                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Checkout End -->
 </body>
 </html>

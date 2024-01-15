@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -243,17 +244,30 @@ public class ProductController {
 
     @GetMapping(value = "/detail")
     public String productDetailForm(@RequestParam(required = false) Integer productIdx,
-                                    Model model) {
+                                    Model model,
+                                    RedirectAttributes redirectAttributes) {
         log.info("productIdx = {}", productIdx);
         if (productIdx == null) {
             return "cart/productMainCart";
         }
         ProductDTO productDTO = pService.getProductInformationByProductIdx(productIdx);
         log.info("productDTO = {}", productDTO);
+
+        if (productDTO == null) {
+            redirectAttributes.addFlashAttribute("productNotExistErrorMsg", "상품을 찾을 수 없습니다");
+            return "redirect:/main";
+        }
+
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productIdx", productIdx);
         return "cart/productMainCart";
     }
+
+    /*@ExceptionHandler(value = Exception.class)
+    public String handleAllException(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("globalErrorMsg", "잘못된 요청입니다");
+        return "redirect:/";
+    }*/
 }
 
 

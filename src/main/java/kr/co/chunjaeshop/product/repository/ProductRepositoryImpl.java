@@ -108,5 +108,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     public int getProductPrice(Integer productIdx) {
         return pMap.getProductPrice(productIdx);
     }
+
+    @Override
+    public List<ProductDTO> getProductListForMainPage() {
+        return pMap.getProductListForMainPage();
+    }
 }
 
