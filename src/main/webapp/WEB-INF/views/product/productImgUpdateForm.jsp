@@ -46,7 +46,9 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">상품 사진 수정</h1>
-    <form:form modelAttribute="productMainImgUpdateDTO" action="/product/productImgUpdate?sellerIdx=${productMainImgUpdateDTO.sellerIdx}&productIdx=${productMainImgUpdateDTO.productIdx}" method="post"  enctype="multipart/form-data">
+    <form:form modelAttribute="productMainImgUpdateDTO"
+               action="/product/productImgUpdate?sellerIdx=${productMainImgUpdateDTO.sellerIdx}
+               &productIdx=${productMainImgUpdateDTO.productIdx}" method="post"  enctype="multipart/form-data">
         <input type="hidden" name="sellerIdx" value="${productMainImgUpdateDTO.sellerIdx}" />
         <input type="hidden" name="productIdx" value="${productMainImgUpdateDTO.productIdx}" />
         <input type="hidden" name="productImgOriginal" value="${productMainImgUpdateDTO.productImgOriginal}" />
@@ -60,54 +62,56 @@
             </div>
             <div class="col-md-6">
                 <label for="mainImg" class="form-label">새로운 상품 사진</label>
-                <form:input type="file" class="form-control" path="mainImg" id="mainImgInput" accept="image/*" onchange="validateImageType('mainImgInput', 'mainImgWarning')" />
+                <form:input type="file" class="form-control" path="mainImg" id="mainImgInput" accept="image/*"
+                            onchange="validateAndPreviewImage('mainImgInput', 'mainImgWarning', 'mainImgPreview')" />
                 <form:errors path="mainImg" cssClass="text-danger"/>
                 <div id="mainImgWarning" class="text-danger"></div>
-                <img id="mainImgPreview" class="thumbnail" />
+                <img id="mainImgPreview" class="thumbnail" style="display:none;" />
             </div>
         </div>
 
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">등록</button>
-            <a class="btn btn-secondary" href="/product/productDetail?sellerIdx=${productMainImgUpdateDTO.sellerIdx}&productIdx=${productMainImgUpdateDTO.productIdx}">취소</a>
+            <a class="btn btn-secondary"
+               href="/product/productDetail?sellerIdx=${productMainImgUpdateDTO.sellerIdx}
+               &productIdx=${productMainImgUpdateDTO.productIdx}">취소</a>
         </div>
     </form:form>
-</div>
+    <!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
+    <script>
+        function previewImage(input, targetId) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let targetElement = document.getElementById(targetId);
+                targetElement.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
 
-<!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
-<script>
-    function previewImage(input, targetId) {
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            let targetElement = document.getElementById(targetId);
-            targetElement.src = e.target.result;
+        // 수정된 부분: 함수명 변경 및 파일 선택 시 호출 추가
+        document.getElementById('mainImgInput').onchange = function () {
+            validateAndPreviewImage(this, 'mainImgPreview', 'mainImgWarning');
         };
-        reader.readAsDataURL(input.files[0]);
-    }
 
-    document.getElementById('mainImg').onchange = function () {
-        previewImage(this, 'mainImgPreview');
-    };
-</script>
-
-<script>
-    function validateImageType(inputId, warningId) {
-        let input = document.getElementById(inputId);
-        let warning = document.getElementById(warningId);
-
-        if (input.files.length > 0) {
+        function validateAndPreviewImage(input, targetId, warningId) {
             let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
             let fileType = input.files[0].type;
+            let warning = document.getElementById(warningId);
+            let targetElement = document.getElementById(targetId);
 
             if (allowedTypes.indexOf(fileType) === -1) {
-                warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 등록가능합니다.";
+                warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 허용됩니다.";
                 input.value = ''; // Clear the input
+                targetElement.style.display = 'none'; // Hide the preview
             } else {
                 warning.innerHTML = '';
+                previewImage(input, targetId);
+                targetElement.style.display = 'block'; // Show the preview
             }
         }
-    }
-</script>
+    </script>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
