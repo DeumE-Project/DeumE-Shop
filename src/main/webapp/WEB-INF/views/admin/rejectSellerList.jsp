@@ -8,11 +8,41 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+        nav {
+            height: 100%;
+            width: 15%;
+            position: fixed;
+            left: 0;
+            background-color: #111;
             padding-top: 20px;
+            padding-left: 20px;
+            color: white;
+        }
+        .admin-title {
+            font-size: 24px; /* Larger font size for Administrator */
+            font-weight: bold; /* Optional: Make it bold */
+            margin-bottom: 20px; /* Add some space below the Administrator title */
+        }
+
+        nav a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            border-bottom: 1px solid #333;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        .container{
+            margin-left: 20%; /* Set the margin in percentage */
+            padding: 5%;
         }
         tr{
-            font-size: x-large;
+            font-size: 18px;
             text-align: center;
             vertical-align: middle;
         }
@@ -34,6 +64,16 @@
     </style>
 </head>
 <body>
+<nav>
+    <div>
+        <div class="admin-title">관리자</div>
+        <a href="/admin/manage">판매자 관리</a>
+        <a href="/admin/change">판매자 거부 목록</a>
+        <a href="/admin/recognize">판매자 가입 승인</a>
+        <a href="/notice/">공지사항 관리</a>
+    </div>
+</nav>
+
 <div class="container">
     <h1>판매자 거절 회원 목록</h1> <br>
     <c:if test="${empty rejectSellerList}">
