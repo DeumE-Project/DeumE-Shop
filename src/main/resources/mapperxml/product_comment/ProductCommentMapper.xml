@@ -12,4 +12,15 @@
         select * from comment
         where product_idx = 2;
     </select>
+
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="CommentDTO">
+        SELECT comment_idx,product_idx,comment_writer,comment_contents
+        from comment
+        where product_idx = 2
+        order by comment_idx desc limit #{start}, #{limit}
+    </select>
+
+    <select id="boardCount" resultType="Integer">
+        select count(comment_idx) from comment
+    </select>
 </mapper>

@@ -1,9 +1,11 @@
 package kr.co.chunjaeshop.product_comment.controller;
 
 import kr.co.chunjaeshop.product_comment.dto.CommentDTO;
+import kr.co.chunjaeshop.product_comment.dto.CommentPageDTO;
 import kr.co.chunjaeshop.product_comment.dto.CommentSaveDTO;
 import kr.co.chunjaeshop.product_comment.service.CommentService;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -70,5 +72,18 @@ public class CommentController {
         model.addAttribute("commentList", commentDTOList);
 
         return "comment/commentList";
+    }
+
+    @GetMapping("/paging")
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        // BoardService를 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
+        List<CommentDTO> pagingList = commentService.pagingList(page);
+        // BoardService를 사용하여 페이징 정보를 가져옵니다.
+        CommentPageDTO pageDTO = commentService.pagingParam(page);
+        // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
+        model.addAttribute("pagingList", pagingList);
+        model.addAttribute("paging", pageDTO);
+        // 뷰 이름을 반환합니다.
+        return "comment/commentPaging";
     }
 }
