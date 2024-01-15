@@ -67,6 +67,7 @@ public class ProductController {
     }
 
     @PostMapping("/productSave")
+    //bindingResult는 자동으로 model에 담음
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
                        BindingResult bindingResult, HttpServletRequest request) {
         // 파일 저장 경로 : product/yyyy-MM-dd
@@ -90,7 +91,7 @@ public class ProductController {
         if (bindingResult.hasErrors()) {
             log.error("productSaveDTO has error");
         }
-        log.info("productSaveDTO=} " + productSaveDTO);
+        log.info("productSaveDTO= {} ", productSaveDTO);
 
 
         // 파일 업로드하는 로직
@@ -195,7 +196,6 @@ public class ProductController {
         return "/product/productDetail";
     }
 
-    //HttpServletRequest request)
     @GetMapping("/productInfoUpdate")
     public String productUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer
             productIdx, Model model) {
@@ -205,37 +205,40 @@ public class ProductController {
         log.info("productIdx", productIdx);
         model.addAttribute("sellerIdx", sellerIdx);
         model.addAttribute("productIdx", productIdx);
-        model.addAttribute("product", productDTO);
-        // 현재 제품 정보를 세션에 추가
-       /* HttpSession session = request.getSession();
-        session.setAttribute("currentProduct", productDTO);*/
+        model.addAttribute("productDTO", productDTO);
+
 
         return "/product/productInfoUpdate";
     }
 
     @PostMapping("/productInfoUpdate")
-    public String productInfoUpdate(@ModelAttribute ProductDTO productDTO) {
+    public String productInfoUpdate(@Validated @ModelAttribute("productDTO") ProductDTO productDTO,
+                                    BindingResult bindingResult) {
 
-        boolean result = productService.productInfoUpdate(productDTO);
-        if (result) {
-            return "redirect:/product/productDetail?sellerIdx="+productDTO.getSellerIdx()+"&productIdx="+productDTO.getProductIdx();
-        } else {
+        if (bindingResult.hasErrors()) {
+            log.error("productDTO has error");
+            return "/product/productInfoUpdate";
         }
-        return "redirect:/seller/mySellerPage?sellerIdx="+productDTO.getSellerIdx();
+
+            boolean result = productService.productInfoUpdate(productDTO);
+            log.error("productDTO has error");
+            if (result) {
+                return "redirect:/product/productDetail?sellerIdx=" + productDTO.getSellerIdx() + "&productIdx=" + productDTO.getProductIdx();
+            } else {
+                log.error("productDTO has error");
+            return "redirect:/seller/mySellerPage?sellerIdx=" + productDTO.getSellerIdx();
+        }
     }
     @GetMapping("/productImgUpdate")
-    public String productImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer
-            productIdx, Model model, HttpServletRequest request) {
+    public String productImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx,
+                                       @RequestParam("productIdx") Integer productIdx, Model model) {
 
-        ProductDTO productDTO = productService.findMainImg(sellerIdx, productIdx);
+        ProductMainImgUpdateDTO productMainImgUpdateDTO = productService.findMainImg(sellerIdx, productIdx);
         log.info("sellerIdx",sellerIdx );
         log.info("productIdx", productIdx);
         model.addAttribute("sellerIdx", sellerIdx);
         model.addAttribute("productIdx", productIdx);
-        model.addAttribute("product", productDTO);
-        // 현재 제품 정보를 세션에 추가
-       /* HttpSession session = request.getSession();
-        session.setAttribute("currentProduct", productDTO);*/
+        model.addAttribute("productMainImgUpdateDTO", productMainImgUpdateDTO);
 
         return "/product/productImgUpdateForm";
     }
@@ -243,6 +246,7 @@ public class ProductController {
     @PostMapping("/productImgUpdate")
     public String productImgUpdate(@Validated @ModelAttribute ProductMainImgUpdateDTO productMainImgUpdateDTO,
                                    BindingResult bindingResult, HttpServletRequest request) {
+
         log.info("mainImg={}", productMainImgUpdateDTO);
 
         String uploadFolder = request.getServletContext().getRealPath("/product");
@@ -254,6 +258,15 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
+        if (productMainImgUpdateDTO.getMainImg() == null || productMainImgUpdateDTO.getMainImg().isEmpty()) {
+            bindingResult.addError(new FieldError
+                    ("productMainImgUpdateDTO", "mainImg", "상품 이미지는 필수 선택입니다"));
+        }
+        if (bindingResult.hasErrors()) {
+            log.error("productMainImgUpdateDTO has error");
+            return "/product/productImgUpdateForm";
+        }
+        log.info("ProductMainImgUpdateDTO= {} ",productMainImgUpdateDTO);
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
@@ -280,6 +293,11 @@ public class ProductController {
             Thumbnails.of(productMainImgUpdateDTO.getMainImg().getInputStream())
                     .size(100, 100)
                     .toFile(new File(thumbnailFilePath));
+            if (!checkImageType(new File(fileImgSaved))) {
+                bindingResult.addError(new FieldError("productMainImgUpdateDTO", "",
+                        "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
+                return "/product/productImgUpdateForm";
+            }
 
             productMainImgUpdateDTO.setProductIdx(productMainImgUpdateDTO.getProductIdx());
             productMainImgUpdateDTO.setSellerIdx(productMainImgUpdateDTO.getSellerIdx());
@@ -296,32 +314,30 @@ public class ProductController {
                         "사진 등록에 실패했습니다. 다시 시도해주세요."));
                 // 에러 처리 로직 추가
                 log.error("productMainImgUpdateDTO, sellerIdx, 또는 productIdx가 null입니다.");
-                // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
-                return "redirect:/errorPage";
+
+                return "/product/productImgUpdateForm";
             }
         } catch (IOException e) {
             log.error("파일 업로드에 실패했습니다.", e); // 파일 업로드 실패 메시지 로깅
-            bindingResult.addError(new FieldError("productSaveDTO", "",
+            bindingResult.addError(new FieldError("productMainImgUpdateDTO", "",
                     "파일 업로드에 실패했습니다. 다시 시도해주세요."));
             // 에러 처리 로직 추가
             log.error("파일 업로드에 실패했습니다.", e);
-            // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
-            return "redirect:/errorPage";
+
+            return "/product/productImgUpdateForm";
         }
     }
     @GetMapping("/productDetailImgUpdate")
-    public String productDetailImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer
-            productIdx, Model model, HttpServletRequest request) {
+    public String productDetailImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx,
+                                             @RequestParam("productIdx") Integer productIdx, Model model) {
 
-        ProductDTO productDTO = productService.findDetailImg(sellerIdx, productIdx);
+        ProductDetailImgUpdateDTO productDetailImgUpdateDTO = productService.findDetailImg(sellerIdx, productIdx);
+
         log.info("sellerIdx",sellerIdx );
         log.info("productIdx", productIdx);
         model.addAttribute("sellerIdx", sellerIdx);
         model.addAttribute("productIdx", productIdx);
-        model.addAttribute("product", productDTO);
-        // 현재 제품 정보를 세션에 추가
-       /* HttpSession session = request.getSession();
-        session.setAttribute("currentProduct", productDTO);*/
+        model.addAttribute("productDetailImgUpdateDTO", productDetailImgUpdateDTO);
 
         return "/product/productDetail_ImgUpdateForm";
     }
@@ -340,6 +356,14 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
+        if (productDetailImgUpdateDTO.getDetailImg() == null || productDetailImgUpdateDTO.getDetailImg().isEmpty()) {
+            bindingResult.addError(new FieldError
+                    ("productDetailImgUpdateDTO", "detailImg", "상품 설명 이미지는 필수 선택입니다"));
+        }
+        if (bindingResult.hasErrors()) {
+            log.error("productDetailImgUpdateDTO has error");
+        }
+        log.info("productDetailImgUpdateDTO= {} ",productDetailImgUpdateDTO);
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
@@ -354,11 +378,16 @@ public class ProductController {
 
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
         log.info("filDetailSavedUploadPath = {}" ,fileDetailSavedUploadPath);
+
         try {
             //Original은 원본 이름을 저장하는데 사용.
             productDetailImgUpdateDTO.getDetailImg().transferTo(new File(fileDetailSavedUploadPath));
 
-
+            if (!checkImageType(new File(fileDetailSaved))) {
+                bindingResult.addError(new FieldError("productDetailImgUpdateDTO", "",
+                        "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
+                return "/product/productDetail_ImgUpdateForm";
+            }
 
             productDetailImgUpdateDTO.setProductIdx(productDetailImgUpdateDTO.getProductIdx());
             productDetailImgUpdateDTO.setSellerIdx(productDetailImgUpdateDTO.getSellerIdx());
@@ -374,8 +403,8 @@ public class ProductController {
                         "사진 등록에 실패했습니다. 다시 시도해주세요."));
                 // 에러 처리 로직 추가
                 log.error("productDetailImgUpdateDTO, sellerIdx, 또는 productIdx가 null입니다.");
-                // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
-                return "redirect:/errorPage";
+
+                return "/product/productDetail_ImgUpdateForm";
             }
         } catch (IOException e) {
             log.error("파일 업로드에 실패했습니다.", e); // 파일 업로드 실패 메시지 로깅
@@ -383,161 +412,10 @@ public class ProductController {
                     "파일 업로드에 실패했습니다. 다시 시도해주세요."));
             // 에러 처리 로직 추가
             log.error("파일 업로드에 실패했습니다.", e);
-            // 예를 들어 다른 페이지로 리다이렉트하거나 에러 메시지를 표시할 수 있습니다.
-            return "redirect:/errorPage";
+     
+            return "/product/productDetail_ImgUpdateForm";
         }
     }
-
-
-
-
-
-
-   /* @PostMapping("/productInfoUpdate")
-    @ResponseBody
-    public ResponseEntity<String> productUpdate(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
-                                               HttpServletRequest request, BindingResult bindingResult) {
-        try {
-            *//*if (bindingResult.hasErrors()) {
-                String errorMessage =
-            }
-        }*//*
-            String uploadFolder = request.getServletContext().getRealPath("/product");
-            String uploadFolderPath = getFolder(); // yyyy-MM-dd
-            File uploadPath = new File(uploadFolder, uploadFolderPath);// /product/yyyy-MM-dd
-            log.info("upload path = {}", uploadPath);
-            // 저장경로가 없으면 생성
-            if (uploadPath.exists() == false) {
-                uploadPath.mkdirs();
-            }
-            updateImages(productSaveDTO, uploadPath);
-            updateProductInfo(productSaveDTO);
-
-            //session에 저장된 현재 product의 정보를 제거
-            HttpSession session = request.getSession();
-            session.removeAttribute("currentProduct");
-
-            return ResponseEntity.ok("상품 정보가 성공적으로 업데이트 되었습니다.");
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().body("파일 업로드에 실패했습니다. 다시 시도해주세요");
-        }
-    }
-
-    private void updateImages(ProductSaveDTO productSaveDTO, File uploadPath) throws IOException {
-        String existingMainImage = productSaveDTO.getExistingProductImg();
-        String existingDetailImage = productSaveDTO.getExistingDetailImg();
-
-        MultipartFile mainImageFile = productSaveDTO.getProductImg();
-        if(mainImageFile != null && !mainImageFile.isEmpty()){
-            updateImage(mainImageFile, uploadPath, existingMainImage, "main");
-            }
-        MultipartFile detailImageFile = productSaveDTO.getProductDetailImg();
-        if (detailImageFile != null && !mainImageFile.isEmpty()) {
-            updateImage(detailImageFile, uploadPath, existingDetailImage, "detail");
-        }
-    }
-
-    private void updateImage(MultipartFile imageFile, File uploadPath, String existingImage, String type) throws IOException {
-        if (existingImage != null && !existingImage.isEmpty()) {
-            File existingFile = new File(uploadPath, existingImage);
-            existingFile.delete();
-        }
-        saveImage(imageFile, uploadPath, type);
-    }
-
-    private void saveImage(MultipartFile imageFile, File uploadPath, String type) throws IOException {
-        UUID uuid = UUID.randomUUID();
-        String originalFileName = imageFile.getOriginalFilename();
-        String saveFileName = uuid.toString() + "_" + originalFileName;
-        String saveFileUploadPath = uploadPath + File.separator + saveFileName;
-        File newImageFile = new File(saveFileUploadPath);
-        imageFile.transferTo(newImageFile);
-        String thubmnailFileName = "thumb" + uuid.toString() + originalFileName;
-
-    }
-
-    private void updateProductInfo(ProductSaveDTO productSaveDTO) {
-    }
-
-    // 취소 버튼을 클릭할 경우 상세 페이지로 이동
-    @GetMapping("/cancelUpdate")
-    public String cancelUpdate(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("currentProduct"); // 세션에 저장된 현재 제품 정보를 제거
-        return "redirect:/product/detail";
-    }
-
-    // 초기화 버튼을 클릭할 경우 세션에 저장된 현재 제품 정보를 다시 불러와서 모델에 추가
-    @GetMapping("/resetUpdate")
-    public String resetUpdate(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        ProductDTO currentProduct = (ProductDTO) session.getAttribute("currentProduct");
-        model.addAttribute("sellerIdx", currentProduct.getSellerIdx());
-        model.addAttribute("product", currentProduct);
-        return "/product/productUpdateForm";
-    }*/
-
-
-    // 취소 버튼을 클릭할 경우 세션에 저장된 현재 제품 정보를 불러와서 다시 모델에 추가
-    /*@GetMapping("/cancelUpdate")
-    public String cancelUpdate(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        ProductDTO currentProduct = (ProductDTO) session.getAttribute("currentProduct");
-        model.addAttribute("sellerIdx", currentProduct.getSellerIdx());
-        model.addAttribute("productIdx", currentProduct.getProductIdx();
-        model.addAttribute("product", currentProduct);
-        return "/product/productUpdateForm";
-    }
-    // 초기화 버튼을 클릭할 경우
-    @GetMapping("/resetUpdateForm")
-    public String resetUpdateForm(Model model, HttpServletRequest request) {
-        try {
-            HttpSession session = request.getSession();
-            ProductDTO currentProduct = (ProductDTO) session.getAttribute("currentProduct");
-
-            if (currentProduct != null) {
-                model.addAttribute("sellerIdx", currentProduct.getSellerIdx());
-                model.addAttribute("productInx", currentProduct.getProductIdx());
-                model.addAttribute("product", currentProduct);
-            }
-
-            // 초기화 버튼 클릭 시 세션에 저장된 현재 제품 정보를 유지하고 업데이트 폼으로 이동
-            return "/product/productUpdateForm";
-        } catch (Exception e) {
-            // 오류 처리 로직 추가
-            return "/product/productUpdateForm"; // 또는 오류 페이지로 리다이렉트 또는 포워딩
-        }
-    }*/
-    /*@GetMapping("/cancelUpdate")
-    public String cancelUpdate(HttpSession session) {
-        // 취소 버튼 클릭 시 세션에 저장된 현재 제품 정보를 제거
-        session.removeAttribute("currentProduct");
-
-        // 상품 상세보기 페이지로 이동
-        return "redirect:/product/productDetail";
-    }*/
-
-
-
-
-    /*private void updateMainImg(MultipartFile mainImgFile, File uploadPath, String existingMainImg) throws IOException{
-        if (existingMainImg != null && !existingMainImg.isEmpty()) {
-            File existingMainImgFile = new File(uploadPath, mainImgFile);
-            existingMainImgFile.delete();
-        }
-        UUID uuid = UUID.randomUUID();
-        String newMainImgFile =
-    }
-    private void updateDetailImg(MultipartFile detailImgFile, File uploadPath, String existingDetailImg) {
-    }*/
-
-    //, MultipartFile Img, MultipartFile Detail, HttpServletRequest req)
-
-
-
-
-
-
 
 
     // 이무현

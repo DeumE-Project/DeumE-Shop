@@ -35,30 +35,30 @@
     <update id="productInfoUpdate" parameterType="ProductDTO">
         update product
         set product_name=#{productName}, product_price=#{productPrice}, product_stock=#{productStock},
-        category_idx=#{categoryIdx}, product_explain=#{productExplain}
+        product_explain=#{productExplain}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
-    <select id="findMainImg" resultType="ProductDTO">
+    <select id="findMainImg" resultType="ProductMainImgUpdateDTO">
         Select seller_idx, product_idx, product_thumb_saved, product_img_original, product_img_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
 
-    <update id="productImgUpdate" parameterType="ProductDTO">
+    <update id="productImgUpdate" parameterType="ProductMainImgUpdateDTO">
         update product
         set product_thumb_saved=#{productThumbSaved}, product_img_original=#{productImgOriginal},
         product_img_saved=#{productImgSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
-    <select id="findDetailImg" resultType="ProductDTO">
+    <select id="findDetailImg" resultType="ProductDetailImgUpdateDTO">
         Select seller_idx, product_idx, product_detail_original, product_detail_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
 
-    <update id="productDetailImgUpdate" parameterType="ProductDTO">
+    <update id="productDetailImgUpdate" parameterType="ProductDetailImgUpdateDTO">
         update product
         set product_detail_original=#{productDetailOriginal}, product_detail_saved=#{productDetailSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}

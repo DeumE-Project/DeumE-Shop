@@ -46,60 +46,65 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">상품 사진 수정</h1>
-    <form:form modelAttribute="productMainImgUpdateDTO" action="/product/productImgUpdate" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="sellerIdx" value="${product.sellerIdx}" />
-        <input type="hidden" name="productIdx" value="${product.productIdx}" />
-        <input type="hidden" name="productImgOriginal" value="${product.productImgOriginal}" />
-        <input type="hidden" name="productImgSaved" value="${product.productImgSaved}" />
-        <input type="hidden" name="productThumbSaved" value="${product.productThumbSaved}" />
+    <form:form modelAttribute="productMainImgUpdateDTO" action="/product/productImgUpdate?sellerIdx=${productMainImgUpdateDTO.sellerIdx}&productIdx=${productMainImgUpdateDTO.productIdx}" method="post"  enctype="multipart/form-data">
+        <input type="hidden" name="sellerIdx" value="${productMainImgUpdateDTO.sellerIdx}" />
+        <input type="hidden" name="productIdx" value="${productMainImgUpdateDTO.productIdx}" />
+        <input type="hidden" name="productImgOriginal" value="${productMainImgUpdateDTO.productImgOriginal}" />
+        <input type="hidden" name="productImgSaved" value="${productMainImgUpdateDTO.productImgSaved}" />
+        <input type="hidden" name="productThumbSaved" value="${productMainImgUpdateDTO.productThumbSaved}" />
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="productImgSaved" class="form-label">이전 상품 사진</label>
-                <img src="/product/${product.productImgSaved}" alt="이전 상품 사진" class="img-fluid">
+                <label for="productImgSaved" class="form-label"></label>
+                <img src="/product/${productMainImgUpdateDTO.productImgSaved}" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <label for="mainImg" class="form-label">새로운 상품 사진</label>
-                <input type="file" class="form-control" name="mainImg" />
-                <img id="newImagePreview" class="img-fluid" style="display: none;">
+                <form:input type="file" class="form-control" path="mainImg" id="mainImgInput" accept="image/*" onchange="validateImageType('mainImgInput', 'mainImgWarning')" />
+                <form:errors path="mainImg" cssClass="text-danger"/>
+                <div id="mainImgWarning" class="text-danger"></div>
+                <img id="mainImgPreview" class="thumbnail" />
             </div>
         </div>
 
         <div class="btn-container">
             <button type="submit" class="btn btn-primary">등록</button>
-            <a class="btn btn-secondary" href="/product/productDetail?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}">취소</a>
+            <a class="btn btn-secondary" href="/product/productDetail?sellerIdx=${productMainImgUpdateDTO.sellerIdx}&productIdx=${productMainImgUpdateDTO.productIdx}">취소</a>
         </div>
     </form:form>
 </div>
 
 <!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
 <script>
-    $(document).ready(function() {
-        $("input[name='mainImg']").change(function() {
-            readURL(this, "newImagePreview");
-        });
+    function previewImage(input, targetId) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            let targetElement = document.getElementById(targetId);
+            targetElement.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 
-        // 초기에 이전 이미지 미리보기
-        readURL("input[name='productImgSaved']", "newImagePreview");
-    });
+    document.getElementById('mainImg').onchange = function () {
+        previewImage(this, 'mainImgPreview');
+    };
+</script>
 
-    function readURL(input, previewId) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var allowedFormats = ["image/png", "image/jpeg", "image/jpg"];
-                // 파일이 허용된 형식 중 하나인지 확인
-                if (allowedFormats.includes(input.files[0].type)) {
-                    $("#" + previewId).attr("src", e.target.result);
-                    $("#" + previewId).show();
-                } else {
-                    // 파일이 허용된 형식이 아닌 경우 처리
-                    alert("PNG, JPG, 또는 JPEG 이미지를 선택해주세요.");
-                    // 선택한 파일을 초기화하는 등의 추가 처리를 선택적으로 수행할 수 있습니다.
-                    // input.value = "";
-                }
-            };
-            reader.readAsDataURL(input.files[0]);
+<script>
+    function validateImageType(inputId, warningId) {
+        let input = document.getElementById(inputId);
+        let warning = document.getElementById(warningId);
+
+        if (input.files.length > 0) {
+            let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            let fileType = input.files[0].type;
+
+            if (allowedTypes.indexOf(fileType) === -1) {
+                warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 등록가능합니다.";
+                input.value = ''; // Clear the input
+            } else {
+                warning.innerHTML = '';
+            }
         }
     }
 </script>

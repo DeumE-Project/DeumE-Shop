@@ -44,7 +44,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public ProductDTO findMainImg(Integer sellerIdx, Integer productIdx) {
+    public ProductMainImgUpdateDTO findMainImg(Integer sellerIdx, Integer productIdx) {
         return productMapper.findMainImg(sellerIdx, productIdx);
     }
     @Override
@@ -54,7 +54,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.productImgUpdate(productMainImgUpdateDTO);
     }
     @Override
-    public ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
+    public ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
         return productMapper.findDetailImg(sellerIdx, productIdx);
     }
 

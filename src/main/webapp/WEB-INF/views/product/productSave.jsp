@@ -28,7 +28,7 @@
         </div>
         <div class="mb-3">
             <label for="productExplain" class="form-label">상품 설명</label>
-            <form:textarea class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다.)" />
+            <form:input class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다.)" />
             <form:errors path="productExplain" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
@@ -58,7 +58,7 @@
             <div id="productImgWarning" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label for="productImg" class="form-label">제품 사진</label>
+            <label for="productImg" class="form-label"></label>
             <img id="productImgPreview" class="thumbnail" />
         </div>
         <div class="mb-3">
@@ -68,7 +68,7 @@
             <div id="productDetailImgWarning" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label for="productDetailImg" class="form-label">제품 상세 설명 사진</label>
+            <label for="productDetailImg" class="form-label"></label>
             <img id="productDetailImgPreview" class="thumbnail" />
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
@@ -79,9 +79,9 @@
 
     <script>
         function previewImage(input, targetId) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (e) {
-                var targetElement = document.getElementById(targetId);
+                let targetElement = document.getElementById(targetId);
                 targetElement.src = e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
@@ -95,23 +95,15 @@
             previewImage(this, 'productDetailImgPreview');
         };
     </script>
-    <script>
-        function isNumberKey(evt) {
-            let charCode = (evt.which) ? evt.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            return true;
-        }
-    </script>
+
     <script>
         function validateImageType(inputId, warningId) {
-            var input = document.getElementById(inputId);
-            var warning = document.getElementById(warningId);
+            let input = document.getElementById(inputId);
+            let warning = document.getElementById(warningId);
 
             if (input.files.length > 0) {
-                var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-                var fileType = input.files[0].type;
+                let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                let fileType = input.files[0].type;
 
                 if (allowedTypes.indexOf(fileType) === -1) {
                     warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 허용됩니다.";
@@ -120,6 +112,16 @@
                     warning.innerHTML = '';
                 }
             }
+        }
+    </script>
+
+    <script>
+        function isNumberKey(evt) {
+            let charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
         }
     </script>
 
