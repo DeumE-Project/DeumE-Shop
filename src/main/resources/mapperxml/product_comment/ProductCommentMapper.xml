@@ -14,7 +14,7 @@
     </select>
 
     <select id="pagingList" parameterType="java.util.HashMap" resultType="CommentDTO">
-        SELECT comment_idx,product_idx,comment_writer,comment_contents
+        SELECT comment_idx,product_idx,comment_writer,comment_contents,comment_createdTime
         from comment
         where product_idx = 2
         order by comment_idx desc limit #{start}, #{limit}

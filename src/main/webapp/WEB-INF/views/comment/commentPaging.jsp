@@ -20,14 +20,12 @@
 <div class="container mt-3">
     <table class="table table-striped"  id="comment-list">
         <tr>
-            <th>번호</th>
             <th>작성자</th>
             <th>내용</th>
             <th>작성시간</th>
         </tr>
         <c:forEach items="${pagingList}" var="comment">
             <tr>
-                <td>${comment.commentIdx}</td>
                 <td>${comment.commentWriter}</td>
                 <td>${comment.commentContents}</td>
                 <td>${comment.commentCreatedTimeStr}</td>

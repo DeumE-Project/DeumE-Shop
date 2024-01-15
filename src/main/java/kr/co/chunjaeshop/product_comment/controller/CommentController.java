@@ -55,7 +55,7 @@ public class CommentController {
         log.info("saveResult = {} " + saveResult);
 
         if (saveResult > 0) {
-            return "redirect:/product/comment/list";  // 저장 성공 시 detail 페이지로 redirect
+            return "redirect:/product/comment/paging";  // 저장 성공 시 detail 페이지로 redirect
         } else {
             log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
