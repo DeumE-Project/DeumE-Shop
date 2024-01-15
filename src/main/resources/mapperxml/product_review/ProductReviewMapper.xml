@@ -25,13 +25,22 @@
 
     <update id="update" parameterType="ProductReviewDTO">
         UPDATE product_review
-        SET review_star = #{reviewStar} , review_content = #{reviewContent} , math = #{math} , review_thumb_saved =#{reviewThumbSaved}, review_img_original=#{reviewImgOriginal}, review_img_saved=#{reviewImgSaved}
+        SET review_star = #{reviewStar} , review_content = #{reviewContent}
         WHERE review_idx = #{reviewIdx}
     </update>
 
     <delete id="delete" parameterType="String">
         delete from product_review where review_idx = #{reviewIdx}
     </delete>
+
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="ProductReviewDTO">
+        SELECT review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
+        from product_review order by review_idx desc limit #{start}, #{limit}
+    </select>
+
+    <select id="boardCount" resultType="Integer">
+        select count(review_idx) from product_review
+    </select>
     <!--    최경락-->
 
 

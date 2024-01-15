@@ -1,6 +1,8 @@
 package kr.co.chunjaeshop.product_review.controller;
 
+import kr.co.chunjaeshop.notice.dto.NoticeDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
+import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 import kr.co.chunjaeshop.product_review.service.ProductReviewService;
 import lombok.RequiredArgsConstructor;
@@ -138,7 +140,7 @@ public class ProductReviewController {
 
 
         if (saveResult > 0) {
-          return "redirect:/product/review/list"; // 저장 성공 시 detail 페이지로 redirect
+          return "redirect:/product/review/paging"; // 저장 성공 시 detail 페이지로 redirect
         } else {
           log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -161,6 +163,20 @@ public class ProductReviewController {
       return "review/reviewList";
     }
 
+  // 페이징 메서드
+  @GetMapping("/paging")
+  public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+    // BoardService를 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
+    List<ProductReviewDTO> pagingList = productReviewService.pagingList(page);
+    // BoardService를 사용하여 페이징 정보를 가져옵니다.
+    ProductReviewPageDTO pageDTO = productReviewService.pagingParam(page);
+    // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
+    model.addAttribute("pagingList", pagingList);
+    model.addAttribute("paging", pageDTO);
+    // 뷰 이름을 반환합니다.
+    return "review/reviewPaging";
+  }
+
   @GetMapping
   public String findById(@RequestParam("reviewIdx") String reviewIdx, Model model) {
     ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
@@ -171,25 +187,28 @@ public class ProductReviewController {
   public String updateForm(@RequestParam("reviewIdx") String reviewIdx, Model model) {
     ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
     model.addAttribute("productReview", productReviewDTO);
-    System.out.println("test");
     return "review/reviewUpdate";
   }
   //수정
   @PostMapping("/update")
-  public String update(@ModelAttribute ProductReviewDTO productReviewDTO ) {
-    boolean result = productReviewService.update(productReviewDTO);
-
-    if (result) {
-      return "redirect:/product/review/list";
-    } else {
-      return "index";
+  public String update(@Validated @ModelAttribute ProductReviewDTO productReviewDTO,
+                       BindingResult bindingResult,
+                       Model model) {
+    if (bindingResult.hasErrors()){
+      FieldError fieldError = bindingResult.getFieldError();
+      log.info(fieldError.getDefaultMessage());
+      model.addAttribute("error", fieldError.getDefaultMessage());
+      return "/review/reviewUpdate";
     }
+    productReviewService.update(productReviewDTO);
+    return "redirect:/product/review/paging?reviewIdx="+productReviewDTO.getReviewIdx();
   }
+
 
   @GetMapping("/delete")
   public String delete(@RequestParam("reviewIdx") String reviewIdx) {
     productReviewService.delete(reviewIdx);
-    return "redirect:/product/review/list";
+    return "redirect:/product/review/paging";
 
   }
   // 최경락

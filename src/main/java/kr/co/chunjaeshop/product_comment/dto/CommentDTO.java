@@ -9,9 +9,8 @@ import java.time.format.DateTimeFormatter;
 public class CommentDTO {
 
     private Integer commentIdx;
-    private Integer reviewIdx;
-    private Integer customerIdx;
     private Integer productIdx;
+    private String commentWriter;
     private String commentContents;
     private LocalDateTime commentCreatedTime;
 

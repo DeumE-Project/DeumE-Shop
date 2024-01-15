@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -40,6 +41,17 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
     public void delete(String reviewIdx) {
       productReviewMapper.delete(reviewIdx);
     }
+
+    @Override
+    public List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams) {
+    return productReviewMapper.pagingList(pagingParams);
+  }
+
+   @Override
+    public int boardCount() {
+    return productReviewMapper.boardCount();
+  }
+
   // 최경락
 
 

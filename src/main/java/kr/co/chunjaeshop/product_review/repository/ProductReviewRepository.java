@@ -3,6 +3,7 @@ package kr.co.chunjaeshop.product_review.repository;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductReviewRepository {
 
@@ -13,7 +14,10 @@ public interface ProductReviewRepository {
     int update(ProductReviewDTO productReviewDTO);
     void delete(String reviewIdx);
 
-  // 최경락
+    int boardCount();
+    List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams);
+
+    // 최경락
 
 
     // 이무현

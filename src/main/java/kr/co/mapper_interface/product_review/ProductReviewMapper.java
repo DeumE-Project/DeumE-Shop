@@ -3,6 +3,7 @@ package kr.co.mapper_interface.product_review;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductReviewMapper {
     // 남원우
@@ -15,6 +16,11 @@ public interface ProductReviewMapper {
     int update(ProductReviewDTO productReviewDTO);
 
     void delete(String reviewIdx);
+
+    int boardCount();
+
+    List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams);
+
 
     // 최경락
 

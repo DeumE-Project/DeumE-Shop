@@ -6,26 +6,6 @@
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <title>update</title>
-    <script>
-        function validate() {
-            var title = document.getElementById("boardTitle");
-            var content = document.getElementById("boardContents");
-
-            if (title.value.trim() === "") {
-                alert("제목을 입력해 주세요");
-                title.focus();
-                return false;
-            }
-
-            if (content.value.trim() === "") {
-                alert("내용을 입력해 주세요");
-                content.focus();
-                return false;
-            }
-
-            return true;
-        }
-    </script>
     <jsp:include page="#"/>
 </head>
 <body class="bg-light">
@@ -53,16 +33,6 @@
 <script>
     const updateReqFn = () => {
         document.updateForm.submit();
-    }
-</script>
-<script>
-    // 특수문자 입력 방지
-    function characterCheck(obj){
-        var regExp = /[ \{\}\[\]\/|\)`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
-        if( regExp.test(obj.value) ){
-            alert("특수문자는 입력하실수 없습니다.");
-            obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
     }
 </script>
 </html>

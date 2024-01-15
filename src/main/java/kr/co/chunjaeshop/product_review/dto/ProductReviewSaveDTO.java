@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Data
 public class ProductReviewSaveDTO {
 
-
     @NotNull(message = "리뷰 별점은 필수 선택사항입니다")
     private Integer reviewStar;
 

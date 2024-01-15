@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,12 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <title>paging</title>
     <jsp:include page="#"/>
+    <script>
+        const savefn = () => {
+            const productIdx = '${productReview.productIdx}';
+            location.href = "/product/review/save";
+        }
+    </script>
 </head>
 <body class="bg-light">
 <div class="container mt-3">
@@ -15,22 +22,32 @@
         <thead>
         <tr>
             <th>번호</th>
-            <th>제목</th>
+            <th>리뷰사진</th>
             <th>작성자</th>
-            <th>작성일자</th>
-            <th>조회수</th>
+            <th>내용</th>
+            <th>별점</th>
+            <th>작성시간</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${boardList}" var="board">
+        <c:forEach items="${pagingList}" var="review">
             <tr>
-                <td>${board.id}</td>
+                <td><a href="/product/review?reviewIdx=${review.reviewIdx}">${review.reviewIdx}</a></td>
+                <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />
+                <td><a href="#"><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></a></td>
+                <td>${review.customerIdx}</td>
                 <td>
-                    <a href="/board?id=${board.id}&page=${paging.page}">${board.boardTitle}</a>
+                    <c:choose>
+                        <c:when test="${fn:length(review.reviewContent) gt 50}">
+                            <c:out value="${fn:substring(review.reviewContent, 0, 50)}....."/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="${review.reviewContent}"/>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
-                <td>${board.boardWriter}</td>
-                <td>${board.boardCreatedTime}</td>
-                <td>${board.boardHits}</td>
+                <td>${review.reviewStar}</td>
+                <td>${review.reviewDateStr}</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -47,7 +64,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/paging?page=${paging.page-1}" aria-label="Previous">
+                    <a class="page-link" href="/product/review/paging?page=${paging.page-1}" aria-label="Previous">
                         이전
                     </a>
                 </li>
@@ -63,7 +80,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/paging?page=${i}">
+                        <a class="page-link" href="/product/review/paging?page=${i}">
                                 ${i}
                         </a>
                     </li>
@@ -79,13 +96,14 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/paging?page=${paging.page+1}" aria-label="Next">
+                    <a class="page-link" href="/product/review/paging?page=${paging.page+1}" aria-label="Next">
                         다음
                     </a>
                 </li>
             </c:otherwise>
         </c:choose>
     </ul>
+    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>
 </div>
 </body>
 </html>
