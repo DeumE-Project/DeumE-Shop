@@ -36,19 +36,19 @@
     </select>
 
     <select id="orderProductCount" parameterType="Integer" resultType="Integer">
-        select count(B.product_idx)
-        from order_product A left join order_detail B
+        select count(A.order_detail_idx)
+        from order_detail A left join order_product B
         on A.order_idx = B.order_idx
-        where B.product_idx = #{productIdx};
+        where A.product_idx = #{productIdx}
     </select>
 
     <select id="orderSearchProductCount" parameterType="java.util.Map" resultType="Integer">
-        select count(B.product_idx)
-        from order_product A left join order_detail B
+        select count(A.order_detail_idx)
+        from order_detail A left join order_product B
         on A.order_idx = B.order_idx
         left join customer C
-        on A.customer_idx = C.customer_idx
-        where B.product_idx = #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
+        on B.customer_idx = C.customer_idx
+        where A.product_idx =  #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
     </select>
 
 
