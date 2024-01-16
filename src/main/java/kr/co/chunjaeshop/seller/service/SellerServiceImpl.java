@@ -47,8 +47,8 @@ public class SellerServiceImpl implements SellerService {
         sellerRepository.updateRecognize(i,id);
     }
 
-    int adminPageLimit = 3;
-    int adminBlockLimit = 3;
+    int adminPageLimit = 20; // (판매자 관리) 한 페이지의 게시물 갯수
+    int adminBlockLimit = 5; // (판매자 관리) 한 블록당 페이지 갯수
     @Override
     public List<SellerDTO> getNotRecognizedSellerList(int page) {
         int pageStart = (page-1)*adminPageLimit;
