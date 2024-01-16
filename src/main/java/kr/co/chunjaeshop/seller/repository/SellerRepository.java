@@ -48,13 +48,16 @@ public interface SellerRepository {
 
     int getDateRev(Integer sellerIdx, String thisMonth);
 
-    /*int getDateRevLast(Integer sellerIdx, String lastMonthString);*/
 
     int avgRev(Integer sellerIdx);
 
     List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx);
 
     List<SellDashBoardDTO> categorySalesList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> bestSellCountList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> bestSellRevList(Integer sellerIdx);
 
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);

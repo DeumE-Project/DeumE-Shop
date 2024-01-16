@@ -74,6 +74,10 @@ public interface SellerService {
 
     List<SellDashBoardDTO> categorySales(Integer sellerIdx);
 
+    List<SellDashBoardDTO> bestSellCount(Integer sellerIdx);
+
+    List<SellDashBoardDTO> bestSellRev(Integer sellerIdx);
+
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);

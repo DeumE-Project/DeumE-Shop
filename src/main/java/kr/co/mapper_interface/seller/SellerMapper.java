@@ -53,6 +53,10 @@ public interface SellerMapper {
 
     List<SellDashBoardDTO> categorySalesList(Integer sellerIdx);
 
+    List<SellDashBoardDTO> bestSellCountList(Integer sellerIdx);
+
+    List<SellDashBoardDTO> bestSellRevList(Integer sellerIdx);
+
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);

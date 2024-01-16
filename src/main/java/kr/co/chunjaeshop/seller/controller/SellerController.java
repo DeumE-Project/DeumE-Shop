@@ -50,7 +50,8 @@ public class SellerController {
         int avgRev = sellerService.avgRev(sellerIdx);
         List<SellDashBoardDTO> monthlySalesList = sellerService.monthlySalesList(sellerIdx);
         List<SellDashBoardDTO> categorySales = sellerService.categorySales(sellerIdx);
-        /*int getDateRevLast = sellerService.getDateRevLast(sellerIdx, lastMonth);*/
+        List<SellDashBoardDTO> bestSellCountList = sellerService.bestSellCount(sellerIdx);
+        List<SellDashBoardDTO> bestSellRevList = sellerService.bestSellRev(sellerIdx);
         model.addAttribute("myCount", resultCnt);
         model.addAttribute("mySeller", sellerDTO);
         model.addAttribute("myRev", totalRev);
@@ -59,7 +60,8 @@ public class SellerController {
         model.addAttribute("sellerIdx", 1);
         model.addAttribute("monthlySalesList", monthlySalesList);
         model.addAttribute("categorySales", categorySales);
-        /*model.addAttribute("lastDateRev", getDateRevLast);*/
+        model.addAttribute("bestSellCountList", bestSellCountList);
+        model.addAttribute("bestSellRevList", bestSellRevList);
         return "/seller/mySellerPage";
     }
 
