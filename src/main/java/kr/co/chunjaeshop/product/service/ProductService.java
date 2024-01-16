@@ -44,7 +44,6 @@ public interface ProductService {
     // 변재혁
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     List<ProductDTO> getProductListForMainPage();
-
-
+    int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
 
 }

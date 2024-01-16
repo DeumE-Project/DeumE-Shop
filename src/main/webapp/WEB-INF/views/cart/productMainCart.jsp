@@ -21,7 +21,7 @@
                 <div class="carousel-inner border">
                     <div class="carousel-item active">
                         <img class="w-100 h-100"
-                             src="${pageContext.request.contextPath}/resources/common/cart/product_main_img_sample.jpg" alt="Image">
+                             src="${pageContext.request.contextPath}/product/${productDTO.productImgSaved}" alt="Image">
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
     <div style="display: flex; justify-content: center;">
-        <img src="${pageContext.request.contextPath}/resources/common/cart/product_detail_img_sample.jpg"
+        <img src="${pageContext.request.contextPath}/product/${productDTO.productDetailSaved}"
              style="max-width: 100%;">
     </div>
 </div>

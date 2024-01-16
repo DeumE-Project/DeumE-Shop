@@ -36,9 +36,6 @@ public interface ProductRepository {
     // 유지호
     int countMyProductCnt(Integer sellerIdx);
 
-    List<ProductDTO> myProduct(Integer sellerIdx);
-
-/*    List<ProductDTO> productPagingList(Map<String, Integer> pagingParams);*/
 
     int productCount(Integer sellerIdx);
 
@@ -47,15 +44,12 @@ public interface ProductRepository {
     int searchproductCount(Integer sellerIdx, String searchField, String searchWord);
 
 
-    /*List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx);*/
-
-
     // 변재혁
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     int getProductPrice(Integer productIdx);
 
     List<ProductDTO> getProductListForMainPage();
 
-
+    int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
 
 }

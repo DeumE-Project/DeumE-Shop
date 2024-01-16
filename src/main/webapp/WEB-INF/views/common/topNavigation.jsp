@@ -41,7 +41,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">듬이Shop</a>
+        <a class="navbar-brand" href="/main">듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -51,6 +51,12 @@
                     전체 상품보기
                 </button>
             </form>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/notice/">공지사항</a>
+                </li>
+            </ul>
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 <%--                <sec:authorize access="hasRole('ROLE_CUSTOMER')">--%>
@@ -81,11 +87,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">판매자 마이페이지</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <li><a class="dropdown-item" href="#!">상품등록</a></li>
+                            <li><a class="dropdown-item" href="/product/productSave">상품 등록</a></li>
                             <li>
                                 <hr class="dropdown-divider"/>
                             </li>
-                            <li><a class="dropdown-item" href="#!">상품관리</a></li>
+                            <li><a class="dropdown-item" href="/seller/mySellerPage">상품 관리</a></li>
                         </ul>
                     </li>
 <%--                </sec:authorize>--%>
@@ -95,7 +101,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">관리자 마이페이지</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <li><a class="dropdown-item" href="#!">판매자 관리</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/recognize">판매자 관리</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/notice/">공지사항 관리</a></li>
                         </ul>
                     </li>
 <%--                </sec:authorize>--%>

@@ -120,10 +120,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.productCount(sellerIdx);
     }
 
-    @Override
-    public List<ProductDTO> myProduct(Integer sellerIdx) {
-        return productMapper.myProduct(sellerIdx);
-    }
 
     @Override
     public List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams) {
@@ -162,6 +158,11 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<ProductDTO> getProductListForMainPage() {
         return pMap.getProductListForMainPage();
+    }
+
+    @Override
+    public int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx) {
+        return pMap.checkIfProductBelongsToSeller(sellerIdx, productIdx);
     }
 }
 

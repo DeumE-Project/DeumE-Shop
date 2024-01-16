@@ -43,8 +43,12 @@
             <label for="categoryIdx" class="form-label">카테고리</label>
             <form:select class="form-select" path="categoryIdx" require="true">
                 <form:option value="">카테고리 선택</form:option>
-                <form:option value="1">필기구</form:option>
-                <form:option value="2">사무용품</form:option>
+                <form:option value="1">필기구(볼펜 등)</form:option>
+                <form:option value="2">노트/메모(공책 등)</form:option>
+                <form:option value="3">사무용품(파일,테이프 등)</form:option>
+                <form:option value="4">완구(체스,윷놀이 등)</form:option>
+                <form:option value="5">교보재(찰흙,소고 등)</form:option>
+                <form:option value="6">PC용품(wd-40 등)</form:option>
                 <form:errors path="categoryIdx" cssClass="text-danger"/>
                 <!-- 다른 카테고리 옵션 추가 -->
             </form:select>

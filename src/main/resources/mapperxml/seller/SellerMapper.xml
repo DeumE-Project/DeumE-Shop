@@ -144,6 +144,28 @@
         group by C.category_name
     </select>
 
+    <select id="bestSellCountList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
+        select B.product_name, sum(A.product_count) as sellCount
+        from (select order_detail_idx, product_idx, product_count from order_detail) A
+        left join (select product_idx, product_name, seller_idx from product) B
+        on A.product_idx = B.product_idx
+        where B.seller_idx = #{sellerIdx}
+        group by B.product_name
+        order by sum(A.product_count) desc
+        limit 10
+    </select>
+
+    <select id="bestSellRevList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
+        select B.product_name, sum(A.product_total_price) as sellRev
+        from (select order_detail_idx, product_idx, product_total_price from order_detail) A
+        left join (select product_idx, product_name, seller_idx from product) B
+        on A.product_idx = B.product_idx
+        where B.seller_idx = #{sellerIdx}
+        group by B.product_name
+        order by sum(A.product_total_price) desc
+        limit 10;
+    </select>
+
 
     <!--    변재혁-->
     <insert id="sellerRegister" parameterType="kr.co.chunjaeshop.security.RegisterFormDTO">
@@ -168,4 +190,10 @@
         FROM seller
         WHERE seller_id = #{username}
     </select>
+
+    <update id="increaseSellerIncome">
+        UPDATE seller
+        SET seller_income = seller_income + #{money}
+        WHERE seller_idx = #{sellerIdx}
+    </update>
 </mapper>

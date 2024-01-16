@@ -4,12 +4,14 @@ import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import kr.co.chunjaeshop.seller.dto.SellDashBoardDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,10 +40,13 @@ public class SellerController {
 
     // 유지호
     @GetMapping("/mySellerPage")
-    public String mySellerInfoByIdx(@RequestParam("sellerIdx") Integer sellerIdx,
-
+    public String mySellerInfoByIdx(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
             /*@RequestParam("lastMonth") String lastMonth,*/
-                                    Model model){
+                                    Model model,
+                                    Authentication auth){
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
         log.info("sellerIdx = {}", sellerIdx);
         SellerDTO sellerDTO = sellerService.mySellerInfoByIdx(sellerIdx);
         int resultCnt = productService.countMyProductCnt(sellerIdx);
@@ -50,7 +55,8 @@ public class SellerController {
         int avgRev = sellerService.avgRev(sellerIdx);
         List<SellDashBoardDTO> monthlySalesList = sellerService.monthlySalesList(sellerIdx);
         List<SellDashBoardDTO> categorySales = sellerService.categorySales(sellerIdx);
-        /*int getDateRevLast = sellerService.getDateRevLast(sellerIdx, lastMonth);*/
+        List<SellDashBoardDTO> bestSellCountList = sellerService.bestSellCount(sellerIdx);
+        List<SellDashBoardDTO> bestSellRevList = sellerService.bestSellRev(sellerIdx);
         model.addAttribute("myCount", resultCnt);
         model.addAttribute("mySeller", sellerDTO);
         model.addAttribute("myRev", totalRev);
@@ -59,16 +65,23 @@ public class SellerController {
         model.addAttribute("sellerIdx", 1);
         model.addAttribute("monthlySalesList", monthlySalesList);
         model.addAttribute("categorySales", categorySales);
-        /*model.addAttribute("lastDateRev", getDateRevLast);*/
+        model.addAttribute("bestSellCountList", bestSellCountList);
+        model.addAttribute("bestSellRevList", bestSellRevList);
         return "/seller/mySellerPage";
     }
 
     @GetMapping("/myProduct")
-    public String myProductManage(@RequestParam("sellerIdx") Integer sellerIdx,
+    public String myProductManage(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
                                   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                   @RequestParam(value = "searchField", required = false) String searchField,
                                   @RequestParam(value = "searchWord", required = false) String searchWord,
-                                  Model model){
+                                  Model model,
+                                  Authentication auth){
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
+
         List<ProductDTO> productPagingList = sellerService.productPagingListWithSearch(sellerIdx, page, searchField, searchWord);
         PageDTO sellProductPageDTO = sellerService.pagingParam(page, sellerIdx);
         PageDTO sellProductSearchPageDTO = sellerService.pagingSearchParam(page, sellerIdx, searchField, searchWord);
@@ -82,12 +95,25 @@ public class SellerController {
     }
 
     @GetMapping("/manageProduct")
-    public String sellManage(@RequestParam("sellerIdx") Integer sellerIdx,
+    public String sellManage(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
                              @RequestParam("productIdx") Integer productIdx,
                              @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                              @RequestParam(value = "searchField", required = false) String searchField,
                              @RequestParam(value = "searchWord", required = false) String searchWord,
-                             Model model){
+                             Model model,
+                             Authentication auth){
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
+
+        // 본인의 상품이 맞는지 검증 로직
+        int result = productService.checkIfProductBelongsToSeller(sellerIdx, productIdx);
+
+        if (result != 1) {
+            return "redirect:/seller/myProduct";
+        }
+
         log.info("productIdx = {}", productIdx);
         List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
         PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);

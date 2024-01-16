@@ -98,10 +98,6 @@ public class SellerRepositoryImpl implements SellerRepository {
         return sellerMapper.getDateRev(sellerIdx, thisMonth);
     }
 
- /*   @Override
-    public int getDateRevLast(Integer sellerIdx, String lastMonth) {
-        return sellerMapper.getDateRevLast(sellerIdx, lastMonth);
-    }*/
 
     @Override
     public int avgRev(Integer sellerIdx) {
@@ -119,6 +115,16 @@ public class SellerRepositoryImpl implements SellerRepository {
         return sellerMapper.categorySalesList(sellerIdx);
     }
 
+    @Override
+    public List<SellDashBoardDTO> bestSellCountList(Integer sellerIdx) {
+        return sellerMapper.bestSellCountList(sellerIdx);
+    }
+
+    @Override
+    public List<SellDashBoardDTO> bestSellRevList(Integer sellerIdx) {
+        return sellerMapper.bestSellRevList(sellerIdx);
+    }
+
     // 변재혁
     @Override
     public int sellerRegister(RegisterFormDTO registerFormDTO) {
@@ -128,6 +134,11 @@ public class SellerRepositoryImpl implements SellerRepository {
     @Override
     public int idDuplicationCheck(String id) {
         return sellerMapper.idDuplicationCheck(id);
+    }
+
+    @Override
+    public int increaseSellerIncome(Integer money, Integer sellerIdx) {
+        return sellerMapper.increaseSellerIncome(money, sellerIdx);
     }
 }
 

@@ -4,6 +4,7 @@ import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,6 @@ public interface ProductMapper {
 
     List<ProductDTO> myProduct(Integer sellerIdx);
 
-/*    List<ProductDTO> sellProductPaging(Map<String, Integer> pagingParams);*/
-
     int productCount(Integer sellerIdx);
 
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
@@ -53,6 +52,6 @@ public interface ProductMapper {
     int getProductPrice(Integer productIdx);
     List<ProductDTO> getProductListForMainPage();
 
-
-
+    int checkIfProductBelongsToSeller(@Param("sellerIdx") Integer sellerIdx,
+                                      @Param("productIdx") Integer productIdx);
 }

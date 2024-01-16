@@ -39,6 +39,7 @@ public class OrderProductDTO {
     private String orderAddress;
     private String orderStatus;
     private Integer productIdx;
+    private Integer productTotalPrice;
 
 
     // 변재혁

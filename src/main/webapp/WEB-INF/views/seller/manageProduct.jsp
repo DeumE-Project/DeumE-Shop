@@ -1,12 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
     <title>판매 관리</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -144,7 +141,7 @@
                             <td>${sellDetail.customerName}</td>
                             <td>${sellDetail.productPrice}</td>
                             <td>${sellDetail.productCount}</td>
-                            <td>${sellDetail.orderTotalPrice}</td>
+                            <td>${sellDetail.productTotalPrice}</td>
                             <td>${sellDetail.orderDate}</td>
                             <td>${sellDetail.orderAddress}</td>
                             <td>${sellDetail.orderStatus}</td>
@@ -262,7 +259,7 @@
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의
     function goToFirstPage() {
-        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}";
+        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}";
     }
 </script>
 </html>

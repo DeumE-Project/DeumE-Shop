@@ -5,6 +5,9 @@
 
 <head>
     <title>메인페이지</title>
+
+    <style>
+    </style>
 </head>
 
 <!-- Header-->
@@ -33,7 +36,8 @@
                             신상품
                         </div>
                         <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                        <img class="card-img-top main-img" src="/product/${product.productThumbSaved}"
+                             alt="..."/>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
@@ -45,7 +49,8 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">상품보러가기</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                        href="/product/detail?productIdx=${product.productIdx}">상품보러가기</a>
                             </div>
                         </div>
                     </div>

@@ -31,10 +31,10 @@
         </thead>
         <tbody>
         <c:forEach items="${pagingList}" var="review">
-            <tr>
-                <td><a href="/product/review?reviewIdx=${review.reviewIdx}">${review.reviewIdx}</a></td>
+            <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}'" style="cursor: pointer;">
+                <td>${review.reviewIdx}</td>
                 <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />
-                <td><a href="#"><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></a></td>
+                <td><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></td>
                 <td>${review.customerIdx}</td>
                 <td>
                     <c:choose>

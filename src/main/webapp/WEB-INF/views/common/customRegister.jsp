@@ -42,7 +42,7 @@
                        class="validation-form" novalidate="true" onsubmit="return submitCheckFunc()">
                 <h4 style="margin-bottom: 20px"><form:errors path="globalError" cssClass="text-danger"/></h4>
                 <div class="mb-3">
-                    <label for="id">아이디</label>
+                    <label for="id">아이디 (영문 소문자 및 숫자: 5 ~ 15자)<br/>중복검사는 자동으로 돼요</label>
                     <form:input path="id" type="text" class="form-control" placeholder="아이디를 입력해주세요" required="true"/>
                     <div class="invalid-feedback">
                         아이디를 입력해주세요 (영문 소문자 및 숫자를 사용해서 최소 5자 최대 15자까지 가능합니다)
@@ -78,7 +78,7 @@
                 <div class="mb-3">
                     <label for="password1">
                         비밀번호<br/>
-                        5자리 이상 16자리 이하, 영어 대소문자 각각 한 개 이상, 숫자 한 개 이상, 특수기호 !, @, #, $ 중 한 개 이상
+<%--                        5자리 이상 16자리 이하, 영어 대소문자 각각 한 개 이상, 숫자 한 개 이상, 특수기호 !, @, #, $ 중 한 개 이상--%>
                     </label>
                     <form:input path="password1" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"
                                 required="true"/>
