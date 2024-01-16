@@ -47,8 +47,8 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
-                    전체 상품보기
+                <button type="button" class="btn btn-outline-dark" onclick="location.href='/product/productList?categoryIdx=1'">
+                    상품보기
                 </button>
             </form>
 

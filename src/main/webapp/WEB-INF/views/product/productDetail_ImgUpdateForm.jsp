@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 <html lang="ko">
 <head>
     <title>상품 설명 사진 수정</title>

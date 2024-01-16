@@ -4,7 +4,6 @@ import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.Map;
