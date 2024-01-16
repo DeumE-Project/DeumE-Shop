@@ -22,6 +22,7 @@ public class NoticeDTO {
     private String noticeContent;
     private LocalDateTime noticeDate;
 
+    //공지사항 작성 날짜를 년,월,일만 받아서 사용
     public String getNoticeDateStr() {
         if (this.noticeDate != null) {
             return this.noticeDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

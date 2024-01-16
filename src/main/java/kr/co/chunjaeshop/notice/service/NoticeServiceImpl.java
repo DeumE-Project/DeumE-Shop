@@ -49,11 +49,11 @@ public class NoticeServiceImpl implements NoticeService {
         noticeRepository.update(noticeDTO);
     }
 
-    int pageLimit = 5;
-    int blockLimit = 3;
+    int pageLimit = 10; // 한 페이지 게시물 갯수
+    int blockLimit = 5; // 한 블록 당 최대 페이지
     @Override
     public List<NoticeDTO> noticePagingList(int page) {
-        int pageStart = (page-1)*pageLimit;
+        int pageStart = (page-1)*pageLimit; // 해당 페이지의 시작 idx
         Map<String, Integer> noticePagingParams = new HashMap<>();
         noticePagingParams.put("start", pageStart);
         noticePagingParams.put("limit", pageLimit);
@@ -63,10 +63,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     public NoticePageDTO noticePagingParam(int page) {
-        int noticeCount = noticeRepository.noticeCount();
-        int maxPage = (int)(Math.ceil((double) noticeCount / pageLimit));
-        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int noticeCount = noticeRepository.noticeCount(); // 공지사항 게시물 전체 갯수
+        int maxPage = (int)(Math.ceil((double) noticeCount / pageLimit)); // 총 페이지 수
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1; //시작 페이지
         int endPage = startPage + blockLimit - 1;
+        // 마지막 페이지 처리
         if (endPage > maxPage) {
             endPage = maxPage;
         }

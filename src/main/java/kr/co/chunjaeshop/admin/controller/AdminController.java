@@ -27,9 +27,10 @@ public class AdminController {
     // 이무현
     private final SellerService sellerService;
 
-    @GetMapping("/recognize")
+    @GetMapping("/recognize") // 판매자 가입 승인 페이지
     public String recognizeForm(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                 Model model) {
+        // 아직 승인 또는 거절 되지 않은 판매자 정보 불러오기
         List<SellerDTO> notRecognizedSellerList = sellerService.getNotRecognizedSellerList(page);
         AdminPageDTO notRecognizePageDTO = sellerService.notRecognizedSellerPagingParam(page);
 
@@ -39,9 +40,10 @@ public class AdminController {
         return "/admin/recognizeForm";
     }
 
-    @GetMapping("/change")
+    @GetMapping("/change") // 거절 또는 정지 당한 판매자 목록
     public String change(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          Model model) {
+        // 거절 또는 정지 당한 판매자 목록 불러오기
         List<SellerDTO> rejectSellerList = sellerService.getRejectSellerList(page);
         AdminPageDTO rejectSellerPageDTO = sellerService.rejectSellerPagingParam(page);
 
@@ -51,9 +53,10 @@ public class AdminController {
         return "/admin/rejectSellerList";
     }
 
-    @GetMapping("/manage")
+    @GetMapping("/manage") // 가입 승인된 판매자 목록
     public String manageSeller(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                Model model) {
+        // 가입 승인된 판매자 목록 불러오기
         List<SellerDTO> recognizedSellerList = sellerService.getRecognizedSellerList(page);
         AdminPageDTO recognizedSellerPageDTO = sellerService.recognizedSellerPagingParam(page);
 
@@ -63,37 +66,47 @@ public class AdminController {
         return "/admin/manageSellerList";
     }
 
-    @GetMapping("/accept")
+    @GetMapping("/accept") // 판매자 승인
     public String accept(@RequestParam("id") String id,
                          @RequestParam("type") int type) {
+        // 판매자 승인 상태로 변경
         sellerService.updateRecognize(1, id);
+
+        // type : 1 = 가입 승인
         if (type == 1) {
             return "redirect:/admin/recognize";
-        } else {
+        }
+        // type : 2 = 거절 됬거나 정지 당한 판매자 승인 상태로 변경
+        else {
             return "redirect:/admin/change";
         }
     }
 
-    @GetMapping("/reject")
+    @GetMapping("/reject") // 판매자 거절
     public String reject(@RequestParam("id") String id,
                          @RequestParam("rejectReason") String reason,
                          @RequestParam("type") int type) {
-        log.info(id);
-        log.info(reason);
+        // 판매자 거절 또는 정지 상태로 변경
         sellerService.updateRecognize(2, id);
+        // 거절 또는 정지 이유 저장
         sellerService.insertRejectReason(reason, id);
+
+        // type : 1 = 가입 거절
         if (type == 1) {
             return "redirect:/admin/recognize";
-        } else {
+        }
+        // type : 2 = 판매자 정지
+        else {
             return "redirect:/admin/manage";
         }
 
     }
 
-    @GetMapping("/info")
+    @GetMapping("/info") // 승인된 판매자의 상세 정보
     public String info(@RequestParam("id") String id,
                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                        Model model) {
+        // 쿼리로 넘겨받은 id에 해당하는 판매자 정보 불러오기
         SellerDTO sellerDTO = sellerService.getInfoBySellerId(id);
 
         model.addAttribute("seller", sellerDTO);
