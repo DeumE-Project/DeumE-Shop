@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          trimDirectiveWhitespaces="true" %>
 
-<%@ include file="./topNavigation.jsp" %>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 
 <head>
     <title>상품목록</title>
