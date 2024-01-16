@@ -40,7 +40,7 @@
         }
 
         .container .mh {
-            margin-left: 20%; /* Set the margin in percentage */
+            margin-left: 10%; /* Set the margin in percentage */
             padding: 5%;
         }
         /* Style for table headers */
@@ -72,44 +72,46 @@
         <a href="/notice/">공지사항 관리</a>
     </div>
 </nav>
-<div class="container mh">
-    <h1 class="mt-3">판매자 '${seller.sellerId}' 정보</h1>
+<div class="container">
+    <div class="mh">
+        <h1 class="mt-3">판매자 '${seller.sellerId}' 정보</h1>
 
-    <!-- Table for the first set of information -->
-    <table class="table table-bordered mt-4">
-        <tr>
-            <th class="table-dark">아이디</th>
-            <td>${seller.sellerId}</td>
-            <th class="table-dark">대표자명</th>
-            <td>${seller.sellerName}</td>
-            <th class="table-dark">사업자<br>등록번호</th>
-            <td>${seller.sellerTaxId}</td>
-        </tr>
-        <tr>
-            <th class="table-dark">이메일</th>
-            <td >${seller.sellerEmail}</td>
-            <th class="table-dark">전화번호</th>
-            <td>${seller.sellerPhone}</td>
-            <th class="table-dark">수익</th>
-            <td>${seller.sellerIncome}</td>
-        </tr>
-        <tr>
-            <th class="table-dark">가입날짜</th>
-            <td>${seller.sellerJoinedDateStr}</td>
-            <th class="table-dark">사업장<br>소재지</th>
-            <td class="no-center" colspan="3">
-                [${seller.sellerZipcode}]<br>
-                ${seller.sellerAddress1}<br>
-                ${seller.sellerAddress2}
-            </td>
+        <!-- Table for the first set of information -->
+        <table class="table table-bordered mt-4">
+            <tr>
+                <th class="table-dark">아이디</th>
+                <td>${seller.sellerId}</td>
+                <th class="table-dark">대표자명</th>
+                <td>${seller.sellerName}</td>
+                <th class="table-dark">사업자<br>등록번호</th>
+                <td>${seller.sellerTaxId}</td>
+            </tr>
+            <tr>
+                <th class="table-dark">이메일</th>
+                <td >${seller.sellerEmail}</td>
+                <th class="table-dark">전화번호</th>
+                <td>${seller.sellerPhone}</td>
+                <th class="table-dark">수익</th>
+                <td>${seller.sellerIncome}</td>
+            </tr>
+            <tr>
+                <th class="table-dark">가입날짜</th>
+                <td>${seller.sellerJoinedDateStr}</td>
+                <th class="table-dark">사업장<br>소재지</th>
+                <td class="no-center" colspan="3">
+                    [${seller.sellerZipcode}]<br>
+                    ${seller.sellerAddress1}<br>
+                    ${seller.sellerAddress2}
+                </td>
 
-        </tr>
-    </table>
+            </tr>
+        </table>
 
-    <div class="center-buttons">
-        <button onclick="listFn()" class="btn btn-primary">목록</button>
-        <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
-           href="#banSellerModal" role="button" >정지</a>
+        <div class="center-buttons">
+            <button onclick="listFn()" class="btn btn-primary">목록</button>
+            <a class="btn btn-danger" data-bs-toggle="modal" data-sellerid="${seller.sellerId}"
+               href="#banSellerModal" role="button" >정지</a>
+        </div>
     </div>
 </div>
 
