@@ -78,7 +78,7 @@
                 <div class="mb-3">
                     <label for="password1">
                         비밀번호<br/>
-                        5자리 이상 16자리 이하, 영어 대소문자 각각 한 개 이상, 숫자 한 개 이상, 특수기호 !, @, #, $ 중 한 개 이상
+<%--                        5자리 이상 16자리 이하, 영어 대소문자 각각 한 개 이상, 숫자 한 개 이상, 특수기호 !, @, #, $ 중 한 개 이상--%>
                     </label>
                     <form:input path="password1" type="password" class="form-control" placeholder="비밀번호를 입력해주세요"
                                 required="true"/>

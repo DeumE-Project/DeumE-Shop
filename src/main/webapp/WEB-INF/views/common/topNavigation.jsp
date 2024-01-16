@@ -41,7 +41,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">듬이Shop</a>
+        <a class="navbar-brand" href="/main">듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -87,11 +87,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">판매자 마이페이지</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <li><a class="dropdown-item" href="#!">상품 등록</a></li>
+                            <li><a class="dropdown-item" href="/product/productSave">상품 등록</a></li>
                             <li>
                                 <hr class="dropdown-divider"/>
                             </li>
-                            <li><a class="dropdown-item" href="#!">상품 관리</a></li>
+                            <li><a class="dropdown-item" href="/seller/mySellerPage">상품 관리</a></li>
                         </ul>
                     </li>
 <%--                </sec:authorize>--%>

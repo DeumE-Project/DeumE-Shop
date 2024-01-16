@@ -1,20 +1,17 @@
 package kr.co.chunjaeshop.product.controller;
 
 import kr.co.chunjaeshop.product.dto.ProductDTO;
-
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
-
 import kr.co.chunjaeshop.product.dto.ProductSaveDTO;
 import kr.co.chunjaeshop.product.service.ProductService;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -70,7 +66,13 @@ public class ProductController {
     @PostMapping("/productSave")
     //bindingResult는 자동으로 model에 담음
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
-                       BindingResult bindingResult, HttpServletRequest request) {
+                       BindingResult bindingResult, HttpServletRequest request,
+                       Authentication auth) {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
+
+
         // 파일 저장 경로 : product/yyyy-MM-dd
         String uploadFolder = request.getServletContext().getRealPath("/product");
 
@@ -131,9 +133,11 @@ public class ProductController {
             Thumbnails.of(productSaveDTO.getProductImg().getInputStream())
                     .size(100, 100)
                     .toFile(new File(thumbnailFilePath));
-            HttpSession session = request.getSession();
+
+            /*HttpSession session = request.getSession();
             Object sellerIdxObject = session.getAttribute("sellerIdx");
             Integer sellerIdx = null;
+
             if (sellerIdxObject != null) {
                 try {
                     sellerIdx = Integer.parseInt(sellerIdxObject.toString());
@@ -141,7 +145,8 @@ public class ProductController {
                     //sellerIdx를 Integer로 변환할 수 없는 경우 처리할 내용
                     e.printStackTrace();
                 }
-            }
+            }*/
+
             if (!checkImageType(new File(fileImgSaved)) || !checkImageType(new File(fileDetailSaved))) {
                 bindingResult.addError(new FieldError("productSaveDTO", "",
                         "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
@@ -153,13 +158,15 @@ public class ProductController {
 
             //productDTO.setSellerIdx(sellerIdx);
             //테스트용
-            productDTO.setSellerIdx(1);
+
+
+            productDTO.setSellerIdx(sellerIdx);
             productDTO.setProductName(productSaveDTO.getProductName());
             productDTO.setCategoryIdx(productSaveDTO.getCategoryIdx());
             productDTO.setProductExplain(productSaveDTO.getProductExplain());
             productDTO.setProductPrice(productSaveDTO.getProductPrice());
             productDTO.setProductStock(productSaveDTO.getProductStock());
-            productDTO.setProductThumbSaved(thumbnailFilename);
+            productDTO.setProductThumbSaved(uploadFolderPath + File.separator + thumbnailFilename);
             productDTO.setProductImgOriginal(fileImgOriginal);
             productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
             productDTO.setProductDetailOriginal(fileDetailOriginal);
@@ -169,7 +176,8 @@ public class ProductController {
             int saveResult = productService.productSave(productDTO);
             log.info("saveResult={} ",saveResult);
             if (saveResult > 0) {
-                return "redirect:/seller/myProduct?sellerIdx="+productDTO.getSellerIdx(); // 저장 성공 시 상품 목록 페이지로 redirect
+//                return "redirect:/seller/myProduct?sellerIdx="+productDTO.getSellerIdx(); // 저장 성공 시 상품 목록 페이지로 redirect
+                return "redirect:/seller/myProduct"; // 저장 성공 시 상품 목록 페이지로 redirect
             } else {
                 log.error("/상품 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -190,16 +198,33 @@ public class ProductController {
     //product/productDetail?sellerIdx=1&productIdx=1
     // null 값일때 에러 뜨게.
     @GetMapping("/productDetail")
-    public String findByProductIdx(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer productIdx, Model model) {
+    public String findByProductIdx(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
+                                   @RequestParam("productIdx") Integer productIdx, Model model,
+                                   Authentication auth) {
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
+
         ProductDTO productDTO= productService.findByProductIdx(sellerIdx, productIdx);
+
+        if (productDTO == null) {
+            return "redirect:/seller/myProduct";
+        }
+
         model.addAttribute("sellerIdx", sellerIdx);
         model.addAttribute("product", productDTO);
         return "/product/productDetail";
     }
 
     @GetMapping("/productInfoUpdate")
-    public String productUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx, @RequestParam("productIdx") Integer
-            productIdx, Model model) {
+    public String productUpdateForm(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
+            @RequestParam("productIdx") Integer productIdx,
+            Model model,
+            Authentication auth) {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
 
         ProductDTO productDTO = productService.findByProductIdx2(sellerIdx, productIdx);
         log.info("sellerIdx",sellerIdx );
@@ -231,8 +256,13 @@ public class ProductController {
         }
     }
     @GetMapping("/productImgUpdate")
-    public String productImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx,
-                                       @RequestParam("productIdx") Integer productIdx, Model model) {
+    public String productImgUpdateForm(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
+                                       @RequestParam("productIdx") Integer productIdx, Model model,
+                                       Authentication auth) {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
 
         ProductMainImgUpdateDTO productMainImgUpdateDTO = productService.findMainImg(sellerIdx, productIdx);
         log.info("sellerIdx",sellerIdx );
@@ -302,13 +332,14 @@ public class ProductController {
 
             productMainImgUpdateDTO.setProductIdx(productMainImgUpdateDTO.getProductIdx());
             productMainImgUpdateDTO.setSellerIdx(productMainImgUpdateDTO.getSellerIdx());
-            productMainImgUpdateDTO.setProductThumbSaved(thumbnailFilename);
+            productMainImgUpdateDTO.setProductThumbSaved(uploadFolderPath + File.separator + thumbnailFilename);
             productMainImgUpdateDTO.setProductImgOriginal(fileImgOriginal);
             productMainImgUpdateDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
 
             boolean result = productService.productImgUpdate(productMainImgUpdateDTO);
             if (result) {
-                return "redirect:/product/productDetail?sellerIdx=" + productMainImgUpdateDTO.getSellerIdx() + "&productIdx=" + productMainImgUpdateDTO.getProductIdx();
+//                return "redirect:/product/productDetail?sellerIdx=" + productMainImgUpdateDTO.getSellerIdx() + "&productIdx=" + productMainImgUpdateDTO.getProductIdx();
+                return "redirect:/product/productDetail?productIdx=" + productMainImgUpdateDTO.getProductIdx();
             } else {
                 log.error("사진 등록에 실패했습니다.");
                 bindingResult.addError(new FieldError("productMainImgUpdateDTO", "",
@@ -329,8 +360,13 @@ public class ProductController {
         }
     }
     @GetMapping("/productDetailImgUpdate")
-    public String productDetailImgUpdateForm(@RequestParam("sellerIdx") Integer sellerIdx,
-                                             @RequestParam("productIdx") Integer productIdx, Model model) {
+    public String productDetailImgUpdateForm(
+//            @RequestParam("sellerIdx") Integer sellerIdx,
+                                             @RequestParam("productIdx") Integer productIdx, Model model,
+                                             Authentication auth) {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
 
         ProductDetailImgUpdateDTO productDetailImgUpdateDTO = productService.findDetailImg(sellerIdx, productIdx);
 

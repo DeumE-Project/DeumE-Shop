@@ -167,10 +167,10 @@
     </select>
 
     <select id="getProductListForMainPage" resultType="ProductDTO">
-        SELECT product_name, product_price
+        SELECT product_idx, product_name, product_price, product_thumb_saved
         FROM product
         ORDER BY product_reg_date DESC
-        LIMIT 0, 6
+        LIMIT 0, 12
     </select>
 </mapper>
 

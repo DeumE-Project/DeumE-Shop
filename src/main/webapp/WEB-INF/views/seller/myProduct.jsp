@@ -1,12 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
     <title>판매 상품 관리</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -139,8 +136,8 @@
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
                         <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
-                        <td><a href="/product/productDetail?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
-                        <td><a href="/seller/manageProduct?productIdx=${product.productIdx}&sellerIdx=${sellerIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
+                        <td><a href="/product/productDetail?productIdx=${product.productIdx}" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
+                        <td><a href="/seller/manageProduct?productIdx=${product.productIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
                 </c:forEach>
             </table>

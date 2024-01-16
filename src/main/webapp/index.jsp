@@ -2,12 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chunjaeshop</title>
+    <title>Go To Main Page</title>
 </head>
 <body>
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<h1>Chunjaeshop Test Main Page!</h1>
+<%--
+    이 페이지는 /main 으로 redirect 하기 위한 페이지입니다.
+--%>
+<%
+    response.sendRedirect("/main");
+%>
 </body>
 </html>
