@@ -58,7 +58,7 @@
 | **남원우** | **변재혁** | **이무현** | **유지호** | **최경락** | 
 | :------: |  :------: | :------: | :------: | :------: | 
 | [<img src="https://avatars.githubusercontent.com/u/145524959?v=4" height=150 width=150> <br/> @wwnoov](https://github.com/wwnoov) | [<img src="https://avatars.githubusercontent.com/u/145942491?v=4" height=150 width=150> <br/> @jaehyukpyon2](https://github.com/jaehyukpyon2) |[<img src="https://avatars.githubusercontent.com/u/145963633?v=4" height=150 width=150> <br/> @LMH9999](https://github.com/LMH9999)| [<img src="https://avatars.githubusercontent.com/u/145963790?v=4" height=150 width=150> <br/> @jiho-96](https://github.com/jiho-96)| [<img src="https://avatars.githubusercontent.com/u/140072536?v=4" height=150 width=150> <br/> @raknrak](https://github.com/raknrak) |
-| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 | 관리자 승인 기능 <br> 공지사항 기능 |# | 상품 등록 기능 <br> 상품 수정 기능| 
+| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 | 관리자 승인 기능 <br> 공지사항 기능 | 판매자 마이페이지 기능<br> 상품 관리 기능 | 상품 등록 기능 <br> 상품 수정 기능| 
 
 </div>
 
