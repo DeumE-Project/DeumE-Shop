@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>detail.jsp</title>
@@ -33,6 +36,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
         <tr>

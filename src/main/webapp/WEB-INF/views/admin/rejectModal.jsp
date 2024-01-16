@@ -15,7 +15,7 @@
                     <option name="rejectReason" value="통신판매업 미신고">1. 통신판매업 미신고</option>
                     <option name="rejectReason" value="대표자명 불일치">2. 대표자명 불일치</option>
                     <option name="rejectReason" value="사업장소재지 불일치">3. 사업장소재지 불일치</option>
-                    <option name="rejectReason" value="천재 쇼핑몰과 어울리지 않는 업종">4. 천재 쇼핑몰과 어울리지 않는 업종</option>
+                    <option name="rejectReason" value="'듬이샵'과 어울리지 않는 업종">4. 천재 쇼핑몰과 어울리지 않는 업종</option>
                 </select>
             </div>
             <div class="modal-footer">
