@@ -133,5 +133,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     public List<ProductDTO> getProductListForMainPage() {
         return pMap.getProductListForMainPage();
     }
+
+    @Override
+    public int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx) {
+        return pMap.checkIfProductBelongsToSeller(sellerIdx, productIdx);
+    }
 }
 

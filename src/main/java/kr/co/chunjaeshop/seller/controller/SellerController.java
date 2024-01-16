@@ -107,6 +107,13 @@ public class SellerController {
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
 
+        // 본인의 상품이 맞는지 검증 로직
+        int result = productService.checkIfProductBelongsToSeller(sellerIdx, productIdx);
+
+        if (result != 1) {
+            return "redirect:/seller/myProduct";
+        }
+
         log.info("productIdx = {}", productIdx);
         List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
         PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);

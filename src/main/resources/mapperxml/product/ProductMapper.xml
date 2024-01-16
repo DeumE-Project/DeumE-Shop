@@ -141,5 +141,11 @@
         ORDER BY product_reg_date DESC
         LIMIT 0, 12
     </select>
+
+    <select id="checkIfProductBelongsToSeller" resultType="Integer">
+        SELECT COUNT(*)
+        FROM product
+        WHERE product_idx = #{productIdx} AND seller_idx = #{sellerIdx}
+    </select>
 </mapper>
 

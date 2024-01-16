@@ -45,4 +45,6 @@ public interface ProductRepository {
     int getProductPrice(Integer productIdx);
 
     List<ProductDTO> getProductListForMainPage();
+
+    int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
 }

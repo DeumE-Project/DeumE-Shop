@@ -101,4 +101,9 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> getProductListForMainPage() {
         return pRepo.getProductListForMainPage();
     }
+
+    @Override
+    public int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx) {
+        return pRepo.checkIfProductBelongsToSeller(sellerIdx, productIdx);
+    }
 }
