@@ -38,7 +38,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">로고</a>
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -52,16 +52,16 @@
                 <a class="nav-link" href="/product/productList?categoryIdx=2">노트류</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">사무용품</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=3">사무용품</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">완구</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=4">완구</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">교보재</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=5">교보재</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">pc용품</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=6">pc용품</a>
             </li>
         </ul>
     </div>
