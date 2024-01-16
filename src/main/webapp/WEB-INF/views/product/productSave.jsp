@@ -23,15 +23,21 @@
 
         <div class="mb-3">
             <label for="productName" class="form-label">상품 등록</label>
-            <form:input type="text" class="form-control" path="productName" placeholder="상품명을 입력하세요" autofocus="autofocus"/>
+            <form:input type="text" class="form-control" path="productName"
+                        placeholder="상품명을 입력하세요(ex. 3색 볼펜)" autofocus="autofocus"/>
+            <form:errors path="productName" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="productExplain" class="form-label">상품 설명</label>
-            <form:textarea class="form-control" path="productExplain" rows="3" placeholder="상품 설명을 입력하세요" />
+            <form:input class="form-control" path="productExplain" rows="3"
+                        placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다.)" />
+            <form:errors path="productExplain" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">가격</label>
-            <form:input type="number" class="form-control" path="productPrice" placeholder="상품 가격을 입력하세요" />
+            <form:input type="number" class="form-control" path="productPrice"
+                        placeholder="상품 가격을 입력하세요(ex. 1000 / 숫자만 입력해주세요)" onkeypress="return isNumberKey(event)"/>
+            <form:errors path="productPrice" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="categoryIdx" class="form-label">카테고리</label>
@@ -39,50 +45,95 @@
                 <form:option value="">카테고리 선택</form:option>
                 <form:option value="1">필기구</form:option>
                 <form:option value="2">사무용품</form:option>
+                <form:errors path="categoryIdx" cssClass="text-danger"/>
                 <!-- 다른 카테고리 옵션 추가 -->
             </form:select>
         </div>
         <div class="mb-3">
             <label for="productStock" class="form-label">재고 수량</label>
-            <form:input type="number" class="form-control" path="productStock" placeholder="재고 수량을 입력하세요" />
+            <form:input type="number" class="form-control" path="productStock"
+                        placeholder="재고 수량을 입력하세요(숫자만 입력해주세요)" onkeypress="return isNumberKey(event)"/>
+            <form:errors path="productStock" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="productImg" class="form-label">제품 사진</label>
-            <form:input type="file" class="form-control" path="productImg" />
+            <form:input type="file" class="form-control" path="productImg" id="productImgInput" accept="image/*"
+                        onchange="validateImageType('productImgInput', 'productImgWarning')" />
+            <form:errors path="productImg" cssClass="text-danger"/>
+            <div id="productImgWarning" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label for="productImg" class="form-label">제품 사진</label>
+            <label for="productImg" class="form-label"></label>
             <img id="productImgPreview" class="thumbnail" />
         </div>
         <div class="mb-3">
             <label for="productDetailImg" class="form-label">제품 설명 사진</label>
-            <form:input type="file" class="form-control" path="productDetailImg" />
+            <form:input type="file" class="form-control" path="productDetailImg" id="productDetailImgInput" accept="image/*"
+                        onchange="validateImageType('productDetailImgInput', 'productDetailImgWarning')" />
+            <form:errors path="productDetailImg" cssClass="text-danger"/>
+            <div id="productDetailImgWarning" class="text-danger"></div>
         </div>
         <div class="mb-3">
-            <label for="productDetailImg" class="form-label">제품 상세 설명 사진</label>
+            <label for="productDetailImg" class="form-label"></label>
             <img id="productDetailImgPreview" class="thumbnail" />
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
         <button type="reset" class="btn btn-primary">초기화</button>
+        <button type="button" class="btn btn-secondary" onclick="goBack()">뒤로 가기</button>
 
     </form:form>
 
     <script>
         function previewImage(input, targetId) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (e) {
-                var targetElement = document.getElementById(targetId);
+                let targetElement = document.getElementById(targetId);
                 targetElement.src = e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
         }
 
-        document.getElementById('productImg').onchange = function () {
-            previewImage(this, 'productImgPreview');
+        document.getElementById('productImgInput').onchange = function () {
+            validateAndPreviewImage(this, 'productImgPreview', 'productImgWarning');
         };
 
-        document.getElementById('productDetailImg').onchange = function () {
-            previewImage(this, 'productDetailImgPreview');
+        document.getElementById('productDetailImgInput').onchange = function () {
+            validateAndPreviewImage(this, 'productDetailImgPreview', 'productDetailImgWarning');
         };
+
+        function validateAndPreviewImage(input, targetId, warningId) {
+            let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            let fileType = input.files[0].type;
+            let warning = document.getElementById(warningId);
+            let targetElement = document.getElementById(targetId);
+
+            if (allowedTypes.indexOf(fileType) === -1) {
+                warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 허용됩니다.";
+                input.value = ''; // Clear the input
+                targetElement.style.display = 'none'; // Hide the preview
+            } else {
+                warning.innerHTML = '';
+                previewImage(input, targetId);
+                targetElement.style.display = 'block'; // Show the preview
+            }
+        }
     </script>
+
+
+    <script>
+        function isNumberKey(evt) {
+            let charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
 </div>
