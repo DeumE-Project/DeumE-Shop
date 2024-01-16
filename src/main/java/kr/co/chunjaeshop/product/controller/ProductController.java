@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.product.controller;
 
+import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
@@ -414,31 +415,32 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/productList")
-    public String productList(Model model) {
-        List<ProductDTO> productListDTO = productService.getList();
+    /*@GetMapping("/productList")
+    public String productList(@RequestParam("categoryIdx") Integer categoryIdx, Model model) {
+        List<ProductDTO> productListDTO = productService.getList(categoryIdx);
+        model.addAttribute("categoryIdx", categoryIdx);
         model.addAttribute("productList", productListDTO);
         log.info(productListDTO);
         return "/product/productList";
-    }
+    }*/
 
-    /*@GetMapping("/productList")
-    public String myProductManage(@RequestParam("productIdx") Integer productIdx,
+    @GetMapping("/productList")
+    public String productList(@RequestParam("categoryIdx") Integer categoryIdx,
                                   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                   @RequestParam(value = "searchField", required = false) String searchField,
                                   @RequestParam(value = "searchWord", required = false) String searchWord,
                                   Model model){
-        List<ProductDTO> productPagingList = productService.productPagingListWithSearch(productIdx, page, searchField, searchWord);
-        PageDTO productPageDTO = productService.pagingParam(page, productIdx);
-        PageDTO productSearchPageDTO = productService.pagingSearchParam(page, productIdx, searchField, searchWord);
-        model.addAttribute("productList", productPagingList);
-        model.addAttribute("productPaging", productPageDTO);
-        model.addAttribute("productSerchPaging", productSearchPageDTO);
-        model.addAttribute("productIdx", productIdx);
+        List<ProductDTO> productListPaging = productService.productListPagingWithSearch(categoryIdx, page, searchField, searchWord);
+        PageDTO productPageDTO = productService.productListPagingParam(page, categoryIdx);
+        PageDTO productListSearchPageDTO = productService.productListPagingSearchParam(page, categoryIdx, searchField, searchWord);
+        model.addAttribute("productListPaging", productListPaging);
+        model.addAttribute("productPageDTO", productPageDTO);
+        model.addAttribute("productListSearchPageDTO", productListSearchPageDTO);
+        model.addAttribute("categoryIdx", categoryIdx);
         model.addAttribute("searchField", searchField);
         model.addAttribute("searchWord", searchWord);
         return "/product/productList";
-    }*/
+    }
 
 
     // 이무현

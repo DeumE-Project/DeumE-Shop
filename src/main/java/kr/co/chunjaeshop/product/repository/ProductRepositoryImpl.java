@@ -62,11 +62,32 @@ public class ProductRepositoryImpl implements ProductRepository {
     public int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO) {
         return productMapper.productDetailImgUpdate(productDetailImgUpdateDTO);
     }
+    /*  @Override
+    public List<ProductDTO> getList(Integer categoryIdx) {
+        return productMapper.getList(categoryIdx);
+    }*/
 
     @Override
-    public List<ProductDTO> getList() {
-        return productMapper.getList();
+    public List<ProductDTO> productListPagingWithSearch(Map<String, Object> pagingParams) {
+        return productMapper.productListPagingWithSearch(pagingParams);
     }
+
+    @Override
+    public int productListCount(Integer categoryIdx) {
+        return productMapper.productListCount(categoryIdx);
+    }
+
+    @Override
+    public int searchProductListCount(Integer categoryIdx, String searchField, String searchWord) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("categoryIdx", categoryIdx);
+        params.put("searchField", searchField);
+        params.put("searchWord", searchWord);
+
+        return productMapper.searchProductListCount(params);
+    }
+
+
 
    /* @Override
     public ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx) {

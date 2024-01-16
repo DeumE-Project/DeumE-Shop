@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.product.service;
 
+import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
@@ -22,7 +23,14 @@ public interface ProductService {
     ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
     // List<ProductDTO> productPagingListWithSearch(Integer productIdx, int page, String searchField, String searchWord);
-    List<ProductDTO> getList();
+    //List<ProductDTO> getList(Integer categoryIdx);
+    List<ProductDTO> productListPagingWithSearch(Integer categoryIdx, int page, String searchField, String searchWord);
+    PageDTO productListPagingParam(int page, Integer categoryIdx);
+    PageDTO productListPagingSearchParam(int page, Integer categoryIdx, String searchField, String searchWord);
+
+
+
+
 
     // 이무현
 

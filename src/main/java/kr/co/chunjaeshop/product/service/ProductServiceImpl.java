@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.product.service;
 
+import kr.co.chunjaeshop.pagination.dto.PageDTO;
 import kr.co.chunjaeshop.product.dto.ProductDTO;
 import kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO;
 import kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO;
@@ -8,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -60,20 +63,19 @@ public class ProductServiceImpl implements ProductService {
         int result = productRepository.productDetailImgUpdate(productDetailImgUpdateDTO);
         return result >0;
     }
-
+   /* @Override
+    public List<ProductDTO> getList(Integer categoryIdx) {
+        return productRepository.getList(categoryIdx);
+    }*/
+    int pageLimit = 16; // 한 페이지당 보여줄 글 개수
+    int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
     @Override
-    public List<ProductDTO> getList() {
-        return productRepository.getList();
-    }
-
-
-    /*@Override
-    public List<ProductDTO> productPagingListWithSearch(Integer productIdx, int page, String searchField, String searchWord) {
+    public List<ProductDTO> productListPagingWithSearch(Integer categoryIdx, int page, String searchField, String searchWord) {
         int pagingStart = (page - 1) * pageLimit;
         Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);
         pagingParams.put("limit", pageLimit);
-        pagingParams.put("productIdx", productIdx);
+        pagingParams.put("categoryIdx", categoryIdx);
 
         // 검색어가 제공된 경우에만 검색 조건 추가
         if (searchField != null && searchWord != null) {
@@ -81,13 +83,14 @@ public class ProductServiceImpl implements ProductService {
             pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
         }
 
-        List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
-        return productPagingListWithSearch;
+        List<ProductDTO> productListPagingWithSearch = productRepository.productListPagingWithSearch(pagingParams);
+        return productListPagingWithSearch;
     }
+
     @Override
-    public PageDTO pagingParam(int page, Integer sellerIdx) {
-        // 전체 글 개수 조회
-        int productCount = productRepository.productCount(sellerIdx);
+    public PageDTO productListPagingParam(int page, Integer categoryIdx) {
+
+        int productCount = productRepository.productListCount(categoryIdx);
         // 전체 페이지 개수 계산
         int maxPage = (int) (Math.ceil((double) productCount / pageLimit));
         // 시작 페이지 값 계산
@@ -107,13 +110,10 @@ public class ProductServiceImpl implements ProductService {
         return productPagingPageDTO;
     }
 
-
-
     @Override
-    public PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord) {
-
+    public PageDTO productListPagingSearchParam(int page, Integer categoryIdx, String searchField, String searchWord) {
         // 전체 글 개수 조회
-        int searchproductCount = productRepository.searchproductCount(sellerIdx, searchField, searchWord);
+        int searchproductCount = productRepository.searchProductListCount(categoryIdx, searchField, searchWord);
         // 전체 페이지 개수 계산
         int maxPage = (int) (Math.ceil((double) searchproductCount / pageLimit));
         // 시작 페이지 값 계산
@@ -131,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
         searchProductPagingPageDTO.setPageLimit(pageLimit);
         searchProductPagingPageDTO.setTotalCount(searchproductCount);
         return searchProductPagingPageDTO;
-    }*/
+    }
 
 
     // 이무현
