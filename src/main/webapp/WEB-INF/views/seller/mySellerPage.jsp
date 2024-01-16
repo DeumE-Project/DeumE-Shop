@@ -138,7 +138,7 @@
                             // 만약 데이터가 모두 0이면, 판매된 수익이 없다는 메시지 표시
                             let noRevenueMessage = document.createElement('p');
                             noRevenueMessage.className = 'text-center lead fw-bold';
-                            noRevenueMessage.textContent = '판매된 수익이 없습니다.';
+                            noRevenueMessage.textContent = ' ';
                             barChartElement.insertAdjacentElement('afterend', noRevenueMessage);
                         } else {
                             new Chart(barChartElement, {
@@ -225,6 +225,57 @@
 
             <br>
 
+            <c:if test="${empty bestSellCountList}">
+                <div class="text-center my-5">
+                    <h3 class="fw-bolder">판매된 상품이 없습니다. 리스트를 표시할 수 없습니다.</h3>
+                </div>
+            </c:if>
+            <c:if test="${not empty bestSellCountList}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 10%;">번호</th>
+                                    <th style="width: 20%;">상품명</th>
+                                    <th style="width: 20%;">판매량</th>
+                                </tr>
+                                </thead>
+                                <c:forEach items="${bestSellCountList}" var="sellProduct" varStatus="loop">
+                                    <tr>
+                                        <td>${loop.index + 1}</td>
+                                        <td>${sellProduct.productName}</td>
+                                        <td>${sellProduct.sellCount}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+
+                        <div class="col">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 10%;">번호</th>
+                                    <th style="width: 20%;">상품명</th>
+                                    <th style="width: 20%;">판매수익</th>
+                                </tr>
+                                </thead>
+                                <c:forEach items="${bestSellRevList}" var="revProduct" varStatus="loop">
+                                    <tr>
+                                        <td>${loop.index + 1}</td>
+                                        <td>${revProduct.productName}</td>
+                                        <td>${revProduct.sellRev}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+            <br>
+
             <!-- 작업 버튼 -->
             <div class="row gx-5 justify-content-end">
                 <div class="col-lg-6">
@@ -239,9 +290,6 @@
         </div>
     </section>
 </main>
-<!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<%--<script src="js/scripts.js"></script>--%>
 </body>
 </html>
