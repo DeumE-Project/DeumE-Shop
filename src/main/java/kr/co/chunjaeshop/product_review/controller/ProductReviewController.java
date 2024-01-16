@@ -72,11 +72,19 @@ public class ProductReviewController {
         uploadPath.mkdir();
       }
 
+      // 파일 크기 제한 (5MB)
+      if (productReviewSaveDTO.getReviewImg().getSize() > 5 * 1024 * 1024) {
+        bindingResult.addError(new FieldError("productReviewSaveDTO", "reviewImg",
+                "이미지 파일 크기는 5MB 초과할 수 없습니다."));
+        return "/review/reviewSave";
+      }
+
       if (bindingResult.hasErrors()) {
         FieldError fieldError = bindingResult.getFieldError();
         log.info("filederror={}",fieldError.getDefaultMessage());
         return "/review/reviewSave";
       }
+
 
       // 파일 업로드하는 로직
       UUID uuid = UUID.randomUUID();
