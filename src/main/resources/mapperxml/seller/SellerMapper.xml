@@ -168,4 +168,10 @@
         FROM seller
         WHERE seller_id = #{username}
     </select>
+
+    <update id="increaseSellerIncome">
+        UPDATE seller
+        SET seller_income = seller_income + #{money}
+        WHERE seller_idx = #{sellerIdx}
+    </update>
 </mapper>

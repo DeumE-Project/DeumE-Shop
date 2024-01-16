@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.seller.service;
 
 
 import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
+import kr.co.chunjaeshop.cart.dto.CartDetailDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.order_product.repository.OrderProductRepository;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -377,5 +378,14 @@ public class SellerServiceImpl implements SellerService {
         return (result == 1) ? true : false;
     }
 
-
+    @Override
+    public int increaseSellerIncome(List<CartDetailDTO> cartDetailDTOList, Integer sellerIdx) {
+        int money = 0;
+        for (CartDetailDTO cartDetailDTO : cartDetailDTOList) {
+            int count = cartDetailDTO.getBuyCount();
+            int price = cartDetailDTO.getProductPrice();
+            money += (count * price);
+        }
+        return sellerRepository.increaseSellerIncome(money, sellerIdx);
+    }
 }

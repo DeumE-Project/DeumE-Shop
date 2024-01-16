@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import kr.co.chunjaeshop.security.LoginUserDTO;
 import kr.co.chunjaeshop.security.RegisterFormDTO;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -56,11 +57,8 @@ public interface SellerMapper {
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
     LoginUserDTO.UserVO loginSeller(String username);
-
-
     List<SellerDTO> getRecognizedSellerList(Map<String, Integer> recognizedSellerPagingParam);
-
     int recognizedSellerCount();
-
-
+    int increaseSellerIncome(@Param("money") Integer money,
+                             @Param("sellerIdx") Integer sellerIdx);
 }

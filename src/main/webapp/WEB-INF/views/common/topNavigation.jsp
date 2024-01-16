@@ -52,6 +52,12 @@
                 </button>
             </form>
 
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/notice/">공지사항</a>
+                </li>
+            </ul>
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 <%--                <sec:authorize access="hasRole('ROLE_CUSTOMER')">--%>
                     <li class="nav-item dropdown">
@@ -81,11 +87,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">판매자 마이페이지</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <li><a class="dropdown-item" href="#!">상품등록</a></li>
+                            <li><a class="dropdown-item" href="#!">상품 등록</a></li>
                             <li>
                                 <hr class="dropdown-divider"/>
                             </li>
-                            <li><a class="dropdown-item" href="#!">상품관리</a></li>
+                            <li><a class="dropdown-item" href="#!">상품 관리</a></li>
                         </ul>
                     </li>
 <%--                </sec:authorize>--%>
@@ -95,7 +101,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">관리자 마이페이지</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <li><a class="dropdown-item" href="#!">판매자 관리</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin/recognize">판매자 관리</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/notice/">공지사항 관리</a></li>
                         </ul>
                     </li>
 <%--                </sec:authorize>--%>

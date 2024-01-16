@@ -129,6 +129,11 @@ public class SellerRepositoryImpl implements SellerRepository {
     public int idDuplicationCheck(String id) {
         return sellerMapper.idDuplicationCheck(id);
     }
+
+    @Override
+    public int increaseSellerIncome(Integer money, Integer sellerIdx) {
+        return sellerMapper.increaseSellerIncome(money, sellerIdx);
+    }
 }
 
 
