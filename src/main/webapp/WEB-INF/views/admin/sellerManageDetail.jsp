@@ -1,14 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
     <title>판매자 '${seller.sellerId}' 정보 </title>
     <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">--%>
+<%--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
+<%--            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
     <style>
         /* Optional custom styles */
-        nav {
+        nav.mh {
             height: 100%;
             width: 15%;
             position: fixed;
@@ -24,7 +26,7 @@
             margin-bottom: 20px; /* Add some space below the Administrator title */
         }
 
-        nav a {
+        nav.mh a {
             padding: 10px;
             text-decoration: none;
             font-size: 18px;
@@ -33,11 +35,11 @@
             border-bottom: 1px solid #333;
         }
 
-        nav a:hover {
+        nav.mh a:hover {
             background-color: #555;
         }
 
-        .container{
+        .container .mh {
             margin-left: 20%; /* Set the margin in percentage */
             padding: 5%;
         }
@@ -61,7 +63,7 @@
     </style>
 </head>
 <body>
-<nav>
+<nav class="mh">
     <div>
         <div class="admin-title">관리자</div>
         <a href="/admin/manage">판매자 관리</a>
@@ -70,7 +72,7 @@
         <a href="/notice/">공지사항 관리</a>
     </div>
 </nav>
-<div class="container">
+<div class="container mh">
     <h1 class="mt-3">판매자 '${seller.sellerId}' 정보</h1>
 
     <!-- Table for the first set of information -->
@@ -114,7 +116,7 @@
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
 
 <!-- Include Bootstrap JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var BID="";

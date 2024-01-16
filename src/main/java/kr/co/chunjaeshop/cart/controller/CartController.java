@@ -5,6 +5,7 @@ import kr.co.chunjaeshop.cart.service.CartService;
 import kr.co.chunjaeshop.order_detail.service.OrderDetailService;
 import kr.co.chunjaeshop.order_product.service.OrderProductService;
 import kr.co.chunjaeshop.security.LoginUserDTO;
+import kr.co.chunjaeshop.seller.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class CartController {
     private final CartService cartService;
     private final OrderProductService orderProductService;
     private final OrderDetailService orderDetailService;
+    private final SellerService sellerService;
 
     @PostMapping(value = "/add-cart")
     public String addToCart(@ModelAttribute AddToCartForm addToCartForm,
@@ -212,6 +214,7 @@ public class CartController {
             boolean orderDetailsInsertResult = orderDetailService.insertNewOrderDetails(orderProductForm.getOrderIdx(),
                     cart.getCartDetailDTOList());
             if (orderDetailsInsertResult) {
+                sellerService.increaseSellerIncome(cart.getCartDetailDTOList(), cart.getSellerIdx());
                 log.info("새로운 주문 및 주문 디테일 저장 완료");
             } else {
                 log.error("새로운 주문 및 주문 디테일 저장 실패");

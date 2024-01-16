@@ -1,15 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
     <title>판매자 가입 승인 페이지</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<%--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
+<%--            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+<%--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">--%>
     <style>
         /* Optional custom styles */
-        nav {
+        nav.mh {
             height: 100%;
             width: 15%;
             position: fixed;
@@ -25,7 +27,7 @@
             margin-bottom: 20px; /* Add some space below the Administrator title */
         }
 
-        nav a {
+        nav.mh a {
             padding: 10px;
             text-decoration: none;
             font-size: 18px;
@@ -34,11 +36,11 @@
             border-bottom: 1px solid #333;
         }
 
-        nav a:hover {
+        nav.mh a:hover {
             background-color: #555;
         }
 
-        .container{
+        .container .mh {
             margin-left: 20%; /* Set the margin in percentage */
             padding: 5%;
         }
@@ -62,7 +64,7 @@
     </style>
 </head>
 <body>
-<nav>
+<nav class="mh">
     <div>
         <div class="admin-title">관리자</div>
         <a href="/admin/manage">판매자 관리</a>
@@ -71,7 +73,7 @@
         <a href="/notice/">공지사항 관리</a>
     </div>
 </nav>
-<div class="container">
+<div class="container mh">
     <h1>판매자 가입 승인 페이지</h1> <br>
 
     <c:if test="${empty notRecognizedList}">
@@ -162,7 +164,7 @@
 <jsp:include page="rejectModal.jsp" flush="true"/>
 
 <!-- Bootstrap 5 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var RID="";

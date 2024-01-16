@@ -2,6 +2,7 @@ package kr.co.chunjaeshop.seller.service;
 
 
 import kr.co.chunjaeshop.admin.dto.AdminPageDTO;
+import kr.co.chunjaeshop.cart.dto.CartDetailDTO;
 import kr.co.chunjaeshop.seller.dto.SellerDTO;
 import kr.co.chunjaeshop.order_product.dto.OrderProductDTO;
 import kr.co.chunjaeshop.pagination.dto.PageDTO;
@@ -76,7 +77,7 @@ public interface SellerService {
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);
-
+    int increaseSellerIncome(List<CartDetailDTO> cartDetailDTOList, Integer sellerIdx);
 
 
 }

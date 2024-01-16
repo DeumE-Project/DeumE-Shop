@@ -59,7 +59,5 @@ public interface SellerRepository {
     // 변재혁
     int sellerRegister(RegisterFormDTO registerFormDTO);
     int idDuplicationCheck(String id);
-
-
-
+    int increaseSellerIncome(Integer money, Integer sellerIdx);
 }
