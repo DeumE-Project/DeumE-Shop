@@ -9,23 +9,56 @@
     <style>
         body {
             padding: 20px;
+            background-color: #ffffff; /* 바탕을 흰색으로 변경 */
+            color: #000000; /* 글씨를 검은색으로 변경 */
+        }
+
+        .navbar {
+            background-color: #f8f9fa !important; /* 흰색보다 조금 어둡게 변경 */
+            color: #000000 !important; /* 네비게이션 바 글씨를 검은색으로 변경 */
+        }
+
+        .navbar-toggler-icon {
+            background-color: #000000; /* 토글 아이콘 색상을 검은색으로 변경 */
+        }
+
+        .navbar-nav .nav-link {
+            color: #000000 !important; /* 네비게이션 바 링크 글씨를 검은색으로 변경 */
+        }
+
+        /* 네비게이션 바 토글 버튼 색상을 검은색으로 변경 */
+        .navbar-toggler {
+            border-color: #000000;
         }
 
         .navbar-nav {
             display: flex;
-            justify-content: center; /* 가운데 정렬 추가 */
-            align-items: center; /* 세로 가운데 정렬 추가 */
+            justify-content: center;
+            align-items: center;
+
+
         }
 
         .navbar-nav .nav-item {
             margin-right: 10px;
-            text-align: center; /* 텍스트 중앙 정렬 추가 */
+            text-align: center;
+
         }
+
 
         .navbar-nav .nav-item a {
             display: inline-block;
             white-space: nowrap;
-            padding-right: 1.5rem; /* 카테고리 이름을 더 오른쪽으로 이동시키는 부분 */
+            margin-right: 20px;
+
+        }
+        .navbar-nav .nav-item:first-child a {
+            margin-left: 170px;
+
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            font-size: 16px;
         }
 
         /* 한글 폰트 추가 */
@@ -37,8 +70,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">로고</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -52,16 +85,16 @@
                 <a class="nav-link" href="/product/productList?categoryIdx=2">노트류</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">사무용품</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=3">사무용품</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">완구</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=4">완구</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">교보재</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=5">교보재</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">pc용품</a>
+                <a class="nav-link" href="/product/productList?categoryIdx=6">pc용품</a>
             </li>
         </ul>
     </div>

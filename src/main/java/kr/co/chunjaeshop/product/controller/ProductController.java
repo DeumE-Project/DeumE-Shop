@@ -85,6 +85,18 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
+        if (productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) {
+            bindingResult.addError(new FieldError
+                    ("productSaveDTO", "productImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
+        }
+        if ( productSaveDTO.getProductImg().getSize() > 40 * 1024 * 1024) {
+            bindingResult.addError(new FieldError
+                    ("productSaveDTO", "productDetailImg", "이미지 파일 크기는 40MB 초과할 수 없습니다."));
+        }
+        /*if (bindingResult.hasErrors()) {
+            log.error("productSaveDTO has error");
+            return "/product/productSave";
+        }*/
         if (productSaveDTO.getProductImg() == null || productSaveDTO.getProductImg().isEmpty()) {
             bindingResult.addError(new FieldError
                     ("productSaveDTO", "productImg", "상품 메인 이미지는 필수 선택입니다"));
@@ -95,6 +107,7 @@ public class ProductController {
         }
         if (bindingResult.hasErrors()) {
             log.error("productSaveDTO has error");
+            return "/product/productSave";
         }
         log.info("productSaveDTO= {} ", productSaveDTO);
 
@@ -291,6 +304,10 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
+        if ( productMainImgUpdateDTO.getMainImg().getSize() >  10 * 1024 * 1024) {
+            bindingResult.addError(new FieldError
+                    ("productMainImgUpdateDTO", "mainImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
+        }
         if (productMainImgUpdateDTO.getMainImg() == null || productMainImgUpdateDTO.getMainImg().isEmpty()) {
             bindingResult.addError(new FieldError
                     ("productMainImgUpdateDTO", "mainImg", "상품 이미지는 필수 선택입니다"));
@@ -395,12 +412,17 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
+        if (productDetailImgUpdateDTO.getDetailImg().getSize()>  10 * 1024 * 1024) {
+            bindingResult.addError(new FieldError
+                    ("productDetailImgUpdateDTO", "detailImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
+        }
         if (productDetailImgUpdateDTO.getDetailImg() == null || productDetailImgUpdateDTO.getDetailImg().isEmpty()) {
             bindingResult.addError(new FieldError
                     ("productDetailImgUpdateDTO", "detailImg", "상품 설명 이미지는 필수 선택입니다"));
         }
         if (bindingResult.hasErrors()) {
             log.error("productDetailImgUpdateDTO has error");
+            return "/product/productDetail_ImgUpdateForm";
         }
         log.info("productDetailImgUpdateDTO= {} ",productDetailImgUpdateDTO);
 
