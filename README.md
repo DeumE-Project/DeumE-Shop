@@ -1,4 +1,4 @@
-#  💻 Chunjae Shop 💻
+#  💻 듬이 Shop 💻
 
 
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
