@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>공지사항</title>
@@ -25,6 +28,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항</h1><br>
 
     <div class="d-flex justify-content-end mb-3">
@@ -46,6 +50,7 @@
         </form>
     </div>
 
+    <br>
 
     <table class="table table-bordered table-hover">
         <thead class="table-dark">

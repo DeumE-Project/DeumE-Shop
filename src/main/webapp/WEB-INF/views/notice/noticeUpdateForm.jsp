@@ -1,5 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>update.jsp</title>
@@ -29,6 +32,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항 수정하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="/notice/update" method="post" name="updateForm">
         <form:input path="noticeIdx" type="hidden" name="idx" value="${notice.noticeIdx}" readonly="true"/>
