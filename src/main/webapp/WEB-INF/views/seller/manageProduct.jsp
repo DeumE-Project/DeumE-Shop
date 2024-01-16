@@ -144,7 +144,7 @@
                             <td>${sellDetail.customerName}</td>
                             <td>${sellDetail.productPrice}</td>
                             <td>${sellDetail.productCount}</td>
-                            <td>${sellDetail.orderTotalPrice}</td>
+                            <td>${sellDetail.productTotalPrice}</td>
                             <td>${sellDetail.orderDate}</td>
                             <td>${sellDetail.orderAddress}</td>
                             <td>${sellDetail.orderStatus}</td>
