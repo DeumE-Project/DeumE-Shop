@@ -122,9 +122,9 @@ CREATE TABLE order_detail (
 
 CREATE TABLE notice (
 	notice_idx INT PRIMARY KEY AUTO_INCREMENT,
-    notice_title VARCHAR(100) NOT NULL,
-    notice_content VARCHAR(500) NOT NULL,
-    notice_date DATETIME DEFAULT CURRENT_TIMESTAMP
+	notice_title VARCHAR(100) NOT NULL,
+	notice_content VARCHAR(500) NOT NULL,
+	notice_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE cart (
@@ -143,14 +143,32 @@ CREATE TABLE cart_detail (
 	product_price INT,
 	FOREIGN KEY (cart_idx) REFERENCES cart (cart_idx),
 	FOREIGN KEY (product_idx) REFERENCES product (product_idx)
-
 );
 
 CREATE TABLE comment (
-                         comment_idx  INT PRIMARY KEY AUTO_INCREMENT,
-                         product_idx INT, # 외래키
-                         comment_writer varchar(50),
-                         comment_contents varchar(200),
-                         comment_createdTime DATETIME DEFAULT CURRENT_TIMESTAMP,
-                         FOREIGN KEY (product_idx) REFERENCES product (product_idx) ON UPDATE CASCADE ON DELETE SET NULL
+	comment_idx  INT PRIMARY KEY AUTO_INCREMENT,
+	product_idx INT, # 외래키
+	comment_writer varchar(50),
+	comment_contents varchar(200),
+	comment_createdTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (product_idx) REFERENCES product (product_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
+
+INSERT 
+INTO category (category_name)
+VALUES ('필기구(볼펜 등)');
+INSERT 
+INTO category (category_name)
+VALUES ('노트/메모(공책 등)');
+INSERT 
+INTO category (category_name)
+VALUES ('사무용품(파일,테이프 등)');
+INSERT 
+INTO category (category_name)
+VALUES ('완구(체스,윷놀이 등)');
+INSERT 
+INTO category (category_name)
+VALUES ('교보재(찰흙,소고 등)');
+INSERT 
+INTO category (category_name)
+VALUES ('PC용품(wd-40 등)');
