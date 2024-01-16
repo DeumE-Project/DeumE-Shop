@@ -19,6 +19,7 @@ public class ProductReviewSaveDTO {
     private String reviewContent;
 
     @ValidFile(message = "리뷰 사진은 필수 입니다.")
+    @Size(max = 3 * 1024 * 1024, message = "리뷰 사진 크기는 최대 3MB까지 허용됩니다.")
     private MultipartFile reviewImg;
 
     private Integer reviewIdx;
