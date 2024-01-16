@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <div class="mb-3" id="div-seller-tax-id">
-                    <label for="sellerTaxId">사업자등록번호</label>
+                    <label for="sellerTaxId">사업자등록번호 <br/>(xxx-xx-xxxxx 형식으로 입력해주세요)</label>
                     <form:input path="sellerTaxId" type="text" class="form-control"
                                 placeholder="사업자등록번호를 입력해주세요"/>
                     <form:errors path="sellerTaxId" cssClass="text-danger"/>
