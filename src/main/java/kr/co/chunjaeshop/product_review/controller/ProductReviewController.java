@@ -100,7 +100,7 @@ public class ProductReviewController {
         log.error("Invalid image type detected. File: {}", fileImgSaved);
         bindingResult.addError(new FieldError("productReviewSaveDTO", "reviewImg",
                 "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
-        return "/review/reviewSave"; // 허용되지 않는 이미지 형식일 경우 save 페이지
+        return "/review/reviewSave"; // 허용되지 않는 이미지 형식일 경우 reviewSave 페이지
       }
 
       try {
@@ -117,17 +117,6 @@ public class ProductReviewController {
                 .size(100, 100)
                 .toFile(new File(thumbnailFilePath));
         HttpSession session = httpServletRequest.getSession();
-        Object customerIdxObject = session.getAttribute("customerIdx");
-        Integer customerIdx = null;
-        if (customerIdxObject != null) {
-          try {
-            customerIdx = Integer.parseInt(customerIdxObject.toString());
-          } catch (NumberFormatException e) {
-            //customerIdx를 Integer로 변환할 수 없는 경우 처리할 내용
-            e.printStackTrace();
-          }
-        }
-
 
         ProductReviewDTO productReviewDTO = new ProductReviewDTO();
 
@@ -148,7 +137,7 @@ public class ProductReviewController {
 
 
         if (saveResult > 0) {
-          return "redirect:/product/review/paging"; // 저장 성공 시 detail 페이지로 redirect
+          return "redirect:/product/review/paging"; // 저장 성공 시 paging 페이지로 redirect
         } else {
           log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -174,9 +163,9 @@ public class ProductReviewController {
   // 페이징 메서드
   @GetMapping("/paging")
   public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-    // BoardService를 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
+    // productReviewService 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
     List<ProductReviewDTO> pagingList = productReviewService.pagingList(page);
-    // BoardService를 사용하여 페이징 정보를 가져옵니다.
+    // productReviewService 사용하여 페이징 정보를 가져옵니다.
     ProductReviewPageDTO pageDTO = productReviewService.pagingParam(page);
     // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
     model.addAttribute("pagingList", pagingList);
@@ -193,7 +182,7 @@ public class ProductReviewController {
   }
   @GetMapping("/update")
   public String updateForm(@RequestParam("reviewIdx") String reviewIdx, Model model) {
-    //ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
+
     ProductReviewSaveDTO productReviewSaveDTO = productReviewService.findByIdxReviewSaveDTO(reviewIdx);
     model.addAttribute("productReviewSaveDTO", productReviewSaveDTO);
     //model.addAttribute("reviewIdx",productReviewDTO.getReviewIdx());
@@ -259,17 +248,6 @@ public class ProductReviewController {
               .size(100, 100)
               .toFile(new File(thumbnailFilePath));
       HttpSession session = httpServletRequest.getSession();
-      Object customerIdxObject = session.getAttribute("customerIdx");
-      Integer customerIdx = null;
-      if (customerIdxObject != null) {
-        try {
-          customerIdx = Integer.parseInt(customerIdxObject.toString());
-        } catch (NumberFormatException e) {
-          //customerIdx를 Integer로 변환할 수 없는 경우 처리할 내용
-          e.printStackTrace();
-        }
-      }
-
 
       ProductReviewDTO productReviewDTO = new ProductReviewDTO();
 
