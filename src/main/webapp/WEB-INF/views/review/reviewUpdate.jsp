@@ -1,81 +1,86 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <title>update</title>
-    <script>
-        function validate() {
-            var title = document.getElementById("boardTitle");
-            var content = document.getElementById("boardContents");
-
-            if (title.value.trim() === "") {
-                alert("제목을 입력해 주세요");
-                title.focus();
-                return false;
-            }
-
-            if (content.value.trim() === "") {
-                alert("내용을 입력해 주세요");
-                content.focus();
-                return false;
-            }
-
-            return true;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product review save</title>
+    <!-- 부트스트랩 CDN 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 썸네일 이미지 스타일 */
+        .thumbnail {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
         }
-    </script>
-    <jsp:include page="nav.jsp"/>
+    </style>
 </head>
-<body class="bg-light">
+
+<body>
 <div class="container mt-5">
-    <form action="/board/update" method="post" name="updateForm" onsubmit="return validate();">
-        <div class="form-group">
-            <input type="hidden" name="id" value="${board.id}" class="form-control" readonly onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <h1>리뷰 수정</h1>
+
+    <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
+    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update" method="post" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <form:hidden path="reviewIdx" />
+
+            <p>${productReviewSaveDTO.reviewIdx}</p>
+            <label for="reviewStar" class="form-label">별점</label>
+            <form:select class="form-select" path="reviewStar">
+                <form:option value="">별점 선택</form:option>
+                <form:option value="1">★☆☆☆☆</form:option>
+                <form:option value="2">★★☆☆☆</form:option>
+                <form:option value="3">★★★☆☆</form:option>
+                <form:option value="4">★★★★★</form:option>
+                <form:option value="5">★★★★★</form:option>
+            </form:select>
         </div>
-        <div class="form-group">
-            <label for="boardWriter">작성자</label>
-            <input type="text" name="boardWriter" value="${board.boardWriter}" class="form-control" readonly onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+        <div>
+            <form:errors path="reviewStar" cssClass="text-danger"/>
         </div>
-        <div class="form-group">
-            <label for="boardPass">비밀번호</label>
-            <input type="password" name="boardPass" id="boardPass" class="form-control" placeholder="비밀번호" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+
+        <div class="mb-3">
+            <label for="reviewContent" class="form-label">리뷰 내용</label>
+            <form:textarea class="form-control" path="reviewContent" rows="3" placeholder="리뷰 내용을 입력하세요" />
         </div>
-        <div class="form-group">
-            <label for="boardTitle">제목</label>
-            <input type="text" name="boardTitle" value="${board.boardTitle}" class="form-control" id="boardTitle" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+        <div>
+            <form:errors path="reviewContent" cssClass="text-danger"/>
         </div>
-        <div class="form-group">
-            <label for="boardContents">내용</label>
-            <textarea name="boardContents" class="form-control" rows="5" id="boardContents" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">${board.boardContents}</textarea>
+        <div class="mb-3">
+            <label for="reviewImg" class="form-label">리뷰 사진</label>
+            <form:input type="file" class="form-control" path="reviewImg" multiple="multiple"/>
         </div>
-        <button type="button" class="btn btn-primary" onclick="updateReqFn()">수정</button>
-    </form>
+        <div>
+            <form:errors path="reviewImg" cssClass="text-danger"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="reviewImg" class="form-label"></label>
+            <img id="reviewImgPreview" class="thumbnail" />
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <button type="reset" class="btn btn-primary">초기화</button>
+
+    </form:form>
+
+    <script>
+        function previewImage(input, targetId) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var targetElement = document.getElementById(targetId);
+                targetElement.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+        document.getElementById('reviewImg').onchange = function () {
+            previewImage(this, 'reviewImgPreview');
+        };
+    </script>
 </div>
 </body>
-<script>
-    const updateReqFn = () => {
-        if (validate()) {
-            const passInput = document.getElementById("boardPass").value;
-            const passDB = '${board.boardPass}';
-            if (passInput == passDB) {
-                alert("수정이 완료되었습니다.")
-                document.updateForm.submit();
-            } else {
-                alert("비밀번호가 일치하지 않습니다!!");
-            }
-        }
-    }
-</script>
-<script>
-    // 특수문자 입력 방지
-    function characterCheck(obj){
-        var regExp = /[ \{\}\[\]\/|\)`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
-        if( regExp.test(obj.value) ){
-            alert("특수문자는 입력하실수 없습니다.");
-            obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
-    }
-</script>
 </html>

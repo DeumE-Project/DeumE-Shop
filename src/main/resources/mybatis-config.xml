@@ -13,9 +13,12 @@
         <typeAlias type="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO" alias="OrderDetailDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.order_product.dto.OrderProductDTO" alias="OrderProductDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product.dto.ProductDTO" alias="ProductDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product.dto.ProductDetailImgUpdateDTO" alias="ProductDetailImgUpdateDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product.dto.ProductMainImgUpdateDTO" alias="ProductMainImgUpdateDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product_answer.dto.ProductAnswerDTO" alias="ProductAnswerDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product_question.dto.ProductQuestionDTO" alias="ProductQuestionDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.product_review.dto.ProductReviewDTO" alias="ProductReviewDTO"></typeAlias>
+        <typeAlias type="kr.co.chunjaeshop.product_comment.dto.CommentDTO" alias="CommentDTO"></typeAlias>
         <typeAlias type="kr.co.chunjaeshop.seller.dto.SellerDTO" alias="SellerDTO"></typeAlias>
     </typeAliases>
 </configuration>

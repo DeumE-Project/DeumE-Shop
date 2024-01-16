@@ -17,9 +17,9 @@ public interface ProductService {
     ProductDTO findByProductIdx(Integer sellerIdx, Integer productIdx);
     ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx);
     boolean productInfoUpdate(ProductDTO productDTO);
-    ProductDTO findMainImg(Integer sellerIdx, Integer productIdx);
+    ProductMainImgUpdateDTO findMainImg(Integer sellerIdx, Integer productIdx);
     boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
-    ProductDTO findDetailImg(Integer sellerIdx, Integer productIdx);
+    ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
 
     // 이무현

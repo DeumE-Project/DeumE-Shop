@@ -9,50 +9,32 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <title>paging</title>
     <jsp:include page="#"/>
-    <script>
-        const savefn = () => {
-            const productIdx = '${productReview.productIdx}';
-            location.href = "/product/review/save";
-        }
-    </script>
+
 </head>
+<script>
+    const savefn = () => {
+        location.href = "/product/comment/save";
+    }
+</script>
 <body class="bg-light">
 <div class="container mt-3">
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped"  id="comment-list">
         <tr>
-            <th>번호</th>
-            <th>리뷰사진</th>
             <th>작성자</th>
             <th>내용</th>
-            <th>별점</th>
             <th>작성시간</th>
         </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${pagingList}" var="review">
-            <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}'" style="cursor: pointer;">
-                <td>${review.reviewIdx}</td>
-                <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />
-                <td><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></td>
-                <td>${review.customerIdx}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${fn:length(review.reviewContent) gt 50}">
-                            <c:out value="${fn:substring(review.reviewContent, 0, 50)}....."/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="${review.reviewContent}"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${review.reviewStar}</td>
-                <td>${review.reviewDateStr}</td>
+        <c:forEach items="${pagingList}" var="comment">
+            <tr>
+                <td>${comment.commentWriter}</td>
+                <td>${comment.commentContents}</td>
+                <td>${comment.commentCreatedTimeStr}</td>
             </tr>
         </c:forEach>
-        </tbody>
     </table>
+
 </div>
+
 
 <div class="container mt-3">
     <ul class="pagination">
@@ -64,7 +46,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page-1}" aria-label="Previous">
+                    <a class="page-link" href="/product/comment/paging?page=${paging.page-1}" aria-label="Previous">
                         이전
                     </a>
                 </li>
@@ -80,7 +62,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/product/review/paging?page=${i}">
+                        <a class="page-link" href="/product/comment/paging?page=${i}">
                                 ${i}
                         </a>
                     </li>
@@ -96,7 +78,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page+1}" aria-label="Next">
+                    <a class="page-link" href="/product/comment/paging?page=${paging.page+1}" aria-label="Next">
                         다음
                     </a>
                 </li>

@@ -143,4 +143,17 @@ CREATE TABLE cart_detail (
 	product_price INT,
 	FOREIGN KEY (cart_idx) REFERENCES cart (cart_idx),
 	FOREIGN KEY (product_idx) REFERENCES product (product_idx)
+
+);
+
+CREATE TABLE comment (
+                         comment_idx  INT PRIMARY KEY AUTO_INCREMENT,
+                         review_idx INT, #외래키
+                                      customer_idx INT, # 외래키
+                             product_idx INT, # 외래키
+                             commentContents varchar(200),
+                         commentCreatedTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                         FOREIGN KEY (review_idx) REFERENCES product_review (review_idx) ON UPDATE CASCADE ON DELETE SET NULL,
+                         FOREIGN KEY (customer_idx) REFERENCES customer (customer_idx) ON UPDATE CASCADE ON DELETE SET NULL,
+                         FOREIGN KEY (product_idx) REFERENCES product (product_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
