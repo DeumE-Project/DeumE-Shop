@@ -25,6 +25,10 @@ public interface ProductMapper {
     int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);
     int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
+    //List<ProductDTO> getList(@Param("categoryIdx")Integer categoryIdx);
+    List<ProductDTO> productListPagingWithSearch(Map<String, Object> pagingParams);
+    int productListCount(Integer categoryIdx);
+    int searchProductListCount(Map<String, Object> searchPagingParams);
 
     // 이무현
 

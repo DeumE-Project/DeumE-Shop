@@ -64,6 +64,58 @@
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
+    <!--<select id="getList" resultType="ProductDTO">
+        Select product_idx, category_idx, product_name, product_price, product_stock, product_thumb_saved
+        From product
+        where category_idx=#{categoryIdx}
+    </select>-->
+    <select id="productListCount" parameterType="Integer" resultType="Integer">
+        select count(category_idx)
+        from product
+        where category_idx = #{categoryIdx}
+    </select>
+
+    <select id="productListPagingWithSearch" parameterType="java.util.Map" resultType="ProductDTO">
+        SELECT
+        A.product_name, A.category_idx, A.product_idx, A.product_price, A.product_thumb_saved
+        FROM product A
+        LEFT JOIN category B ON A.category_idx = B.category_idx
+        WHERE A.category_idx = #{categoryIdx}
+        <if test="searchField != null and searchWord != null">
+            AND (
+            <choose>
+                <when test="searchField == 'title'">
+                    A.product_name LIKE CONCAT('%', #{searchWord}, '%')
+                </when>
+                <otherwise>
+                    B.category_name LIKE CONCAT('%', #{searchWord}, '%')
+                </otherwise>
+            </choose>
+            )
+        </if>
+        ORDER BY A.product_reg_date LIMIT #{start}, #{limit}
+    </select>
+
+    <select id="searchProductListCount" parameterType="java.util.Map" resultType="Integer">
+        SELECT
+        COUNT(A.category_idx)
+        FROM product A
+        LEFT JOIN category B ON A.category_idx = B.category_idx
+        WHERE A.category_idx = #{categoryIdx}
+        <if test="searchField != null and searchWord != null">
+            AND (
+            <choose>
+                <when test="searchField == 'title'">
+                    A.product_name LIKE CONCAT('%', #{searchWord}, '%')
+                </when>
+                <otherwise>
+                    B.category_name LIKE CONCAT('%', #{searchWord}, '%')
+                </otherwise>
+            </choose>
+            )
+        </if>
+    </select>
+
     <!--    이무현-->
 
 

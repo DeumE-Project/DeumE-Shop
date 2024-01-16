@@ -23,6 +23,10 @@ public interface ProductRepository {
     int productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
+    //List<ProductDTO> getList(Integer categoryIdx);
+    List<ProductDTO> productListPagingWithSearch(Map<String, Object> pagingParams);
+    int productListCount(Integer categoryIdx);
+    int searchProductListCount(Integer categoryIdx, String searchField, String searchWord);
 
 
 
@@ -47,4 +51,5 @@ public interface ProductRepository {
     List<ProductDTO> getProductListForMainPage();
 
     int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
+
 }
