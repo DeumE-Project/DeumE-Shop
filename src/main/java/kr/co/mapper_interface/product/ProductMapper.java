@@ -33,8 +33,6 @@ public interface ProductMapper {
 
     List<ProductDTO> myProduct(Integer sellerIdx);
 
-/*    List<ProductDTO> sellProductPaging(Map<String, Integer> pagingParams);*/
-
     int productCount(Integer sellerIdx);
 
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);

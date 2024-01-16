@@ -259,7 +259,7 @@
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의
     function goToFirstPage() {
-        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}";
+        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}";
     }
 </script>
 </html>

@@ -364,6 +364,18 @@ public class SellerServiceImpl implements SellerService {
         return categorySalesList;
     }
 
+    @Override
+    public List<SellDashBoardDTO> bestSellCount(Integer sellerIdx) {
+        List<SellDashBoardDTO> bestSellCountList = sellerRepository.bestSellCountList(sellerIdx);
+        return bestSellCountList;
+    }
+
+    @Override
+    public List<SellDashBoardDTO> bestSellRev(Integer sellerIdx) {
+        List<SellDashBoardDTO> bestSellRevList = sellerRepository.bestSellRevList(sellerIdx);
+        return bestSellRevList;
+    }
+
     // 변재혁
     @Override
     public boolean sellerRegister(RegisterFormDTO registerFormDTO) {
