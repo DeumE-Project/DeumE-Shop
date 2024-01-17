@@ -67,15 +67,16 @@
                             onchange="validateAndPreviewImage('detailImgInput', 'detailImgWarning','detailImgPreview')" />
                 <form:errors path="detailImg" cssClass="text-danger"/>
                 <div id="detailImgWarning" class="text-danger"></div>
-                <img id="detailImgPreview" class="thumbnail" style="display:none;">
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-primary">등록</button>
+                    <a class="btn btn-secondary" href="/product/productDetail?sellerIdx=${productDetailImgUpdateDTO.sellerIdx}
+            &productIdx=${productDetailImgUpdateDTO.productIdx}">취소</a>
+                </div>
+                <img id="detailImgPreview" class="img-fluid" style="display:none;">
             </div>
         </div>
 
-        <div class="btn-container">
-            <button type="submit" class="btn btn-primary">등록</button>
-            <a class="btn btn-secondary" href="/product/productDetail?sellerIdx=${productDetailImgUpdateDTO.sellerIdx}
-            &productIdx=${productDetailImgUpdateDTO.productIdx}">취소</a>
-        </div>
+
     </form:form>
     <!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
     <script>
