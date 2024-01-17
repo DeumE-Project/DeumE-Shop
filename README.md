@@ -4,8 +4,7 @@
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
 <div align="center">
 
-
-
+<img src="https://github.com/Last-but-not-LEAST/LBNL/assets/145524959/36306f87-6641-4489-bc56-f8fd26c3e126" width="750px" height="350px">
 
 
 
