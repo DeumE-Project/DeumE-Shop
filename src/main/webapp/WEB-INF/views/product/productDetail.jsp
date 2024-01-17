@@ -104,6 +104,7 @@
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <button class="btn btn-warning" onclick="location.href='/product/review/paging?productIdx=${product.productIdx}'">리뷰보기</button>
                 <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
         </div>
