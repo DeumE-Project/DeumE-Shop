@@ -1,15 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 
     <title>판매자 관리 페이지</title>
-<%--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
-<%--            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
-    <!-- Bootstrap 5 CSS -->
-<%--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">--%>
     <style>
-        /* Optional custom styles */
         nav.mh {
             height: 100%;
             width: 15%;
@@ -21,9 +15,9 @@
             color: white;
         }
         .admin-title {
-            font-size: 24px; /* Larger font size for Administrator */
-            font-weight: bold; /* Optional: Make it bold */
-            margin-bottom: 20px; /* Add some space below the Administrator title */
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         nav.mh a {
@@ -40,7 +34,7 @@
         }
 
         .container .mh {
-            margin-left: 10%; /* Set the margin in percentage */
+            margin-left: 10%;
             padding: 5%;
         }
         tr{
@@ -113,13 +107,11 @@
                 <ul class="pagination">
 
                     <c:choose>
-                        <%-- If the current page is page 1, only the previous text is shown --%>
                         <c:when test="${paging.page <= 1}">
                             <li class="page-item disabled">
                                 <span class="page-link">이전</span>
                             </li>
                         </c:when>
-                        <%-- If it is not page 1, clicking [Previous] will request a page 1 smaller than the current page --%>
                         <c:otherwise>
                             <li class="page-item">
                                 <a class="page-link"
@@ -131,7 +123,6 @@
 
                     <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
                         <c:choose>
-                            <%-- If it is on the requested page, the current page number will only show text --%>
                             <c:when test="${i eq paging.page}">
                                 <li class="page-item active" aria-current="page">
                                     <span class="page-link">${i}</span>
@@ -168,7 +159,5 @@
 
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
 
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>--%>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>
 </html>
