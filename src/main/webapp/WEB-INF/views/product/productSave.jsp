@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <!DOCTYPE html>
 
 <head>
@@ -17,7 +18,11 @@
             margin-top: 10px;
         }
     </style>
+
+
+
 </head>
+<jsp:include page="/WEB-INF/views/common/register.jsp"/>
 <body>
 <div class="container mt-5">
     <h1>상품 등록</h1>
@@ -147,6 +152,22 @@
         function goBack() {
             window.history.back();
         }
+    </script>
+
+    <script>
+        let reloading = false;
+
+        window.addEventListener('pageshow', function(event) {
+
+            if (reloading) {
+                return;
+            }
+
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                reloading = true;
+                location.reload(true);
+            }
+        });
     </script>
 
 </div>

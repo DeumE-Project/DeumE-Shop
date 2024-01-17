@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
     <style>
         body {
-            background-color: #f8f9fa;
+
             font-family: 'Noto Sans KR', sans-serif;
             color: #495057;
         }
@@ -41,7 +41,7 @@
             margin-left: 10px;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>--%>
 </head>
 <body>
 
@@ -89,7 +89,7 @@
             reader.readAsDataURL(input.files[0]);
         }
 
-        // 수정된 부분: 함수명 변경 및 파일 선택 시 호출 추가
+
         document.getElementById('detailImgInput').onchange = function () {
             validateAndPreviewImage(this, 'detailImgPreview', 'detailImgWarning');
         };
@@ -120,8 +120,23 @@
         }
     </script>
 
+    <script>
+        let reloading = false;
+
+        window.addEventListener('pageshow', function(event) {
+
+            if (reloading) {
+                return;
+            }
+
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                reloading = true;
+                location.reload(true);
+            }
+        });
+    </script>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

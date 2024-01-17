@@ -39,14 +39,14 @@ public class ProductController {
 
 
     // 최경락
-    private String getFolder() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //ex) 2024-01-13
+    private String getFolder() {                                            // 업로드 파일 저장 폴더
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  //ex) 2024-01-13
         Date date = new Date();
         String str = sdf.format(date);
         return str;
     }
 
-    private boolean checkImageType(File file) {
+    private boolean checkImageType(File file) {                             // 업로드 파일 타입 검사
         try {
             String contentType = Files.probeContentType(file.toPath());
             log.info("contentType={}", contentType);
@@ -65,6 +65,7 @@ public class ProductController {
         return "/product/productSave";
     }
 
+    // 상품 업로드
     @PostMapping("/productSave")
     //bindingResult는 자동으로 model에 담음
     public String save(@Validated @ModelAttribute ProductSaveDTO productSaveDTO,
@@ -85,27 +86,23 @@ public class ProductController {
         if (uploadPath.exists() == false) {
             uploadPath.mkdirs();
         }
-        if (productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) {
+        if (productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) { //ProductImg 업로드 용량 제한
             bindingResult.addError(new FieldError
                     ("productSaveDTO", "productImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
-        if ( productSaveDTO.getProductImg().getSize() > 40 * 1024 * 1024) {
+        if ( productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) { //ProductDetailImg 업로드 용량 제한
             bindingResult.addError(new FieldError
-                    ("productSaveDTO", "productDetailImg", "이미지 파일 크기는 40MB 초과할 수 없습니다."));
+                    ("productSaveDTO", "productDetailImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
-        /*if (bindingResult.hasErrors()) {
-            log.error("productSaveDTO has error");
-            return "/product/productSave";
-        }*/
-        if (productSaveDTO.getProductImg() == null || productSaveDTO.getProductImg().isEmpty()) {
+        if (productSaveDTO.getProductImg() == null || productSaveDTO.getProductImg().isEmpty()) { //ProductImg 업로드 필수
             bindingResult.addError(new FieldError
                     ("productSaveDTO", "productImg", "상품 메인 이미지는 필수 선택입니다"));
         }
-        if (productSaveDTO.getProductDetailImg() == null || productSaveDTO.getProductDetailImg().isEmpty()) {
+        if (productSaveDTO.getProductDetailImg() == null || productSaveDTO.getProductDetailImg().isEmpty()) { //ProductDetailImg 업로드 필수
             bindingResult.addError(new FieldError
                     ("productSaveDTO", "productDetailImg", "상품 설명 이미지는 필수 선택입니다"));
         }
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) { // 에러 발생시 productSave로 이동
             log.error("productSaveDTO has error");
             return "/product/productSave";
         }
@@ -115,39 +112,47 @@ public class ProductController {
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID(); //random uuid 생성
 
+        // productSaveDTO에서 productImg의 파일 이름을 가져옴
         String fileImgOriginal
                 = productSaveDTO.getProductImg().getOriginalFilename();
         log.info("fileImgOriginal={}", fileImgOriginal);
 
+        // productSaveDTO에서 productDetailImg의 파일 이름을 가져옴
         String fileDetailOriginal
                 = productSaveDTO.getProductDetailImg().getOriginalFilename();
         log.info("fileDetailOriginal=} ", fileDetailOriginal);
 
+        // uuid_를 적용
         String fileImgSaved = uuid.toString()+ "_"+  fileImgOriginal;
         log.info("fileImgSaved={} ",fileImgSaved);
 
+        // 저장 경로/fileImgSaved
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
         log.info("fileImgSavedUploadPath={} ",fileImgSavedUploadPath);
 
+        // uuid_를 적용
         String fileDetailSaved = uuid.toString()+ "_"+ fileDetailOriginal;
         log.info("fileDetailSaved={} ",fileDetailSaved);
 
+        // 저장경로/fileDetailSaved
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
         log.info("fileDetailSavedUploadPath={} ",fileDetailSavedUploadPath);
         try {
-            //Original은 원본 이름을 저장하는데 사용.
+            //이미지를 지정된 경로에 전달
             productSaveDTO.getProductImg().transferTo(new File(fileImgSavedUploadPath));
             productSaveDTO.getProductDetailImg().transferTo(new File(fileDetailSavedUploadPath));
 
-            // 썸네일 생성 및 저장
+            // 썸네일 파일명 생성
             String thumbnailFilename = "thumb_" + uuid.toString() + productSaveDTO.getProductImg().getOriginalFilename();
             log.info("thumbnailFilename={} ",thumbnailFilename);
+            // 썸네일 저장경로 생성
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
             log.info("thumbnailFilePath={} ", thumbnailFilePath);
 
+            // InputStream을 사용해서 썸네일 생성
             Thumbnails.of(productSaveDTO.getProductImg().getInputStream())
-                    .size(100, 100)
-                    .toFile(new File(thumbnailFilePath));
+                    .size(100, 100) // 썸네일 크기 설정
+                    .toFile(new File(thumbnailFilePath)); // 썸네일저장
 
             /*HttpSession session = request.getSession();
             Object sellerIdxObject = session.getAttribute("sellerIdx");
@@ -162,32 +167,30 @@ public class ProductController {
                 }
             }*/
 
+            // 이미지 파일 형식 확인 후 허용되지 않은 형식이면 에러 추가 후 productSave로 redirection
             if (!checkImageType(new File(fileImgSaved)) || !checkImageType(new File(fileDetailSaved))) {
                 bindingResult.addError(new FieldError("productSaveDTO", "",
                         "올바른 이미지 형식이 아닙니다. jpg, jpeg, png 형식의 이미지만 허용됩니다."));
-                return "/product/productSave"; // 허용되지 않는 이미지 형식일 경우 save 페이지로 리디렉션
+                return "/product/productSave";
             }
 
             //ProductMapper 대응하는 ProductDTO를 생성해서 DB에 저장
             ProductDTO productDTO = new ProductDTO();
 
-            //productDTO.setSellerIdx(sellerIdx);
-            //테스트용
-
-
-            productDTO.setSellerIdx(sellerIdx);
-            productDTO.setProductName(productSaveDTO.getProductName());
-            productDTO.setCategoryIdx(productSaveDTO.getCategoryIdx());
-            productDTO.setProductExplain(productSaveDTO.getProductExplain());
-            productDTO.setProductPrice(productSaveDTO.getProductPrice());
-            productDTO.setProductStock(productSaveDTO.getProductStock());
-            productDTO.setProductThumbSaved(uploadFolderPath + File.separator + thumbnailFilename);
-            productDTO.setProductImgOriginal(fileImgOriginal);
-            productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved);
-            productDTO.setProductDetailOriginal(fileDetailOriginal);
-            productDTO.setProductDetailSaved(uploadFolderPath + "/" + fileDetailSaved);
+            productDTO.setSellerIdx(sellerIdx); //sellerIdx 설정
+            productDTO.setProductName(productSaveDTO.getProductName()); // productName 설정
+            productDTO.setCategoryIdx(productSaveDTO.getCategoryIdx()); //categoryIdx 설정
+            productDTO.setProductExplain(productSaveDTO.getProductExplain()); // productExplain 설정
+            productDTO.setProductPrice(productSaveDTO.getProductPrice()); // productPrice 설정
+            productDTO.setProductStock(productSaveDTO.getProductStock()); // productStock 설정
+            productDTO.setProductThumbSaved(uploadFolderPath + File.separator + thumbnailFilename); // productThumbSaved 설정
+            productDTO.setProductImgOriginal(fileImgOriginal); //productImgOriginal 설정
+            productDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved); // productImgSaved 설정
+            productDTO.setProductDetailOriginal(fileDetailOriginal); // productDetailOriginal 설정
+            productDTO.setProductDetailSaved(uploadFolderPath + "/" + fileDetailSaved); // productDetailSaved 설정
             log.info("productDTO={} ", productDTO);
 
+            // productService를 통해 상품 정보 저장, 저장 결과를 saveResult에 저장.
             int saveResult = productService.productSave(productDTO);
             log.info("saveResult={} ",saveResult);
             if (saveResult > 0) {
@@ -477,15 +480,6 @@ public class ProductController {
             return "/product/productDetail_ImgUpdateForm";
         }
     }
-
-    /*@GetMapping("/productList")
-    public String productList(@RequestParam("categoryIdx") Integer categoryIdx, Model model) {
-        List<ProductDTO> productListDTO = productService.getList(categoryIdx);
-        model.addAttribute("categoryIdx", categoryIdx);
-        model.addAttribute("productList", productListDTO);
-        log.info(productListDTO);
-        return "/product/productList";
-    }*/
 
     @GetMapping("/productList")
     public String productList(@RequestParam("categoryIdx") Integer categoryIdx,
