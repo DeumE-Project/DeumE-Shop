@@ -62,10 +62,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     public int productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO) {
         return productMapper.productDetailImgUpdate(productDetailImgUpdateDTO);
     }
-    /*  @Override
-    public List<ProductDTO> getList(Integer categoryIdx) {
-        return productMapper.getList(categoryIdx);
-    }*/
 
     @Override
     public List<ProductDTO> productListPagingWithSearch(Map<String, Object> pagingParams) {
@@ -86,17 +82,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         return productMapper.searchProductListCount(params);
     }
-
-
-
-   /* @Override
-    public ProductDTO productInfoUpdate(Integer sellerIdx, Integer productIdx) {
-        return productMapper.productInfoUpdate(sellerIdx, productIdx);
-    }*/
-
-
-
-
 
     // 이무현
 

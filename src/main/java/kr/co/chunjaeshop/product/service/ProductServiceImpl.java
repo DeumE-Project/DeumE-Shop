@@ -63,10 +63,7 @@ public class ProductServiceImpl implements ProductService {
         int result = productRepository.productDetailImgUpdate(productDetailImgUpdateDTO);
         return result >0;
     }
-   /* @Override
-    public List<ProductDTO> getList(Integer categoryIdx) {
-        return productRepository.getList(categoryIdx);
-    }*/
+    // 전역변수로 사용
     int pageLimit = 16; // 한 페이지당 보여줄 글 개수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
     @Override
