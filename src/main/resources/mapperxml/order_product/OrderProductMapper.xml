@@ -18,7 +18,8 @@
         case when B.order_status = '1' then '배송중'
         when B.order_Status = '2' then '배송완료'
         else '기타'
-        end as order_status
+        end as order_status,
+        B.order_idx
         from
         (select order_detail_idx, order_idx, product_idx, product_price, product_count, product_total_price from order_detail) A
         left join (select order_idx, customer_idx, order_date, order_total_price, concat(order_address1, ' ', order_address2) order_address, order_status from order_product) B
@@ -28,7 +29,7 @@
         left join (select product_idx, seller_idx, product_name from product) D
         on A.product_idx = D.product_idx
         where D.seller_idx = #{sellerIdx} and A.product_idx = #{productIdx}
-        <if test="searchField != null and searchWord != null">
+        <if test="searchWord!=null and !searchWord.equals('')">
             and C.customer_name like concat('%', #{searchWord}, '%')
         </if>
         order by B.order_date desc
@@ -50,6 +51,12 @@
         on B.customer_idx = C.customer_idx
         where A.product_idx =  #{productIdx} and C.customer_name like concat('%', #{searchWord}, '%')
     </select>
+
+    <update id="updateStatus" parameterType="java.util.HashMap">
+        update order_product
+        set order_status = #{updatedStatus}
+        where order_idx = #{orderIdx}
+    </update>
 
 
 

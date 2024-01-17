@@ -174,25 +174,6 @@ public class SellerServiceImpl implements SellerService {
         return dateRev;
     }
 
-/*    @Override
-    public int getDateRevLast(Integer sellerIdx, String lastMonth) {
-        LocalDate currentDate = LocalDate.now();
-        // 현재 년도와 월 얻기
-        int currentYear = currentDate.getYear();
-        int currentMonth = currentDate.getMonthValue();
-        // 이전 달 계산
-        int lastM = currentMonth - 1;
-        int lastYear = currentYear;
-        if (lastM == 0) {
-            lastM = 12;
-            lastYear--;
-        }
-
-        String lastMonthString = String.format("%04d-%02d", lastYear, lastM);
-
-        int lastDateRev = sellerRepository.getDateRevLast(sellerIdx, lastMonthString);
-        return lastDateRev;
-    }*/
 
     @Override
     public int avgRev(Integer sellerIdx) {
@@ -200,27 +181,11 @@ public class SellerServiceImpl implements SellerService {
         return avgRev;
     }
 
-/*    @Override
-    public List<ProductDTO> myProduct(Integer sellerIdx) {
-        List<ProductDTO> myProduct = productRepository.myProduct(sellerIdx);
-        return myProduct;
-    }*/
 
     int pageLimit = 10; // 한 페이지당 보여줄 글 개수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
 
 
-/*    @Override
-    public List<ProductDTO> productPagingList(Integer sellerIdx, int page) {
-        int pagingStart = (page - 1) * pageLimit;
-        Map<String, Integer> pagingParams = new HashMap<>();
-        pagingParams.put("start", pagingStart);
-        pagingParams.put("limit", pageLimit);
-        pagingParams.put("sellerIdx", sellerIdx);
-        List<ProductDTO> productPagingList = productRepository.productPagingList(pagingParams);
-
-        return productPagingList;
-    }*/
     @Override
     public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
         int pagingStart = (page - 1) * pageLimit;
@@ -297,7 +262,7 @@ public class SellerServiceImpl implements SellerService {
         pagingParams.put("productIdx", productIdx);
 
         // 검색어가 제공된 경우에만 검색 조건 추가
-        if (searchField != null && searchWord != null) {
+        if (searchWord != null) {
             pagingParams.put("searchField", searchField);
             pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
         }
@@ -399,5 +364,13 @@ public class SellerServiceImpl implements SellerService {
             money += (count * price);
         }
         return sellerRepository.increaseSellerIncome(money, sellerIdx);
+    }
+
+    @Override
+    public void updateStatus(Integer orderIdx, String updatedStatus) {
+        Map<String, Object> updateParams = new HashMap<>();
+        updateParams.put("orderIdx", orderIdx);
+        updateParams.put("updatedStatus", updatedStatus);
+        orderProductRepository.updateStatus(updateParams);
     }
 }

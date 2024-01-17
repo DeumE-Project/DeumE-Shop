@@ -24,6 +24,8 @@ public interface OrderProductRepository {
 
     int orderSearchProductCount(Integer productIdx, String searchField, String searchWord);
 
+    void updateStatus(Map<String, Object> updateParams);
+
     // 변재혁
     int insertNewOrder(OrderProductForm orderProductForm);
 
