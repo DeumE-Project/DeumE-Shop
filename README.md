@@ -92,11 +92,7 @@
 
 ## 📊 다이어그램 📊
 
-<details><summary>Usecase</summary>
-      
-!
 
-</details>
 
 <details><summary>Class</summary>
 
@@ -104,21 +100,6 @@
 
 </details>
 
-<details><summary>Sequence</summary>
-<br/>
-
-
-
-</details>
-
-
-
-<details><summary>Block</summary>
-
-
-
-    
-</details>
 
 <details><summary>ERD</summary>
    
@@ -130,8 +111,6 @@
 
 <details><summary>메인화면</summary>
 <br/>
-
-
 
 
 </details>
