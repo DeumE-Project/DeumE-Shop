@@ -2,11 +2,11 @@
 
 
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
-<div align="center">
+
 
 <img src="https://github.com/Last-but-not-LEAST/LBNL/assets/145524959/36306f87-6641-4489-bc56-f8fd26c3e126" width="750px" height="350px">
 
-
+<div>
 
 
 | **![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)** |  **![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)** |
@@ -63,7 +63,7 @@
 
 ## 🙋‍♀️ Team_Member 🙋‍♀️
 
-<div align="center">
+<div>
 
 | **남원우** | **변재혁** | **유지호** | **이무현** | **최경락** | 
 | :------: |  :------: | :------: | :------: | :------: | 
