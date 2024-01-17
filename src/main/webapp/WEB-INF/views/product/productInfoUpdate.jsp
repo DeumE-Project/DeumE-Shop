@@ -34,8 +34,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="productExplain" class="form-label"> 상품 설명  </label>
-            <%--<form:input id="productExplain" path="productExplain" class="form-control" value="<c:out value='${product.productExplain}'"/>--%>
+            <label for="productExplain" class="form-label"> 상품 간단 설명  </label>
             <form:input path="productExplain" class="form-control"/>
             <form:errors path="productExplain" cssClass="text-danger"/>
         </div>

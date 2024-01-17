@@ -35,15 +35,15 @@
             <form:errors path="productName" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
-            <label for="productExplain" class="form-label">상품 설명</label>
+            <label for="productExplain" class="form-label">상품 간단 설명</label>
             <form:input class="form-control" path="productExplain" rows="3"
-                        placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다.)" />
+                        placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다./ 50글자 이하만 입력가능합니다.)" />
             <form:errors path="productExplain" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">가격</label>
             <form:input type="number" class="form-control" path="productPrice"
-                        placeholder="상품 가격을 입력하세요(ex. 1000 / 숫자만 입력해주세요)" onkeypress="return isNumberKey(event)"/>
+                        placeholder="상품 가격을 입력하세요(ex. 1000 / 숫자만 입력해주세요/ 10만원 이하만 입력가능합니다.)" onkeypress="return isNumberKey(event)"/>
             <form:errors path="productPrice" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
