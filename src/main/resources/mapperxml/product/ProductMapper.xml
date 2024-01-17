@@ -7,6 +7,13 @@
 
 
     <!--    최경락-->
+    <!--
+    - id: 해당 쿼리를 참조할 때 사용하는 고유한 식별자
+
+    - parameterType: 쿼리에 전달되는 매개변수의 자료형을 나타냄
+
+    - resultType: 쿼리의 결과로 반환되는 값의 자료형을 나타냄
+    -->
     <!--상품 등록 -->
     <insert id="productSave" parameterType="ProductDTO">
         INSERT INTO product(seller_idx, category_idx, product_name, product_explain,
