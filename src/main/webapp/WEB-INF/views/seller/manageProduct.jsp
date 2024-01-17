@@ -13,9 +13,9 @@
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"--%>
+<%--            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"--%>
+<%--            crossorigin="anonymous"></script>--%>
 
 
     <style>
@@ -92,7 +92,7 @@
 
             <!-- 검색 폼 -->
             <form id="searchForm" class="row gx-2 justify-content-center mb-4" method="get" action="/seller/manageProduct">
-                <input type="hidden" name="sellerIdx" value="${sellerIdx}"/>
+<%--                <input type="hidden" name="sellerIdx" value="${sellerIdx}"/>--%>
                 <input type="hidden" name="productIdx" value="${productIdx}"/>
                 <div class="col-lg-2">
                     <select class="form-select" name="searchField" id="select-option">
@@ -156,13 +156,10 @@
                         <td>
                                 <%--                                <a class="btn btn-danger" data-bs-toggle="modal" data-orderidx="${sellDetail.orderIdx}"--%>
                                 <%--                                   href="#updateModal" role="button" onclick="updateOrderIdx('${sellDetail.orderIdx}')">${sellDetail.orderStatus}</a>--%>
-
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateOrderIdx('${sellDetail.orderIdx}')">
+                            <button type="button" class="btn btn-${sellDetail.orderStatus eq '배송완료' ? 'success' : 'danger'}" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateOrderIdx('${sellDetail.orderIdx}')">
                                     ${sellDetail.orderStatus}
                             </button>
-
                         </td>
-
                     </tr>
                 </c:forEach>
             </table>
@@ -205,7 +202,8 @@
                             <c:choose>
                                 <c:when test="${orderManagePaging.page < orderManagePaging.maxPage}">
                                     <li class="page-item">
-                                        <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
+<%--                                        <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">--%>
+                                        <a class="page-link" href="/seller/manageProduct?page=${orderManagePaging.page + 1}&productIdx=${productIdx}&searchField=${param.searchField}&searchWord=${param.searchWord}" aria-label="Next">
                                             <span aria-hidden="true">다음 &raquo;</span>
                                         </a>
                                     </li>
@@ -321,7 +319,7 @@
                     confirmButtonText: '확인',
                 }).then((result) => {
                     if (result.value){
-                        location.href = "/seller/updateStatus?updateStatus="+ updateStatus + "&productIdx=" + ${param.productIdx} + "&sellerIdx=" + ${param.sellerIdx} + "&orderIdx=" + orderIdx + "&page=" + ${param.page} + "&searchWord=" + '${param.searchWord}';
+                        location.href = "/seller/updateStatus?updateStatus="+ updateStatus + "&productIdx=" + ${param.productIdx} + "&orderIdx=" + orderIdx + "&page=" + ${page} + "&searchWord=" + '${param.searchWord}';
                     }
                 })
             }
@@ -345,7 +343,7 @@
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의
     function goToFirstPage() {
-        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchWord=${searchWord}";
+        window.location.href = "/seller/manageProduct?page=1&productIdx=${productIdx}&searchWord=${searchWord}";
 
     }
 </script>

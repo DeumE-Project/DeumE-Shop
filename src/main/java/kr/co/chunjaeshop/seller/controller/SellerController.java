@@ -130,6 +130,7 @@ public class SellerController {
                 model.addAttribute("sellerIdx", sellerIdx);
                 model.addAttribute("productIdx", productIdx);
                 model.addAttribute("searchWord", searchWord);
+                model.addAttribute("page", page);
 
             return "seller/manageProduct";
 
@@ -140,10 +141,16 @@ public class SellerController {
     @GetMapping("updateStatus")
     public String updateStatus(@RequestParam("updateStatus") String updateStatus,
                                @RequestParam("orderIdx") Integer orderIdx,
-                               @RequestParam("sellerIdx") Integer sellerIdx,
+                               //@RequestParam("sellerIdx") Integer sellerIdx,
                                @RequestParam("productIdx") Integer productIdx,
                                @RequestParam(value = "page", required = false) String page,
-                               @RequestParam(value = "searchWord", required = false) String searchWord) throws UnsupportedEncodingException {
+                               @RequestParam(value = "searchWord", required = false) String searchWord,
+                               Authentication auth) throws UnsupportedEncodingException {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer sellerIdx = loginUserDTO.getIdx();
+
+
         String updatedStatus = "1"; // 기본 배송중
 
         log.info("updateStatus = {}, orderIdx = {}, sellerIdx = {}, productIdx = {}", updateStatus, orderIdx, sellerIdx, productIdx);
