@@ -16,11 +16,12 @@ public interface ProductReviewService {
     ProductReviewDTO findByIdx(String reviewIdx);
     boolean update(ProductReviewDTO productReviewDTO);
     void delete(String reviewIdx);
-    List<ProductReviewDTO> pagingList(int page);
+    List<ProductReviewDTO> pagingList(int page, Integer productIdx);
 
-    public ProductReviewPageDTO pagingParam(int page);
+    public ProductReviewPageDTO pagingParam(int page, Integer productIdx);
 
-    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(Integer customerIdx, String reviewIdx);
+
 
     // 최경락
 
@@ -32,5 +33,6 @@ public interface ProductReviewService {
 
 
     // 변재혁
+    boolean checkIfCustomerHasReviewIdx(Integer customerIdx, Integer reviewIdx);
 
 }

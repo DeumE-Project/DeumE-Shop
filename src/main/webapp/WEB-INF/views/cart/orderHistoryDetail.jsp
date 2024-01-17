@@ -87,14 +87,17 @@
                                     <th>가격</th>
                                     <th>수량</th>
                                     <th>합계</th>
+                                    <th>리뷰</th>
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle">
                                 <c:forEach items="${order.orderDetailList}" var="orderDetailDTO">
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="" alt="" style="width: 100px; height: 100px;">
-                                            <c:out value="${orderDetailDTO.productDTO.productName}"/>
+                                            <img src="/product/${orderDetailDTO.productDTO.productThumbSaved}" alt="..." style="width: 100px; height: 100px;">
+                                            <a href="/product/detail?productIdx=${orderDetailDTO.productDTO.productIdx}">
+                                                <c:out value="${orderDetailDTO.productDTO.productName}"/>
+                                            </a>
                                         </td>
                                         <td class="align-middle">
                                             <fmt:formatNumber value="${orderDetailDTO.productPrice}" pattern="#,###"/>
@@ -110,6 +113,18 @@
                                             <fmt:formatNumber
                                                     value="${orderDetailDTO.productTotalPrice}"
                                                     pattern="#,###"/>
+                                        </td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${orderDetailDTO.reviewed eq 1}">
+                                                    리뷰작성완료
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="/product/review/save?orderDetailIdx=${orderDetailDTO.orderDetailIdx}">작성하기</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <br/>
+                                            <a href="/product/review/paging?productIdx=${orderDetailDTO.productIdx}">리뷰리스트</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -159,6 +174,26 @@
                                    disabled>
                             <label class="custom-control-label" for="point">포인트</label>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-secondary mb-5">
+                <div class="card-header border-0" style="background-color: #EDF1FF">
+                    <h4 class="font-weight-semi-bold m-0">배송상태</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <span>
+                            <c:choose>
+                                <c:when test="${order.orderStatus eq 1}">
+                                    <span style="color: red; font-weight: bolder">배송중</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span style="color: green; font-weight: bolder">배송완료</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
                     </div>
                 </div>
             </div>

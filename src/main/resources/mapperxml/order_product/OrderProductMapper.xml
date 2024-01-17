@@ -77,6 +77,7 @@
         <result column="order_name" jdbcType="VARCHAR" property="orderName"/>
         <result column="order_phone" jdbcType="VARCHAR" property="orderPhone"/>
         <result column="order_email" jdbcType="VARCHAR" property="orderEmail"/>
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus"/>
 
         <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
             <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
@@ -85,11 +86,13 @@
             <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
             <result column="product_count" jdbcType="INTEGER" property="productCount"/>
             <result column="product_total_price" jdbcType="INTEGER" property="productTotalPrice"/>
+            <result column="reviewed" jdbcType="INTEGER" property="reviewed"/>
 
             <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
                 <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
                 <result column="product_name" jdbcType="VARCHAR" property="productName"/>
                 <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+                <result column="product_thumb_saved" jdbcType="VARCHAR" property="productThumbSaved"/>
             </association>
         </collection>
     </resultMap>
@@ -98,7 +101,8 @@
         SELECT op.order_idx, customer_idx, order_date, order_total_price, order_status,
                order_zipcode, order_address1, order_address2, order_payment, order_request,
                order_name, order_phone, order_email, order_detail_idx, od.product_idx,
-               od.product_price, od.product_count, od.product_total_price, p.product_idx, p.product_name, s.seller_name
+               od.product_price, od.product_count, od.product_total_price, p.product_idx, p.product_name, s.seller_name,
+               od.reviewed, p.product_thumb_saved, op.order_status
         FROM order_product op
             INNER JOIN order_detail od ON op.order_idx = od.order_idx
             INNER JOIN product p ON od.product_idx  = p.product_idx
@@ -113,6 +117,7 @@
         <result column="order_total_price" jdbcType="INTEGER" property="orderTotalPrice"/>
 
         <result column="order_detail_count" jdbcType="INTEGER" property="orderDetailCount"/>
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus"/>
 
         <collection property="orderDetailList" ofType="kr.co.chunjaeshop.order_detail.dto.OrderDetailDTO">
             <id column="order_detail_idx" jdbcType="INTEGER" property="orderDetailIdx"/>
@@ -122,13 +127,14 @@
             <association property="productDTO" javaType="kr.co.chunjaeshop.product.dto.ProductDTO">
                 <id column="product_idx" jdbcType="INTEGER" property="productIdx"/>
                 <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+                <result column="product_thumb_saved" jdbcType="VARCHAR" property="productThumbSaved"/>
             </association>
         </collection>
     </resultMap>
 
     <select id="selectOrderProductHistoryList" resultMap="orderWithOrderDetailsForOrderHistoryList">
         SELECT op.order_idx, customer_idx, order_date, order_total_price, count(op.order_idx) AS order_detail_count,
-            order_detail_idx, od.product_idx, p.product_name
+            order_detail_idx, od.product_idx, p.product_name, p.product_thumb_saved, op.order_status
         FROM order_product op INNER JOIN order_detail od ON op.order_idx = od.order_idx
             INNER JOIN product p ON od.product_idx = p.product_idx
         WHERE op.customer_idx = #{customerIdx}

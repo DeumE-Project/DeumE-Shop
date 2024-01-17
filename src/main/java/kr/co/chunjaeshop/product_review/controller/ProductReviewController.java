@@ -1,13 +1,15 @@
 package kr.co.chunjaeshop.product_review.controller;
 
-import kr.co.chunjaeshop.notice.dto.NoticeDTO;
+import kr.co.chunjaeshop.order_detail.service.OrderDetailService;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
 import kr.co.chunjaeshop.product_review.service.ProductReviewService;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +36,8 @@ public class ProductReviewController {
 
     // 남원우
   private final ProductReviewService productReviewService;
+  private final OrderDetailService orderDetailService;
+
   private String getFolder(){
     SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
@@ -56,12 +60,59 @@ public class ProductReviewController {
   }
 
     @GetMapping("/save")
-    public String saveForm(@ModelAttribute ProductReviewSaveDTO productReviewSaveDTO){
+    public String saveForm(@ModelAttribute ProductReviewSaveDTO productReviewSaveDTO,
+                           Authentication auth) {
+      LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+      Integer customerIdx = loginUserDTO.getIdx();
+
+      // 사용자가 해당 상품을 구매했는지 체크
+      Integer orderDetailIdx = productReviewSaveDTO.getOrderDetailIdx();
+      int hasOrderDetailIdx = orderDetailService.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+
+      if (hasOrderDetailIdx != 1) {
+        log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 갖고 있지 않음");
+        return "redirect:/main";
+      }
+
+      // 리뷰를 작성했는지 체크
+      boolean alreadyReviewed = orderDetailService.alreadyReviewed(orderDetailIdx);
+      if (alreadyReviewed) {
+        log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 이미 리뷰 함");
+        return "redirect:/main";
+      }
+
       return "review/reviewSave";
     }
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult , HttpServletRequest httpServletRequest, Model model) {
+    public String save(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult,
+                       HttpServletRequest httpServletRequest,
+                       Model model,
+                       Authentication auth) {
+
+      LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+      Integer customerIdx = loginUserDTO.getIdx();
+
+
+
+      // 사용자가 해당 상품을 구매했는지 체크
+      Integer orderDetailIdx = productReviewSaveDTO.getOrderDetailIdx();
+      int hasOrderDetailIdx = orderDetailService.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+
+      if (hasOrderDetailIdx != 1) {
+        log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 갖고 있지 않음");
+        return "redirect:/main";
+      }
+
+      // 리뷰를 작성했는지 체크
+      boolean alreadyReviewed = orderDetailService.alreadyReviewed(orderDetailIdx);
+      if (alreadyReviewed) {
+        log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 이미 리뷰 함");
+        return "redirect:/main";
+      }
+
+
+
       // 파일 저장 경로
       String uploadFolder = httpServletRequest.getServletContext().getRealPath("/review");
       String uploadFolderPath = getFolder();
@@ -84,6 +135,8 @@ public class ProductReviewController {
         log.info("filederror={}",fieldError.getDefaultMessage());
         return "/review/reviewSave";
       }
+
+      Integer productIdx = orderDetailService.getProductIdxByOrderDetailIdx(orderDetailIdx);
 
 
       // 파일 업로드하는 로직
@@ -121,8 +174,8 @@ public class ProductReviewController {
         ProductReviewDTO productReviewDTO = new ProductReviewDTO();
 
         //테스트용
-        productReviewDTO.setCustomerIdx(1);
-        productReviewDTO.setProductIdx(2);
+        productReviewDTO.setCustomerIdx(customerIdx);
+        productReviewDTO.setProductIdx(productIdx);
         productReviewDTO.setReviewContent(productReviewSaveDTO.getReviewContent());
         productReviewDTO.setReviewStar(productReviewSaveDTO.getReviewStar());
         productReviewDTO.setReviewThumbSaved(thumbnailFilename);
@@ -137,7 +190,9 @@ public class ProductReviewController {
 
 
         if (saveResult > 0) {
-          return "redirect:/product/review/paging"; // 저장 성공 시 paging 페이지로 redirect
+          // 저장 완료 됐으면, reviewed 를 1로 변경
+          orderDetailService.changeReviewedStatusTo1(orderDetailIdx);
+          return "redirect:/product/review/paging?productIdx=" + productIdx; // 저장 성공 시 paging 페이지로 redirect
         } else {
           log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -151,8 +206,11 @@ public class ProductReviewController {
       }
 
     }
+
+
     @GetMapping(value = "/list")
-    public String reviewList(HttpServletResponse httpServletResponse, Model model ) {
+    public String reviewList(@RequestParam Integer productIdx,
+                             HttpServletResponse httpServletResponse, Model model ) {
       List<ProductReviewDTO> reviewDTOList = productReviewService.reviewList();
       log.info(reviewDTOList);
       model.addAttribute("reviewList",reviewDTOList);
@@ -162,11 +220,14 @@ public class ProductReviewController {
 
   // 페이징 메서드
   @GetMapping("/paging")
-  public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+  public String paging(Model model,
+                       @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                       @RequestParam Integer productIdx) {
+
     // productReviewService 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
-    List<ProductReviewDTO> pagingList = productReviewService.pagingList(page);
+    List<ProductReviewDTO> pagingList = productReviewService.pagingList(page, productIdx);
     // productReviewService 사용하여 페이징 정보를 가져옵니다.
-    ProductReviewPageDTO pageDTO = productReviewService.pagingParam(page);
+    ProductReviewPageDTO pageDTO = productReviewService.pagingParam(page, productIdx);
     // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
     model.addAttribute("pagingList", pagingList);
     model.addAttribute("paging", pageDTO);
@@ -180,18 +241,46 @@ public class ProductReviewController {
     model.addAttribute("productReview", productReviewDTO);
     return "review/reviewDetail";
   }
-  @GetMapping("/update")
-  public String updateForm(@RequestParam("reviewIdx") String reviewIdx, Model model) {
 
-    ProductReviewSaveDTO productReviewSaveDTO = productReviewService.findByIdxReviewSaveDTO(reviewIdx);
+  @GetMapping("/update")
+  public String updateForm(@RequestParam("reviewIdx") String reviewIdx,
+                           Model model,
+                           Authentication auth) {
+
+    LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+    Integer customerIdx = loginUserDTO.getIdx();
+
+
+    ProductReviewSaveDTO productReviewSaveDTO = productReviewService.findByIdxReviewSaveDTO(customerIdx, reviewIdx);
+
+    if (productReviewSaveDTO == null) {
+      return "redirect:/main";
+    }
+
+    model.addAttribute("reviewIdx", reviewIdx);
+
     model.addAttribute("productReviewSaveDTO", productReviewSaveDTO);
     //model.addAttribute("reviewIdx",productReviewDTO.getReviewIdx());
     //log.info(productReviewDTO.getReviewIdx());
     return "review/reviewUpdate";
   }
+
   //수정
   @PostMapping("/update")
-  public String update(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult , HttpServletRequest httpServletRequest, Model model) {
+  public String update(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult ,
+                       HttpServletRequest httpServletRequest, Model model,
+                       Authentication auth) {
+
+    LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+    Integer customerIdx = loginUserDTO.getIdx();
+
+    boolean hasReviewIdx = productReviewService.checkIfCustomerHasReviewIdx(customerIdx, productReviewSaveDTO.getReviewIdx());
+
+    if (!hasReviewIdx) {
+      return "redirect:/main";
+    }
+
+    model.addAttribute("reviewIdx", productReviewSaveDTO.getReviewIdx());
 
     log.info("productReviewSaveDTO = {}", productReviewSaveDTO);
 
@@ -252,7 +341,7 @@ public class ProductReviewController {
       ProductReviewDTO productReviewDTO = new ProductReviewDTO();
 
       //테스트용
-      productReviewDTO.setCustomerIdx(1);
+      productReviewDTO.setCustomerIdx(customerIdx);
       productReviewDTO.setProductIdx(2);
       productReviewDTO.setReviewIdx(productReviewSaveDTO.getReviewIdx());
       productReviewDTO.setReviewContent(productReviewSaveDTO.getReviewContent());
@@ -269,26 +358,38 @@ public class ProductReviewController {
 
 
       if (updateResult) {
-        return "redirect:/product/review/paging"; // 저장 성공 시 detail 페이지로 redirect
+        return "redirect:/product/review?reviewIdx=" + productReviewSaveDTO.getReviewIdx(); // 저장 성공 시 detail 페이지로 redirect
       } else {
         log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
         bindingResult.addError(new FieldError("productReviewSaveDTO", "",
                 "리뷰 등록에 실패했습니다. 다시 시도해주세요.")); // 실패 메시지 바인딩
 
-        return "/review/reviewUpdate";// 저장 실패 시 save 페이지로 리디렉션
+        return "/review/reviewUpdate?reviewIdx=" + productReviewSaveDTO.getReviewIdx();// 저장 실패 시 save 페이지로 리디렉션
       }
     } catch (IOException e) {
-      return "/review/reviewUpdate"; // 저장 실패 시 save 페이지로 리디렉션
+      return "/review/reviewUpdate?reviewIdx=" + productReviewSaveDTO.getReviewIdx(); // 저장 실패 시 save 페이지로 리디렉션
     }
 
   }
 
 
   @GetMapping("/delete")
-  public String delete(@RequestParam("reviewIdx") String reviewIdx) {
+  public String delete(@RequestParam("reviewIdx") String reviewIdx,
+                       @RequestParam Integer productIdx,
+                       Authentication auth) {
+
+    LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+    Integer customerIdx = loginUserDTO.getIdx();
+
+    boolean hasReviewIdx = productReviewService.checkIfCustomerHasReviewIdx(customerIdx, Integer.parseInt(reviewIdx));
+
+    if (!hasReviewIdx) {
+      return "redirect:/main";
+    }
+
     productReviewService.delete(reviewIdx);
-    return "redirect:/product/review/paging";
+    return "redirect:/product/review/paging?productIdx=" + productIdx;
 
   }
   // 최경락

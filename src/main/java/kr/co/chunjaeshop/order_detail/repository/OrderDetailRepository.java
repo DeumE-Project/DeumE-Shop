@@ -18,4 +18,12 @@ public interface OrderDetailRepository {
 
     // 변재혁
     int insertNewOrderDetail(OrderDetailDTO orderDetailDTO);
+
+    int checkIfCustomerHasOrderDetailIdx(Integer customerIdx, Integer orderDetailIdx);
+
+    int alreadyReviewed(Integer orderDetailIdx);
+
+    Integer getProductIdxByOrderDetailIdx(Integer orderDetailIdx);
+
+    void changeReviewedStatusTo1(Integer orderDetailIdx);
 }

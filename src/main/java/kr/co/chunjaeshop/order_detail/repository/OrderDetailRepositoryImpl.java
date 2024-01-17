@@ -30,4 +30,24 @@ public class OrderDetailRepositoryImpl implements OrderDetailRepository {
     public int insertNewOrderDetail(OrderDetailDTO orderDetailDTO) {
         return orderDetailMapper.insertNewOrderDetail(orderDetailDTO);
     }
+
+    @Override
+    public int checkIfCustomerHasOrderDetailIdx(Integer customerIdx, Integer orderDetailIdx) {
+        return orderDetailMapper.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+    }
+
+    @Override
+    public int alreadyReviewed(Integer orderDetailIdx) {
+        return orderDetailMapper.alreadyReviewed(orderDetailIdx);
+    }
+
+    @Override
+    public Integer getProductIdxByOrderDetailIdx(Integer orderDetailIdx) {
+        return orderDetailMapper.getProductIdxByOrderDetailIdx(orderDetailIdx);
+    }
+
+    @Override
+    public void changeReviewedStatusTo1(Integer orderDetailIdx) {
+        orderDetailMapper.changeReviewedStatusTo1(orderDetailIdx);
+    }
 }

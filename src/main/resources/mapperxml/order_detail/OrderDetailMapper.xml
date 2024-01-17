@@ -21,4 +21,30 @@
         INTO order_detail(order_idx, product_idx, product_price, product_count, product_total_price)
         VALUES(#{orderIdx}, #{productIdx}, #{productPrice}, #{productCount}, #{productTotalPrice})
     </insert>
+
+    <select id="checkIfCustomerHasOrderDetailIdx" resultType="Integer">
+        SELECT IFNULL(COUNT(*), 0)
+        FROM customer c
+            INNER JOIN order_product op ON c.customer_idx = op.customer_idx
+            INNER JOIN order_detail od ON op.order_idx = od.order_idx
+        WHERE od.order_detail_idx = #{orderDetailIdx} AND c.customer_idx = #{customerIdx}
+    </select>
+
+    <select id="alreadyReviewed" resultType="Integer">
+        SELECT reviewed
+        FROM order_detail
+        WHERE order_detail_idx = #{orderDetailIdx}
+    </select>
+
+    <select id="getProductIdxByOrderDetailIdx" resultType="Integer">
+        SELECT product_idx
+        FROM order_detail
+        WHERE order_detail_idx = #{orderDetailIdx}
+    </select>
+
+    <update id="changeReviewedStatusTo1">
+        UPDATE order_detail
+        SET reviewed = 1
+        WHERE order_detail_idx = #{orderDetailIdx}
+    </update>
 </mapper>

@@ -1,14 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>product review save</title>
-    <!-- 부트스트랩 CDN 추가 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* 썸네일 이미지 스타일 */
         .thumbnail {
@@ -24,7 +19,8 @@
     <h1>리뷰 수정</h1>
 
     <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
-    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update" method="post" enctype="multipart/form-data">
+    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update?reviewIdx=${reviewIdx}"
+               method="post" enctype="multipart/form-data">
 
         <div class="mb-3">
             <form:hidden path="reviewIdx" />
