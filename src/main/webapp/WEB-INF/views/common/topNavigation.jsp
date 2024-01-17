@@ -47,13 +47,16 @@
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex">
+        <%--    <form class="d-flex">
                 <button type="button" class="btn btn-outline-dark" onclick="location.href='/product/productList?categoryIdx=1'">
                     상품보기
                 </button>
-            </form>
+            </form>--%>
 
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/product/productList?categoryIdx=1">상품보기</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/notice/">공지사항</a>
                 </li>
