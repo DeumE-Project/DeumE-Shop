@@ -100,9 +100,21 @@
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 천재교육</p>
+   <%-- <div class="container">
+        <a class="m-0 text-center text-white">Copyright &copy; 천재교육</a>
+    </div>--%>
+
+    <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+        <div class="col-auto"><div class="small m-0 text-white">&nbsp;&nbsp;Copyright &copy; 천재교육 &middot; Team DeumE-Shop</div></div>
+
+
+        <div class="col-auto">
+            <a class="link-light small" href="https://github.com/DeumE-Shop/DeumE-Shop">Git Hub</a>
+            <span class="text-white mx-1">&middot;</span>
+            <a class="link-light small" href="#">Notion</a>&nbsp;&nbsp;
+        </div>
     </div>
+
 </footer>
 
 <script>
