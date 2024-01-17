@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +34,7 @@
             max-width: 100%;
         }
     </style>
+    <title>DeumE-Shop</title>
 </head>
 <body>
 <!-- back키 입력방지-->

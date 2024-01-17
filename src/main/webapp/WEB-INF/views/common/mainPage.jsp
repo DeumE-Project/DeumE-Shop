@@ -2,7 +2,8 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
-
+<!DOCTYPE html>
+<html>
 <head>
     <title>메인페이지</title>
 
@@ -59,6 +60,7 @@
         </div>
     </div>
 </header>
+<body>
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -98,25 +100,7 @@
         </div>
     </div>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-   <%-- <div class="container">
-        <a class="m-0 text-center text-white">Copyright &copy; 천재교육</a>
-    </div>--%>
-
-    <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-        <div class="col-auto"><div class="small m-0 text-white">&nbsp;&nbsp;Copyright &copy; 천재교육 &middot; Team DeumE-Shop</div></div>
-
-
-        <div class="col-auto">
-            <a class="link-light small" href="https://github.com/DeumE-Shop/DeumE-Shop">Git Hub</a>
-            <span class="text-white mx-1">&middot;</span>
-            <a class="link-light small" href="#">Notion</a>&nbsp;&nbsp;
-        </div>
-    </div>
-
-</footer>
-
+<%@ include file="./footer.jsp" %>
 <script>
     const productNotExistErrorMsg = '<c:out value="${productNotExistErrorMsg}"/>';
     if (productNotExistErrorMsg) {
