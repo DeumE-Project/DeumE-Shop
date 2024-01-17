@@ -59,9 +59,9 @@
             font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
         .img-fluid{
-            max-width: 100%;
+
             height: auto;
-            width: 100%;
+            width: 80%;
         }
 
         @media (min-width: 768px) {
@@ -90,20 +90,21 @@
             <%--/uploadPath/${productImgSaved}--%>
             <img src="/product/${product.productImgSaved}" alt="상품 이미지" class="img-fluid">
         </div>
-        <div class="col-lg-6 product-description">
+        <div class="col-lg-6 product-description ">
             <!-- 상품 정보 -->
-            <h2>상품 정보 상세보기</h2>
+            <h2>상품 정보 상세보기</h2>     <br>
             <input type="hidden" value="${product.sellerIdx}">
             <input type="hidden" value="${product.productIdx}">
-            <p class="product-name">상품명: <c:out value="${product.productName}"/></p>
-            <p class="product-category">카테고리: <c:out value="${product.categoryName}"/></p>
-            <p class="product-description">상품 설명: <c:out value="${product.productExplain}"/></p>
-            <p class="price">가격: <fmt:formatNumber value="${product.productPrice}"/>원</p>
-            <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>
+            <p class="product-name">상품명: <c:out value="${product.productName}"/></p>     <br>
+            <p class="product-category">카테고리: <c:out value="${product.categoryName}"/></p>     <br>
+            <p class="product-description">상품 설명: <c:out value="${product.productExplain}"/></p>     <br>
+            <p class="price">가격: <fmt:formatNumber value="${product.productPrice}"/>원</p>     <br>
+            <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>     <br>
             <div class="mb-3">
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
-                <button class="btn btn-info" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
         </div>
     </div>
