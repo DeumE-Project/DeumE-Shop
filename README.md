@@ -76,7 +76,8 @@
 
 ## 📋개발 일지📋
 <details><summary>개발 일지</summary>
-   
+
+![image](https://github.com/Last-but-not-LEAST/LBNL/assets/145524959/7ee74521-51ab-47cc-b638-a43a225c1608)
 
 
 </details>
