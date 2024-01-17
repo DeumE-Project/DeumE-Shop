@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/resources/img/logo2.png" /><br/>
     <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
     <!-- jQuery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -41,6 +41,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="navbar container px-4 px-lg-5">
+        <img src="<%= request.getContextPath() %>/resources/img/logo2.png" width="80" height="80">
         <a class="navbar-brand" href="/main">듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
