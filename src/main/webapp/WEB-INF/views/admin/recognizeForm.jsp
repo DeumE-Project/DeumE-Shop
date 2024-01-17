@@ -1,16 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 
 <head>
     <title>판매자 가입 승인 페이지</title>
-<%--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
-<%--            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
-    <!-- Bootstrap 5 CSS -->
-<%--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">--%>
     <style>
-        /* Optional custom styles */
         nav.mh {
             height: 100%;
             width: 15%;
@@ -22,9 +16,9 @@
             color: white;
         }
         .admin-title {
-            font-size: 24px; /* Larger font size for Administrator */
-            font-weight: bold; /* Optional: Make it bold */
-            margin-bottom: 20px; /* Add some space below the Administrator title */
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         nav.mh a {
@@ -41,7 +35,7 @@
         }
 
         .container .mh {
-            margin-left: 10%; /* Set the margin in percentage */
+            margin-left: 10%;
             padding: 5%;
         }
         tr{
@@ -165,15 +159,12 @@
 
 <jsp:include page="rejectModal.jsp" flush="true"/>
 
-<!-- Bootstrap 5 JS -->
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var RID="";
     var rejectReason="";
     $(document).ready(function() {
         $('#rejectModal').on('show.bs.modal', function(event) {
-            // console.log($(event.relatedTarget).data('sellerid'));
             RID = $(event.relatedTarget).data('sellerid');
         });
     });
@@ -238,7 +229,6 @@
     function changeFn(){
         rejectReason  = document.getElementById("rejectReason");
         var value = (rejectReason.options[rejectReason.selectedIndex].value);
-        // alert("value = "+value);
         rejectReason = value;
     }
 </script>
