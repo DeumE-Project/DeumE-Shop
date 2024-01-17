@@ -1,18 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>공지사항</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Optional custom styles */
-        body {
-            padding-top: 20px;
-        }
         .wider-column {
-            width: 70%; /* Adjust the width as needed */
+            width: 70%;
         }
         .float-end {
             float: right;
@@ -25,6 +20,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항</h1><br>
 
     <div class="d-flex justify-content-end mb-3">
@@ -46,6 +42,7 @@
         </form>
     </div>
 
+    <br>
 
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
@@ -72,15 +69,15 @@
 
     <div class="d-flex justify-content-center mt-3">
         <ul class="pagination">
+
+            <%--검색 전 페이징--%>
             <c:if test="${searchWord eq null}">
                 <c:choose>
-                    <%-- If the current page is page 1, only the previous text is shown --%>
                     <c:when test="${paging.page <= 1}">
                         <li class="page-item disabled">
                             <span class="page-link">이전</span>
                         </li>
                     </c:when>
-                    <%-- If it is not page 1, clicking [Previous] will request a page 1 smaller than the current page --%>
                     <c:otherwise>
                         <li class="page-item">
                             <a class="page-link" href="${pageContext.request.contextPath}/notice/?page=${paging.page - 1}" aria-label="Previous">이전</a>
@@ -90,7 +87,6 @@
 
                 <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
                     <c:choose>
-                        <%-- If it is on the requested page, the current page number will only show text --%>
                         <c:when test="${i eq paging.page}">
                             <li class="page-item active" aria-current="page">
                                 <span class="page-link">${i}</span>
@@ -117,15 +113,15 @@
                     </c:otherwise>
                 </c:choose>
             </c:if>
+
+            <%--검색 후 페이징--%>
             <c:if test="${searchWord ne null}">
                 <c:choose>
-                    <%-- If the current page is page 1, only the previous text is shown --%>
                     <c:when test="${paging.page <= 1}">
                         <li class="page-item disabled">
                             <span class="page-link">이전</span>
                         </li>
                     </c:when>
-                    <%-- If it is not page 1, clicking [Previous] will request a page 1 smaller than the current page --%>
                     <c:otherwise>
                         <li class="page-item">
                             <a class="page-link" href="/notice/search?page=${paging.page - 1}&searchField=${searchField}&searchWord=${searchWord}" aria-label="Previous">이전</a>
@@ -135,7 +131,6 @@
 
                 <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
                     <c:choose>
-                        <%-- If it is on the requested page, the current page number will only show text --%>
                         <c:when test="${i eq paging.page}">
                             <li class="page-item active" aria-current="page">
                                 <span class="page-link">${i}</span>
@@ -166,8 +161,5 @@
         </ul>
     </div>
 </div>
-
-<!-- Bootstrap 5 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

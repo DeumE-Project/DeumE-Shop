@@ -1,18 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>detail.jsp</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Optional custom styles */
-        body {
-            padding-top: 20px;
-        }
-        /* Style for table headers */
         th {
-            width: 120px; /* Adjust as needed */
+            width: 120px;
             text-align: center;
             vertical-align: middle;
             font-size: x-large;
@@ -23,7 +18,6 @@
         .center-buttons {
             text-align: center;
         }
-        /* Set minimum height for content */
         .content-section {
             font-size: x-large;
             height: 300px;
@@ -33,6 +27,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
         <tr>
@@ -54,8 +49,6 @@
         <button onclick="deleteFn()" class="btn btn-danger">삭제</button>
     </div>
 </div>
-<!-- Bootstrap 5 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script>
     const listFn = () => {
         const page = '${page}';

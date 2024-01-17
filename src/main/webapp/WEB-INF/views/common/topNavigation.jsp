@@ -4,13 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/x-icon" href="<%= request.getContextPath() %>/resources/img/logo2.png" /><br/>
     <link href="${pageContext.request.contextPath}/resources/common/styles.css" rel="stylesheet">
     <!-- jQuery cdn -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -35,24 +34,31 @@
             max-width: 100%;
         }
     </style>
+    <title>DeumE-Shop</title>
 </head>
 <body>
-
+<!-- back키 입력방지-->
+<jsp:include page="/WEB-INF/views/common/register.jsp" />
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/main">듬이Shop</a>
+    <div class="navbar container px-4 px-lg-5">
+        <a class="navbar-brand" href="/main">
+        <img src="<%= request.getContextPath() %>/resources/img/logo2.png" width="80" height="80">
+        듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex">
+        <%--    <form class="d-flex">
                 <button type="button" class="btn btn-outline-dark" onclick="location.href='/product/productList?categoryIdx=1'">
                     상품보기
                 </button>
-            </form>
+            </form>--%>
 
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/product/productList?categoryIdx=1">상품보기</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/notice/">공지사항</a>
                 </li>

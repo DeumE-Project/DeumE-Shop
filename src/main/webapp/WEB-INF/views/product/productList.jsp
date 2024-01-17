@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-4">
             <div class="input-group">
-                <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
+                <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어(상품명)를 입력하세요"/>
                 <button class="btn btn-primary" type="submit" <c:if test="${empty productListPaging}"></c:if>>검색</button>
             </div>
         </div>

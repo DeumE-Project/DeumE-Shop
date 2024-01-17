@@ -78,6 +78,8 @@ public interface SellerService {
 
     List<SellDashBoardDTO> bestSellRev(Integer sellerIdx);
 
+    void updateStatus(Integer orderIdx, String updatedStatus);
+
     // 변재혁
     boolean sellerRegister(RegisterFormDTO registerFormDTO);
     boolean idDuplicationCheck(String id);

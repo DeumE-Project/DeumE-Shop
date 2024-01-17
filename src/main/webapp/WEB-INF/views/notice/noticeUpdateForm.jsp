@@ -1,15 +1,11 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <html>
 <head>
     <title>update.jsp</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Optional custom styles */
-        body {
-            padding-top: 20px;
-        }
         .table-bordered {
             border: 1px solid #dee2e6;
         }
@@ -29,6 +25,7 @@
 </head>
 <body>
 <div class="container">
+    <br>
     <h1>공지사항 수정하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="/notice/update" method="post" name="updateForm">
         <form:input path="noticeIdx" type="hidden" name="idx" value="${notice.noticeIdx}" readonly="true"/>
@@ -52,8 +49,6 @@
         </div>
     </form:form>
 </div>
-<!-- Bootstrap 5 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     const cancelFn = () => {
@@ -64,8 +59,6 @@
     var error='${error}';
 
     if (error){
-        // alert(error);
-        // Swal.fire(error);
         Swal.fire({
             title: error,
             icon: 'warning',
