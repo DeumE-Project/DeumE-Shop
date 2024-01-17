@@ -23,19 +23,19 @@
 
         <div class="mb-3">
             <label for="productPrice" class="form-label"> 상품 가격  </label>
-            <form:input type="number" path="productPrice" class="form-control" onkeypress="return isNumberKey(event)" />
+            <form:input type="number" path="productPrice" class="form-control" onkeypress="return isNumberKey(event)" oninput="checkProductPrice()"/>
             <form:errors path="productPrice" cssClass="text-danger"/>
         </div>
 
         <div class="mb-3">
             <label for="productStock" class="form-label"> 상품 재고  </label>
-            <form:input type="number" path="productStock" class="form-control" onkeypress="return isNumberKey(event)" />
+            <form:input type="number" path="productStock" class="form-control" onkeypress="return isNumberKey(event)" onchange="checkStockLimit()"/>
             <form:errors path="productStock" cssClass="text-danger"/>
         </div>
 
         <div class="mb-3">
             <label for="productExplain" class="form-label"> 상품 간단 설명  </label>
-            <form:input path="productExplain" class="form-control"/>
+            <form:input path="productExplain" class="form-control" oninput="checkProductExplain()" />
             <form:errors path="productExplain" cssClass="text-danger"/>
         </div>
 
@@ -43,19 +43,52 @@
         <button type="submit" class="btn btn-primary">수정</button>
     </form:form>
 
-<script>
-    function isNumberKey(evt) {
-        let charCode = (evt.which) ? evt.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
+    <script>
+        function isNumberKey(evt) {
+            let charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
-</div>
+        function checkStockLimit() {
+            let productStockInput = document.getElementById('productStock');
+            let stockValue = parseInt(productStockInput.value);
+
+            if (isNaN(stockValue) || stockValue < 0) {
+                alert('숫자만 입력해주세요.');
+                productStockInput.value = '';
+            } else if (stockValue > 1000) {
+                alert('재고 수량은 1000개 이하만 입력 가능합니다.');
+                productStockInput.value = '1000';
+            }
+        }
+        function checkProductPrice() {
+            let productPriceInput = document.getElementById('productPrice');
+            let priceValue = parseInt(productPriceInput.value);
+
+            if (isNaN(priceValue) || priceValue < 0) {
+                alert('숫자만 입력해주세요.');
+                productPriceInput.value = '';
+            } else if (priceValue > 100000) {
+                alert('상품 가격은 10만원 이하만 입력 가능합니다.');
+                productPriceInput.value = '100000';
+            }
+        }
+        function checkProductExplain() {
+            let productExplainInput = document.getElementById('productExplain');
+            let productExplain = productExplainInput.value;
+
+            // 정규표현식을 사용하여 유효성 검사
+            let regex = /^[a-zA-Z0-9가-힣\s]{1,50}$/;
+
+            if (!regex.test(productExplain)) {
+                alert('한국어, 영어, 숫자만 50글자 이하로 입력해주세요.');
+                productExplainInput.value = ''; // 입력값 초기화
+            }
+        }
+    </script>
 
 
-<!-- 부트스트랩 5 JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
