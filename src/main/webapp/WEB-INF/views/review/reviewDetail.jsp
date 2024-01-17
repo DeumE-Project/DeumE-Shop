@@ -1,14 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-    <title>detail</title>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <jsp:include page="#"/>
 
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
+<head>
+    <title>detail</title>
 </head>
 <body class="bg-light">
 <div class="container mt-4">
@@ -18,13 +14,13 @@
             <th>리뷰사진</th>
             <td><img src="/review/${productReview.reviewImgSaved}" alt="리뷰 이미지" class="img-fluid"></td>
         </tr>
-        <tr>
-            <th>번호</th>
-            <td>${productReview.reviewIdx}</td>
-        </tr>
+<%--        <tr>--%>
+<%--            <th>번호</th>--%>
+<%--            <td>${productReview.reviewIdx}</td>--%>
+<%--        </tr>--%>
         <tr>
             <th>작성자</th>
-            <td>${productReview.customerIdx}</td>
+            <td>${productReview.customerId}</td>
         </tr>
         <tr>
             <th>리뷰내용</th>
@@ -40,14 +36,18 @@
         </tr>
     </table>
 
-    <div class="mb-3">
-        <button class="btn btn-secondary" onclick="listFn()">목록</button>
-        <button class="btn btn-warning" onclick="updateFn()">수정</button>
-        <button class="btn btn-danger" onclick="deleteFn()">삭제</button>
-    </div>
+    <sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="pinfo" />
+    <c:if test="${(pinfo.idx eq productReview.customerIdx)}">
+        <div>
+            <button class="btn btn-warning" onclick="updateFn()">수정</button>
+            <button class="btn btn-danger" onclick="deleteFn()">삭제</button>
+        </div>
+    </c:if>
+    </sec:authorize>
+
 
 </div>
-
 </body>
 <script>
     const listFn = () => {
@@ -65,7 +65,7 @@
 
         if (isConfirmed) {
             alert("삭제 되었습니다.");
-            location.href = "/product/review/delete?reviewIdx=" + reviewIdx;
+            location.href = "/product/review/delete?reviewIdx=" + reviewIdx + "&productIdx=" + ${productReview.productIdx};
         } else {
             alert("삭제가 취소되었습니다.");
         }

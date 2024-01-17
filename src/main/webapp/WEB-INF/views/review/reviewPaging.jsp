@@ -1,14 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
-<html>
+
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-    <title>paging</title>
-    <jsp:include page="#"/>
+<%--    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">--%>
+<%--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>--%>
+    <title>상품리뷰리스트</title>
     <script>
         const savefn = () => {
             const productIdx = '${productReview.productIdx}';
@@ -17,11 +16,11 @@
     </script>
 </head>
 <body class="bg-light">
-<div class="container mt-3">
+<div class="container mt-5">
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>번호</th>
+<%--            <th>번호</th>--%>
             <th>리뷰사진</th>
             <th>작성자</th>
             <th>내용</th>
@@ -32,10 +31,10 @@
         <tbody>
         <c:forEach items="${pagingList}" var="review">
             <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}'" style="cursor: pointer;">
-                <td>${review.reviewIdx}</td>
+<%--                <td>${review.reviewIdx}</td>--%>
                 <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />
                 <td><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></td>
-                <td>${review.customerIdx}</td>
+                <td>${review.customerId}</td>
                 <td>
                     <c:choose>
                         <c:when test="${fn:length(review.reviewContent) gt 50}">
@@ -103,7 +102,7 @@
             </c:otherwise>
         </c:choose>
     </ul>
-    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>
+<%--    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>--%>
 </div>
 </body>
 </html>

@@ -32,4 +32,5 @@ public class OrderDetailDTO {
 
     // 변재혁
     private ProductDTO productDTO;
+    private Integer reviewed; // 0은 리뷰 아직 안 함, 1은 이미 리뷰 함
 }

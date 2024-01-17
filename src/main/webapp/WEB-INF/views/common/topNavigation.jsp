@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,14 +34,17 @@
             max-width: 100%;
         }
     </style>
+    <title>DeumE-Shop</title>
 </head>
 <body>
-
+<!-- back키 입력방지-->
+<jsp:include page="/WEB-INF/views/common/register.jsp" />
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="navbar container px-4 px-lg-5">
+        <a class="navbar-brand" href="/main">
         <img src="<%= request.getContextPath() %>/resources/img/logo2.png" width="80" height="80">
-        <a class="navbar-brand" href="/main">듬이Shop</a>
+        듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

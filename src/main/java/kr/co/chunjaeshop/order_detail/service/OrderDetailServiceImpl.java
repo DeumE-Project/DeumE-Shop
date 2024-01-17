@@ -47,4 +47,25 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         }
         return true;
     }
+
+    @Override
+    public int checkIfCustomerHasOrderDetailIdx(Integer customerIdx, Integer orderDetailIdx) {
+        return orderDetailRepository.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+    }
+
+    @Override
+    public boolean alreadyReviewed(Integer orderDetailIdx) {
+        int result = orderDetailRepository.alreadyReviewed(orderDetailIdx);
+        return (result == 1) ? true : false;
+    }
+
+    @Override
+    public Integer getProductIdxByOrderDetailIdx(Integer orderDetailIdx) {
+        return orderDetailRepository.getProductIdxByOrderDetailIdx(orderDetailIdx);
+    }
+
+    @Override
+    public void changeReviewedStatusTo1(Integer orderDetailIdx) {
+        orderDetailRepository.changeReviewedStatusTo1(orderDetailIdx);
+    }
 }

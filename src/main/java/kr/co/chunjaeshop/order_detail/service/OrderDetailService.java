@@ -20,4 +20,12 @@ public interface OrderDetailService {
 
     // 변재혁
     boolean insertNewOrderDetails(Integer orderIdx, List<CartDetailDTO> cartDetailDTOList);
+
+    int checkIfCustomerHasOrderDetailIdx(Integer customerIdx, Integer orderDetailIdx);
+
+    boolean alreadyReviewed(Integer orderDetailIdx);
+
+    Integer getProductIdxByOrderDetailIdx(Integer orderDetailIdx);
+
+    void changeReviewedStatusTo1(Integer orderDetailIdx);
 }

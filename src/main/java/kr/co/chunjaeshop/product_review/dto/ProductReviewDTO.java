@@ -38,5 +38,5 @@ public class ProductReviewDTO {
 
 
     // 변재혁
-
+        private String customerId;
 }

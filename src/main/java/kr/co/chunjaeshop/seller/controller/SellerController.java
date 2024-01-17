@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -41,10 +44,8 @@ public class SellerController {
     // 유지호
     @GetMapping("/mySellerPage")
     public String mySellerInfoByIdx(
-//            @RequestParam("sellerIdx") Integer sellerIdx,
-            /*@RequestParam("lastMonth") String lastMonth,*/
-                                    Model model,
-                                    Authentication auth){
+            Model model,
+            Authentication auth) {
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
         log.info("sellerIdx = {}", sellerIdx);
@@ -67,17 +68,17 @@ public class SellerController {
         model.addAttribute("categorySales", categorySales);
         model.addAttribute("bestSellCountList", bestSellCountList);
         model.addAttribute("bestSellRevList", bestSellRevList);
-        return "/seller/mySellerPage";
+        return "seller/mySellerPage";
     }
 
     @GetMapping("/myProduct")
     public String myProductManage(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                  @RequestParam(value = "searchField", required = false) String searchField,
-                                  @RequestParam(value = "searchWord", required = false) String searchWord,
-                                  Model model,
-                                  Authentication auth){
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "searchField", required = false) String searchField,
+            @RequestParam(value = "searchWord", required = false) String searchWord,
+            Model model,
+            Authentication auth) {
 
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
@@ -91,48 +92,103 @@ public class SellerController {
         model.addAttribute("sellerIdx", 1);
         model.addAttribute("searchField", searchField);
         model.addAttribute("searchWord", searchWord);
-        return "/seller/myProduct";
+        return "seller/myProduct";
     }
 
     @GetMapping("/manageProduct")
     public String sellManage(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-                             @RequestParam("productIdx") Integer productIdx,
-                             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                             @RequestParam(value = "searchField", required = false) String searchField,
-                             @RequestParam(value = "searchWord", required = false) String searchWord,
-                             Model model,
-                             Authentication auth){
+            @RequestParam("productIdx") Integer productIdx,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "searchField", required = false) String searchField,
+            @RequestParam(value = "searchWord", required = false) String searchWord,
+            Model model,
+            Authentication auth) throws UnsupportedEncodingException {
+
+        if (searchWord != null) {
+            searchWord = URLDecoder.decode(searchWord, "utf-8");
+        }
+
+        {
+
+            LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+            Integer sellerIdx = loginUserDTO.getIdx();
+
+            // 본인의 상품이 맞는지 검증 로직
+            int result = productService.checkIfProductBelongsToSeller(sellerIdx, productIdx);
+
+            if (result != 1) {
+                return "redirect:/seller/myProduct";
+            }
+                log.info("productIdx = {}", productIdx);
+                List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
+                PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);
+                PageDTO orderManageSearchPageDTO = sellerService.orderManageSearchPagingParm(page, sellerIdx, productIdx, searchField, searchWord);
+                model.addAttribute("detailMyPd", orderProductDTOList);
+                model.addAttribute("orderManagePaging", orderManagePageDTO);
+                model.addAttribute("orderManageSearchPaging", orderManageSearchPageDTO);
+                model.addAttribute("sellerIdx", sellerIdx);
+                model.addAttribute("productIdx", productIdx);
+                model.addAttribute("searchWord", searchWord);
+                model.addAttribute("page", page);
+
+            return "seller/manageProduct";
+
+            }
+        }
+
+
+    @GetMapping("updateStatus")
+    public String updateStatus(@RequestParam("updateStatus") String updateStatus,
+                               @RequestParam("orderIdx") Integer orderIdx,
+                               //@RequestParam("sellerIdx") Integer sellerIdx,
+                               @RequestParam("productIdx") Integer productIdx,
+                               @RequestParam(value = "page", required = false) String page,
+                               @RequestParam(value = "searchWord", required = false) String searchWord,
+                               Authentication auth) throws UnsupportedEncodingException {
 
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
 
-        // 본인의 상품이 맞는지 검증 로직
-        int result = productService.checkIfProductBelongsToSeller(sellerIdx, productIdx);
 
-        if (result != 1) {
-            return "redirect:/seller/myProduct";
+        String updatedStatus = "1"; // 기본 배송중
+
+        log.info("updateStatus = {}, orderIdx = {}, sellerIdx = {}, productIdx = {}", updateStatus, orderIdx, sellerIdx, productIdx);
+
+        if ("배송완료".equals(updateStatus)) {
+            updatedStatus = "2"; // 배송완료시 2로 업데이트
         }
 
-        log.info("productIdx = {}", productIdx);
-        List<OrderProductDTO> orderProductDTOList = sellerService.sellProductManage(sellerIdx, productIdx, page, searchField, searchWord);
-        PageDTO orderManagePageDTO = sellerService.orderManagePagingParm(page, sellerIdx, productIdx);
-        log.info("qqqq"+searchWord);
-        PageDTO orderManageSearchPageDTO = sellerService.orderManageSearchPagingParm(page, sellerIdx, productIdx, searchField, searchWord);
-        log.info("eeee"+orderManageSearchPageDTO);
-        model.addAttribute("detailMyPd", orderProductDTOList);
-        model.addAttribute("orderManagePaging", orderManagePageDTO);
-        model.addAttribute("orderManageSearchPaging", orderManageSearchPageDTO);
-        model.addAttribute("sellerIdx", sellerIdx);
-        model.addAttribute("productIdx", productIdx);
-        model.addAttribute("searchWord", searchWord);
-        return "/seller/manageProduct";
+        sellerService.updateStatus(orderIdx, updatedStatus);
 
+        // 기본값이 아닌 경우에만 URL에 추가
+        StringBuilder redirectUrl = new StringBuilder("/seller/manageProduct?sellerIdx=" + sellerIdx + "&productIdx=" + productIdx);
+
+        String redirecrurl = "/seller/manageProduct?sellerIdx=" + sellerIdx + "&productIdx=" + productIdx;
+
+        // page 값이 숫자로 변환 가능한지 확인하고, 가능하지 않으면 기본값 설정
+        try {
+            Integer pageValue = Integer.parseInt(page);
+            redirectUrl.append("&page=").append(pageValue);
+            redirecrurl = redirecrurl + "&page=" + pageValue;
+        } catch (NumberFormatException e) {
+            // 변환 불가능한 경우에는 기본값인 1로 설정
+            redirectUrl.append("&page=1");
+            redirecrurl = redirecrurl + "&page=1";
+        }
+
+
+        if (searchWord != null) {
+            redirectUrl.append("&searchWord=").append(searchWord);
+            redirecrurl = redirecrurl + "&searchWord=" + URLEncoder.encode(searchWord, "utf-8");
+        }
+        log.info("redirecturl = {}", redirecrurl);
+        return "redirect:" + redirecrurl ;
     }
 
 
+            // 변재혁
 
 
-    // 변재혁
 
 }

@@ -25,8 +25,8 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
     }
 
     @Override
-    public ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx) {
-        return productReviewMapper.findByIdxReviewSaveDTO(reviewIdx);
+    public ProductReviewSaveDTO findByIdxReviewSaveDTO(Integer customerIdx, String reviewIdx) {
+        return productReviewMapper.findByIdxReviewSaveDTO(customerIdx, reviewIdx);
     }
 
     @Override
@@ -55,8 +55,8 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
   }
 
    @Override
-    public int boardCount() {
-    return productReviewMapper.boardCount();
+    public int boardCount(Integer productIdx) {
+    return productReviewMapper.boardCount(productIdx);
   }
 
   // 최경락
@@ -70,4 +70,9 @@ public class ProductReviewRepositoryImpl implements ProductReviewRepository {
 
     // 변재혁
 
+
+    @Override
+    public int checkIfCustomerHasReviewIdx(Integer customerIdx, Integer reviewIdx) {
+        return productReviewMapper.checkIfCustomerHasReviewIdx(customerIdx, reviewIdx);
+    }
 }

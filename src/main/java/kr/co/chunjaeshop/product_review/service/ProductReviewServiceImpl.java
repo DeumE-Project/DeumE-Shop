@@ -39,8 +39,8 @@ public class ProductReviewServiceImpl implements ProductReviewService {
     }
 
   @Override
-  public ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx) {
-    return productReviewRepository.findByIdxReviewSaveDTO(reviewIdx);
+  public ProductReviewSaveDTO findByIdxReviewSaveDTO(Integer customerIdx, String reviewIdx) {
+    return productReviewRepository.findByIdxReviewSaveDTO(customerIdx, reviewIdx);
   }
 
   @Override
@@ -59,7 +59,7 @@ public class ProductReviewServiceImpl implements ProductReviewService {
 
 
   @Override
-  public List<ProductReviewDTO> pagingList(int page) {
+  public List<ProductReviewDTO> pagingList(int page, Integer productIdx) {
         /*
         1페이지당 보여지는 글 갯수 3
             1page => 0
@@ -70,15 +70,16 @@ public class ProductReviewServiceImpl implements ProductReviewService {
     Map<String, Integer> pagingParams = new HashMap<>();
     pagingParams.put("start", pagingStart);
     pagingParams.put("limit", pageLimit);
+    pagingParams.put("productIdx", productIdx);
     List<ProductReviewDTO> pagingList = productReviewRepository.pagingList(pagingParams);
 
     return pagingList;
   }
 
   @Override
-  public ProductReviewPageDTO pagingParam(int page) {
+  public ProductReviewPageDTO pagingParam(int page, Integer productIdx) {
     // 전체 글 갯수 조회
-    int boardCount = productReviewRepository.boardCount();
+    int boardCount = productReviewRepository.boardCount(productIdx);
     // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
     int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
     // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)
@@ -107,4 +108,10 @@ public class ProductReviewServiceImpl implements ProductReviewService {
 
     // 변재혁
 
+
+  @Override
+  public boolean checkIfCustomerHasReviewIdx(Integer customerIdx, Integer reviewIdx) {
+    int result = productReviewRepository.checkIfCustomerHasReviewIdx(customerIdx, reviewIdx);
+    return (result == 1) ? true : false;
+  }
 }

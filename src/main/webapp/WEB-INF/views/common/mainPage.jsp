@@ -2,7 +2,8 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
-
+<!DOCTYPE html>
+<html>
 <head>
     <title>메인페이지</title>
 
@@ -59,6 +60,7 @@
         </div>
     </div>
 </header>
+<body>
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -98,13 +100,7 @@
         </div>
     </div>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 천재교육</p>
-    </div>
-</footer>
-
+<%@ include file="./footer.jsp" %>
 <script>
     const productNotExistErrorMsg = '<c:out value="${productNotExistErrorMsg}"/>';
     if (productNotExistErrorMsg) {

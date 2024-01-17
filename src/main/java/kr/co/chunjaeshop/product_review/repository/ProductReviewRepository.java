@@ -15,9 +15,10 @@ public interface ProductReviewRepository {
     int update(ProductReviewDTO productReviewDTO);
     void delete(String reviewIdx);
 
-    int boardCount();
+    int boardCount(Integer productIdx);
     List<ProductReviewDTO> pagingList(Map<String, Integer> pagingParams);
-    ProductReviewSaveDTO findByIdxReviewSaveDTO(String reviewIdx);
+    ProductReviewSaveDTO findByIdxReviewSaveDTO(Integer customerIdx, String reviewIdx);
+
 
     // 최경락
 
@@ -29,5 +30,6 @@ public interface ProductReviewRepository {
 
 
     // 변재혁
+    int checkIfCustomerHasReviewIdx(Integer customerIdx, Integer reviewIdx);
 
 }

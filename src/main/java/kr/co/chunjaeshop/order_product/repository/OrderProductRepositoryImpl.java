@@ -51,12 +51,9 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
         return orderProductMapper.orderSearchProductCount(params);
     }
 
-    /*
     @Override
-    public List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
-        return orderProductMapper.sellProductManage(sellerIdx, productIdx);
-    }
-*/
+    public void updateStatus(Map<String, Object> updateParams) {
+        orderProductMapper.updateStatus(updateParams);}
 
 
     // 변재혁
