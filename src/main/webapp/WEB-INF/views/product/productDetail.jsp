@@ -12,7 +12,7 @@
     <!-- 나눔고딕 폰트 링크 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-nanum@1.0.16/dist/nanum.min.css">
     <style>
-        /* 추가적인 스타일링이 필요한 경우 여기에 작성하세요. */
+
         body {
             background-color: #f8f9fa;
             font-family: 'Nanum Gothic', sans-serif; /* 나눔고딕 폰트 적용 */
@@ -22,7 +22,7 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
             margin-top: 20px;
         }
 
