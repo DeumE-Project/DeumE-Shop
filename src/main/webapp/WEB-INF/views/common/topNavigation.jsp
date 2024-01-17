@@ -37,7 +37,8 @@
     </style>
 </head>
 <body>
-
+<!-- back키 입력방지-->
+<jsp:include page="/WEB-INF/views/common/register.jsp" />
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="navbar container px-4 px-lg-5">
