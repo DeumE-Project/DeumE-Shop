@@ -7,6 +7,14 @@
 
 
     <!--    최경락-->
+    <!--
+    - id: 해당 쿼리를 참조할 때 사용하는 고유한 식별자
+
+    - parameterType: 쿼리에 전달되는 매개변수의 자료형을 나타냄
+
+    - resultType: 쿼리의 결과로 반환되는 값의 자료형을 나타냄
+    -->
+    <!--상품 등록 -->
     <insert id="productSave" parameterType="ProductDTO">
         INSERT INTO product(seller_idx, category_idx, product_name, product_explain,
         product_price, product_stock, product_thumb_saved,
@@ -17,58 +25,53 @@
         #{productThumbSaved}, #{productImgOriginal}, #{productImgSaved},
         #{productDetailOriginal}, #{productDetailSaved})
     </insert>
-
+    <!--상품 상세보기-->
     <select id="findByProductIdx" resultType="ProductDTO">
         Select seller_idx, product_idx, category_name, product_name, product_explain,
         product_price, product_stock, product_img_saved, product_detail_saved
         From product P left join category C on P.category_idx = C.category_idx
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
-
+    <!-- 상품 상세 정보 수정(select)-->
     <select id="findByProductIdx2" resultType="ProductDTO">
         Select seller_idx, product_idx, category_idx, product_name, product_explain, product_price, product_stock,
         product_thumb_saved, product_img_original, product_img_saved, product_detail_original, product_detail_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
-
+    <!-- 상품 상세 정보 수정(update)-->
     <update id="productInfoUpdate" parameterType="ProductDTO">
         update product
         set product_name=#{productName}, product_price=#{productPrice}, product_stock=#{productStock},
         product_explain=#{productExplain}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
-
+    <!-- productImg 수정(select)-->
     <select id="findMainImg" resultType="ProductMainImgUpdateDTO">
         Select seller_idx, product_idx, product_thumb_saved, product_img_original, product_img_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
-
+    <!-- productImg 수정(update)-->
     <update id="productImgUpdate" parameterType="ProductMainImgUpdateDTO">
         update product
         set product_thumb_saved=#{productThumbSaved}, product_img_original=#{productImgOriginal},
         product_img_saved=#{productImgSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
-
+    <!-- detailImg 수정(select)-->
     <select id="findDetailImg" resultType="ProductDetailImgUpdateDTO">
         Select seller_idx, product_idx, product_detail_original, product_detail_saved
         From product
         Where seller_idx=#{sellerIdx} AND product_idx=#{productIdx}
     </select>
-
+    <!-- detailImg 수정(update)-->
     <update id="productDetailImgUpdate" parameterType="ProductDetailImgUpdateDTO">
         update product
         set product_detail_original=#{productDetailOriginal}, product_detail_saved=#{productDetailSaved}
         Where seller_idx=#{sellerIdx} And product_idx=#{productIdx}
     </update>
 
-    <!--<select id="getList" resultType="ProductDTO">
-        Select product_idx, category_idx, product_name, product_price, product_stock, product_thumb_saved
-        From product
-        where category_idx=#{categoryIdx}
-    </select>-->
     <select id="productListCount" parameterType="Integer" resultType="Integer">
         select count(category_idx)
         from product

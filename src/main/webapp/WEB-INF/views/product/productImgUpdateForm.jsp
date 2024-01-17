@@ -102,7 +102,7 @@
             let targetElement = document.getElementById(targetId);
 
             if (fileSize > 10485760) {
-                warning.innerHTML = "파일 크기가 10MB를 초과합니다.";
+                warning.innerHTML = "이미지 파일 크기가 10MB를 초과합니다.";
                 input.value = ''; // Clear the input
                 targetElement.style.display = 'none'; // Hide the preview
                 return;

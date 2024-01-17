@@ -22,8 +22,6 @@ public interface ProductService {
     boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO);
     ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx);
     boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO);
-    // List<ProductDTO> productPagingListWithSearch(Integer productIdx, int page, String searchField, String searchWord);
-    //List<ProductDTO> getList(Integer categoryIdx);
     List<ProductDTO> productListPagingWithSearch(Integer categoryIdx, int page, String searchField, String searchWord);
     PageDTO productListPagingParam(int page, Integer categoryIdx);
     PageDTO productListPagingSearchParam(int page, Integer categoryIdx, String searchField, String searchWord);
