@@ -50,14 +50,14 @@ public class SellerController {
         Integer sellerIdx = loginUserDTO.getIdx();
         log.info("sellerIdx = {}", sellerIdx);
         SellerDTO sellerDTO = sellerService.mySellerInfoByIdx(sellerIdx);
-        int resultCnt = productService.countMyProductCnt(sellerIdx);
-        int totalRev = sellerService.getMyTotalRev(sellerIdx);
-        int getDateRev = sellerService.getDateRev(sellerIdx);
-        int avgRev = sellerService.avgRev(sellerIdx);
-        List<SellDashBoardDTO> monthlySalesList = sellerService.monthlySalesList(sellerIdx);
-        List<SellDashBoardDTO> categorySales = sellerService.categorySales(sellerIdx);
-        List<SellDashBoardDTO> bestSellCountList = sellerService.bestSellCount(sellerIdx);
-        List<SellDashBoardDTO> bestSellRevList = sellerService.bestSellRev(sellerIdx);
+        int resultCnt = productService.countMyProductCnt(sellerIdx); // 등록한 상품 개수를 카운트하기 위해 사용
+        int totalRev = sellerService.getMyTotalRev(sellerIdx); // 누적판매금액을 계산하기 위해 사용
+        int getDateRev = sellerService.getDateRev(sellerIdx); // 이달의 매출을 구하기 위해 사용
+        int avgRev = sellerService.avgRev(sellerIdx); // 월평균 매출을 구하기 위해 사용 (현재 월 제외)
+        List<SellDashBoardDTO> monthlySalesList = sellerService.monthlySalesList(sellerIdx); // 월별 매출을 구하기 위해 사용
+        List<SellDashBoardDTO> categorySales = sellerService.categorySales(sellerIdx); // 카테고리별 매출을 구하기 위해 사용
+        List<SellDashBoardDTO> bestSellCountList = sellerService.bestSellCount(sellerIdx); // 가장 많이 팔린 상품 카운트
+        List<SellDashBoardDTO> bestSellRevList = sellerService.bestSellRev(sellerIdx); // 가장 매출이 높은 상품 카운트
         model.addAttribute("myCount", resultCnt);
         model.addAttribute("mySeller", sellerDTO);
         model.addAttribute("myRev", totalRev);
@@ -74,18 +74,19 @@ public class SellerController {
     @GetMapping("/myProduct")
     public String myProductManage(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "searchField", required = false) String searchField,
-            @RequestParam(value = "searchWord", required = false) String searchWord,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page, // 페이징, 기본값을 1로 받아옴
+            @RequestParam(value = "searchField", required = false) String searchField, // 검색시 해당 값을 받아옴
+            @RequestParam(value = "searchWord", required = false) String searchWord, // 검색 단어 값을 받아옴
             Model model,
             Authentication auth) {
 
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
 
-        List<ProductDTO> productPagingList = sellerService.productPagingListWithSearch(sellerIdx, page, searchField, searchWord);
-        PageDTO sellProductPageDTO = sellerService.pagingParam(page, sellerIdx);
-        PageDTO sellProductSearchPageDTO = sellerService.pagingSearchParam(page, sellerIdx, searchField, searchWord);
+        List<ProductDTO> productPagingList = sellerService.productPagingListWithSearch(sellerIdx, page, searchField, searchWord); // 페이징, 검색 포함 쿼리에 넘겨 줄 값
+        PageDTO sellProductPageDTO = sellerService.pagingParam(page, sellerIdx); // 페이징 시 필요한 값들을 PageDTO에 저장
+        PageDTO sellProductSearchPageDTO = sellerService.pagingSearchParam(page, sellerIdx, searchField, searchWord); // 검색할 경우 페이징 시 필요한 값들을 PageDTO에 저장
+        // jsp로 변수 값을 넘겨줌
         model.addAttribute("myProductList", productPagingList);
         model.addAttribute("sellProductpaging", sellProductPageDTO);
         model.addAttribute("sellProductSearchPaging", sellProductSearchPageDTO);

@@ -177,6 +177,7 @@ public class ProductServiceImpl implements ProductService {
 
     // 유지호
 
+    // 등록상품 카운트
     @Override
     public int countMyProductCnt(Integer sellerIdx) {
         int myCount = productRepository.countMyProductCnt(sellerIdx);

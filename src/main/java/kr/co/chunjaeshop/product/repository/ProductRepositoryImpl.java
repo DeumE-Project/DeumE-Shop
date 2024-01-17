@@ -97,18 +97,14 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     // 유지호
 
+    // 등록 상품 카운트
     @Override
     public int countMyProductCnt(Integer sellerIdx) {
         return productMapper.countMyProductCnt(sellerIdx);
     }
 
-/*
-    @Override
-    public List<ProductDTO> productPagingList(Map<String, Integer> pagingParams) {
-        return productMapper.sellProductPaging(pagingParams);
-    }
-*/
 
+    // 페이징을 위한 카운트
     @Override
     public int productCount(Integer sellerIdx) {
         return productMapper.productCount(sellerIdx);
@@ -121,13 +117,13 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public int searchproductCount(Integer sellerIdx, String searchField, String searchWord) {
+    public int searchProductCount(Integer sellerIdx, String searchField, String searchWord) {
         Map<String, Object> params = new HashMap<>();
         params.put("sellerIdx", sellerIdx);
         params.put("searchField", searchField);
         params.put("searchWord", searchWord);
 
-        return productMapper.searchproductCount(params);
+        return productMapper.searchProductCount(params);
     }
 
 
