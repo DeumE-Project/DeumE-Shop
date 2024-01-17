@@ -12,7 +12,7 @@
     <!-- 나눔고딕 폰트 링크 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-nanum@1.0.16/dist/nanum.min.css">
     <style>
-        /* 추가적인 스타일링이 필요한 경우 여기에 작성하세요. */
+
         body {
             background-color: #f8f9fa;
             font-family: 'Nanum Gothic', sans-serif; /* 나눔고딕 폰트 적용 */
@@ -22,7 +22,7 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
             margin-top: 20px;
         }
 
@@ -104,6 +104,7 @@
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <button class="btn btn-warning" onclick="location.href='/product/review/paging?productIdx=${product.productIdx}'">리뷰보기</button>
                 <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
         </div>
