@@ -4,13 +4,20 @@
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>판매 관리</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+
     <style>
         table {
             font-size: 14px;
@@ -95,10 +102,12 @@
                 <div class="col-lg-4">
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
+                        <input type="text" name="page" value="1" style="display: none;"/> <!-- Add this line -->
                         <button class="btn btn-primary" type="submit" <c:if test="${empty detailMyPd}">disabled</c:if>>검색</button>
                     </div>
                 </div>
             </form>
+
 
             <c:if test="${empty detailMyPd}">
                 <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
@@ -124,7 +133,7 @@
                     <th style="width: 10%;">총 가격</th>
                     <th style="width: 15%;">주문날짜</th>
                     <th style="width: 20%;">배송지</th>
-                    <th style="width: 10%;">주문 상태</th>
+                    <th style="width: 10%;">배송상태</th>
                 </tr>
                 </thead>
                 <c:forEach items="${detailMyPd}" var="sellDetail" varStatus="loop">
@@ -137,14 +146,23 @@
                                 <td>${orderManageSearchPaging.totalCount - ((orderManageSearchPaging.page - 1) * orderManageSearchPaging.pageLimit + loop.index)}</td>
                             </c:otherwise>
                         </c:choose>
-                            <td>${sellDetail.productName}</td>
-                            <td>${sellDetail.customerName}</td>
-                            <td>${sellDetail.productPrice}</td>
-                            <td>${sellDetail.productCount}</td>
-                            <td>${sellDetail.productTotalPrice}</td>
-                            <td>${sellDetail.orderDate}</td>
-                            <td>${sellDetail.orderAddress}</td>
-                            <td>${sellDetail.orderStatus}</td>
+                        <td>${sellDetail.productName}</td>
+                        <td>${sellDetail.customerName}</td>
+                        <td>${sellDetail.productPrice}</td>
+                        <td>${sellDetail.productCount}</td>
+                        <td>${sellDetail.productTotalPrice}</td>
+                        <td>${sellDetail.orderDate}</td>
+                        <td>${sellDetail.orderAddress}</td>
+                        <td>
+                                <%--                                <a class="btn btn-danger" data-bs-toggle="modal" data-orderidx="${sellDetail.orderIdx}"--%>
+                                <%--                                   href="#updateModal" role="button" onclick="updateOrderIdx('${sellDetail.orderIdx}')">${sellDetail.orderStatus}</a>--%>
+
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateOrderIdx('${sellDetail.orderIdx}')">
+                                    ${sellDetail.orderStatus}
+                            </button>
+
+                        </td>
+
                     </tr>
                 </c:forEach>
             </table>
@@ -255,11 +273,83 @@
         </div>
     </section>
 </main>
-</body>
+<script>
+    var sellerIdx = ${sellerIdx};
+    var productIdx = ${productIdx};
+    var searchField = "${param.searchField}";
+    var searchWord = "${param.searchWord}";
+</script>
+
+<jsp:include page="updateModal.jsp" flush="true"/>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+    var RID="";
+    var updateStatus="";
+
+    var orderIdx = "";
+
+    $(document).ready(function() {
+        $('#updateModal').on('show.bs.modal', function(event) {
+            RID = $(event.relatedTarget).data('orderidx');
+        });
+    });
+
+    const updateFn = () => {
+        console.log(RID);
+        if (updateStatus==0){
+            Swal.fire({
+                title: '배송상태를 선택해주세요',
+                icon: 'info',
+                confirmButtonText: '확인',
+            });
+            return false;
+        }
+        Swal.fire({
+            title: '수정하시겠습니까?',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: '수정 완료',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '확인',
+                }).then((result) => {
+                    if (result.value){
+                        location.href = "/seller/updateStatus?updateStatus="+ updateStatus + "&productIdx=" + ${param.productIdx} + "&sellerIdx=" + ${param.sellerIdx} + "&orderIdx=" + orderIdx + "&page=" + ${param.page} + "&searchWord=" + '${param.searchWord}';
+                    }
+                })
+            }
+        })
+    }
+
+    function changeFn(){
+        updateStatus  = document.getElementById("updateStatus");
+        var value = (updateStatus.options[updateStatus.selectedIndex].value);
+        // alert("value = "+value);
+        updateStatus = value;
+        console.log(updateStatus);
+    }
+
+
+    function updateOrderIdx(order_idx) {
+        orderIdx = order_idx;
+    }
+</script>
+
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의
     function goToFirstPage() {
-        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}";
+        window.location.href = "/seller/manageProduct?page=1&sellerIdx=${sellerIdx}&productIdx=${productIdx}&searchWord=${searchWord}";
+
     }
 </script>
+</body>
+
+
 </html>

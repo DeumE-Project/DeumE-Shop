@@ -25,6 +25,8 @@ public interface OrderProductMapper {
 
     int orderSearchProductCount(Map<String, Object> params);
 
+    void updateStatus(Map<String, Object> updateParams);
+
     // 변재혁
     int insertNewOrder(OrderProductForm orderProductForm);
 
