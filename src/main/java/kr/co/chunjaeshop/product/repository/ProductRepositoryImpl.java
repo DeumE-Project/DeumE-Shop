@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-;
 
 @Repository
 @RequiredArgsConstructor
@@ -73,13 +72,23 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.productListCount(categoryIdx);
     }
 
+    /**
+     * 특정 카테고리에서 검색어를 이용하여 상품 목록의 개수를 조회
+     *
+     * @param categoryIdx   검색 대상 카테고리의 인덱스
+     * @param searchField   검색 필드 (예: 상품명)
+     * @param searchWord    검색어
+     * @return              검색 결과에 해당하는 상품 목록의 개수
+     */
     @Override
     public int searchProductListCount(Integer categoryIdx, String searchField, String searchWord) {
+        // 검색에 사용할 매개변수들을 Map에 담음
         Map<String, Object> params = new HashMap<>();
-        params.put("categoryIdx", categoryIdx);
-        params.put("searchField", searchField);
-        params.put("searchWord", searchWord);
+        params.put("categoryIdx", categoryIdx);  // 검색 대상 카테고리 인덱스
+        params.put("searchField", searchField);  // 검색 필드 (예: 상품명)
+        params.put("searchWord", searchWord);    // 검색어
 
+        // 상품 매퍼를 통해 실제 검색된 상품 목록의 개수를 조회
         return productMapper.searchProductListCount(params);
     }
 
