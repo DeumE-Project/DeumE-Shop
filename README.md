@@ -21,23 +21,16 @@
 
 01. [📂 PPT](#-PPT-)
 02. [📖 프로젝트 소개](#-프로젝트-소개)
-03. [💡 기획 의도](#기획-의도)
-04. [🙋‍♀️ Team_Member](#%EF%B8%8F-team_member-%EF%B8%8F)
-05. [📋 개발 일지](#개발-일지)
-06. [📈  요구 명세서](#-요구-명세서-)
-07. [📊 Diagram](#-다이어그램-)
-08. [📹 기능 설명](#-기능-설명-)
-09. [🔨개발 환경](#-개발-환경-)
-10. [🤐개선 사항](#-개선-사항-)
+03. [🙋‍♀️ Team_Member](#%EF%B8%8F-team_member-%EF%B8%8F)
+04. [📋 개발 일지](#개발-일지)
+05. [📈  요구 명세서](#-요구-명세서-)
+06. [📊 Diagram](#-다이어그램-)
+07. [📹 기능 설명](#-기능-설명-)
+08. [🔨개발 환경](#-개발-환경-)
+09. [🤐개선 사항](#-개선-사항-)
 
 
 ## 📂 PPT 📂
-
-
-
-<details><summary>PPT</summary>     
-
-### [PPT링크](https://www.canva.com/design/DAF1bF8O3K4/o3hvGmrF9Yobsmu2Vh_Nzg/view?utm_content=DA[…]3K4&utm_campaign=designshare&utm_medium=link&utm_source=editor)
        
 <div align="center">          
 
@@ -45,20 +38,38 @@
 </details>            
       
 ## 📖 프로젝트 소개📖
+<details><summary>온라인 문구점 쇼핑몰 프로젝트</summary>
+<br>
+ 
+### 개요
+ 
+고객들에게 편리하고 학습에 필요한 다양한 문구 제품을 제공하는 온라인 쇼핑몰을 구축하는 것입니다. 이를 통해 고객들은 집에서 편하게 쇼핑을 즐길 수 있으며, 문구 제품을 필요로 하는 고객층을 대상으로 합니다
 
+### 시장조사
+ 
+- 경쟁사: 천재쇼핑몰,모닝글로리,문구랜드,알파
+- 차별화 포인트: 다양한 예쁜 일러스트와 디자인이 적용된 문구 제품, 신속하고 안전한 배송 시스템
 
+### 핵심 기능
 
-## 💡기획 의도💡
+- 회원가입 및 로그인 기능
+- 제품 목록 및 상세페이지 표시
+- 장바구니 및 주문 기능
+- 리뷰 및 평점 기능
+- 판매 실적 그래프 시각화
+
+</details>
+
 
 
 ## 🙋‍♀️ Team_Member 🙋‍♀️
 
 <div align="center">
 
-| **남원우** | **변재혁** | **이무현** | **유지호** | **최경락** | 
+| **남원우** | **변재혁** | **유지호** | **이무현** | **최경락** | 
 | :------: |  :------: | :------: | :------: | :------: | 
-| [<img src="https://avatars.githubusercontent.com/u/145524959?v=4" height=150 width=150> <br/> @wwnoov](https://github.com/wwnoov) | [<img src="https://avatars.githubusercontent.com/u/145942491?v=4" height=150 width=150> <br/> @jaehyukpyon2](https://github.com/jaehyukpyon2) |[<img src="https://avatars.githubusercontent.com/u/145963633?v=4" height=150 width=150> <br/> @LMH9999](https://github.com/LMH9999)| [<img src="https://avatars.githubusercontent.com/u/145963790?v=4" height=150 width=150> <br/> @jiho-96](https://github.com/jiho-96)| [<img src="https://avatars.githubusercontent.com/u/140072536?v=4" height=150 width=150> <br/> @raknrak](https://github.com/raknrak) |
-| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 | 관리자 기능 <br> 공지사항 기능 | 판매자 마이페이지 기능<br> 상품 관리 페이지 기능 | 상품 등록 기능 <br> 상품 수정 기능| 
+| [<img src="https://avatars.githubusercontent.com/u/145524959?v=4" height=150 width=150> <br/> @wwnoov](https://github.com/wwnoov) |[<img src="https://avatars.githubusercontent.com/u/145942491?v=4" height=150 width=150> <br/> @jaehyukpyon2](https://github.com/jaehyukpyon2)|[<img src="https://avatars.githubusercontent.com/u/145963790?v=4" height=150 width=150> <br/> @jiho-96](https://github.com/jiho-96)|[<img src="https://avatars.githubusercontent.com/u/145963633?v=4" height=150 width=150> <br/> @LMH9999](https://github.com/LMH9999)| [<img src="https://avatars.githubusercontent.com/u/140072536?v=4" height=150 width=150> <br/> @raknrak](https://github.com/raknrak) |
+| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 |  판매자 마이페이지 기능<br> 상품 관리 페이지 기능 | 관리자 기능 <br> 공지사항 기능 |상품 등록&수정 기능 <br> 상품 목록 기능| 
 
 </div>
 

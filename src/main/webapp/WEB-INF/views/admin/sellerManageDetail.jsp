@@ -4,12 +4,7 @@
 
 <head>
     <title>판매자 '${seller.sellerId}' 정보 </title>
-    <!-- Include Bootstrap CSS -->
-<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">--%>
-<%--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"--%>
-<%--            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>--%>
     <style>
-        /* Optional custom styles */
         nav.mh {
             height: 100%;
             width: 15%;
@@ -21,9 +16,9 @@
             color: white;
         }
         .admin-title {
-            font-size: 24px; /* Larger font size for Administrator */
-            font-weight: bold; /* Optional: Make it bold */
-            margin-bottom: 20px; /* Add some space below the Administrator title */
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
         nav.mh a {
@@ -40,12 +35,12 @@
         }
 
         .container .mh {
-            margin-left: 10%; /* Set the margin in percentage */
+            margin-left: 10%;
             padding: 5%;
         }
-        /* Style for table headers */
+
         th {
-            width: 120px; /* Adjust as needed */
+            width: 120px;
             height: 100px;
             text-align: center;
             vertical-align: middle;
@@ -58,7 +53,7 @@
         }
         .center-buttons {
             text-align: center;
-            margin-top: 20px; /* Adjust as needed */
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -76,7 +71,6 @@
     <div class="mh">
         <h1 class="mt-3">판매자 '${seller.sellerId}' 정보</h1>
 
-        <!-- Table for the first set of information -->
         <table class="table table-bordered mt-4">
             <tr>
                 <th class="table-dark">아이디</th>
@@ -117,15 +111,12 @@
 
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
 
-<!-- Include Bootstrap JS (optional) -->
-<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>--%>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var BID="";
     var banReason="";
     $(document).ready(function() {
         $('#banSellerModal').on('show.bs.modal', function(event) {
-            // console.log($(event.relatedTarget).data('sellerid'));
             BID = $(event.relatedTarget).data('sellerid');
         });
     });
@@ -170,7 +161,6 @@
     function changeFn(){
         banReason  = document.getElementById("banReason");
         var value = (banReason.options[banReason.selectedIndex].value);
-        // alert("value = "+value);
         banReason = value;
     }
 </script>
