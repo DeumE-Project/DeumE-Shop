@@ -149,18 +149,22 @@ public class SellerServiceImpl implements SellerService {
 
 
     // 유지호
+
+    // seller 정보 조회
     @Override
     public SellerDTO mySellerInfoByIdx(Integer sellerIdx) {
         SellerDTO sellerDTO = sellerRepository.mySellerInfoByIdx(sellerIdx);
         return sellerDTO;
     }
 
+    // 누적매출
     @Override
     public int getMyTotalRev(Integer sellerIdx) {
         int myRev = sellerRepository.getMyTotalRev(sellerIdx);
         return myRev;
     }
 
+    // 현재 월의 매출
     @Override
     public int getDateRev(Integer sellerIdx) {
         LocalDate currentDate = LocalDate.now();
@@ -168,13 +172,14 @@ public class SellerServiceImpl implements SellerService {
         // 현재 년도와 월 얻기
         int currentYear = currentDate.getYear();
         int currentMonth = currentDate.getMonthValue();
-        String yearMonthString = String.format("%04d-%02d", currentYear, currentMonth);
+        String yearMonthString = String.format("%04d-%02d", currentYear, currentMonth); // '2024-01' 형식으로 값을 포매팅
 
         int dateRev = sellerRepository.getDateRev(sellerIdx, yearMonthString);
         return dateRev;
     }
 
 
+    // 평균 월 매출
     @Override
     public int avgRev(Integer sellerIdx) {
         int avgRev = sellerRepository.avgRev(sellerIdx);
@@ -182,20 +187,22 @@ public class SellerServiceImpl implements SellerService {
     }
 
 
+    // 페이징 변수 선언
     int pageLimit = 10; // 한 페이지당 보여줄 글 개수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
 
 
+    // myProduct 페이징
     @Override
-    public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) {
-        int pagingStart = (page - 1) * pageLimit;
+    public List<ProductDTO> productPagingListWithSearch(Integer sellerIdx, int page, String searchField, String searchWord) { // 넘겨줄 변수 값
+        int pagingStart = (page - 1) * pageLimit; // 한 페이지에 보여줄 데이터를 계산하기 위해서 사용. 시작점
         Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);
         pagingParams.put("limit", pageLimit);
         pagingParams.put("sellerIdx", sellerIdx);
 
         // 검색어가 제공된 경우에만 검색 조건 추가
-        if (searchField != null && searchWord != null) {
+        if (searchField != null && searchWord != null) { // 검색필드와 단어가 존재할 경우 해당 값을 pagingParams 저장
             pagingParams.put("searchField", searchField);
             pagingParams.put("searchWord", "%" + searchWord + "%"); // 부분 일치 검색을 위해 % 추가
         }
@@ -203,10 +210,12 @@ public class SellerServiceImpl implements SellerService {
         List<ProductDTO> productPagingListWithSearch = productRepository.productPagingListWithSearch(pagingParams);
         return productPagingListWithSearch;
     }
+
+    // myProduct의 페이징 계산
     @Override
     public PageDTO pagingParam(int page, Integer sellerIdx) {
         // 전체 글 개수 조회
-        int productCount = productRepository.productCount(sellerIdx);
+        int productCount = productRepository.productCount(sellerIdx); // 페이징하기 위해 해당 조건에 맞는 전체 데이터의 개수를 카운트
         // 전체 페이지 개수 계산
         int maxPage = (int) (Math.ceil((double) productCount / pageLimit));
         // 시작 페이지 값 계산
@@ -228,11 +237,12 @@ public class SellerServiceImpl implements SellerService {
 
 
 
+    // myProduct의 검색 시 페이징 계산
     @Override
     public PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord) {
 
         // 전체 글 개수 조회
-        int searchproductCount = productRepository.searchproductCount(sellerIdx, searchField, searchWord);
+        int searchproductCount = productRepository.searchProductCount(sellerIdx, searchField, searchWord); // 검색했을 때 해당하는 전체 데이터 개수 카운트
         // 전체 페이지 개수 계산
         int maxPage = (int) (Math.ceil((double) searchproductCount / pageLimit));
         // 시작 페이지 값 계산
@@ -252,6 +262,7 @@ public class SellerServiceImpl implements SellerService {
         return searchProductPagingPageDTO;
     }
 
+    // manageProduct 페이징
     @Override
     public List<OrderProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx, int page, String searchField, String searchWord) {
         int pagingStart = (page - 1) * pageLimit;
@@ -271,6 +282,7 @@ public class SellerServiceImpl implements SellerService {
         return sellProductManagePaging;
     }
 
+    // manageProduct 페이징 계산
     @Override
     public PageDTO orderManagePagingParm(int page, Integer sellerIdx, Integer productIdx) {
         // 전체 글 개수 조회
@@ -294,6 +306,7 @@ public class SellerServiceImpl implements SellerService {
         return orderProductPagingPageDTO;
     }
 
+    // manageProduct 검색 시 페이징 계산
     @Override
     public PageDTO orderManageSearchPagingParm(int page, Integer sellerIdx, Integer productIdx, String searchField, String searchWord) {
         // 전체 글 개수 조회
@@ -317,24 +330,28 @@ public class SellerServiceImpl implements SellerService {
         return orderSearchProductPagingPageDTO;
     }
 
+    // 매월 매출
     @Override
     public List<SellDashBoardDTO> monthlySalesList(Integer sellerIdx) {
         List<SellDashBoardDTO> monthlySalesList = sellerRepository.monthlySalesList(sellerIdx);
         return monthlySalesList;
     }
 
+    // 카테고리별 매출
     @Override
     public List<SellDashBoardDTO> categorySales(Integer sellerIdx) {
         List<SellDashBoardDTO> categorySalesList = sellerRepository.categorySalesList(sellerIdx);
         return categorySalesList;
     }
 
+    // 많이 팔린 상품
     @Override
     public List<SellDashBoardDTO> bestSellCount(Integer sellerIdx) {
         List<SellDashBoardDTO> bestSellCountList = sellerRepository.bestSellCountList(sellerIdx);
         return bestSellCountList;
     }
 
+    // 매출이 높은 상품
     @Override
     public List<SellDashBoardDTO> bestSellRev(Integer sellerIdx) {
         List<SellDashBoardDTO> bestSellRevList = sellerRepository.bestSellRevList(sellerIdx);

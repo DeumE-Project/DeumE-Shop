@@ -154,7 +154,7 @@
         ORDER BY A.product_reg_date LIMIT #{start}, #{limit}
     </select>
 
-    <select id="searchproductCount" parameterType="java.util.Map" resultType="Integer">
+    <select id="searchProductCount" parameterType="java.util.Map" resultType="Integer">
         SELECT
         COUNT(A.product_idx)
         FROM product A

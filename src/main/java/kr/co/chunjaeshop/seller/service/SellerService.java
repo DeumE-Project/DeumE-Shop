@@ -49,14 +49,7 @@ public interface SellerService {
 
     int getDateRev(Integer sellerIdx);
 
-    /*int getDateRevLast(Integer sellerIdx, String lastMonth);*/
-
-    /*List<ProductDTO> myProduct(Integer sellerIdx);*/
-
     int avgRev(Integer sellerIdx);
-
-    /*List<ProductDTO> productPagingList(Integer sellerIdx, int page);*/
-
 
     PageDTO pagingParam(int page, Integer sellerIdx);
 

@@ -33,14 +33,16 @@ public interface ProductRepository {
 
 
     // 유지호
+
+    // 판매 상품 카운트
     int countMyProductCnt(Integer sellerIdx);
 
-
+    // 페이징을 위해서 카운트
     int productCount(Integer sellerIdx);
 
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
-    int searchproductCount(Integer sellerIdx, String searchField, String searchWord);
+    int searchProductCount(Integer sellerIdx, String searchField, String searchWord);
 
 
     // 변재혁
