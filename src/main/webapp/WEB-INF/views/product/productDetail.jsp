@@ -58,11 +58,20 @@
             color: #dc3545;
             font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
+        .img-fluid{
+            max-width: 100%;
+            height: auto;
+            width: 100%;
+        }
 
         @media (min-width: 768px) {
             /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
             .product-image, .product-description {
-                order: 1; /* 왼쪽에 배치 */
+                order: 2;
+
+            }
+            .product-image {
+                margin: 0 auto; /* 가운데 정렬 */
             }
 
             .description-image {
@@ -102,12 +111,11 @@
     <!-- 상품 설명 사진 -->
     <div class="row mt-4">
         <div class="col-lg-12 description-image">
-            <h3>상품 상세 설명</h3>
+
             <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
