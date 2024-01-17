@@ -42,8 +42,9 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="navbar container px-4 px-lg-5">
+        <a class="navbar-brand" href="/main">
         <img src="<%= request.getContextPath() %>/resources/img/logo2.png" width="80" height="80">
-        <a class="navbar-brand" href="/main">듬이Shop</a>
+        듬이Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
