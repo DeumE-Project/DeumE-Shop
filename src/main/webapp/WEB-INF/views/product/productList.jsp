@@ -5,6 +5,12 @@
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>상품목록</title>
+    <style>
+
+        #noProductMessage {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <!-- Header-->
@@ -39,7 +45,9 @@
     </form>
     <div class="container px-4 px-lg-5 mt-5">
         <c:if test="${empty productListPaging}">
-            <h1>등록된 상품이 없습니다</h1>
+            <div id="noProductMessage">
+                <h1>등록된 상품이 없습니다</h1>
+            </div>
         </c:if>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <c:forEach items="${productListPaging}" var="product">
