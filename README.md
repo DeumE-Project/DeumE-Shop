@@ -85,8 +85,8 @@
 ## 📈 요구 명세서 📈
 
 <details><summary>요구 명세서</summary>
-      
 
+[<img src="https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/693f8944-2d64-44eb-a156-cbc31b4eba6e">](https://feline-khaan-f70.notion.site/90cc985f6d4048c8a248e9375a6cc272)
       
 </details>
   
