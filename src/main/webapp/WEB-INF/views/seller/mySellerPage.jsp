@@ -281,7 +281,7 @@
                     <button class="btn btn-secondary mx-2"
                             onclick="location.href='/seller/myProduct'">판매 상품 관리
                     </button>
-                    <button class="btn btn-outline-secondary" onclick="location.href='#'">뒤로 가기</button>
+                    <button class="btn btn-outline-secondary" onclick="location.href='/'">뒤로 가기</button>
                 </div>
             </div>
         </div>
