@@ -31,14 +31,14 @@
         <div class="mb-3">
             <label for="productName" class="form-label">상품명</label>
             <form:input type="text" class="form-control" id="productName" path="productName"
-                        placeholder="상품명을 입력하세요 (ex. 3색 볼펜 / 한국어, 영어, 숫자만 20글자 이하로 입력 가능합니다.)" autofocus="autofocus"
+                        placeholder="상품명을 입력하세요 (ex. 3색 볼펜 / 한국어, 영어, 숫자만 50글자 이하로 입력 가능합니다.)" autofocus="autofocus"
                         oninput="checkProductNameLength()"/>
             <form:errors path="productName" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
             <label for="productExplain" class="form-label">상품 간단 설명</label>
             <form:input class="form-control" path="productExplain" rows="3"
-                        placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다./ 한국어, 영어, 숫자만 50글자 이하만 입력 가능합니다.)" oninput="checkProductExplain()"/>
+                        placeholder="상품 설명을 입력하세요(ex. 부드러운 3색 볼펜입니다./ 한국어, 영어, 숫자만 100글자 이하만 입력 가능합니다.)" oninput="checkProductExplain()"/>
             <form:errors path="productExplain" cssClass="text-danger"/>
         </div>
         <div class="mb-3">
@@ -79,7 +79,7 @@
             <img id="productImgPreview" class="thumbnail" />
         </div>
         <div class="mb-3">
-            <label for="productDetailImg" class="form-label">제품 설명 사진</label>
+            <label for="productDetailImg" class="form-label">제품 상세 사진</label>
             <form:input type="file" class="form-control" path="productDetailImg" id="productDetailImgInput" accept="image/*"
                         onchange="validateImageType('productDetailImgInput', 'productDetailImgWarning')" />
             <form:errors path="productDetailImg" cssClass="text-danger"/>
@@ -124,7 +124,7 @@
             let targetElement = document.getElementById(targetId);
 
             if (fileSize > 10485760) {
-                warning.innerHTML = "파일 크기가 10MB를 초과합니다.";
+                warning.innerHTML = "이미지파일 크기가 10MB를 초과합니다.";
                 input.value = ''; // Clear the input
                 targetElement.style.display = 'none'; // Hide the preview
                 return;
@@ -204,11 +204,11 @@
             let productName = productNameInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
-            let regex = /^.{1,20}$/;
+            let regex = /^.{1,50}$/;
 
             if (!regex.test(productName)) {
                 if (!productNameInput.hasAttribute('readonly')) {
-                    alert('20글자 이하로 입력해주세요.');
+                    alert('50글자 이하로 입력해주세요.');
                     productNameInput.value = ''; // 입력값 초기화
                 }
             }
@@ -220,10 +220,10 @@
             let productExplain = productExplainInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
-            let regex = /^.{1,50}$/;
+            let regex = /^.{1,100}$/;
 
             if (!regex.test(productExplain)) {
-                alert('입력은 50글자 이하로 제한됩니다.');
+                alert('입력은 100글자 이하로 제한됩니다.');
                 productExplainInput.value = ''; // 입력값 초기화
             }
         }
