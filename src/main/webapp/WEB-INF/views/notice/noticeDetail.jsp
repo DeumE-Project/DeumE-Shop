@@ -56,6 +56,7 @@
         <button onclick="deleteFn()" class="btn btn-danger">삭제</button>
     </div>
 </div>
+</div>
 <script>
     const listFn = () => {
         const page = '${page}';

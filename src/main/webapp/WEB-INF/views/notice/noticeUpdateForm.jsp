@@ -55,6 +55,7 @@
         </div>
     </form:form>
 </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     const cancelFn = () => {
