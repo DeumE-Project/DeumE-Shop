@@ -127,6 +127,10 @@
             success: function (data) {
                 // Append the received review list HTML to the container
                 $('#reviewListContainer').html(data);
+
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
                 // Handle error if needed
@@ -148,6 +152,10 @@
             success: function (data) {
                 // Append the received review list HTML to the container
                 $('#reviewListContainer').html(data);
+
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
                 // Handle error if needed

@@ -142,10 +142,14 @@
             data: {
                 productIdx: '<c:out value="${product.productIdx}"/>',
                 page: page
+                
             },
             success: function (data) {
 
                 $('#reviewListContainer').html(data);
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
 
@@ -167,6 +171,9 @@
             success: function (data) {
 
                 $('#reviewListContainer').html(data);
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
 
