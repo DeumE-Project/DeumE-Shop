@@ -4,13 +4,13 @@
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
 
 
-<img src="https://github.com/Last-but-not-LEAST/LBNL/assets/145524959/36306f87-6641-4489-bc56-f8fd26c3e126" width="750px" height="350px">
-
 <div>
 
 
-| **![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)** |  **![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)** |
+
+| **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/46747cca-2119-4ff2-a288-71d1756d1e5a)** |  **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/dbdaee05-0810-42d3-b932-7b9fb889e627)** |
 | :------: |  :------: |
+|  ![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)  |  ![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)  | 
 |  [@AWS](#)  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
 
 
