@@ -6,9 +6,7 @@
 
 <div>
 
-
-
-| **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/46747cca-2119-4ff2-a288-71d1756d1e5a)** |  **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/dbdaee05-0810-42d3-b932-7b9fb889e627)** |
+| **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/9eb4164b-6aff-4d7e-95db-08819308bfca)** |  **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/5b99770c-ecc7-4cb8-bd7f-3daf8883278d)** |
 | :------: |  :------: |
 |  ![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)  |  ![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)  | 
 |  [@AWS](#)  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
@@ -30,12 +28,13 @@
 
 
 ## 📂 PPT 📂
-       
-<div align="center">          
+<details><summary>PPT</summary>      
 
-</div>            
-</details>            
-      
+[<img src="https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/8356b741-de29-408a-8ef5-ead43fa5cf31" width="200px" height="200px">](https://www.canva.com/design/DAF6GN9LCiM/cuiRsAhDyBvKBWDXnjZ48g/view?utm_content=DAF6GN9LCiM&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+<br> 👆👆👆👆👆👆👆👆👆
+
+</details>
+
 ## 📖 프로젝트 소개📖
 <details><summary>온라인 문구점 쇼핑몰 프로젝트</summary>
 <br>
@@ -69,7 +68,7 @@
 | **남원우** | **변재혁** | **유지호** | **이무현** | **최경락** | 
 | :------: |  :------: | :------: | :------: | :------: | 
 | [<img src="https://avatars.githubusercontent.com/u/145524959?v=4" height=150 width=150> <br/> @wwnoov](https://github.com/wwnoov) |[<img src="https://avatars.githubusercontent.com/u/145942491?v=4" height=150 width=150> <br/> @jaehyukpyon2](https://github.com/jaehyukpyon2)|[<img src="https://avatars.githubusercontent.com/u/145963790?v=4" height=150 width=150> <br/> @jiho-96](https://github.com/jiho-96)|[<img src="https://avatars.githubusercontent.com/u/145963633?v=4" height=150 width=150> <br/> @LMH9999](https://github.com/LMH9999)| [<img src="https://avatars.githubusercontent.com/u/140072536?v=4" height=150 width=150> <br/> @raknrak](https://github.com/raknrak) |
-| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 |  판매자 마이페이지 기능<br> 상품 관리 페이지 기능 | 관리자 기능 <br> 공지사항 기능 |상품 등록&수정 기능 <br> 상품 목록 기능| 
+| 사진 리뷰 기능 <br>한줄 리뷰 기능<br>Git Hub 관리 <br>Notion 관리 |로그인&회원가입  <br> 장바구니&주문  <br> Spring Security 기능 <br> AWS관리 |  판매자 마이페이지 <br> 상품 관리 페이지 기능 <br> DataBase 설계 | 관리자 기능 <br> 공지사항 기능 <br> AWS관리 |상품 등록&수정 기능 <br> 상품 목록 기능 <br> Notion 관리| 
 
 </div>
 
