@@ -72,7 +72,7 @@
 | **남원우** | **변재혁** | **유지호** | **이무현** | **최경락** | 
 | :------: |  :------: | :------: | :------: | :------: | 
 | [<img src="https://avatars.githubusercontent.com/u/145524959?v=4" height=150 width=150> <br/> @wwnoov](https://github.com/wwnoov) |[<img src="https://avatars.githubusercontent.com/u/145942491?v=4" height=150 width=150> <br/> @jaehyukpyon2](https://github.com/jaehyukpyon2)|[<img src="https://avatars.githubusercontent.com/u/145963790?v=4" height=150 width=150> <br/> @jiho-96](https://github.com/jiho-96)|[<img src="https://avatars.githubusercontent.com/u/145963633?v=4" height=150 width=150> <br/> @LMH9999](https://github.com/LMH9999)| [<img src="https://avatars.githubusercontent.com/u/140072536?v=4" height=150 width=150> <br/> @raknrak](https://github.com/raknrak) |
-| 사진 리뷰 기능 <br>한줄 리뷰 기능 |로그인&회원가입 기능 <br> 장바구니&주문 기능 |  판매자 마이페이지 기능<br> 상품 관리 페이지 기능 | 관리자 기능 <br> 공지사항 기능 |상품 등록&수정 기능 <br> 상품 목록 기능| 
+| 사진 리뷰 기능 <br>한줄 리뷰 기능<br>Git Hub 관리 <br>Notion 관리 |로그인&회원가입 기능 <br> 장바구니&주문 기능 <br> Spring Security 기능 <br> AWS관리 |  판매자 마이페이지 기능<br> 상품 관리 페이지 기능 <br> DataBase 설계 | 관리자 기능 <br> 공지사항 기능 <br> AWS관리 |상품 등록&수정 기능 <br> 상품 목록 기능 <br> Notion 관리| 
 
 </div>
 
