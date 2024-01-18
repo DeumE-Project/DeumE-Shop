@@ -11,4 +11,6 @@ public class CartDetailDTO {
     private Integer productPrice;
 
     private String productName;
+
+    private String productThumbSaved;
 }

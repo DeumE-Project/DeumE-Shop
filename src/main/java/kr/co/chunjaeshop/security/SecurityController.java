@@ -21,8 +21,9 @@ public class SecurityController {
     private final CustomerMapper customerMapper;
 
     @GetMapping(value = "/accessError")
-    public void accessDenied(HttpServletResponse httpServletResponse, Authentication auth, Model model) {
+    public String accessDenied(HttpServletResponse httpServletResponse, Authentication auth, Model model) {
         log.info("auth = {}", auth);
+        return "error/accessErrorPage";
     }
 
     @GetMapping(value = "/sample/customer")
