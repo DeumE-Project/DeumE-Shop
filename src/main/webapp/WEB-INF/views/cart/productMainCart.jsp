@@ -17,6 +17,16 @@
           rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+   <style>
+    #scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+    height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+    }
+    </style>
 </head>
 <div class="contentset">
 <div class="container-fluid py-5">
@@ -117,6 +127,9 @@
         <img src="${pageContext.request.contextPath}/product/${productDTO.productDetailSaved}"
              style="max-width: 100%;">
     </div>
+    <div>
+        <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+    </div>
 </div>
 <div id="reviewListContainer"></div>
 </div>
@@ -133,6 +146,10 @@
             success: function (data) {
                 // Append the received review list HTML to the container
                 $('#reviewListContainer').html(data);
+
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
                 // Handle error if needed
@@ -154,6 +171,10 @@
             success: function (data) {
                 // Append the received review list HTML to the container
                 $('#reviewListContainer').html(data);
+
+                $('html, body').animate({
+                    scrollTop: $('#reviewListContainer').offset().top
+                }, 50);
             },
             error: function () {
                 // Handle error if needed
@@ -222,6 +243,26 @@
 
         document.body.appendChild(formTag).submit();
     });
+</script>
+<script>
+
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        let btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    }
+
+
+    function scrollToTop() {
+        $('html, body').animate({scrollTop : 0},800);
+    }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

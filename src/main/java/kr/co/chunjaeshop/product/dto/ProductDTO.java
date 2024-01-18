@@ -13,7 +13,7 @@ public class ProductDTO {
     private String productName; // 상품명
 
     @NotBlank(message = "상품 간단 설명은 필수 입력값입니다")
-    @Pattern(regexp = "^[a-zA-Z0-9가-힣\\s!@#$%^&*()_+\\-=,.<>/?\\[\\]{}'`~\\\\|]{1,50}$", message = "상품명은 특수문자와 띄어쓰기를 포함한 한국어, 영어, 숫자로 이루어진 50글자 이하의 문자열이어야 합니다")
+    @Pattern(regexp = "^[\\w가-힣\\s!@#$%^&*()_+\\-=,.<>/?\\[\\]{}'`~\\\\|]{1,100}$", message = "상품 간단 설명은 특수문자와 띄어쓰기를 포함한 한국어, 영어, 숫자로 이루어진 100글자 이하의 문자열이어야 합니다")
     private String productExplain;
 
     @NotNull(message = "상품 가격은 필수 입력값입니다")

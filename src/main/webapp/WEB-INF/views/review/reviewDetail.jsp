@@ -52,7 +52,7 @@
         </div>
     </c:if>
     </sec:authorize>
-
+    <button class="btn btn-warning" onclick="listFn()">목록으로</button>
 
 </div>
 </div>
@@ -60,8 +60,7 @@
 </body>
 <script>
     const listFn = () => {
-        const page = '${page}';
-        location.href = "/product/review/paging?page=" + page;
+        location.href = "/product/detail?productIdx=" + ${productReview.productIdx};
     }
     const updateFn = () => {
         const reviewIdx = '${productReview.reviewIdx}';
