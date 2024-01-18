@@ -11,10 +11,15 @@
             max-height: 200px;
             margin-top: 10px;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 
 <body>
+<div class="contentset">
 <div class="container mt-5">
     <h1>리뷰 수정</h1>
 
@@ -76,6 +81,7 @@
             previewImage(this, 'reviewImgPreview');
         };
     </script>
+</div>
 </div>
 </body>
 </html>

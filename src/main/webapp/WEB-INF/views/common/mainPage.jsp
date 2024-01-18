@@ -15,6 +15,10 @@
             width: 100%;
             z-index: 1000;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 <script>
@@ -51,7 +55,10 @@
     }, 50);  // 200ms 간격으로 호출
 </script>
 <!-- Header-->
-<header class="main-header py-5">
+
+<body>
+<div class="contentset">
+<div class="main-header py-5">
     <img src="${pageContext.request.contextPath}/resources/common/images/mainpage_image_bgremoved.png"
          class="character"/>
     <div class="container px-4 px-lg-5 my-5">
@@ -60,8 +67,7 @@
             <p class="lead fw-normal text-white-50 mb-0"></p>
         </div>
     </div>
-</header>
-<body>
+</div>
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -101,6 +107,7 @@
         </div>
     </div>
 </section>
+</div>
 <%@ include file="./footer.jsp" %>
 <script>
     const productNotExistErrorMsg = '<c:out value="${productNotExistErrorMsg}"/>';

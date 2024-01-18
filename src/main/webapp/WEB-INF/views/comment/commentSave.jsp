@@ -11,8 +11,15 @@
     <title>product review save</title>
     <!-- 부트스트랩 CDN 추가 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
 </head>
 <body>
+<div class="contentset">
 <div class="container mt-5">
     <h1>한줄 리뷰 등록</h1>
 
@@ -40,6 +47,7 @@
 
     </form:form>
 
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

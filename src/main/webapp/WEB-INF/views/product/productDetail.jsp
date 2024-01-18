@@ -65,6 +65,11 @@
             height: auto;
             width: 80%;
         }
+      
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
 
         #scrollTopBtn {
             display: none;
@@ -74,7 +79,6 @@
             width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
             height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
         }
-
 
         @media (min-width: 768px) {
             /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
@@ -94,7 +98,7 @@
     </style>
 </head>
 <body>
-
+<div class="contentset">
 <div class="container">
     <div class="row">
         <div class="col-lg-6 product-image">
@@ -135,7 +139,7 @@
     </div>
     <div id="reviewListContainer"></div>
 </div>
-
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>

@@ -6,6 +6,11 @@
 <head>
     <title>save</title>
     <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 30px;
+
+        }
         .center-buttons {
             text-align: center;
         }
@@ -21,7 +26,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container contentset">
     <br>
     <h1>공지사항 등록하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="${pageContext.request.contextPath}/notice/save" method="post">
