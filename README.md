@@ -29,15 +29,13 @@
 09. [🤐개선 사항](#-개선-사항-)
 
 
-## 📂 PPT 📂       
-
- <details><summary>PPT</summary>      
+## 📂 PPT 📂
+<details><summary>PPT</summary>      
 
 [<img src="https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/8356b741-de29-408a-8ef5-ead43fa5cf31" width="200px" height="200px">](https://www.canva.com/design/DAF6GN9LCiM/cuiRsAhDyBvKBWDXnjZ48g/view?utm_content=DAF6GN9LCiM&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 <br> 👆👆👆👆👆👆👆👆👆
 
- </details>               
-
+</details>
 
 ## 📖 프로젝트 소개📖
 <details><summary>온라인 문구점 쇼핑몰 프로젝트</summary>
