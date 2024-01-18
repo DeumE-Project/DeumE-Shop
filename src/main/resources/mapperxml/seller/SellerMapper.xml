@@ -107,6 +107,7 @@
          ]]>
     </select>
 
+    <!--날짜 테이블을 생성 후 월 별 매출 테이블을 조인, 최근 6개월 데이터 조회-->
     <select id="monthlySalesList" parameterType="Integer" resultType="kr.co.chunjaeshop.seller.dto.SellDashBoardDTO">
         <![CDATA[
          with dateData as (SELECT DISTINCT DATE_FORMAT(DATE_ADD(MIN(D.seller_joined), INTERVAL seq - 1 MONTH), '%Y-%m') AS date

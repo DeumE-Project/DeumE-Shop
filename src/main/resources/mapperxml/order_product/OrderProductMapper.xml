@@ -13,6 +13,7 @@
 
 
     <!--    유지호 -->
+    <!--해당 판매 상품의 상세 리스트를 보여주기 위한 쿼리, 검색 단어가 있을 경우 if로 추가-->
     <select id="sellProductManagePaging" parameterType="java.util.HashMap" resultType="OrderProductDTO">
         select D.product_name, C.customer_name, A.product_price, A.product_count, A.product_total_price, A.product_count, B.order_date, B.order_address,
         case when B.order_status = '1' then '배송중'
