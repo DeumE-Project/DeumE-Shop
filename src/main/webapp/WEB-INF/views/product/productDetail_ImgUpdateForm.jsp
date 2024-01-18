@@ -47,7 +47,7 @@
 <body>
 
 <div class="container mt-5">
-    <h1 class="mb-4">상품 설명 사진 수정</h1>
+    <h1 class="mb-4">상품 상세 사진 수정</h1>
     <form:form modelAttribute="productDetailImgUpdateDTO"
                action="/product/productDetailImgUpdate?sellerIdx=${productDetailImgUpdateDTO.sellerIdx}
                &productIdx=${productDetailImgUpdateDTO.productIdx}" method="post" enctype="multipart/form-data">
@@ -63,7 +63,7 @@
             </div>
 
             <div class="col-md-6">
-                <label for="detailImg" class="form-label">새로운 상품 사진</label>
+                <label for="detailImg" class="form-label">새로운 상품 상세 사진</label>
                 <form:input type="file" class="form-control" path="detailImg" id="detailImgInput" accept="image/*"
                             onchange="validateAndPreviewImage('detailImgInput', 'detailImgWarning','detailImgPreview')" />
                 <form:errors path="detailImg" cssClass="text-danger"/>

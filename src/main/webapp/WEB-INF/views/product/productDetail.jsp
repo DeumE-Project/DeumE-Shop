@@ -65,6 +65,14 @@
             width: 80%;
         }
 
+         #scrollTopBtn {
+             display: none;
+             position: fixed;
+             bottom: 20px;
+             right: 20px;
+         }
+
+
         @media (min-width: 768px) {
             /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
             .product-image, .product-description {
@@ -98,7 +106,7 @@
             <input type="hidden" value="${product.productIdx}">
             <p class="product-name">상품명: <c:out value="${product.productName}"/></p>     <br>
             <p class="product-category">카테고리: <c:out value="${product.categoryName}"/></p>     <br>
-            <p class="product-description">상품 설명: <c:out value="${product.productExplain}"/></p>     <br>
+            <p class="product-description">상품 간단 설명: <c:out value="${product.productExplain}"/></p>     <br>
             <p class="price">가격: <fmt:formatNumber value="${product.productPrice}"/>원</p>     <br>
             <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>     <br>
             <div class="mb-3">
@@ -118,6 +126,7 @@
 
             <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
         </div>
+        <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()">맨 위로 가기</button>
     </div>
     <div id="reviewListContainer"></div>
 </div>
@@ -126,20 +135,20 @@
 </body>
 <script>
     function loadReviewList(page) {
-        // Make an AJAX request to the controller with pagination parameters
+
         $.ajax({
             url: '/product/review/paging',
             type: 'GET',
             data: {
                 productIdx: '<c:out value="${product.productIdx}"/>',
-                page: page // Add the current page parameter
+                page: page
             },
             success: function (data) {
-                // Append the received review list HTML to the container
+
                 $('#reviewListContainer').html(data);
             },
             error: function () {
-                // Handle error if needed
+
                 console.error('Failed to fetch review list.');
             }
         });
@@ -147,23 +156,44 @@
 </script>
 <script>
     function loadCommentList(page) {
-        // Make an AJAX request to the controller with pagination parameters
+
         $.ajax({
             url: '/product/comment/paging',
             type: 'GET',
             data: {
                 productIdx: '<c:out value="${product.productIdx}"/>',
-                page: page // Add the current page parameter
+                page: page
             },
             success: function (data) {
-                // Append the received review list HTML to the container
+
                 $('#reviewListContainer').html(data);
             },
             error: function () {
-                // Handle error if needed
+
                 console.error('Failed to fetch review list.');
             }
         });
+    }
+</script>
+<script>
+
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        var btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    }
+
+
+    function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 </script>
 </html>
