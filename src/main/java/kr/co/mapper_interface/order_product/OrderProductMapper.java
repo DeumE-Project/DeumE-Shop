@@ -19,12 +19,17 @@ public interface OrderProductMapper {
 
 
     // 유지호
+
+    // 해당 상품의 리스트
     List<OrderProductDTO> sellProductManagePaging(Map<String, Object> managePagingParams);
 
+    // 해당 상품 카운트
     int orderProductCount(Integer productIdx);
 
+    // 검색시 해당 상품 카운트
     int orderSearchProductCount(Map<String, Object> params);
 
+    // 배송상태 업데이트
     void updateStatus(Map<String, Object> updateParams);
 
     // 변재혁
