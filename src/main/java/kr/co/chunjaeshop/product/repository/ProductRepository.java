@@ -40,8 +40,10 @@ public interface ProductRepository {
     // 페이징을 위해서 카운트
     int productCount(Integer sellerIdx);
 
+    // 상품 검색 페이징
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
+    // 상품 검색 카운팅
     int searchProductCount(Integer sellerIdx, String searchField, String searchWord);
 
 

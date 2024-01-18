@@ -40,8 +40,10 @@ public interface ProductMapper {
     // 페이징을 위한 카운트
     int productCount(Integer sellerIdx);
 
+    // 상품 및 검색 페이징 리스트
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
+    // 상품 검색시 카운트
     int searchProductCount(Map<String, Object> searchPagingParams);
 
 

@@ -2,7 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
-
+<jsp:include page="nav.jsp"/>
 <head>
     <title>회원가입</title>
 
@@ -312,5 +312,6 @@
         }).open();
     }
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

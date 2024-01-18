@@ -31,16 +31,19 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     // 유지호
 
 
+    // 주문된 상품의 리스트
     @Override
     public List<OrderProductDTO> sellProductManagePaging(Map<String, Object> managePagingParams) {
         return orderProductMapper.sellProductManagePaging(managePagingParams);
     }
 
+    // 주문 상품 카운트
     @Override
     public int orderProductCount(Integer productIdx) {
         return orderProductMapper.orderProductCount(productIdx);
     }
 
+    // 주문된 검색 상품 카운트
     @Override
     public int orderSearchProductCount(Integer productIdx, String searchField, String searchWord) {
         Map<String, Object> params = new HashMap<>();
@@ -51,6 +54,7 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
         return orderProductMapper.orderSearchProductCount(params);
     }
 
+    // 배송상태 업데이트
     @Override
     public void updateStatus(Map<String, Object> updateParams) {
         orderProductMapper.updateStatus(updateParams);}

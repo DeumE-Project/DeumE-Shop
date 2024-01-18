@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>판매 상품 관리</title>
     <!-- Favicon-->
@@ -96,12 +96,12 @@
                 <div class="col-lg-4">
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
-                        <button class="btn btn-primary" type="submit" <c:if test="${empty myProductList}">disabled</c:if>>검색</button>
+                        <button class="btn btn-primary" type="submit" <c:if test="${empty myProductList}">disabled</c:if>>검색</button>  <%--리스트가 없을 경우 검색 x--%>
                     </div>
                 </div>
             </form>
 
-            <%--리스트가 없을 경우--%>
+            <%--리스트가 없을 경우 문구--%>
             <c:if test="${empty myProductList}">
                 <div class="text-center my-5">
                     <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
@@ -129,7 +129,7 @@
                 </thead>
                 <c:forEach items="${myProductList}" var="product" varStatus="loop">
                     <tr>
-                        <%--페이징 검색 값이 없을 경우와, 있을 경우로 나눔--%>
+                        <%--페이징 검색 값이 없을 경우와, 있을 경우로 나누어서 번호 계산--%>
                         <c:choose>
                             <c:when test="${searchWord eq '' || searchWord eq null}">
                                 <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
@@ -258,6 +258,7 @@
         </div>
     </section>
 </main>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의

@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <!DOCTYPE html>
 
 <head>
@@ -94,6 +94,9 @@
         <button type="button" class="btn btn-secondary" onclick="goBack()">뒤로 가기</button>
 
     </form:form>
+</div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+</body>
 
     <script>
         function previewImage(input, targetId) {

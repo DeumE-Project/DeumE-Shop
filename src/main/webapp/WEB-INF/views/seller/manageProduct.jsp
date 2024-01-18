@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -103,12 +103,12 @@
                     <div class="input-group">
                         <input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요"/>
                         <input type="text" name="page" value="1" style="display: none;"/> <!-- Add this line -->
-                        <button class="btn btn-primary" type="submit" <c:if test="${empty detailMyPd}">disabled</c:if>>검색</button>
+                        <button class="btn btn-primary" type="submit" <c:if test="${empty detailMyPd}">disabled</c:if>>검색</button> <%--리스트가 없을 경우 검색 x--%>
                     </div>
                 </div>
             </form>
 
-
+            <%--리스트가 없을 경우 문구--%>
             <c:if test="${empty detailMyPd}">
                 <p class="text-center" style="font-size: 20px; font-weight: bold;">주문된 상품이 없습니다.</p>
                 <script>
@@ -118,10 +118,10 @@
                 </script>
                 <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
+
+
+            <%--리스트가 있을 경우--%>
             <c:if test="${not empty detailMyPd}">
-
-
-
             <table class="table table-bordered">
                 <thead class="table-dark">
                 <tr>
@@ -138,6 +138,7 @@
                 </thead>
                 <c:forEach items="${detailMyPd}" var="sellDetail" varStatus="loop">
                     <tr>
+                        <%--검색 값 유무에 따라 구분해서 번호 계산--%>
                         <c:choose>
                             <c:when test="${searchWord eq '' || searchWord eq null}">
                                 <td>${orderManagePaging.totalCount - ((orderManagePaging.page - 1) * orderManagePaging.pageLimit + loop.index)}</td>
@@ -159,6 +160,7 @@
                             <button type="button" class="btn btn-${sellDetail.orderStatus eq '배송완료' ? 'success' : 'danger'}" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateOrderIdx('${sellDetail.orderIdx}')">
                                     ${sellDetail.orderStatus}
                             </button>
+                            <%--배송상태 수정을 위한 모달버튼--%>
                         </td>
                     </tr>
                 </c:forEach>
@@ -168,6 +170,8 @@
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
+
+                        <%--검색단어가 없을 경우 페이징--%>
                         <c:if test="${searchWord eq null}">
                             <c:choose>
                                 <c:when test="${orderManagePaging.page > 1}">
@@ -217,7 +221,7 @@
                         </c:if>
 
 
-
+                        <%--검색단어가 있을 경우 페이징--%>
                         <c:if test="${searchWord ne null}">
                             <c:choose>
                                 <c:when test="${orderManageSearchPaging.page > 1}">
@@ -278,9 +282,12 @@
     var searchWord = "${param.searchWord}";
 </script>
 
+<%--모달창 include--%>
 <jsp:include page="updateModal.jsp" flush="true"/>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<%--모달창에서 데이터 처리--%>
 <script>
     var RID="";
     var updateStatus="";
@@ -347,6 +354,7 @@
 
     }
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 
 

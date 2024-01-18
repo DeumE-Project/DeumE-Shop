@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>판매자 마이 페이지</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -132,7 +132,7 @@
                         let barChartElement = document.getElementById("bar-chart");
 
                         if (dataBarChart.every(value => value === 0)) {
-                            // 만약 데이터가 모두 0이면, 판매된 수익이 없다는 메시지 표시
+                            // 만약 데이터가 모두 0이면 테이블 x
                             let noRevenueMessage = document.createElement('p');
                             noRevenueMessage.className = 'text-center lead fw-bold';
                             noRevenueMessage.textContent = ' ';
@@ -193,7 +193,7 @@
 
                     // 도넛 차트 옵션
                     var donutOptions = {
-                    cutout: '70%', // 중앙의 원형 구멍 크기 설정 (도넛 차트의 경우)
+                    cutout: '70%', // 중앙의 원형 구멍 크기 설정
                 };
 
                     // 도넛 차트 생성
@@ -255,7 +255,7 @@
                                 <tr>
                                     <th style="width: 10%;">번호</th>
                                     <th style="width: 20%;">상품명</th>
-                                    <th style="width: 20%;">판매수익</th>
+                                    <th style="width: 20%;">매출</th>
                                 </tr>
                                 </thead>
                                 <c:forEach items="${bestSellRevList}" var="revProduct" varStatus="loop">
@@ -287,6 +287,8 @@
         </div>
     </section>
 </main>
-<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>--%>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
 </body>
 </html>

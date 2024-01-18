@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>판매자 거절 회원 목록</title>
     <style>
@@ -185,5 +185,6 @@
         })
     }
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

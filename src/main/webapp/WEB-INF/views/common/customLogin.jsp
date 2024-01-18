@@ -2,7 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
-
+<jsp:include page="nav.jsp"/>
 <head>
     <title>로그인</title>
 
@@ -109,5 +109,7 @@
         loginFormTag.submit();
     }
 </script>
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

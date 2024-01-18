@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>판매자 가입 승인 페이지</title>
     <style>
@@ -158,7 +158,7 @@
 </div>
 
 <jsp:include page="rejectModal.jsp" flush="true"/>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var RID="";

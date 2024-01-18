@@ -2,7 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>주문상세</title>
 </head>
@@ -202,5 +202,6 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

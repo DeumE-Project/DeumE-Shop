@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
     <title>판매자 관리 페이지</title>
     <style>
         nav.mh {
@@ -158,6 +158,6 @@
 </div>
 
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

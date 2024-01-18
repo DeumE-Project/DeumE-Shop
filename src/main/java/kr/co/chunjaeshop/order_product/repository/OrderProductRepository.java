@@ -18,12 +18,17 @@ public interface OrderProductRepository {
 
 
     // 유지호
+
+    // 주문된 상품 리스트
     List<OrderProductDTO> sellProductManagePaging(Map<String, Object> managePagingParams);
 
+    // 주문된 상품 카운트
     int orderProductCount(Integer productIdx);
 
+    // 주문된 검색 상품 카운트
     int orderSearchProductCount(Integer productIdx, String searchField, String searchWord);
 
+    // 배송 상태 업데이트
     void updateStatus(Map<String, Object> updateParams);
 
     // 변재혁

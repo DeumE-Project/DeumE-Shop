@@ -110,12 +110,13 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productMapper.productCount(sellerIdx);
     }
 
-
+    // 검색시 상품 리스트
     @Override
     public List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams) {
         return productMapper.productPagingListWithSearch(pagingParams);
     }
 
+    // 검색시 상품 개수 카운트
     @Override
     public int searchProductCount(Integer sellerIdx, String searchField, String searchWord) {
         Map<String, Object> params = new HashMap<>();
@@ -125,12 +126,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         return productMapper.searchProductCount(params);
     }
-
-
-/*    @Override
-    public List<ProductDTO> sellProductManage(Integer sellerIdx, Integer productIdx) {
-        return productMapper.sellProductManage(sellerIdx, productIdx);
-    }*/
 
 
     // 변재혁

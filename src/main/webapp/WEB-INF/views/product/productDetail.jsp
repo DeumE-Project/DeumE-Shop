@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -104,7 +105,8 @@
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
                 <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
-                <button class="btn btn-warning" onclick="location.href='/product/review/paging?productIdx=${product.productIdx}'">리뷰보기</button>
+                <br/><button class="btn btn-secondary" type="button" onclick="loadReviewList(1)">사진리뷰보기</button>
+                <button class="btn btn-secondary" type="button" onclick="loadCommentList(1)">한줄리뷰보기</button>
                 <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
         </div>
@@ -117,7 +119,51 @@
             <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
         </div>
     </div>
+    <div id="reviewListContainer"></div>
 </div>
 
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
+<script>
+    function loadReviewList(page) {
+        // Make an AJAX request to the controller with pagination parameters
+        $.ajax({
+            url: '/product/review/paging',
+            type: 'GET',
+            data: {
+                productIdx: '<c:out value="${product.productIdx}"/>',
+                page: page // Add the current page parameter
+            },
+            success: function (data) {
+                // Append the received review list HTML to the container
+                $('#reviewListContainer').html(data);
+            },
+            error: function () {
+                // Handle error if needed
+                console.error('Failed to fetch review list.');
+            }
+        });
+    }
+</script>
+<script>
+    function loadCommentList(page) {
+        // Make an AJAX request to the controller with pagination parameters
+        $.ajax({
+            url: '/product/comment/paging',
+            type: 'GET',
+            data: {
+                productIdx: '<c:out value="${product.productIdx}"/>',
+                page: page // Add the current page parameter
+            },
+            success: function (data) {
+                // Append the received review list HTML to the container
+                $('#reviewListContainer').html(data);
+            },
+            error: function () {
+                // Handle error if needed
+                console.error('Failed to fetch review list.');
+            }
+        });
+    }
+</script>
 </html>
