@@ -154,6 +154,8 @@ CREATE TABLE comment (
 	FOREIGN KEY (product_idx) REFERENCES product (product_idx) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
+ALTER TABLE order_detail ADD COLUMN reviewed INT DEFAULT 0;
+
 INSERT 
 INTO category (category_name)
 VALUES ('필기구(볼펜 등)');
