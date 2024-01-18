@@ -157,7 +157,7 @@
                         <td>${sellDetail.productPrice}</td>
                         <td>${sellDetail.productCount}</td>
                         <td>${sellDetail.productTotalPrice}</td>
-                        <td>${sellDetail.orderDate}</td>
+                        <td><c:out value='${sellDetail.orderDate.toString().replaceAll("T", " ")}'/></td>
                         <td>${sellDetail.orderAddress}</td>
                         <td>
                                 <%--                                <a class="btn btn-danger" data-bs-toggle="modal" data-orderidx="${sellDetail.orderIdx}"--%>
