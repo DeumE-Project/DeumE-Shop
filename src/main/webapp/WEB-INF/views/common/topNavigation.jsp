@@ -26,8 +26,9 @@
         .main-header {
             background: url('${pageContext.request.contextPath}/resources/common/images/mainpage_image.jpg');
             background-repeat: no-repeat;
-            min-height: 15rem !important;
+            max-height: 27rem !important;
             text-align: center;
+            background-size: cover; /* 사진이 창 크기에 맞게 늘어나도록 설정 */
         }
 
         .character {

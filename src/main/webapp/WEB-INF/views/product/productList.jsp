@@ -26,8 +26,9 @@
             <p class="lead fw-normal text-white-50 mb-0"></p>
         </div>
     </div>
-    <jsp:include page="productCategoryList.jsp"></jsp:include>
 </div>
+    <jsp:include page="productCategoryList.jsp"></jsp:include>
+
 <!-- Section-->
 <section class="py-5">
     <form class="row gx-2 justify-content-center mb-4" method="get" action="/product/productList">
