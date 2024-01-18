@@ -131,8 +131,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                             <br/>
-                                            <a href="/product/review/paging?productIdx=${orderDetailDTO.productIdx}">사진리뷰리스트</a><br/>
-                                            <a href="/product/comment/paging?productIdx=${orderDetailDTO.productIdx}">한줄리뷰리스트</a>
+                                            <a href="/product/detail?productIdx=${orderDetailDTO.productIdx}">리뷰리스트</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
