@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,54 +35,28 @@
 
 
 <div class="container mt-3">
-    <ul class="pagination">
-        <c:choose>
-            <c:when test="${paging.page<=1}">
-                <li class="page-item disabled">
-                    <span class="page-link">이전</span>
-                </li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item">
-                    <a class="page-link" href="/product/comment/paging?page=${paging.page-1}&productIdx=${productIdx}" aria-label="Previous">
-                        이전
-                    </a>
-                </li>
-            </c:otherwise>
-        </c:choose>
 
-        <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
-            <c:choose>
-                <c:when test="${i eq paging.page}">
-                    <li class="page-item active">
-                        <span class="page-link">${i}</span>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item">
-                        <a class="page-link" href="/product/comment/paging?page=${i}&productIdx=${productIdx}">
-                                ${i}
-                        </a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
+<ul class="pagination">
 
-        <c:choose>
-            <c:when test="${paging.page>=paging.maxPage}">
-                <li class="page-item disabled">
-                    <span class="page-link">다음</span>
-                </li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item">
-                    <a class="page-link" href="/product/comment/paging?page=${paging.page+1}&productIdx=${productIdx}" aria-label="Next">
-                        다음
-                    </a>
-                </li>
-            </c:otherwise>
-        </c:choose>
-    </ul>
+    <li class="page-item ${paging.page <= 1 ? 'disabled' : ''}">
+        <a class="page-link" href="javascript:void(0);" onclick="loadCommentList(${paging.page-1})" aria-label="Previous">
+            이전
+        </a>
+    </li>
+
+    <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+        <li class="page-item ${paging.page eq i ? 'active' : ''}">
+            <a class="page-link" href="javascript:void(0);" onclick="loadCommentList(${i})">${i}</a>
+        </li>
+    </c:forEach>
+
+
+    <li class="page-item ${paging.page >= paging.maxPage ? 'disabled' : ''}">
+        <a class="page-link" href="javascript:void(0);" onclick="loadCommentList(${paging.page+1})" aria-label="Next">
+            다음
+        </a>
+    </li>
+</ul>
 </div>
 </body>
 </html>

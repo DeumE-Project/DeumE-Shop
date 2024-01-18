@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
-
 <head>
 <%--    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">--%>
 <%--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>--%>
@@ -68,55 +66,29 @@
 </div>
 
 <div class="container mt-3">
+
     <ul class="pagination">
-        <c:choose>
-            <c:when test="${paging.page<=1}">
-                <li class="page-item disabled">
-                    <span class="page-link">이전</span>
-                </li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page-1}&productIdx=${productIdx}" aria-label="Previous">
-                        이전
-                    </a>
-                </li>
-            </c:otherwise>
-        </c:choose>
+
+        <li class="page-item ${paging.page <= 1 ? 'disabled' : ''}">
+            <a class="page-link" href="javascript:void(0);" onclick="loadReviewList(${paging.page-1})" aria-label="Previous">
+                이전
+            </a>
+        </li>
+
 
         <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
-            <c:choose>
-                <c:when test="${i eq paging.page}">
-                    <li class="page-item active">
-                        <span class="page-link">${i}</span>
-                    </li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item">
-                        <a class="page-link" href="/product/review/paging?page=${i}&productIdx=${productIdx}">
-                                ${i}
-                        </a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
+            <li class="page-item ${paging.page eq i ? 'active' : ''}">
+                <a class="page-link" href="javascript:void(0);" onclick="loadReviewList(${i})">${i}</a>
+            </li>
         </c:forEach>
 
-        <c:choose>
-            <c:when test="${paging.page>=paging.maxPage}">
-                <li class="page-item disabled">
-                    <span class="page-link">다음</span>
-                </li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page+1}&productIdx=${productIdx}" aria-label="Next">
-                        다음
-                    </a>
-                </li>
-            </c:otherwise>
-        </c:choose>
+
+        <li class="page-item ${paging.page >= paging.maxPage ? 'disabled' : ''}">
+            <a class="page-link" href="javascript:void(0);" onclick="loadReviewList(${paging.page+1})" aria-label="Next">
+                다음
+            </a>
+        </li>
     </ul>
-<%--    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>--%>
 </div>
 </body>
 </html>
