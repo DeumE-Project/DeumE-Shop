@@ -81,15 +81,23 @@
             let productExplain = productExplainInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
-            let regex = /^.{1,50}$/;
+            let regex = /^.{1,100}$/;
 
             if (!regex.test(productExplain)) {
-                alert('입력은 50글자 이하로 제한됩니다.');
+                alert('입력은 100글자 이하로 제한됩니다.');
                 productExplainInput.value = ''; // 입력값 초기화
             }
         }
     </script>
+</div>
 
-    <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
+
 </html>
