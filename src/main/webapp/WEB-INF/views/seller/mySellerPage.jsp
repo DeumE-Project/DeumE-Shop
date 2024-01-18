@@ -255,7 +255,7 @@
                                 <tr>
                                     <th style="width: 10%;">번호</th>
                                     <th style="width: 20%;">상품명</th>
-                                    <th style="width: 20%;">판매수익</th>
+                                    <th style="width: 20%;">매출</th>
                                 </tr>
                                 </thead>
                                 <c:forEach items="${bestSellRevList}" var="revProduct" varStatus="loop">
