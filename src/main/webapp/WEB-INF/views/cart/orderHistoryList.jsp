@@ -17,9 +17,13 @@
     .history-list {
         border-style: none!important;
     }
+    .contentset{
+        min-height: calc(100vh - 30px);
+        padding-top: 100px;
+    }
 </style>
 
-
+<div class="contentset">
 <div class="container" style="margin-top: 2rem;">
     <h4>주문 내역</h4>
 </div>
@@ -85,6 +89,7 @@
         </c:forEach>
     </c:otherwise>
 </c:choose>
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 

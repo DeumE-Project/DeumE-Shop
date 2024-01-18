@@ -55,9 +55,14 @@
             text-align: center;
             margin-top: 20px;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 <body>
+<div class="contentset">
 <nav class="mh">
     <div>
         <div class="admin-title">관리자</div>
@@ -108,7 +113,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

@@ -5,8 +5,15 @@
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>detail</title>
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
 </head>
 <body class="bg-light">
+<div class="contentset">
 <div class="container mt-4">
     <table class="table">
         <input type="hidden" value="${productReview.productIdx}">
@@ -47,6 +54,7 @@
     </sec:authorize>
 
 
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

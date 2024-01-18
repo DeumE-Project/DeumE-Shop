@@ -13,7 +13,10 @@
         .outer-cart-div {
             margin-bottom: 100px;
         }
-
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
         @media screen and (max-width: 1199px) {
             .seller-name {
                 padding-left: 0px;
@@ -26,7 +29,7 @@
         }
     </style>
 </head>
-
+<div class="contentset">
 <!-- Page Header Start -->
 <div class="container-fluid">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -165,7 +168,7 @@
         </c:otherwise>
     </c:choose>
 </div> <!--가장 바깥쪽 div 끝-->
-
+</div>
 <script>
     const orderProductErrorMsg = '<c:out value="${orderProductErrorMsg}"/>';
     if (orderProductErrorMsg) {

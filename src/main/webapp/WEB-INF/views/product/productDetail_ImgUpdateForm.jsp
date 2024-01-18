@@ -41,11 +41,16 @@
         .btn-container button {
             margin-left: 10px;
         }
+
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>--%>
 </head>
 <body>
-
+<div class="contentset">
 <div class="container mt-5">
     <h1 class="mb-4">상품 설명 사진 수정</h1>
     <form:form modelAttribute="productDetailImgUpdateDTO"
@@ -137,6 +142,7 @@
         });
     </script>
 
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

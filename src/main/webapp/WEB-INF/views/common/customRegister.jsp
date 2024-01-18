@@ -5,7 +5,12 @@
 <jsp:include page="nav.jsp"/>
 <head>
     <title>회원가입</title>
-
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
 
@@ -33,7 +38,7 @@
     </style>
 </head>
 
-<div class="container">
+<div class="container contentset">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
             <h2 class="mb-3">듬이Shop 회원가입</h2>

@@ -6,6 +6,10 @@
 <head>
     <title>공지사항</title>
     <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
         .wider-column {
             width: 70%;
         }
@@ -19,7 +23,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container contentset">
     <br>
     <h1>공지사항</h1><br>
 
@@ -161,7 +165,6 @@
         </ul>
     </div>
 </div>
-
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

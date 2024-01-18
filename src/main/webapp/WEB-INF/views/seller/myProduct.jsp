@@ -73,9 +73,14 @@
             background-color: #007bff;
             border-color: #007bff;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 <body class="d-flex flex-column">
+<div class="contentset">
 <main class="flex-shrink-0">
     <section class="bg-light py-5">
         <div class="container px-5 my-5">
@@ -258,6 +263,7 @@
         </div>
     </section>
 </main>
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>

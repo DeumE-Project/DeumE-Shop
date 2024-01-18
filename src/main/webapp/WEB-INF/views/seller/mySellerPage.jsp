@@ -12,8 +12,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" />
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column">
+<%--<div class="contentset">--%>
 <main class="flex-shrink-0">
 
     <!-- 판매자 정보 -->
@@ -287,7 +294,7 @@
         </div>
     </section>
 </main>
-
+<%--</div>--%>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>

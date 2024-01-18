@@ -64,7 +64,10 @@
             height: auto;
             width: 80%;
         }
-
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
         @media (min-width: 768px) {
             /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
             .product-image, .product-description {
@@ -83,7 +86,7 @@
     </style>
 </head>
 <body>
-
+<div class="contentset">
 <div class="container">
     <div class="row">
         <div class="col-lg-6 product-image">
@@ -121,7 +124,7 @@
     </div>
     <div id="reviewListContainer"></div>
 </div>
-
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>
