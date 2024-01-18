@@ -96,7 +96,7 @@
 
 <details><summary>Class</summary>
 
-![LBNL](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/38604a08-bf40-4b43-a25e-d5838446d3ce)
+![LBNL2](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/36105387-ceaa-4b45-8527-ec3648b5cbb7)
 
 
 </details>
