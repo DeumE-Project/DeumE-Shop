@@ -26,6 +26,8 @@
     </style>
 </head>
 <body>
+<div class="container">
+    <br><br><br><br>
 <div class="container contentset">
     <br>
     <h1>공지사항 등록하기</h1><br>

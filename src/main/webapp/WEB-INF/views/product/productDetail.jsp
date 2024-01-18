@@ -61,40 +61,47 @@
             font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
         .img-fluid{
-
-            height: auto;
+            margin: 5% 10%;
+            height: 90%;
             width: 80%;
         }
-      
-        .contentset{
-            min-height: calc(100vh - 30px);
-            padding-top: 100px;
+        .img-fluid2 {
+
+            height: 90%;
+            width: 50%;
         }
 
-        #scrollTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
-            height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
-        }
-
-        @media (min-width: 768px) {
-            /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
-            .product-image, .product-description {
-                order: 2;
-
-            }
-            .product-image {
-                margin: 0 auto; /* 가운데 정렬 */
+            .contentset {
+                min-height: calc(100vh - 30px);
+                padding-top: 100px;
             }
 
-            .description-image {
-                order: 2; /* 오른쪽에 배치 */
-                text-align: center; /* 가운데 정렬 */
+            #scrollTopBtn {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+                height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
             }
-        }
+
+            @media (min-width: 768px) {
+                /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
+                .product-image, .product-description {
+                    order: 2;
+
+                }
+
+                .product-image {
+                    margin: 0 auto; /* 가운데 정렬 */
+                }
+
+                .description-image {
+                    order: 2; /* 오른쪽에 배치 */
+                    text-align: center; /* 가운데 정렬 */
+                }
+            }
+
     </style>
 </head>
 <body>
@@ -118,9 +125,9 @@
             <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>     <br>
             <div class="mb-3">
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
-                <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
-                <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
-                <br/><button class="btn btn-secondary" type="button" onclick="loadReviewList(1)">사진리뷰보기</button>
+                <button class="btn btn-primary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
+                <button class="btn btn-primary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <br/><br/><button class="btn btn-secondary" type="button" onclick="loadReviewList(1)">사진리뷰보기</button>
                 <button class="btn btn-secondary" type="button" onclick="loadCommentList(1)">한줄리뷰보기</button>
                 <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
@@ -131,7 +138,7 @@
     <div class="row mt-4">
         <div class="col-lg-12 description-image">
 
-            <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
+            <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid2">
         </div>
     </div>
     <div>
