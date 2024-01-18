@@ -133,6 +133,7 @@
         where seller_idx = #{seller_idx}
     </select>
 
+    <!--등록 상품 목록을 보여주기 위한 쿼리, 검색 단어가 있을 경우 if 조건 추가-->
     <select id="productPagingListWithSearch" parameterType="java.util.Map" resultType="ProductDTO">
         SELECT
         A.product_name, A.seller_idx, B.category_name, A.product_stock, A.product_idx

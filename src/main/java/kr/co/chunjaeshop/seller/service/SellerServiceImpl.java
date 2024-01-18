@@ -242,9 +242,9 @@ public class SellerServiceImpl implements SellerService {
     public PageDTO pagingSearchParam(int page, Integer sellerIdx, String searchField, String searchWord) {
 
         // 전체 글 개수 조회
-        int searchproductCount = productRepository.searchProductCount(sellerIdx, searchField, searchWord); // 검색했을 때 해당하는 전체 데이터 개수 카운트
+        int searchProductCount = productRepository.searchProductCount(sellerIdx, searchField, searchWord); // 검색했을 때 해당하는 전체 데이터 개수 카운트
         // 전체 페이지 개수 계산
-        int maxPage = (int) (Math.ceil((double) searchproductCount / pageLimit));
+        int maxPage = (int) (Math.ceil((double) searchProductCount / pageLimit));
         // 시작 페이지 값 계산
         int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
         // 끝 페이지 값 계산
@@ -258,7 +258,7 @@ public class SellerServiceImpl implements SellerService {
         searchProductPagingPageDTO.setStartPage(startPage);
         searchProductPagingPageDTO.setEndPage(endPage);
         searchProductPagingPageDTO.setPageLimit(pageLimit);
-        searchProductPagingPageDTO.setTotalCount(searchproductCount);
+        searchProductPagingPageDTO.setTotalCount(searchProductCount);
         return searchProductPagingPageDTO;
     }
 

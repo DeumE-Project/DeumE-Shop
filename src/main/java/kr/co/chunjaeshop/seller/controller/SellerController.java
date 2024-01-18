@@ -101,12 +101,12 @@ public class SellerController {
 //            @RequestParam("sellerIdx") Integer sellerIdx,
             @RequestParam("productIdx") Integer productIdx,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "searchField", required = false) String searchField,
-            @RequestParam(value = "searchWord", required = false) String searchWord,
+            @RequestParam(value = "searchField", required = false) String searchField, // 검색필드
+            @RequestParam(value = "searchWord", required = false) String searchWord, // 검색 값
             Model model,
             Authentication auth) throws UnsupportedEncodingException {
 
-        if (searchWord != null) {
+        if (searchWord != null) { // 검색단어가 있으면 검색 단어를 utf-8로 변경해줌
             searchWord = URLDecoder.decode(searchWord, "utf-8");
         }
 
@@ -138,10 +138,10 @@ public class SellerController {
             }
         }
 
-
+    // 배송상태 수정
     @GetMapping("updateStatus")
-    public String updateStatus(@RequestParam("updateStatus") String updateStatus,
-                               @RequestParam("orderIdx") Integer orderIdx,
+    public String updateStatus(@RequestParam("updateStatus") String updateStatus, // 수정 - 배송중/배송완료
+                               @RequestParam("orderIdx") Integer orderIdx, // 주문 조회를 위한 Idx
                                //@RequestParam("sellerIdx") Integer sellerIdx,
                                @RequestParam("productIdx") Integer productIdx,
                                @RequestParam(value = "page", required = false) String page,
@@ -178,7 +178,7 @@ public class SellerController {
             redirecrurl = redirecrurl + "&page=1";
         }
 
-
+        // 검색 단어가 있을 때 url 추가
         if (searchWord != null) {
             redirectUrl.append("&searchWord=").append(searchWord);
             redirecrurl = redirecrurl + "&searchWord=" + URLEncoder.encode(searchWord, "utf-8");

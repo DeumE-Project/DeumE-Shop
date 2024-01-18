@@ -132,7 +132,7 @@
                         let barChartElement = document.getElementById("bar-chart");
 
                         if (dataBarChart.every(value => value === 0)) {
-                            // 만약 데이터가 모두 0이면, 판매된 수익이 없다는 메시지 표시
+                            // 만약 데이터가 모두 0이면 테이블 x
                             let noRevenueMessage = document.createElement('p');
                             noRevenueMessage.className = 'text-center lead fw-bold';
                             noRevenueMessage.textContent = ' ';
@@ -193,7 +193,7 @@
 
                     // 도넛 차트 옵션
                     var donutOptions = {
-                    cutout: '70%', // 중앙의 원형 구멍 크기 설정 (도넛 차트의 경우)
+                    cutout: '70%', // 중앙의 원형 구멍 크기 설정
                 };
 
                     // 도넛 차트 생성
@@ -287,6 +287,5 @@
         </div>
     </section>
 </main>
-<%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>--%>
 </body>
 </html>
