@@ -61,9 +61,14 @@
             font-family: 'Noto Sans KR', sans-serif; /* 원하는 폰트로 변경 */
         }
         .img-fluid{
-
+            margin: 5% 10%;
             height: 90%;
             width: 80%;
+        }
+        .img-fluid2{
+
+            height: 90%;
+            width: 50%;
         }
 
         #scrollTopBtn {
@@ -127,7 +132,7 @@
     <div class="row mt-4">
         <div class="col-lg-12 description-image">
 
-            <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
+            <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid2">
         </div>
     </div>
     <div>

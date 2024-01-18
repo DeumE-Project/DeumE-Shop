@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="container">
-    <br>
+    <br><br><br><br>
     <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
         <tr>

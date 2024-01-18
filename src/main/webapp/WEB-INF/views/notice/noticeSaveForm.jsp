@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="container">
-    <br>
+    <br><br><br><br>
     <h1>공지사항 등록하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="${pageContext.request.contextPath}/notice/save" method="post">
         <table class="table table-bordered">
