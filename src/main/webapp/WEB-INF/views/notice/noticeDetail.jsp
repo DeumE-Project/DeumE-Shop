@@ -52,9 +52,12 @@
     </table>
     <div class="center-buttons">
         <button onclick="listFn()" class="btn btn-primary">목록</button>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
         <button onclick="updateFn()" class="btn btn-secondary">수정</button>
         <button onclick="deleteFn()" class="btn btn-danger">삭제</button>
+        </sec:authorize>
     </div>
+</div>
 </div>
 <script>
     const listFn = () => {

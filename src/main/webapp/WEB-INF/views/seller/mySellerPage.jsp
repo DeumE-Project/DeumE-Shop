@@ -28,7 +28,7 @@
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
                 <h1 class="fw-bolder">${mySeller.sellerName}</h1>
-                <p class="lead fw-normal text-muted mb-0">${mySeller.sellerPhone} | 가입일: ${mySeller.sellerJoined}</p>
+                <p class="lead fw-normal text-muted mb-0">${mySeller.sellerPhone} | 가입일: <c:out value='${mySeller.sellerJoined.toString().replaceAll("T", " ")}'/></p>
             </div>
 
             <div class="row gx-5">

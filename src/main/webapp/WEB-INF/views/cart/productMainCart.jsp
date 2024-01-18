@@ -96,6 +96,7 @@
             </h4>원
             </div>
             <div class="d-flex align-items-center mb-4 pt-2">
+<sec:authorize access="isAnonymous() or hasRole('ROLE_CUSTOMER')">
                 <div class="input-group quantity mr-3" style="width: 150px;">
                     <div class="input-group-btn" style="margin-right: 10px;">
                         <button class="btn btn-light btn-minus" id="btn-minus">
@@ -113,6 +114,7 @@
                     <i class="fa fa-shopping-cart mr-1"></i>
                     장바구니에 추가
                 </button>
+</sec:authorize>
                <%-- <button class="btn btn-link px-3" style="margin-left: 10px" type="button"
                         onclick="location.href='/product/review/paging?productIdx=${productDTO.productIdx}'">
                     <i class="fa fa-star mr-1"></i>
