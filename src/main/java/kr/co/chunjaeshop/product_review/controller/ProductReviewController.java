@@ -192,7 +192,7 @@ public class ProductReviewController {
         if (saveResult > 0) {
           // 저장 완료 됐으면, reviewed 를 1로 변경
           orderDetailService.changeReviewedStatusTo1(orderDetailIdx);
-          return "redirect:/product/review/paging?productIdx=" + productIdx; // 저장 성공 시 paging 페이지로 redirect
+          return "redirect:/product/detail?productIdx=" + productReviewDTO.getProductIdx();  // 저장 성공 시 detail 페이지로 redirect
         } else {
           log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -358,7 +358,7 @@ public class ProductReviewController {
 
 
       if (updateResult) {
-        return "redirect:/product/review?reviewIdx=" + productReviewSaveDTO.getReviewIdx(); // 저장 성공 시 detail 페이지로 redirect
+        return "redirect:/product/detail?productIdx=" + productReviewDTO.getProductIdx();  // 저장 성공 시 detail 페이지로 redirect
       } else {
         log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 

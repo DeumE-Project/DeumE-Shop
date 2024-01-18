@@ -2,7 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
-
+<jsp:include page="nav.jsp"/>
 <head>
     <title>회원가입</title>
 

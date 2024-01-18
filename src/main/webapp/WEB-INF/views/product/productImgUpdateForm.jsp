@@ -2,6 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <html lang="ko">
 <head>
     <title>상품 사진 수정</title>

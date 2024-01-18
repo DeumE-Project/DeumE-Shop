@@ -95,7 +95,7 @@ public class CommentController {
 
         if (saveResult > 0) {
             orderDetailService.changeReviewedStatusTo1(orderDetailIdx);
-            return "redirect:/product/comment/paging?productIdx=" + productIdx;  // 저장 성공 시 detail 페이지로 redirect
+            return "redirect:/product/detail?productIdx=" + productIdx;  // 저장 성공 시 detail 페이지로 redirect
         } else {
             log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 

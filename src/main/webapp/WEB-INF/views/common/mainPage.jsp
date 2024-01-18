@@ -2,6 +2,7 @@
          trimDirectiveWhitespaces="true" %>
 
 <%@ include file="./topNavigation.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
