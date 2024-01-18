@@ -26,6 +26,17 @@
     width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
     height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
     }
+
+    .img-fluid{
+        margin: 5% 10%;
+        height: 90%;
+        width: 80%;
+    }
+    .img-fluid2{
+        height: 90%;
+        width: 50%;
+    }
+
     </style>
 </head>
 <div class="contentset">
@@ -33,12 +44,12 @@
     <div class="row px-xl-5 bg-light" style="display: flex; align-items: center;">
         <div class="col-lg-5 pb-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner border">
+
                     <div class="carousel-item active">
-                        <img class="w-100 h-100"
+                        <img class="img-fluid"
                              src="${pageContext.request.contextPath}/product/${productDTO.productImgSaved}" alt="Image">
                     </div>
-                </div>
+
             </div>
         </div>
         <div class="col-lg-7 pb-5">
@@ -124,8 +135,7 @@
         </div>
     </div>
     <div style="display: flex; justify-content: center;">
-        <img src="${pageContext.request.contextPath}/product/${productDTO.productDetailSaved}"
-             style="max-width: 100%;">
+        <img class="img-fluid2" src="${pageContext.request.contextPath}/product/${productDTO.productDetailSaved}">
     </div>
     <div>
         <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
