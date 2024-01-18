@@ -68,7 +68,7 @@
                 <c:if test="${reviewStarSum eq 5}">
                     <c:set var="star" value="★★★★★"/>
                 </c:if>
-                <p><span class="text-primary" style="font-weight: bolder">${star} / 5</span>&nbsp;&nbsp;<span>(${reviewCount}개 리뷰)</span></p>
+                <p><span class="text-primary" style="font-weight: bolder">${star} </span>&nbsp;&nbsp;<span>(${reviewCount}개 리뷰)</span></p>
             </div>
             <div>
                 판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="product-price">
@@ -135,16 +135,16 @@
 </div>
 <script>
     function loadReviewList(page) {
-        // Make an AJAX request to the controller with pagination parameters
+
         $.ajax({
             url: '/product/review/paging',
             type: 'GET',
             data: {
                 productIdx: '<c:out value="${productDTO.productIdx}"/>',
-                page: page // Add the current page parameter
+                page: page
             },
             success: function (data) {
-                // Append the received review list HTML to the container
+
                 $('#reviewListContainer').html(data);
 
                 $('html, body').animate({
@@ -152,7 +152,7 @@
                 }, 50);
             },
             error: function () {
-                // Handle error if needed
+
                 console.error('Failed to fetch review list.');
             }
         });
@@ -160,16 +160,16 @@
 </script>
 <script>
     function loadCommentList(page) {
-        // Make an AJAX request to the controller with pagination parameters
+
         $.ajax({
             url: '/product/comment/paging',
             type: 'GET',
             data: {
                 productIdx: '<c:out value="${productDTO.productIdx}"/>',
-                page: page // Add the current page parameter
+                page: page
             },
             success: function (data) {
-                // Append the received review list HTML to the container
+
                 $('#reviewListContainer').html(data);
 
                 $('html, body').animate({
