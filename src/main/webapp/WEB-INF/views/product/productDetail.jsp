@@ -62,7 +62,7 @@
         }
         .img-fluid{
 
-            height: auto;
+            height: 90%;
             width: 80%;
         }
 
@@ -114,9 +114,9 @@
             <p class="stock">재고: <fmt:formatNumber value="${product.productStock}"/>개</p>     <br>
             <div class="mb-3">
                 <button class="btn btn-primary" onclick="location.href='/product/productInfoUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상세정보수정</button>
-                <button class="btn btn-secondary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
-                <button class="btn btn-secondary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
-                <br/><button class="btn btn-secondary" type="button" onclick="loadReviewList(1)">사진리뷰보기</button>
+                <button class="btn btn-primary" onclick="location.href='/product/productImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품사진수정</button>
+                <button class="btn btn-primary" onclick="location.href='/product/productDetailImgUpdate?sellerIdx=${product.sellerIdx}&productIdx=${product.productIdx}'">상품설명사진수정</button>
+                <br/><br/><button class="btn btn-secondary" type="button" onclick="loadReviewList(1)">사진리뷰보기</button>
                 <button class="btn btn-secondary" type="button" onclick="loadCommentList(1)">한줄리뷰보기</button>
                 <button class="btn btn-info" onclick="location.href='/seller/myProduct?sellerIdx=${product.sellerIdx}'">목록보기</button>
             </div>
