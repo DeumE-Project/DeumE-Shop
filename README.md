@@ -11,8 +11,8 @@
 
 | **![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)** |  **![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)** |
 | :------: |  :------: |
-|  #  |    |  # |
- |   <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/79c2022f-57c0-4c7b-acda-ca3d73e89103" width="150px" height="150px">  |  <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/1955dd1c-aa06-40a5-9f8f-6ed7fcfc7a66" width="150px" height="150px">  |   <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/0d6e1c04-a919-40c7-8bac-119282a7c9a7" width="150px" height="150px"> | 
+|  [@AWS](#)  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
+
 
 </div>
 
@@ -158,7 +158,6 @@
 <br>
 
 <img src="https://img.shields.io/badge/IntelliJ-000000?style=flat-square&logo=intellijidea&logoColor=white" />
-<img src="https://img.shields.io/badge/bitly-EE6123?style=flat-square&logo=bitly&logoColor=blue" />  
 <img src="https://img.shields.io/badge/StarUML-E25A1C?style=flat-square&logo=apachespark&logoColor=white" />
 <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=slack&logoColor=white" />
 <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=blue" />  
