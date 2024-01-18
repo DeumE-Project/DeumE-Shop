@@ -89,7 +89,15 @@
             }
         }
     </script>
+</div>
 
-    <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
+
 </html>
