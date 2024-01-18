@@ -1,6 +1,6 @@
 #  📫 듬이 Shop 📫
 
-deume.kro.kr
+[배포 주소]([deume.kro.kr](http://deume.kro.kr/))
 
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
 
@@ -10,7 +10,7 @@ deume.kro.kr
 | **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/9eb4164b-6aff-4d7e-95db-08819308bfca)** |  **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/5b99770c-ecc7-4cb8-bd7f-3daf8883278d)** |
 | :------: |  :------: |
 |  ![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)  |  ![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)  | 
-|  [@AWS](deume.kro.kr)  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
+|  [@AWS]([deume.kro.kr](http://deume.kro.kr/))  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
 
 
 </div>
