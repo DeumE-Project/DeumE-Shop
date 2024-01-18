@@ -17,6 +17,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-5">
+    <h1>사진 리뷰 게시판</h1>
     <table class="table table-striped">
         <thead>
         <tr>

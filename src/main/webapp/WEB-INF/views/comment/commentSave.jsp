@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1>리뷰 등록</h1>
+    <h1>한줄 리뷰 등록</h1>
 
     <%--@elvariable id="commentSaveDTO" type="kr.co.chunjaeshop.product_comment.dto.CommentSaveDTO"--%>
     <form:form modelAttribute="commentSaveDTO" action="/product/comment/save?orderDetailIdx=${commentSaveDTO.orderDetailIdx}"

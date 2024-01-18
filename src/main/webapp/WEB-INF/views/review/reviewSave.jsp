@@ -17,7 +17,7 @@
 
 <body>
 <div class="container mt-5">
-    <h1>리뷰 등록</h1>
+    <h1>사진 리뷰 등록</h1>
 
     <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
     <form:form modelAttribute="productReviewSaveDTO" action="/product/review/save?orderDetailIdx=${productReviewSaveDTO.orderDetailIdx}"
