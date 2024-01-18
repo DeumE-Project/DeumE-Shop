@@ -13,6 +13,7 @@
 
 <body class="bg-light">
 <div class="container mt-3">
+    <h1>한줄 리뷰 게시판</h1>
     <table class="table table-striped"  id="comment-list">
         <tr>
             <th>번호</th>
@@ -29,12 +30,7 @@
             </tr>
         </c:forEach>
     </table>
-    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>
+
 </div>
-<script>
-    const savefn = () => {
-        location.href = "/product/comment/save";
-    }
-</script>
 </body>
 </html>

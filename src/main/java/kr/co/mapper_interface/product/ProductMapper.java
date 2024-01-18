@@ -33,17 +33,16 @@ public interface ProductMapper {
 
 
     // 유지호
+
+    // 등록 상품 카운트
     int countMyProductCnt(Integer sellerIdx);
 
-    List<ProductDTO> myProduct(Integer sellerIdx);
-
+    // 페이징을 위한 카운트
     int productCount(Integer sellerIdx);
 
     List<ProductDTO> productPagingListWithSearch(Map<String, Object> pagingParams);
 
-    int searchproductCount(Map<String, Object> searchPagingParams);
-
-    /*List<ProductDTO> sellProductManage(@Param("sellerIdx") Integer sellerIdx, @Param("productIdx") Integer productIdx);*/
+    int searchProductCount(Map<String, Object> searchPagingParams);
 
 
     // 변재혁

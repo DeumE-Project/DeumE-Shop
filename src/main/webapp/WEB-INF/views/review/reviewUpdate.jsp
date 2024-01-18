@@ -25,7 +25,6 @@
         <div class="mb-3">
             <form:hidden path="reviewIdx" />
 
-            <p>${productReviewSaveDTO.reviewIdx}</p>
             <label for="reviewStar" class="form-label">별점</label>
             <form:select class="form-select" path="reviewStar">
                 <form:option value="">별점 선택</form:option>

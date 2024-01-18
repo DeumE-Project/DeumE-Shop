@@ -80,6 +80,7 @@
     <section class="bg-light py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
+                <%--첫 페이지로 이동--%>
                 <h1 class="fw-bolder" onclick="goToFirstPage()" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">판매 상품 관리</h1>
             </div>
 
@@ -100,6 +101,7 @@
                 </div>
             </form>
 
+            <%--리스트가 없을 경우--%>
             <c:if test="${empty myProductList}">
                 <div class="text-center my-5">
                     <h3 class="fw-bolder">등록된 상품이 없습니다</h3>
@@ -111,6 +113,8 @@
                 </script>
                 <button class="btn btn-secondary float-end" onclick="goBack()">뒤로가기</button>
             </c:if>
+
+            <%--리스트가 있을 경우--%>
             <c:if test="${not empty myProductList}">
             <table class="table table-bordered">
                 <thead class="table-dark">
@@ -125,6 +129,7 @@
                 </thead>
                 <c:forEach items="${myProductList}" var="product" varStatus="loop">
                     <tr>
+                        <%--페이징 검색 값이 없을 경우와, 있을 경우로 나눔--%>
                         <c:choose>
                             <c:when test="${searchWord eq '' || searchWord eq null}">
                                 <td>${(sellProductpaging.page - 1) * sellProductpaging.pageLimit + loop.index +1}</td>
@@ -135,7 +140,7 @@
                         </c:choose>
                         <td>${product.productName}</td>
                         <td>${product.categoryName}</td>
-                        <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td>
+                        <td class="${product.productStock <= 20 ? 'text-danger' : ''}">${product.productStock}</td><%--재고개 20개 이하이면 빨간색--%>
                         <td><a href="/product/productDetail?productIdx=${product.productIdx}" class="btn btn-outline-secondary btn-sm">상세관리</a></td>
                         <td><a href="/seller/manageProduct?productIdx=${product.productIdx}" class="btn btn-outline-primary btn-sm">판매관리</a></td>
                     </tr>
@@ -146,6 +151,7 @@
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
+                        <%--검색값이 없을때 페이징--%>
                         <c:if test="${searchWord eq null}">
                         <c:choose>
                             <c:when test="${sellProductpaging.page > 1}">
@@ -194,7 +200,7 @@
                         </c:if>
 
 
-
+                        <%--검색값이 있을 때 페이징--%>
 
                         <c:if test="${searchWord ne null}">
                             <c:choose>

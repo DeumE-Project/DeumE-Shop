@@ -18,4 +18,5 @@ public class CommentSaveDTO {
     @Size(min=0, max = 30, message = "내용은 30자 이내로 입력")
     private String commentContents;
 
+    private Integer orderDetailIdx;
 }

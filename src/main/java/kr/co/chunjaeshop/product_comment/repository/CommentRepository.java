@@ -15,7 +15,7 @@ public interface CommentRepository {
 
     public List<CommentDTO> commentList() ;
 
-    int boardCount();
+    int boardCount(Integer productIdx);
     List<CommentDTO> pagingList(Map<String, Integer> pagingParams);
 
 }

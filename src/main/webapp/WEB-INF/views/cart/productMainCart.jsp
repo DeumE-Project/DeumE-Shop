@@ -71,7 +71,12 @@
                 <button class="btn btn-link px-3" style="margin-left: 10px" type="button"
                         onclick="location.href='/product/review/paging?productIdx=${productDTO.productIdx}'">
                     <i class="fa fa-star mr-1"></i>
-                    리뷰보기
+                    사진리뷰보기
+                </button>
+                <button class="btn btn-link px-3" style="margin-left: 10px" type="button"
+                        onclick="location.href='/product/comment/paging?productIdx=${productDTO.productIdx}'">
+                    <i class="fa fa-star mr-1"></i>
+                    한줄리뷰보기
                 </button>
             </div>
         </div>

@@ -10,7 +10,7 @@ public interface ProductCommentMapper {
 
     int commentSave (CommentDTO commentDTO);
     List<CommentDTO> commentList();
-    int boardCount();
+    int boardCount(Integer productIdx);
     List<CommentDTO> pagingList(Map<String, Integer> pagingParams);
 
 }

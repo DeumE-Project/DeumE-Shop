@@ -34,7 +34,7 @@ public interface ProductService {
 
 
     // 유지호
-    int countMyProductCnt(Integer sellerIdx);
+    int countMyProductCnt(Integer sellerIdx); // 등록 상품 카운트
 
 
 

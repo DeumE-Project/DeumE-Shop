@@ -33,7 +33,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public int boardCount() {
-        return productCommentMapper.boardCount();
+    public int boardCount(Integer productIdx) {
+        return productCommentMapper.boardCount(productIdx);
     }
 }
