@@ -17,6 +17,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-5">
+    <h1>사진 리뷰 게시판</h1>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -47,7 +48,18 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>${review.reviewStar}</td>
+                <td>
+                    <c:forEach var="i" begin="1" end="5">
+                    <c:choose>
+                        <c:when test="${i <= review.reviewStar}">
+                            ★
+                        </c:when>
+                        <c:otherwise>
+                            ☆
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                </td>
                 <td>${review.reviewDateStr}</td>
             </tr>
         </c:forEach>

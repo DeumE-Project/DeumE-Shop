@@ -14,6 +14,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-3">
+    <h1>한줄 리뷰 게시판</h1>
     <table class="table table-striped"  id="comment-list">
         <tr>
             <th>작성자</th>

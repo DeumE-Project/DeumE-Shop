@@ -201,11 +201,11 @@
             let productName = productNameInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
-            let regex = /^[a-zA-Z0-9가-힣\s!@#$%^&*()_+\-=,.<>\/?\[\]{}'`~\\|]{1,20}$/;
+            let regex = /^.{1,20}$/;
 
             if (!regex.test(productName)) {
                 if (!productNameInput.hasAttribute('readonly')) {
-                    alert('특수문자와 공백(띄어쓰기)를 포함하여 한국어, 영어, 숫자만 20글자 이하로 입력해주세요.');
+                    alert('20글자 이하로 입력해주세요.');
                     productNameInput.value = ''; // 입력값 초기화
                 }
             }
@@ -217,10 +217,10 @@
             let productExplain = productExplainInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
-            let regex = /^[a-zA-Z0-9가-힣\s!@#$%^&*()_+\-=,.<>\/?\[\]{}'`~\\|]{1,50}$/;
+            let regex = /^.{1,50}$/;
 
             if (!regex.test(productExplain)) {
-                alert('특수문자와 공백(띄어쓰기)를 포함하여 한국어, 영어, 숫자만 50글자 이하로 입력해주세요.');
+                alert('입력은 50글자 이하로 제한됩니다.');
                 productExplainInput.value = ''; // 입력값 초기화
             }
         }
