@@ -28,9 +28,9 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="contentset">
     <br><br><br><br>
-<div class="container contentset">
+<div class="container">
     <br>
     <h1>공지사항 수정하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="/notice/update" method="post" name="updateForm">

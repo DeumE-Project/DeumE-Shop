@@ -31,9 +31,9 @@
 </head>
 <body>
 
-<div class="container">
+<div class="contentset">
     <br><br><br><br>
-<div class="container contentset">
+<div class="container">
     <br>
     <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
