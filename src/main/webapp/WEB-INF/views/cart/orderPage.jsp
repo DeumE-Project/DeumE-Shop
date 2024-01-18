@@ -120,7 +120,7 @@
                                 <c:forEach items="${cart.cartDetailDTOList}" var="cartDetailDTO">
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="" alt="" style="width: 100px; height: 100px;">
+                                            <img src="/product/${cartDetailDTO.productThumbSaved}" alt="" style="width: 100px; height: 100px;">
                                             <c:out value="${cartDetailDTO.productName}"/>
                                         </td>
                                         <td class="align-middle">

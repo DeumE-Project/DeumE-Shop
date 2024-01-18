@@ -65,7 +65,7 @@
             </ul>
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-<%--                <sec:authorize access="hasRole('ROLE_CUSTOMER')">--%>
+                <sec:authorize access="hasRole('ROLE_CUSTOMER')">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">고객 마이페이지</a>
@@ -86,9 +86,9 @@
                             </li>
                         </ul>
                     </li>
-<%--                </sec:authorize>--%>
+                </sec:authorize>
 
-<%--                <sec:authorize access="hasRole('ROLE_SELLER')">--%>
+                <sec:authorize access="hasRole('ROLE_SELLER')">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown2" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">판매자 마이페이지</a>
@@ -100,9 +100,9 @@
                             <li><a class="dropdown-item" href="/seller/mySellerPage">상품 관리</a></li>
                         </ul>
                     </li>
-<%--                </sec:authorize>--%>
+                </sec:authorize>
 
-<%--                <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown3" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">관리자 마이페이지</a>
@@ -114,9 +114,9 @@
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/notice/">공지사항 관리</a></li>
                         </ul>
                     </li>
-<%--                </sec:authorize>--%>
+                </sec:authorize>
 
-<%--                <sec:authorize access="isAnonymous()">--%>
+                <sec:authorize access="isAnonymous()">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown5" href="#" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">로그인/회원가입</a>
@@ -128,8 +128,27 @@
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/register">회원가입</a></li>
                         </ul>
                     </li>
-<%--                </sec:authorize>--%>
+                </sec:authorize>
+
+                <sec:authorize access="isAuthenticated()">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown6" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">로그아웃</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown6">
+                            <li onclick="logoutFn()">로그아웃</li>
+                        </ul>
+                    </li>
+                </sec:authorize>
             </ul>
         </div>
     </div>
+    <script>
+        function logoutFn() {
+            const logoutForm = document.createElement('form');
+            logoutForm.method = 'post';
+            logoutForm.action = '/customLogout';
+            document.body.appendChild(logoutForm);
+            logoutForm.submit();
+        }
+    </script>
 </nav>

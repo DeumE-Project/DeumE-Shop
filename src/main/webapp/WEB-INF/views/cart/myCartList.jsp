@@ -70,7 +70,7 @@
                                 <c:forEach items="${cart.cartDetailDTOList}" var="cartDetail" varStatus="innerIndex">
                                     <tr>
                                         <td class="align-middle"><c:out value="${innerIndex.index + 1}"/></td>
-                                        <td class="align-middle"><img src="" alt=""
+                                        <td class="align-middle"><img src="/product/${cartDetail.productThumbSaved}" alt=""
                                                                       style="width: 100px; height: 100px;">
                                             <c:out value="${cartDetail.productName}"/>
                                         </td>
