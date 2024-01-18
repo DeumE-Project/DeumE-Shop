@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 나눔고딕 폰트 링크 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-nanum@1.0.16/dist/nanum.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
 
         body {
@@ -65,12 +66,14 @@
             width: 80%;
         }
 
-         #scrollTopBtn {
-             display: none;
-             position: fixed;
-             bottom: 20px;
-             right: 20px;
-         }
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+            height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+        }
 
 
         @media (min-width: 768px) {
@@ -126,7 +129,9 @@
 
             <img src="/product/${product.productDetailSaved}" alt="상품 설명 사진" class="img-fluid">
         </div>
-        <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()">맨 위로 가기</button>
+    </div>
+    <div>
+        <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
     </div>
     <div id="reviewListContainer"></div>
 </div>
@@ -142,7 +147,7 @@
             data: {
                 productIdx: '<c:out value="${product.productIdx}"/>',
                 page: page
-                
+
             },
             success: function (data) {
 
@@ -189,7 +194,7 @@
     };
 
     function scrollFunction() {
-        var btn = document.getElementById("scrollTopBtn");
+        let btn = document.getElementById("scrollTopBtn");
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             btn.style.display = "block";
         } else {
@@ -199,8 +204,7 @@
 
 
     function scrollToTop() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        $('html, body').animate({scrollTop : 0},800);
     }
 </script>
 </html>
