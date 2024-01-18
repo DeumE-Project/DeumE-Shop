@@ -96,13 +96,16 @@
 
 <details><summary>Class</summary>
 
+![LBNL](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/38604a08-bf40-4b43-a25e-d5838446d3ce)
 
 
 </details>
 
 
 <details><summary>ERD</summary>
-   
+ 
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/258b47b0-1dbd-4dd4-9d2f-f65a594f33c4)
+
     
 </details>
 
