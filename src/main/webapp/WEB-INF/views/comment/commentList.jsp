@@ -29,12 +29,7 @@
             </tr>
         </c:forEach>
     </table>
-    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>
+
 </div>
-<script>
-    const savefn = () => {
-        location.href = "/product/comment/save";
-    }
-</script>
 </body>
 </html>

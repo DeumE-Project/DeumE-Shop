@@ -29,8 +29,10 @@
         </tr>
         </thead>
         <tbody>
+        <c:set var="productIdx" value=""/>
         <c:forEach items="${pagingList}" var="review">
             <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}'" style="cursor: pointer;">
+                <c:set var="productIdx" value="${review.productIdx}"/>
 <%--                <td>${review.reviewIdx}</td>--%>
                 <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />
                 <td><img src="/review/${reviewDate}/${review.reviewThumbSaved}" alt="리뷰 이미지" class="img-fluid"></td>
@@ -63,7 +65,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page-1}" aria-label="Previous">
+                    <a class="page-link" href="/product/review/paging?page=${paging.page-1}&productIdx=${productIdx}" aria-label="Previous">
                         이전
                     </a>
                 </li>
@@ -79,7 +81,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/product/review/paging?page=${i}">
+                        <a class="page-link" href="/product/review/paging?page=${i}&productIdx=${productIdx}">
                                 ${i}
                         </a>
                     </li>
@@ -95,7 +97,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/review/paging?page=${paging.page+1}" aria-label="Next">
+                    <a class="page-link" href="/product/review/paging?page=${paging.page+1}&productIdx=${productIdx}" aria-label="Next">
                         다음
                     </a>
                 </li>

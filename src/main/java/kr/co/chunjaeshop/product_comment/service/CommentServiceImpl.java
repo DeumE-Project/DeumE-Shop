@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentDTO> pagingList(int page) {
+    public List<CommentDTO> pagingList(int page,Integer productIdx) {
         /*
         1페이지당 보여지는 글 갯수 3
             1page => 0
@@ -45,15 +45,16 @@ public class CommentServiceImpl implements CommentService{
         Map<String, Integer> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);
         pagingParams.put("limit", pageLimit);
+        pagingParams.put("productIdx", productIdx);
         List<CommentDTO> pagingList = commentRepository.pagingList(pagingParams);
 
         return pagingList;
     }
 
     @Override
-    public CommentPageDTO pagingParam(int page) {
+    public CommentPageDTO pagingParam(int page, Integer productIdx) {
         // 전체 글 갯수 조회
-        int boardCount = commentRepository.boardCount();
+        int boardCount = commentRepository.boardCount(productIdx);
         // 전체 페이지 갯수 계산(10/3=3.33333 => 4)
         int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
         // 시작 페이지 값 계산(1, 4, 7, 10, ~~~~)

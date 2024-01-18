@@ -1,5 +1,6 @@
 package kr.co.chunjaeshop.product_comment.controller;
 
+import kr.co.chunjaeshop.order_detail.service.OrderDetailService;
 import kr.co.chunjaeshop.product_comment.dto.CommentDTO;
 import kr.co.chunjaeshop.product_comment.dto.CommentPageDTO;
 import kr.co.chunjaeshop.product_comment.dto.CommentSaveDTO;
@@ -7,8 +8,10 @@ import kr.co.chunjaeshop.product_comment.service.CommentService;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewPageDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
+import kr.co.chunjaeshop.security.LoginUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,13 +31,46 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
+    private final OrderDetailService orderDetailService;
     @GetMapping("/save")
-    public String saveForm(@ModelAttribute CommentSaveDTO commentSaveDTO){
+    public String saveForm(@ModelAttribute CommentSaveDTO commentSaveDTO,
+                           Authentication auth){
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
+        // 사용자가 해당 상품을 구매했는지 체크
+        Integer orderDetailIdx = commentSaveDTO.getOrderDetailIdx();
+        int hasOrderDetailIdx = orderDetailService.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+
+        if (hasOrderDetailIdx != 1) {
+            log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 갖고 있지 않음");
+            return "redirect:/main";
+        }
         return "comment/commentSave";
     }
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute CommentSaveDTO commentSaveDTO, BindingResult bindingResult , HttpServletRequest httpServletRequest, Model model) {
+    public String save(@Validated @ModelAttribute CommentSaveDTO commentSaveDTO, BindingResult bindingResult ,
+                       HttpServletRequest httpServletRequest, Model model,
+                       Authentication auth ) {
+
+        LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
+        Integer customerIdx = loginUserDTO.getIdx();
+
+        // 사용자가 해당 상품을 구매했는지 체크
+        Integer orderDetailIdx = commentSaveDTO.getOrderDetailIdx();
+        int hasOrderDetailIdx = orderDetailService.checkIfCustomerHasOrderDetailIdx(customerIdx, orderDetailIdx);
+
+        if (hasOrderDetailIdx != 1) {
+            log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 갖고 있지 않음");
+            return "redirect:/main";
+        }
+        // 리뷰를 작성했는지 체크
+        boolean alreadyReviewed = orderDetailService.alreadyReviewed(orderDetailIdx);
+        if (alreadyReviewed) {
+            log.error("customerIdx = {} 번은, orderDetailIdx = {} 번을 이미 리뷰 함");
+            return "redirect:/main";
+        }
 
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
@@ -42,10 +78,13 @@ public class CommentController {
             return "comment/commentSave";
         }
 
+        Integer productIdx = orderDetailService.getProductIdxByOrderDetailIdx(orderDetailIdx);
+
+        log.info(productIdx);
         CommentDTO commentDTO = new CommentDTO();
 
         //테스트용
-        commentDTO.setProductIdx(2);
+        commentDTO.setProductIdx(productIdx);
         commentDTO.setCommentWriter(commentSaveDTO.getCommentWriter());
         commentDTO.setCommentContents(commentSaveDTO.getCommentContents());
 
@@ -55,7 +94,8 @@ public class CommentController {
         log.info("saveResult = {} " + saveResult);
 
         if (saveResult > 0) {
-            return "redirect:/product/comment/paging";  // 저장 성공 시 detail 페이지로 redirect
+            orderDetailService.changeReviewedStatusTo1(orderDetailIdx);
+            return "redirect:/product/comment/paging?productIdx=" + productIdx;  // 저장 성공 시 detail 페이지로 redirect
         } else {
             log.error("/리뷰 등록에 실패했습니다."); // 상품 등록 실패 메시지 로깅
 
@@ -75,11 +115,12 @@ public class CommentController {
     }
 
     @GetMapping("/paging")
-    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                         @RequestParam Integer productIdx) {
         // BoardService를 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
-        List<CommentDTO> pagingList = commentService.pagingList(page);
+        List<CommentDTO> pagingList = commentService.pagingList(page,productIdx);
         // BoardService를 사용하여 페이징 정보를 가져옵니다.
-        CommentPageDTO pageDTO = commentService.pagingParam(page);
+        CommentPageDTO pageDTO = commentService.pagingParam(page,productIdx);
         // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
         model.addAttribute("pagingList", pagingList);
         model.addAttribute("paging", pageDTO);

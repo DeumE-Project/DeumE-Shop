@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.mapper_interface.product_comment.ProductCommentMapper">
     <insert id="commentSave" parameterType="CommentDTO">
         insert into comment( product_idx,comment_writer,comment_contents)
-        values(2, #{commentWriter} ,#{commentContents})
+        values(#{productIdx}, #{commentWriter} ,#{commentContents})
     </insert>
 
     <select id="commentList"  resultType="CommentDTO">
@@ -16,11 +16,13 @@
     <select id="pagingList" parameterType="java.util.HashMap" resultType="CommentDTO">
         SELECT comment_idx,product_idx,comment_writer,comment_contents,comment_createdTime
         from comment
-        where product_idx = 2
+        where product_idx = #{productIdx}
         order by comment_idx desc limit #{start}, #{limit}
     </select>
 
     <select id="boardCount" resultType="Integer">
-        select count(comment_idx) from comment
+        select count(comment_idx)
+        from comment
+        where product_idx = #{productIdx}
     </select>
 </mapper>

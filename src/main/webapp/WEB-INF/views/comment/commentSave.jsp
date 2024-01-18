@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,8 @@
     <h1>리뷰 등록</h1>
 
     <%--@elvariable id="commentSaveDTO" type="kr.co.chunjaeshop.product_comment.dto.CommentSaveDTO"--%>
-    <form:form modelAttribute="commentSaveDTO" action="/product/comment/save" method="post" >
+    <form:form modelAttribute="commentSaveDTO" action="/product/comment/save?orderDetailIdx=${commentSaveDTO.orderDetailIdx}"
+               method="post" cssClass="mb-5" >
 
         <div class="mb-3">
             <label for="commentWriter" class="form-label">작성자</label>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,6 @@
     <jsp:include page="#"/>
 
 </head>
-<script>
-    const savefn = () => {
-        location.href = "/product/comment/save";
-    }
-</script>
 <body class="bg-light">
 <div class="container mt-3">
     <table class="table table-striped"  id="comment-list">
@@ -24,7 +20,9 @@
             <th>내용</th>
             <th>작성시간</th>
         </tr>
+        <c:set var="productIdx" value=""/>
         <c:forEach items="${pagingList}" var="comment">
+            <c:set var="productIdx" value="${comment.productIdx}"/>
             <tr>
                 <td>${comment.commentWriter}</td>
                 <td>${comment.commentContents}</td>
@@ -46,7 +44,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/comment/paging?page=${paging.page-1}" aria-label="Previous">
+                    <a class="page-link" href="/product/comment/paging?page=${paging.page-1}&productIdx=${productIdx}" aria-label="Previous">
                         이전
                     </a>
                 </li>
@@ -62,7 +60,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/product/comment/paging?page=${i}">
+                        <a class="page-link" href="/product/comment/paging?page=${i}&productIdx=${productIdx}">
                                 ${i}
                         </a>
                     </li>
@@ -78,14 +76,13 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/product/comment/paging?page=${paging.page+1}" aria-label="Next">
+                    <a class="page-link" href="/product/comment/paging?page=${paging.page+1}&productIdx=${productIdx}" aria-label="Next">
                         다음
                     </a>
                 </li>
             </c:otherwise>
         </c:choose>
     </ul>
-    <button class="btn btn-warning" onclick="savefn()">리뷰 등록</button>
 </div>
 </body>
 </html>

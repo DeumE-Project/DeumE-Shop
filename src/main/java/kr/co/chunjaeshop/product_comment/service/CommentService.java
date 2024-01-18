@@ -15,7 +15,7 @@ public interface CommentService {
 
     public List<CommentDTO> commentList();
 
-    List<CommentDTO> pagingList(int page);
+    List<CommentDTO> pagingList(int page,Integer productIdx);
 
-    public CommentPageDTO pagingParam(int page);
+    public CommentPageDTO pagingParam(int page,Integer productIdx);
 }

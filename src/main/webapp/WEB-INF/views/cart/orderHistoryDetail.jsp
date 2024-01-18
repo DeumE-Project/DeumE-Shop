@@ -120,11 +120,13 @@
                                                     리뷰작성완료
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <a href="/product/review/save?orderDetailIdx=${orderDetailDTO.orderDetailIdx}">작성하기</a>
+                                                    <a href="/product/review/save?orderDetailIdx=${orderDetailDTO.orderDetailIdx}">사진리뷰작성하기</a><br/>
+                                                    <a href="/product/comment/save?orderDetailIdx=${orderDetailDTO.orderDetailIdx}">한줄리뷰작성하기</a>
                                                 </c:otherwise>
                                             </c:choose>
                                             <br/>
-                                            <a href="/product/review/paging?productIdx=${orderDetailDTO.productIdx}">리뷰리스트</a>
+                                            <a href="/product/review/paging?productIdx=${orderDetailDTO.productIdx}">사진리뷰리스트</a><br/>
+                                            <a href="/product/comment/paging?productIdx=${orderDetailDTO.productIdx}">한줄리뷰리스트</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
