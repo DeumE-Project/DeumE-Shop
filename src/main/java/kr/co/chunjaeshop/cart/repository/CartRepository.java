@@ -21,4 +21,8 @@ public interface CartRepository {
     int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO);
 
     CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx);
+
+    void deleteCart(Integer cartIdx);
+
+    void deleteCartDetail(Integer cartIdx);
 }

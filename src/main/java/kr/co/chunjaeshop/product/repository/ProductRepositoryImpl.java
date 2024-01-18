@@ -149,5 +149,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     public int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx) {
         return pMap.checkIfProductBelongsToSeller(sellerIdx, productIdx);
     }
+
+    @Override
+    public int getReviewCount(Integer productIdx) {
+        return pMap.getReviewCount(productIdx);
+    }
+
+    @Override
+    public int getReviewStarSum(Integer productIdx) {
+        return pMap.getReviewStarSum(productIdx);
+    }
 }
 

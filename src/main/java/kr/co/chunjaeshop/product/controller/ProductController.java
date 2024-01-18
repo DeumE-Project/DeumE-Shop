@@ -563,6 +563,8 @@ public class ProductController {
 
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productIdx", productIdx);
+        model.addAttribute("reviewCount", pService.getReviewCount(productIdx));
+        model.addAttribute("reviewStarSum", pService.getReviewStarSum(productIdx));
         return "cart/productMainCart";
     }
 

@@ -26,7 +26,7 @@
                             <div class="card-body p-4 p-lg-5 text-black">
                                 <form>
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <span class="h1 fw-bold mb-0">천재샵 로그인</span>
+                                        <span class="h1 fw-bold mb-0">듬이Shop 로그인</span>
                                     </div>
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">로그인 후 더 많은 혜택을
                                         누리세요!</h5>
@@ -65,7 +65,7 @@
                                         </a>
                                     </p>
                                     <a href="#!" class="small text-muted">천재교육</a>
-                                    <a href="#!" class="small text-muted">천재샵</a>
+                                    <a href="#!" class="small text-muted">듬이Shop</a>
                                 </form>
                             </div>
                         </div>

@@ -36,7 +36,7 @@
 <div class="container">
     <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
-            <h2 class="mb-3">천재샵 회원가입</h2>
+            <h2 class="mb-3">듬이Shop 회원가입</h2>
             <hr class="mb-4">
             <form:form modelAttribute="registerFormDTO" action="${pageContext.request.contextPath}/register"
                        class="validation-form" novalidate="true" onsubmit="return submitCheckFunc()">

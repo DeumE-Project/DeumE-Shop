@@ -55,4 +55,6 @@ public interface ProductRepository {
 
     int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
 
+    int getReviewCount(Integer productIdx);
+    int getReviewStarSum(Integer productIdx);
 }

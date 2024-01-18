@@ -43,5 +43,6 @@ public interface ProductService {
     ProductDTO getProductInformationByProductIdx(Integer productIdx);
     List<ProductDTO> getProductListForMainPage();
     int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx);
-
+    int getReviewCount(Integer productIdx);
+    int getReviewStarSum(Integer productIdx);
 }

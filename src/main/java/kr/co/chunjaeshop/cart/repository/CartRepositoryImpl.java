@@ -50,4 +50,14 @@ public class CartRepositoryImpl implements CartRepository {
     public CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx) {
         return cartMapper.getSpecificCart(customerIdx, cartIdx);
     }
+
+    @Override
+    public void deleteCart(Integer cartIdx) {
+        cartMapper.deleteCart(cartIdx);
+    }
+
+    @Override
+    public void deleteCartDetail(Integer cartIdx) {
+        cartMapper.deleteCartDetail(cartIdx);
+    }
 }

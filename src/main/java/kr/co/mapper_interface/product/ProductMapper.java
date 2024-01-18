@@ -54,4 +54,7 @@ public interface ProductMapper {
 
     int checkIfProductBelongsToSeller(@Param("sellerIdx") Integer sellerIdx,
                                       @Param("productIdx") Integer productIdx);
+
+    int getReviewCount(Integer productIdx);
+    int getReviewStarSum(Integer productIdx);
 }

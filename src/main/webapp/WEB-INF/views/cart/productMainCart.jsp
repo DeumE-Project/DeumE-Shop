@@ -34,7 +34,26 @@
                 <p>판매자: <c:out value="${productDTO.sellerName}"/></p>
             </div>
             <div class="d-flex mb-3">
-                <p><span class="text-primary">[4] / 5</span>&nbsp;&nbsp;<span>([50] 리뷰)</span></p>
+                <c:set var="star" value=""/>
+                <c:if test="${reviewStarSum eq 0}">
+                    <c:set var="star" value="☆☆☆☆☆"/>
+                </c:if>
+                <c:if test="${reviewStarSum eq 1}">
+                    <c:set var="star" value="★☆☆☆☆"/>
+                </c:if>
+                <c:if test="${reviewStarSum eq 2}">
+                    <c:set var="star" value="★★☆☆☆"/>
+                </c:if>
+                <c:if test="${reviewStarSum eq 3}">
+                    <c:set var="star" value="★★★☆☆"/>
+                </c:if>
+                <c:if test="${reviewStarSum eq 4}">
+                    <c:set var="star" value="★★★★☆"/>
+                </c:if>
+                <c:if test="${reviewStarSum eq 5}">
+                    <c:set var="star" value="★★★★★"/>
+                </c:if>
+                <p><span class="text-primary" style="font-weight: bolder">${star} / 5</span>&nbsp;&nbsp;<span>(${reviewCount}개 리뷰)</span></p>
             </div>
             <div>
                 판매가 <h2 style="display: inline-block;" class="font-weight-semi-bold mb-4" id="product-price">

@@ -203,5 +203,17 @@
         FROM product
         WHERE product_idx = #{productIdx} AND seller_idx = #{sellerIdx}
     </select>
+
+    <select id="getReviewCount" resultType="Integer">
+        SELECT count(*)
+        FROM order_detail
+        WHERE product_idx = #{productIdx} AND reviewed = 1;
+    </select>
+
+    <select id="getReviewStarSum" resultType="Integer">
+        SELECT TRUNCATE(IFNULL(AVG(review_star), 0), 0)
+        FROM product_review pr
+        WHERE product_idx = #{productIdx}
+    </select>
 </mapper>
 
