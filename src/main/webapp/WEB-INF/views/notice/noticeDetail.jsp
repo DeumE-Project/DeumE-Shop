@@ -63,5 +63,6 @@
         location.href = "/notice/delete?idx=" + idx;
     }
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

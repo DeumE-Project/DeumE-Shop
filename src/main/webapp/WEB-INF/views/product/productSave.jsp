@@ -94,6 +94,9 @@
         <button type="button" class="btn btn-secondary" onclick="goBack()">뒤로 가기</button>
 
     </form:form>
+</div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+</body>
 
     <script>
         function previewImage(input, targetId) {

@@ -158,6 +158,6 @@
 </div>
 
 <jsp:include page="sellerBanModal.jsp" flush="true"/>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

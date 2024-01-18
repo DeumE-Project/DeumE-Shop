@@ -48,6 +48,7 @@
 
 
 </div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>
     const listFn = () => {

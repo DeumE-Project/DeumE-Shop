@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <head>
-<%--    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">--%>
-<%--    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>--%>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <title>상품리뷰리스트</title>
     <script>
         const savefn = () => {
@@ -15,7 +15,7 @@
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-    <h1>사진 리뷰 게시판</h1>
+    <h1>사진 리뷰 목록</h1>
     <table class="table table-striped">
         <thead>
         <tr>

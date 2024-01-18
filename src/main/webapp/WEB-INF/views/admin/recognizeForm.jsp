@@ -158,7 +158,7 @@
 </div>
 
 <jsp:include page="rejectModal.jsp" flush="true"/>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
     var RID="";

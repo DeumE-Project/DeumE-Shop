@@ -174,18 +174,12 @@
         </div>
     </div>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; 천재교육</p>
-    </div>
-</footer>
-
 <script>
     const productNotExistErrorMsg = '<c:out value="${productNotExistErrorMsg}"/>';
     if (productNotExistErrorMsg) {
         alert(productNotExistErrorMsg);
     }
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

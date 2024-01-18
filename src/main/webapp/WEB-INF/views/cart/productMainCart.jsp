@@ -198,5 +198,6 @@
         document.body.appendChild(formTag).submit();
     });
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>
