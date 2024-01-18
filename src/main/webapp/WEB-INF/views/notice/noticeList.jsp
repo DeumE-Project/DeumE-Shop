@@ -26,10 +26,11 @@
 <div class="container contentset">
     <br>
     <h1>공지사항</h1><br>
-
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
     <div class="d-flex justify-content-end mb-3">
         <a href="${pageContext.request.contextPath}/notice/save" class="btn btn-primary float-end">글작성</a>
     </div>
+    </sec:authorize>
 
     <div class="d-flex justify-content-center">
         <form class="text-center" action="/notice/search" method="get">
