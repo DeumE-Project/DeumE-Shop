@@ -89,4 +89,10 @@ public class CartServiceImpl implements CartService {
     public CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx) {
         return cartRepository.getSpecificCart(customerIdx, cartIdx);
     }
+
+    @Override
+    public void deleteCartAndCartDetail(Integer cartIdx) {
+        cartRepository.deleteCartDetail(cartIdx);
+        cartRepository.deleteCart(cartIdx);
+    }
 }

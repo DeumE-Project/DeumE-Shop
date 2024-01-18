@@ -216,6 +216,7 @@ public class CartController {
             if (orderDetailsInsertResult) {
                 sellerService.increaseSellerIncome(cart.getCartDetailDTOList(), cart.getSellerIdx());
                 log.info("새로운 주문 및 주문 디테일 저장 완료");
+                cartService.deleteCartAndCartDetail(cartIdx);
             } else {
                 log.error("새로운 주문 및 주문 디테일 저장 실패");
             }

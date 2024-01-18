@@ -15,4 +15,8 @@ public interface CartMapper {
     List<CartDTO> getAllMyCartList(Integer customerIdx);
     int changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO);
     CartDTO getSpecificCart(@Param("customerIdx") Integer customerIdx, @Param("cartIdx") Integer cartIdx);
+
+    void deleteCart(Integer cartIdx);
+
+    void deleteCartDetail(Integer cartIdx);
 }

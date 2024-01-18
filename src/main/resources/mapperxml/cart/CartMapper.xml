@@ -94,4 +94,16 @@
                 INNER JOIN seller s ON p.seller_idx = s.seller_idx
         WHERE c.customer_idx = #{customerIdx} AND c.cart_idx = #{cartIdx}
     </select>
+
+    <delete id="deleteCart">
+        DELETE
+        FROM cart
+        WHERE cart_idx = #{cartIdx}
+    </delete>
+
+    <delete id="deleteCartDetail">
+        DELETE
+        FROM cart_detail
+        WHERE cart_idx = #{cartIdx}
+    </delete>
 </mapper>

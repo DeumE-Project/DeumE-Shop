@@ -9,4 +9,6 @@ public interface CartService {
     List<CartDTO> getAllMyCartList(Integer customerIdx);
     CartDetailResult changeCartDetailBuyCount(ChangeCartDetailDTO changeCartDetailDTO);
     CartDTO getSpecificCart(Integer customerIdx, Integer cartIdx);
+
+    void deleteCartAndCartDetail(Integer cartIdx);
 }

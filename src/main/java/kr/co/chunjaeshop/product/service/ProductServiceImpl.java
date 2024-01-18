@@ -205,4 +205,14 @@ public class ProductServiceImpl implements ProductService {
     public int checkIfProductBelongsToSeller(Integer sellerIdx, Integer productIdx) {
         return pRepo.checkIfProductBelongsToSeller(sellerIdx, productIdx);
     }
+
+    @Override
+    public int getReviewCount(Integer productIdx) {
+        return pRepo.getReviewCount(productIdx);
+    }
+
+    @Override
+    public int getReviewStarSum(Integer productIdx) {
+        return pRepo.getReviewStarSum(productIdx);
+    }
 }
