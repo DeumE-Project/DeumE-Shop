@@ -255,8 +255,6 @@
                         </c:if>
                         </c:if>
 
-
-
                     </ul>
                 </nav>
             </div>
@@ -265,7 +263,7 @@
 </main>
 </div>
 <br><br><br><br><br><br><br><br><br><br>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<%--<%@ include file="/WEB-INF/views/common/footer.jsp" %>--%>
 </body>
 <script>
     // jQuery를 사용하여 페이지 이동 함수 정의
