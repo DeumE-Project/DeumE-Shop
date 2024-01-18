@@ -12,10 +12,15 @@
             max-height: 200px;
             margin-top: 10px;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 
 <body>
+<div class="contentset">
 <div class="container mt-5">
     <h1>사진 리뷰 등록</h1>
 
@@ -75,6 +80,7 @@
             previewImage(this, 'reviewImgPreview');
         };
     </script>
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

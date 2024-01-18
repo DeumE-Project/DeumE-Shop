@@ -5,12 +5,18 @@
 <jsp:include page="nav.jsp"/>
 <head>
     <title>로그인</title>
-
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
 </head>
 
 <body>
+<div class="contentset">
 <section class="vh-100" style="background-color: #fff;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -75,6 +81,7 @@
         </div>
     </div>
 </section>
+</div>
 <script>
     const loginFailMsg = '<c:out value="${loginFailMsg}" />'
     const sellerLoginFailMsg = '<c:out value="${sellerLoginFailMsg}"/>';

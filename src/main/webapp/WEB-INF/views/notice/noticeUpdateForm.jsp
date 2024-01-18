@@ -6,6 +6,10 @@
 <head>
     <title>update.jsp</title>
     <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 30px;
+        }
         .table-bordered {
             border: 1px solid #dee2e6;
         }
@@ -26,6 +30,8 @@
 <body>
 <div class="container">
     <br><br><br><br>
+<div class="container contentset">
+    <br>
     <h1>공지사항 수정하기</h1><br>
     <form:form modelAttribute="noticeDTO" action="/notice/update" method="post" name="updateForm">
         <form:input path="noticeIdx" type="hidden" name="idx" value="${notice.noticeIdx}" readonly="true"/>

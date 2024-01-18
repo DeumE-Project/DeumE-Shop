@@ -5,7 +5,12 @@
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>상품상세페이지</title>
-
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -34,7 +39,7 @@
 
     </style>
 </head>
-
+<div class="contentset">
 <div class="container-fluid py-5">
     <div class="row px-xl-5 bg-light" style="display: flex; align-items: center;">
         <div class="col-lg-5 pb-5">
@@ -137,6 +142,7 @@
     </div>
 </div>
 <div id="reviewListContainer"></div>
+</div>
 <script>
     function loadReviewList(page) {
         // Make an AJAX request to the controller with pagination parameters

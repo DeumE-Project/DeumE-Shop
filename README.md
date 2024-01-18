@@ -4,15 +4,15 @@
 <!--![256컬러](https://github.com/NovTeamProject/Team_Project/assets/145524959/3298851f-7534-4304-99b3-55106605b887)-->
 
 
-<img src="https://github.com/Last-but-not-LEAST/LBNL/assets/145524959/36306f87-6641-4489-bc56-f8fd26c3e126" width="750px" height="350px">
-
 <div>
 
 
-| **![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)** |  **![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)** |
+
+| **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/46747cca-2119-4ff2-a288-71d1756d1e5a)** |  **![@](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/dbdaee05-0810-42d3-b932-7b9fb889e627)** |
 | :------: |  :------: |
-|  #  |    |  # |
- |   <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/79c2022f-57c0-4c7b-acda-ca3d73e89103" width="150px" height="150px">  |  <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/1955dd1c-aa06-40a5-9f8f-6ed7fcfc7a66" width="150px" height="150px">  |   <img src="https://github.com/NovTeamProject/Team_Project/assets/145524959/0d6e1c04-a919-40c7-8bac-119282a7c9a7" width="150px" height="150px"> | 
+|  ![awsaws](https://github.com/NovTeamProject/Team_Project/assets/145963611/c33a2433-81d8-4137-88d6-c7c7c350a030)  |  ![notion2](https://github.com/NovTeamProject/Team_Project/assets/145963611/8e1e720e-e202-4ad8-9767-0befe6dcf529)  | 
+|  [@AWS](#)  |   [@Notion](https://feline-khaan-f70.notion.site/c388c2f473824cd8a40cf9d2f6707238?pvs=4)  |  
+
 
 </div>
 
@@ -42,12 +42,13 @@
  
 ### 개요
  
-고객들에게 편리하고 학습에 필요한 다양한 문구 제품을 제공하는 온라인 쇼핑몰을 구축하는 것입니다. 이를 통해 고객들은 집에서 편하게 쇼핑을 즐길 수 있으며, 문구 제품을 필요로 하는 고객층을 대상으로 합니다
+고객들에게 편리하고 학습에 필요한 문구 및  다양한제품을 판매하는 온라인 쇼핑몰을 구축하는 것입니다. <br/>
+이를 통해 고객들은 집에서 편하게 쇼핑을 즐길 수 있으며, 다양한 제품을 필요로 하는 구매자와 제품을 파는 판매자가 쇼핑몰을 이용 합니다.
 
 ### 시장조사
  
 - 경쟁사: 천재쇼핑몰,모닝글로리,문구랜드,알파
-- 차별화 포인트: 다양한 예쁜 일러스트와 디자인이 적용된 문구 제품, 신속하고 안전한 배송 시스템
+- 차별화 포인트: 관리자가 판매를 하는 것이 아니라 이용자가 판매자로 가입하여 판매를 합니다. (인증필요)
 
 ### 핵심 기능
 
@@ -84,9 +85,10 @@
 ## 📈 요구 명세서 📈
 
 <details><summary>요구 명세서</summary>
-      
 
-      
+[<img src="https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/693f8944-2d64-44eb-a156-cbc31b4eba6e">](https://feline-khaan-f70.notion.site/90cc985f6d4048c8a248e9375a6cc272)
+클릭시이동
+
 </details>
   
 
@@ -157,7 +159,6 @@
 <br>
 
 <img src="https://img.shields.io/badge/IntelliJ-000000?style=flat-square&logo=intellijidea&logoColor=white" />
-<img src="https://img.shields.io/badge/bitly-EE6123?style=flat-square&logo=bitly&logoColor=blue" />  
 <img src="https://img.shields.io/badge/StarUML-E25A1C?style=flat-square&logo=apachespark&logoColor=white" />
 <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=slack&logoColor=white" />
 <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=blue" />  

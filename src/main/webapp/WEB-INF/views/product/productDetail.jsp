@@ -65,41 +65,47 @@
             height: 90%;
             width: 80%;
         }
-        .img-fluid2{
+        .img-fluid2 {
 
             height: 90%;
             width: 50%;
         }
 
-        #scrollTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
-            height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
-        }
-
-
-        @media (min-width: 768px) {
-            /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
-            .product-image, .product-description {
-                order: 2;
-
-            }
-            .product-image {
-                margin: 0 auto; /* 가운데 정렬 */
+            .contentset {
+                min-height: calc(100vh - 30px);
+                padding-top: 100px;
             }
 
-            .description-image {
-                order: 2; /* 오른쪽에 배치 */
-                text-align: center; /* 가운데 정렬 */
+            #scrollTopBtn {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+                height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
             }
-        }
+
+            @media (min-width: 768px) {
+                /* 화면 폭이 768px 이상일 때 적용되는 스타일 */
+                .product-image, .product-description {
+                    order: 2;
+
+                }
+
+                .product-image {
+                    margin: 0 auto; /* 가운데 정렬 */
+                }
+
+                .description-image {
+                    order: 2; /* 오른쪽에 배치 */
+                    text-align: center; /* 가운데 정렬 */
+                }
+            }
+
     </style>
 </head>
 <body>
-
+<div class="contentset">
 <div class="container">
     <div class="row">
         <div class="col-lg-6 product-image">
@@ -140,7 +146,7 @@
     </div>
     <div id="reviewListContainer"></div>
 </div>
-
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 <script>

@@ -59,9 +59,14 @@
         .th-5{
             width: 22%;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 <body>
+<div class="contentset">
 <nav class="mh">
     <div>
         <div class="admin-title">관리자</div>
@@ -156,6 +161,7 @@
             </div>
         </c:if>
     </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>

@@ -5,8 +5,14 @@
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <head>
     <title>주문상세</title>
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
 </head>
-
+<div class="contentset">
 <!-- Page Header Start -->
 <div class="container-fluid">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -201,6 +207,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>

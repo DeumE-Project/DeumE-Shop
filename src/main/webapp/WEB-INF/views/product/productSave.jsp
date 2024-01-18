@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/topNavigation.jsp" %>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 <!DOCTYPE html>
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,10 @@
             max-height: 200px;
             margin-top: 10px;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 
 
@@ -24,6 +28,7 @@
 </head>
 <jsp:include page="/WEB-INF/views/common/register.jsp"/>
 <body>
+<div class="contentset">
 <div class="container mt-5">
     <h1>상품 등록</h1>
     <form:form modelAttribute="productSaveDTO" action="/product/productSave" method="post" enctype="multipart/form-data">
@@ -94,9 +99,13 @@
         <button type="button" class="btn btn-secondary" onclick="goBack()">뒤로 가기</button>
 
     </form:form>
+    <br><br><br>
+</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
+
+
 
     <script>
         function previewImage(input, targetId) {
@@ -228,6 +237,5 @@
             }
         }
     </script>
+</html>
 
-
-</div>

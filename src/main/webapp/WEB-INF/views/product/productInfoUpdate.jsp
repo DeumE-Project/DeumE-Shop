@@ -8,9 +8,16 @@
 <html>
 <head>
     <title>product Info Update</title>
+    <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="contentset">
 <div class="container mt-5">
     <h1>제품 상세 정보 수정</h1>
 
@@ -43,7 +50,8 @@
 
         <button type="submit" class="btn btn-primary">수정</button>
     </form:form>
-
+</div>
+</div>
     <script>
         function isNumberKey(evt) {
             let charCode = (evt.which) ? evt.which : event.keyCode;

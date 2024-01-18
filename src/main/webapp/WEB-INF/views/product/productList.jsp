@@ -6,15 +6,18 @@
 <head>
     <title>상품목록</title>
     <style>
-
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
         #noProductMessage {
             text-align: center;
         }
     </style>
 </head>
-
+<div class="contentset">
 <!-- Header-->
-<header class="main-header py-5">
+<div class="main-header py-5">
     <img src="${pageContext.request.contextPath}/resources/common/images/mainpage_image_bgremoved.png"
          class="character"/>
     <div class="container px-4 px-lg-5 my-5">
@@ -24,7 +27,7 @@
         </div>
     </div>
     <jsp:include page="productCategoryList.jsp"></jsp:include>
-</header>
+</div>
 <!-- Section-->
 <section class="py-5">
     <form class="row gx-2 justify-content-center mb-4" method="get" action="/product/productList">
@@ -182,6 +185,7 @@
         </div>
     </div>
 </section>
+</div>
 <script>
     const productNotExistErrorMsg = '<c:out value="${productNotExistErrorMsg}"/>';
     if (productNotExistErrorMsg) {

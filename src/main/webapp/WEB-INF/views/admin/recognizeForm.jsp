@@ -14,6 +14,7 @@
             padding-top: 20px;
             padding-left: 20px;
             color: white;
+            z-index: 0;
         }
         .admin-title {
             font-size: 24px;
@@ -55,9 +56,14 @@
         .th-4{
             width: 12%;
         }
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 100px;
+        }
     </style>
 </head>
 <body>
+<div class="contentset">
 <nav class="mh">
     <div>
         <div class="admin-title">관리자</div>
@@ -156,7 +162,7 @@
         </c:if>
     </div>
 </div>
-
+</div>
 <jsp:include page="rejectModal.jsp" flush="true"/>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

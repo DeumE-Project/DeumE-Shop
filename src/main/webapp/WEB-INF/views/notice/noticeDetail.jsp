@@ -6,6 +6,10 @@
 <head>
     <title>detail.jsp</title>
     <style>
+        .contentset{
+            min-height: calc(100vh - 30px);
+            padding-top: 30px;
+        }
         th {
             width: 120px;
             text-align: center;
@@ -26,8 +30,11 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <br><br><br><br>
+<div class="container contentset">
+    <br>
     <h1>공지사항 상세보기</h1><br>
     <table class="table table-bordered">
         <tr>
