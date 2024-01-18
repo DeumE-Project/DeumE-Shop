@@ -154,7 +154,7 @@
                 $('#reviewListContainer').html(data);
                 $('html, body').animate({
                     scrollTop: $('#reviewListContainer').offset().top
-                }, 50);
+                }, 0);
             },
             error: function () {
 
@@ -178,7 +178,7 @@
                 $('#reviewListContainer').html(data);
                 $('html, body').animate({
                     scrollTop: $('#reviewListContainer').offset().top
-                }, 50);
+                }, 0);
             },
             error: function () {
 
@@ -204,7 +204,7 @@
 
 
     function scrollToTop() {
-        $('html, body').animate({scrollTop : 0},800);
+        $('html, body').animate({scrollTop : 0},0);
     }
 </script>
 </html>
