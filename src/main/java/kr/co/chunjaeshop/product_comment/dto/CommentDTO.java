@@ -14,6 +14,7 @@ public class CommentDTO {
     private String commentContents;
     private LocalDateTime commentCreatedTime;
 
+    //날짜 포맷을 설정 하기 위한 메서드
     public String getCommentCreatedTimeStr() {
         if (this.commentCreatedTime != null) {
             return this.commentCreatedTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

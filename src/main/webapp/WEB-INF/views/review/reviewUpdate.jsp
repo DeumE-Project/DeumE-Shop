@@ -23,6 +23,7 @@
 <div class="container mt-5">
     <h1>리뷰 수정</h1>
 
+    <%-- 스프링 폼을 통해 유효성검사 실행--%>
     <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
     <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update?reviewIdx=${reviewIdx}"
                method="post" enctype="multipart/form-data">
@@ -41,6 +42,7 @@
             </form:select>
         </div>
         <div>
+                <%--바인딩 에러 출력하는곳 ( 에러가없을경우 표시되지않고 있을경우 span으로 출력)--%>
             <form:errors path="reviewStar" cssClass="text-danger"/>
         </div>
 
@@ -69,6 +71,7 @@
     </form:form>
 
     <script>
+        // 파일 선택 시 이미지 미리보기 기능을 구현하는 자바스크립트
         function previewImage(input, targetId) {
             var reader = new FileReader();
             reader.onload = function (e) {

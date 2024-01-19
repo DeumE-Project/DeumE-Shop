@@ -39,6 +39,7 @@
                 <td>
                     <c:choose>
                         <c:when test="${fn:length(review.reviewContent) gt 50}">
+                            <%--데이터 출력시 c:out을 통해 문자그대로 출력 (html태그 등등 이용방지)--%>
                             <c:out value="${fn:substring(review.reviewContent, 0, 50)}....."/>
                         </c:when>
                         <c:otherwise>

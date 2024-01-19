@@ -146,6 +146,7 @@
 <div id="reviewListContainer"></div>
 </div>
 <script>
+    // ajax를 통해 비동기식으로 리뷰 를 div reviewListContainer에 뿌려줍니다
     function loadReviewList(page) {
 
         $.ajax({
@@ -171,6 +172,7 @@
     }
 </script>
 <script>
+    // ajax를 통해 비동기식으로 리뷰 를 div reviewListContainer에 뿌려줍니다
     function loadCommentList(page) {
 
         $.ajax({
@@ -189,7 +191,7 @@
                 }, 50);
             },
             error: function () {
-                // Handle error if needed
+
                 console.error('Failed to fetch review list.');
             }
         });

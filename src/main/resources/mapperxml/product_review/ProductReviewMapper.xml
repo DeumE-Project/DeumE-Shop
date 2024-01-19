@@ -4,6 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper_interface.product_review.ProductReviewMapper">
     <!--    남원우-->
+    <!--리뷰등록-->
     <insert id="reviewSave" parameterType="ProductReviewDTO">
         INSERT INTO product_review (customer_idx, product_idx, review_content,
         review_star, review_thumb_saved, review_img_original, review_img_saved)
@@ -15,37 +16,37 @@
         SELECT review_idx, customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date
         FROM product_review
     </select>
-
+    <!--세부정보-->
     <select id="findByIdx" resultType="ProductReviewDTO">
         select review_idx, pr.customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date, c.customer_id
         from product_review pr inner join customer c on pr.customer_idx = c.customer_idx
         where review_idx= #{review_idx}
     </select>
-
+    <!--저장정보-->
     <select id="findByIdxReviewSaveDTO" resultType="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO">
         select review_star, review_content  , review_idx
         from product_review
         where customer_idx = #{customerIdx} and review_idx = #{reviewIdx}
     </select>
-
+    <!--수정-->
     <update id="update" parameterType="ProductReviewDTO">
         UPDATE product_review
         SET review_star = #{reviewStar} , review_content = #{reviewContent} , review_thumb_saved =#{reviewThumbSaved}, review_img_original=#{reviewImgOriginal}
         , review_img_saved = #{reviewImgSaved}
         WHERE review_idx = #{reviewIdx}
     </update>
-
+    <!--삭제-->
     <delete id="delete" parameterType="String">
         delete from product_review where review_idx = #{reviewIdx}
     </delete>
-
+    <!--페이징리스트-->
     <select id="pagingList" parameterType="java.util.HashMap" resultType="ProductReviewDTO">
         SELECT review_idx, c.customer_idx, product_idx, review_content, review_star, review_thumb_saved, review_img_original, review_img_saved, review_date, c.customer_id
         from product_review pr inner join customer c on pr.customer_idx = c.customer_idx
         where product_idx = #{productIdx}
         order by review_idx desc limit #{start}, #{limit}
     </select>
-
+    <!--리뷰 수체크-->
     <select id="boardCount" resultType="Integer">
         select count(review_idx)
         from product_review

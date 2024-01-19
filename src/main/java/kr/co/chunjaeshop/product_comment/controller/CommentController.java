@@ -35,6 +35,8 @@ public class CommentController {
     @GetMapping("/save")
     public String saveForm(@ModelAttribute CommentSaveDTO commentSaveDTO,
                            Authentication auth){
+
+        // 로그인 한 사용자의 인증 객체 정보를 가져 오는 로직
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer customerIdx = loginUserDTO.getIdx();
 
@@ -53,7 +55,7 @@ public class CommentController {
     public String save(@Validated @ModelAttribute CommentSaveDTO commentSaveDTO, BindingResult bindingResult ,
                        HttpServletRequest httpServletRequest, Model model,
                        Authentication auth ) {
-
+        // 로그인 한 사용자의 인증 객체 정보를 가져 오는 로직
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer customerIdx = loginUserDTO.getIdx();
 
@@ -83,7 +85,7 @@ public class CommentController {
         log.info(productIdx);
         CommentDTO commentDTO = new CommentDTO();
 
-        //테스트용
+
         commentDTO.setProductIdx(productIdx);
         commentDTO.setCommentWriter(commentSaveDTO.getCommentWriter());
         commentDTO.setCommentContents(commentSaveDTO.getCommentContents());
@@ -102,7 +104,7 @@ public class CommentController {
             bindingResult.addError(new FieldError("commentSaveDTO", "",
                     "리뷰 등록에 실패했습니다. 다시 시도해주세요.")); // 실패 메시지 바인딩
 
-            return "comment/commentSave"; // 저장 실패 시 save 페이지로 리디렉션
+            return "comment/commentSave"; // 저장 실패 시 save 페이지로 이동
         }
     }
     @GetMapping("/list")
@@ -117,14 +119,14 @@ public class CommentController {
     @GetMapping("/paging")
     public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                          @RequestParam Integer productIdx) {
-        // BoardService를 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
+        // commentService 사용하여 지정된 페이지의 게시글 목록을 가져옵니다.
         List<CommentDTO> pagingList = commentService.pagingList(page,productIdx);
-        // BoardService를 사용하여 페이징 정보를 가져옵니다.
+        // commentService 사용하여 페이징 정보를 가져옵니다.
         CommentPageDTO pageDTO = commentService.pagingParam(page,productIdx);
         // 페이징된 목록 및 페이징 정보를 뷰에서 렌더링하기 위해 모델에 추가합니다.
         model.addAttribute("pagingList", pagingList);
         model.addAttribute("paging", pageDTO);
-        // 뷰 이름을 반환합니다.
+
         return "comment/commentPaging";
     }
 }

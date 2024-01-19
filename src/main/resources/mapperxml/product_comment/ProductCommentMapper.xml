@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.mapper_interface.product_comment.ProductCommentMapper">
+    <!--한줄 리뷰 저장-->
     <insert id="commentSave" parameterType="CommentDTO">
         insert into comment( product_idx,comment_writer,comment_contents)
         values(#{productIdx}, #{commentWriter} ,#{commentContents})
@@ -12,14 +13,14 @@
         select * from comment
         where product_idx = 2;
     </select>
-
+    <!--페이징리스트-->
     <select id="pagingList" parameterType="java.util.HashMap" resultType="CommentDTO">
         SELECT comment_idx,product_idx,comment_writer,comment_contents,comment_createdTime
         from comment
         where product_idx = #{productIdx}
         order by comment_idx desc limit #{start}, #{limit}
     </select>
-
+    <!--리뷰 수체크-->
     <select id="boardCount" resultType="Integer">
         select count(comment_idx)
         from comment

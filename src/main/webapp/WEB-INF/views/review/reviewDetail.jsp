@@ -42,9 +42,11 @@
             <td>${productReview.reviewDateStr}</td>
         </tr>
     </table>
-
-    <sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="pinfo" />
+    <%--Spring Security를 통해 사용자 인증이 되었는지 확인--%>
+   <sec:authorize access="isAuthenticated()">
+       <%--authentication를 통해 사용자 정보에 접근해서 principal라는 것을 가져와 변수 pinfo 에 저장합니다.--%>
+   <sec:authentication property="principal" var="pinfo" />
+   <%--Spring Security를 통해 현재 로그인한 사용자 확인하고 작성자와 같읕지를 확인한다 같을경우 표시--%>
     <c:if test="${(pinfo.idx eq productReview.customerIdx)}">
         <div>
             <button class="btn btn-warning" onclick="updateFn()">수정</button>
