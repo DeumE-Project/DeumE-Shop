@@ -156,7 +156,8 @@ public class ProductController {
 
             // InputStream을 사용해서 썸네일 생성
             Thumbnails.of(productSaveDTO.getProductImg().getInputStream())
-                    .size(100, 100) // 썸네일 크기 설정
+                    .size(200, 200) // 썸네일 크기 설정
+                    .outputQuality(1.0)
                     .toFile(new File(thumbnailFilePath)); // 썸네일저장
 
             /*HttpSession session = request.getSession();
@@ -368,7 +369,8 @@ public class ProductController {
             log.info("thumbnailFilePath={}",thumbnailFilePath);
             // 썸네일 생성 및 저장
             Thumbnails.of(productMainImgUpdateDTO.getMainImg().getInputStream())
-                    .size(100, 100)
+                    .size(200, 200)
+                    .outputQuality(1.0)
                     .toFile(new File(thumbnailFilePath));
             if (!checkImageType(new File(fileImgSaved))) { // Mime Type Check
                 bindingResult.addError(new FieldError("productMainImgUpdateDTO", "",
@@ -382,7 +384,7 @@ public class ProductController {
             productMainImgUpdateDTO.setProductImgOriginal(fileImgOriginal); //productImgOriginal 설정
             productMainImgUpdateDTO.setProductImgSaved(uploadFolderPath + "/" + fileImgSaved); // productImgSaved 설정
 
-            boolean result = productService.productImgUpdate(productMainImgUpdateDTO); // 서ㅣㅂ스 호출
+            boolean result = productService.productImgUpdate(productMainImgUpdateDTO); // 서비스 호출
             if (result) {
                 // 등록 성공시 제품 상세페이지로 redirect
                 return "redirect:/product/productDetail?productIdx=" + productMainImgUpdateDTO.getProductIdx();
