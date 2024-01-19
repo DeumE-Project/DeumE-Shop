@@ -94,22 +94,29 @@
             let priceValue = parseInt(productPriceInput.value);
             // 숫자가 아니거나 음수인 경우
             if (isNaN(priceValue) || priceValue < 0) {
-                //
+                // 경고 메시지 출력
                 alert('숫자만 입력해주세요.');
-                productPriceInput.value = '';
+                productPriceInput.value = ''; // 필드 비우기
+                // 100000을 초과한 경우
             } else if (priceValue > 100000) {
+                // 경고 메시지 출력
                 alert('상품 가격은 10만원 이하만 입력 가능합니다.');
+                // 입력 값을 '100000'으로 설정
                 productPriceInput.value = '100000';
             }
         }
+        // 상품 간단 설명 길이 제한
         function checkProductExplain() {
+            // productExplain id를 가진 element를 가져옴
             let productExplainInput = document.getElementById('productExplain');
+            // 입력값을 가져옴
             let productExplain = productExplainInput.value;
 
             // 정규표현식을 사용하여 유효성 검사
             let regex = /^.{1,100}$/;
-
+            // 유효성 검사에 실패하면
             if (!regex.test(productExplain)) {
+                // 경고메시지 출력
                 alert('입력은 100글자 이하로 제한됩니다.');
                 productExplainInput.value = ''; // 입력값 초기화
             }

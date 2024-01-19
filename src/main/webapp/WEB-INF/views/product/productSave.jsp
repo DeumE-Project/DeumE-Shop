@@ -127,7 +127,7 @@
         // productImg에 대한 이벤트 핸들러
         document.getElementById('productImgInput').onchange = function () {
             // validateAndPreviewImage 함수 호출
-            // this는 현재 변경된 input 엘리먼트를 나타냄
+            // this는 현재 변경된 input element 나타냄
             // 'productImgPreview': 미리보기 이미지를 표시할 대상 element의 id
             // 'productImgWarning': 유효성 검사에 실패했을 때 경고를 표시할 element의 id
             validateAndPreviewImage(this, 'productImgPreview', 'productImgWarning');
@@ -223,7 +223,7 @@
             } else if (priceValue > 100000) { // 100000을 초과한 경우
                 // 경고메시지 출력
                 alert('상품 가격은 10만원 이하만 입력 가능합니다.');
-                // 입력 값을 100000으로 설정
+                // 입력 값을 '100000'으로 설정
                 productPriceInput.value = '100000';
             }
         }
