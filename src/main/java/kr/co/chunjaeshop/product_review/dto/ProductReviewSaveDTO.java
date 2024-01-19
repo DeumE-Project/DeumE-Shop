@@ -17,7 +17,7 @@ public class ProductReviewSaveDTO {
     @NotBlank(message = "리뷰 내용은 필수 입력값입니다")
     @Size(min = 0, max = 500, message = "내용은 500자 이내로 입력")
     private String reviewContent;
-
+    // multipartFile은 유효성검사를 위해 따로 어노테이션 지정 후 클래스생성
     @ValidFile(message = "리뷰 사진은 필수 입니다.")
     private MultipartFile reviewImg;
 

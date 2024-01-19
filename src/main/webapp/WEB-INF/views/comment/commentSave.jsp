@@ -23,6 +23,7 @@
 <div class="container mt-5">
     <h1>한줄 리뷰 등록</h1>
 
+    <%-- 스프링 폼을 통해 유효성검사 실행--%>
     <%--@elvariable id="commentSaveDTO" type="kr.co.chunjaeshop.product_comment.dto.CommentSaveDTO"--%>
     <form:form modelAttribute="commentSaveDTO" action="/product/comment/save?orderDetailIdx=${commentSaveDTO.orderDetailIdx}"
                method="post" cssClass="mb-5" >
@@ -32,6 +33,7 @@
             <form:input class="form-control" path="commentWriter" rows="3" placeholder="작성자를 입력하세요" />
         </div>
         <div>
+        <%--바인딩 에러 출력하는곳 ( 에러가없을경우 표시되지않고 있을경우 span으로 출력)--%>
             <form:errors path="commentWriter" cssClass="text-danger"/>
         </div>
         <div class="mb-3">

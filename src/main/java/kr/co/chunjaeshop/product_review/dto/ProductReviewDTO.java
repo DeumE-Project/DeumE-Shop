@@ -17,6 +17,8 @@ public class ProductReviewDTO {
         private String reviewImgSaved; // 고객이 업로드한 이미지 서버에 저장된 파일명
         private LocalDateTime reviewDate; // 리뷰 일자
 
+        
+        //날짜 포맷을 설정 하기 위한 메서드
         public String getReviewDateStr() {
                 if (this.reviewDate != null) {
                         return this.reviewDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
