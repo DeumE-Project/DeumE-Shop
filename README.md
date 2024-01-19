@@ -117,25 +117,38 @@ https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/087bc6f0-0301-4eba-b46
 
 ## 📹 기능 설명 📹
 
-
-<details><summary>메인화면</summary>
+<details><summary>남원우</summary> 
 <br/>
-
-
-</details>
-
-<details><summary>로그인</summary>
-<br/>
-
-
-</details>
-
-<details><summary>회원가입</summary>
-<br/>
-
  
-
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/6efb8de0-dad5-41da-9f6f-438e25a2df64)
+ 
 </details>
+
+<details><summary>변재혁</summary>
+<br/>
+ 
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/d2b8de05-7dc7-46a6-96c3-0f957b3cccd1)
+ 
+</details>
+ 
+<details><summary>유지호</summary>
+<br/>
+
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/d05467ff-5a9d-4a9e-87fe-23e25e97cc66)
+</details>
+
+<details><summary>이무현</summary>
+<br/>
+ 
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/079a0150-956f-4099-ab65-06ad9bee7b12)
+</details>
+
+<details><summary>최경락</summary>
+<br/>
+ 
+![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/73a43545-d0fe-4bcc-94cb-4c8996b0e7b6)
+</details>
+
 
 
 ## 🤐 개선 사항 🤐
