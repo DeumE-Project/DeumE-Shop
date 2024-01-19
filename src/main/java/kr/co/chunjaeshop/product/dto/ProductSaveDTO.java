@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 @Data
 public class ProductSaveDTO {
-    @NotNull(message = "상품 카테고리는 필수 선택사항입니다")
+    @NotBlank(message = "상품 카테고리는 필수 선택사항입니다")
     private Integer categoryIdx;
 
     @NotBlank(message = "상품명은 필수 입력값입니다")
