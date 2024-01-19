@@ -57,7 +57,7 @@
             height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
         }
     </style>
-<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>--%>
+
 </head>
 <body>
 <div class="contentset">
@@ -94,9 +94,6 @@
                 <button type="button" id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
             </div>
         </div>
-        <%--<div>
-            <button id="scrollTopBtn" class="btn btn-primary" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
-        </div>--%>
     </form:form>
 
     <!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
@@ -124,19 +121,19 @@
 
             if (fileSize > 10485760) {
                 warning.innerHTML = "이미지 파일 크기가 10MB를 초과합니다.";
-                input.value = ''; // Clear the input
-                targetElement.style.display = 'none'; // Hide the preview
+                input.value = ''; /
+                targetElement.style.display = 'none';
                 return;
             }
 
             if (allowedTypes.indexOf(fileType) === -1) {
                 warning.innerHTML = "이미지 파일(jpg, jpeg, png)만 허용됩니다.";
                 input.value = ''; // Clear the input
-                targetElement.style.display = 'none'; // Hide the preview
+                targetElement.style.display = 'none';
             } else {
                 warning.innerHTML = '';
                 previewImage(input, targetId);
-                targetElement.style.display = 'block'; // Show the preview
+                targetElement.style.display = 'block';
             }
         }
     </script>

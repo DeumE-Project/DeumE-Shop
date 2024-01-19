@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <th class="table-secondary">내용</th>
-            <td colspan="3" class="content-section"><c:out value="${notice.noticeContent}"/></td>
+            <td colspan="3" class="content-section"><pre><c:out value="${notice.noticeContent}"/></pre></td>
         </tr>
     </table>
     <div class="center-buttons">
