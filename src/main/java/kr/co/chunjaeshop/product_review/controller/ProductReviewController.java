@@ -131,9 +131,9 @@ public class ProductReviewController {
       }
 
       // 파일 크기 제한
-      if (productReviewSaveDTO.getReviewImg().getSize() > 1 * 1024 * 1024) {
+      if (productReviewSaveDTO.getReviewImg().getSize() > 5 * 1024 * 1024) {
         bindingResult.addError(new FieldError("productReviewSaveDTO", "reviewImg",
-                "이미지 파일 크기는 1MB 초과할 수 없습니다."));
+                "이미지 파일 크기는 5MB 초과할 수 없습니다."));
         return "/review/reviewSave";
       }
 
@@ -303,9 +303,9 @@ public class ProductReviewController {
       uploadPath.mkdir();
     }
     // 파일 크기 제한
-    if (productReviewSaveDTO.getReviewImg().getSize() > 1 * 1024 * 1024) {
+    if (productReviewSaveDTO.getReviewImg().getSize() > 5 * 1024 * 1024) {
       bindingResult.addError(new FieldError("productReviewSaveDTO", "reviewImg",
-              "이미지 파일 크기는 1MB 초과할 수 없습니다."));
+              "이미지 파일 크기는 5MB 초과할 수 없습니다."));
       return "/review/reviewSave";
     }
 
