@@ -399,7 +399,7 @@ public class ProductReviewController {
     }
 
     productReviewService.delete(reviewIdx);
-    return "redirect:/product/review/paging?productIdx=" + productIdx;
+    return "redirect:/product/detail?productIdx=" + productIdx;
 
   }
   // 최경락

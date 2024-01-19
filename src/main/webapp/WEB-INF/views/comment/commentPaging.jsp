@@ -14,6 +14,11 @@
 <body class="bg-light">
 <div class="container mt-3">
     <h1>한줄 리뷰 목록</h1>
+    <c:choose>
+    <c:when test="${empty pagingList}">
+        <p> 등록된 리뷰가 없습니다.</p>
+    </c:when>
+    <c:otherwise>
     <table class="table table-striped"  id="comment-list">
         <tr>
             <th>작성자</th>
@@ -30,10 +35,11 @@
             </tr>
         </c:forEach>
     </table>
-
+    </c:otherwise>
+    </c:choose>
 </div>
 
-
+<c:if test="${not empty pagingList}">
 <div class="container mt-3">
 
 <ul class="pagination">
@@ -58,5 +64,6 @@
     </li>
 </ul>
 </div>
+</c:if>
 </body>
 </html>
