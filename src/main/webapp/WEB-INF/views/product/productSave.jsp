@@ -75,7 +75,7 @@
         <div class="mb-3">
             <label for="productImg" class="form-label">제품 사진</label>
             <form:input type="file" class="form-control" path="productImg" id="productImgInput" accept="image/*"
-                        onchange="validateImageType('productImgInput', 'productImgWarning')" />
+                        onchange="validateAndPreviewImage('productImgInput', 'productImgWarning')" />
             <form:errors path="productImg" cssClass="text-danger"/>
             <div id="productImgWarning" class="text-danger"></div>
         </div>
@@ -86,7 +86,7 @@
         <div class="mb-3">
             <label for="productDetailImg" class="form-label">제품 상세 사진</label>
             <form:input type="file" class="form-control" path="productDetailImg" id="productDetailImgInput" accept="image/*"
-                        onchange="validateImageType('productDetailImgInput', 'productDetailImgWarning')" />
+                        onchange="validateAndPreviewImage('productDetailImgInput', 'productDetailImgWarning')" />
             <form:errors path="productDetailImg" cssClass="text-danger"/>
             <div id="productDetailImgWarning" class="text-danger"></div>
         </div>
@@ -183,7 +183,7 @@
             // ASCII에서 '0'에서 '9'까지의 숫자 문자는 각각 48에서 57까지의 코드를 가진다
             // 31보다 크면서 동시에 키 코드가 48보다 작거나 57보다 크면, if 문 내부의 코드 블록을 실행
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                // 입력 거무
+                // 입력 거부
                 return false;
             }
             // 입력 허용
@@ -205,7 +205,7 @@
             } else if (stockValue > 1000) {
                 // 경고메시지 출력
                 alert('재고 수량은 1000개 이하만 입력 가능합니다.');
-                // 입력가능한 값을 1000설정
+                // 입력 가능한 값 '1000'설정
                 productStockInput.value = '1000';
             }
         }

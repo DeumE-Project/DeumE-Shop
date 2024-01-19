@@ -53,30 +53,48 @@
 </div>
 </div>
     <script>
+        // 숫자 입력만 허용
         function isNumberKey(evt) {
+            // 키 코드 얻기
             let charCode = (evt.which) ? evt.which : event.keyCode;
+            // 입력된 키가 숫자가 아니면(ASCII 코드에서 0부터 0까지의 범위가 아닌 경우)
+            // ASCII에서 '0'에서 '9'까지의 숫자 문자는 각각 48에서 57까지의 코드를 가진다
+            // 31보다 크면서 동시에 키 코드가 48보다 작거나 57보다 크면, if 문 내부의 코드 블록을 실행
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                // 입력 거부
                 return false;
             }
+            //입력 허용
             return true;
         }
+        // 재고 수량 입력 제한
         function checkStockLimit() {
+            // productStock id를 가진 element를 가져옴
             let productStockInput = document.getElementById('productStock');
+            // 재고 입력 값 가져오기 및 정수 변환
             let stockValue = parseInt(productStockInput.value);
-
+            // 숫자가 아니거나 음수인 경우
             if (isNaN(stockValue) || stockValue < 0) {
+                // 경고 메시지 출력
                 alert('숫자만 입력해주세요.');
-                productStockInput.value = '';
+                productStockInput.value = ''; // 필드 비우기
+                // 1000을 초과한 경우
             } else if (stockValue > 1000) {
+                // 경고 메시지 출력
                 alert('재고 수량은 1000개 이하만 입력 가능합니다.');
+                // 입력 가능한 값 '1000' 설정
                 productStockInput.value = '1000';
             }
         }
+        // 상품 가격 제한
         function checkProductPrice() {
+            // productPrice id를 가진 element를 가져옴
             let productPriceInput = document.getElementById('productPrice');
+            // 입력 값 가져오기 및 정수 변환
             let priceValue = parseInt(productPriceInput.value);
-
+            // 숫자가 아니거나 음수인 경우
             if (isNaN(priceValue) || priceValue < 0) {
+                //
                 alert('숫자만 입력해주세요.');
                 productPriceInput.value = '';
             } else if (priceValue > 100000) {
