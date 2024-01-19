@@ -1,9 +1,7 @@
 package kr.co.chunjaeshop.notice.dto;
 
 import lombok.Data;
-import org.checkerframework.checker.units.qual.min;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -18,7 +16,7 @@ public class NoticeDTO {
     private String noticeTitle;
 
     @NotBlank(message = "내용을 입력하세요.")
-    @Size(min=0, max = 60, message = "내용은 500자 이내로 입력")
+    @Size(min=0, max = 500, message = "내용은 500자 이내로 입력")
     private String noticeContent;
     private LocalDateTime noticeDate;
 
