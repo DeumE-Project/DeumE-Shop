@@ -2,7 +2,6 @@ package kr.co.chunjaeshop.product_comment.repository;
 
 
 import kr.co.chunjaeshop.product_comment.dto.CommentDTO;
-import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.mapper_interface.product_comment.ProductCommentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

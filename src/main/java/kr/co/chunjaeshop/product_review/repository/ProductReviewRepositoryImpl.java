@@ -2,11 +2,9 @@ package kr.co.chunjaeshop.product_review.repository;
 
 import kr.co.chunjaeshop.product_review.dto.ProductReviewDTO;
 import kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO;
-import kr.co.mapper_interface.customer.CustomerMapper;
 import kr.co.mapper_interface.product_review.ProductReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
