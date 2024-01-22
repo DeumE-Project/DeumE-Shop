@@ -53,7 +53,7 @@ public class ProductController {
 
             // MIME 유형이 jpg, png, jpeg 중 하나인지 확인
             return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png")
-                                                                            || contentType.equals("image/jpg"));
+                    || contentType.equals("image/jpg"));
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -93,7 +93,7 @@ public class ProductController {
                     ("productSaveDTO", "productImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
         //ProductDetailImg 업로드 용량 제한
-        if ( productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) {
+        if (productSaveDTO.getProductImg().getSize() > 10 * 1024 * 1024) {
             bindingResult.addError(new FieldError
                     ("productSaveDTO", "productDetailImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
@@ -128,20 +128,20 @@ public class ProductController {
         log.info("fileDetailOriginal=} ", fileDetailOriginal);
 
         // uuid_를 적용
-        String fileImgSaved = uuid.toString()+ "_"+  fileImgOriginal;
-        log.info("fileImgSaved={} ",fileImgSaved);
+        String fileImgSaved = uuid.toString() + "_" + fileImgOriginal;
+        log.info("fileImgSaved={} ", fileImgSaved);
 
         // 저장 경로/fileImgSaved
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
-        log.info("fileImgSavedUploadPath={} ",fileImgSavedUploadPath);
+        log.info("fileImgSavedUploadPath={} ", fileImgSavedUploadPath);
 
         // uuid_를 적용
-        String fileDetailSaved = uuid.toString()+ "_"+ fileDetailOriginal;
-        log.info("fileDetailSaved={} ",fileDetailSaved);
+        String fileDetailSaved = uuid.toString() + "_" + fileDetailOriginal;
+        log.info("fileDetailSaved={} ", fileDetailSaved);
 
         // 저장경로/fileDetailSaved
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
-        log.info("fileDetailSavedUploadPath={} ",fileDetailSavedUploadPath);
+        log.info("fileDetailSavedUploadPath={} ", fileDetailSavedUploadPath);
         try {
             //이미지를 지정된 경로에 전달
             productSaveDTO.getProductImg().transferTo(new File(fileImgSavedUploadPath));
@@ -149,7 +149,7 @@ public class ProductController {
 
             // 썸네일 파일명 생성
             String thumbnailFilename = "thumb_" + uuid.toString() + productSaveDTO.getProductImg().getOriginalFilename();
-            log.info("thumbnailFilename={} ",thumbnailFilename);
+            log.info("thumbnailFilename={} ", thumbnailFilename);
             // 썸네일 저장경로 생성
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
             log.info("thumbnailFilePath={} ", thumbnailFilePath);
@@ -198,7 +198,7 @@ public class ProductController {
 
             // productService를 통해 상품 정보 저장, 저장 결과를 saveResult에 저장.
             int saveResult = productService.productSave(productDTO);
-            log.info("saveResult={} ",saveResult);
+            log.info("saveResult={} ", saveResult);
             if (saveResult > 0) {
                 return "redirect:/seller/myProduct"; // 저장 성공 시 상품 목록 페이지로 redirect
             } else {
@@ -224,14 +224,14 @@ public class ProductController {
     @GetMapping("/productDetail")
     public String findByProductIdx(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-                                   @RequestParam("productIdx") Integer productIdx, Model model,
-                                   Authentication auth) {
+            @RequestParam("productIdx") Integer productIdx, Model model,
+            Authentication auth) {
         // 로그인한 사용자 정보 가져오기
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
 
         // 정보 조회 서비스 호출
-        ProductDTO productDTO= productService.findByProductIdx(sellerIdx, productIdx);
+        ProductDTO productDTO = productService.findByProductIdx(sellerIdx, productIdx);
 
         // 조회된 상품이 없을 경우 판매자의 상품 목록 페이지로 redirect
         if (productDTO == null) {
@@ -256,7 +256,7 @@ public class ProductController {
         Integer sellerIdx = loginUserDTO.getIdx();
         // 상품 상세 정보 조회 서비스 호출
         ProductDTO productDTO = productService.findByProductIdx2(sellerIdx, productIdx);
-        log.info("sellerIdx",sellerIdx );
+        log.info("sellerIdx", sellerIdx);
         log.info("productIdx", productIdx);
 
         // 모델에 정보 추가
@@ -278,15 +278,15 @@ public class ProductController {
             return "/product/productInfoUpdate";
         }
 
-            // 업데이트를 위한 서비스 호출
-            boolean result = productService.productInfoUpdate(productDTO);
+        // 업데이트를 위한 서비스 호출
+        boolean result = productService.productInfoUpdate(productDTO);
+        log.error("productDTO has error");
+        if (result) {
+            // 업데이트 성공시 상세페이지로 redirect
+            return "redirect:/product/productDetail?sellerIdx=" + productDTO.getSellerIdx() + "&productIdx=" + productDTO.getProductIdx();
+        } else {
             log.error("productDTO has error");
-            if (result) {
-                // 업데이트 성공시 상세페이지로 redirect
-                return "redirect:/product/productDetail?sellerIdx=" + productDTO.getSellerIdx() + "&productIdx=" + productDTO.getProductIdx();
-            } else {
-                log.error("productDTO has error");
-                //업데이트 실패시 mySellerPage로 redirect
+            //업데이트 실패시 mySellerPage로 redirect
             return "redirect:/seller/mySellerPage?sellerIdx=" + productDTO.getSellerIdx();
         }
     }
@@ -295,15 +295,15 @@ public class ProductController {
     @GetMapping("/productImgUpdate")
     public String productImgUpdateForm(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-                                       @RequestParam("productIdx") Integer productIdx, Model model,
-                                       Authentication auth) {
+            @RequestParam("productIdx") Integer productIdx, Model model,
+            Authentication auth) {
         // 로그인한 사용자 정보 가져오기
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
 
         // 이미지 정보 조회 서비스 호출
         ProductMainImgUpdateDTO productMainImgUpdateDTO = productService.findMainImg(sellerIdx, productIdx);
-        log.info("sellerIdx",sellerIdx );
+        log.info("sellerIdx", sellerIdx);
         log.info("productIdx", productIdx);
 
         // 모델에 정보 추가
@@ -313,6 +313,7 @@ public class ProductController {
 
         return "/product/productImgUpdateForm";
     }
+
     // productImg 수정
     @PostMapping("/productImgUpdate")
     public String productImgUpdate(@Validated @ModelAttribute ProductMainImgUpdateDTO productMainImgUpdateDTO,
@@ -331,7 +332,7 @@ public class ProductController {
             uploadPath.mkdirs();
         }
         // 업로드 용량 제한 10MB
-        if ( productMainImgUpdateDTO.getMainImg().getSize() >  10 * 1024 * 1024) {
+        if (productMainImgUpdateDTO.getMainImg().getSize() > 10 * 1024 * 1024) {
             bindingResult.addError(new FieldError
                     ("productMainImgUpdateDTO", "mainImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
@@ -344,29 +345,29 @@ public class ProductController {
             log.error("productMainImgUpdateDTO has error");
             return "/product/productImgUpdateForm";
         }
-        log.info("ProductMainImgUpdateDTO= {} ",productMainImgUpdateDTO);
+        log.info("ProductMainImgUpdateDTO= {} ", productMainImgUpdateDTO);
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
-        log.info("uuid={}",uuid);
+        log.info("uuid={}", uuid);
 
         String fileImgOriginal
                 = productMainImgUpdateDTO.getMainImg().getOriginalFilename();
-        log.info("fileImgOriginal={}",fileImgOriginal);
+        log.info("fileImgOriginal={}", fileImgOriginal);
 
         String fileImgSaved = uuid.toString() + "_" + fileImgOriginal;
-        log.info("fileImgSaved={}",fileImgSaved);
+        log.info("fileImgSaved={}", fileImgSaved);
 
         String fileImgSavedUploadPath = uploadPath + File.separator + fileImgSaved;
-        log.info("fileImgSavedUploadPath={}",fileImgSavedUploadPath);
+        log.info("fileImgSavedUploadPath={}", fileImgSavedUploadPath);
         try {
-           // 이미지 업로드
+            // 이미지 업로드
             productMainImgUpdateDTO.getMainImg().transferTo(new File(fileImgSavedUploadPath));
 
             String thumbnailFilename = "thumb_" + uuid.toString() + productMainImgUpdateDTO.getMainImg().getOriginalFilename();
-            log.info("thumbnailFilename={}",thumbnailFilename);
+            log.info("thumbnailFilename={}", thumbnailFilename);
             String thumbnailFilePath = uploadPath + File.separator + thumbnailFilename;
-            log.info("thumbnailFilePath={}",thumbnailFilePath);
+            log.info("thumbnailFilePath={}", thumbnailFilePath);
             // 썸네일 생성 및 저장
             Thumbnails.of(productMainImgUpdateDTO.getMainImg().getInputStream())
                     .size(200, 200)
@@ -408,11 +409,12 @@ public class ProductController {
             return "/product/productImgUpdateForm";
         }
     }
+
     @GetMapping("/productDetailImgUpdate")
     public String productDetailImgUpdateForm(
 //            @RequestParam("sellerIdx") Integer sellerIdx,
-                                             @RequestParam("productIdx") Integer productIdx, Model model,
-                                             Authentication auth) {
+            @RequestParam("productIdx") Integer productIdx, Model model,
+            Authentication auth) {
         // 로그인한 사용자 정보 가져오기
         LoginUserDTO loginUserDTO = (LoginUserDTO) auth.getPrincipal();
         Integer sellerIdx = loginUserDTO.getIdx();
@@ -420,7 +422,7 @@ public class ProductController {
         // ProductDetailImgUpdateDTO(private MultipartFile detailImg;)
         ProductDetailImgUpdateDTO productDetailImgUpdateDTO = productService.findDetailImg(sellerIdx, productIdx);
 
-        log.info("sellerIdx",sellerIdx );
+        log.info("sellerIdx", sellerIdx);
         log.info("productIdx", productIdx);
 
         // 모델에 정보 추가
@@ -433,7 +435,7 @@ public class ProductController {
 
     @PostMapping("/productDetailImgUpdate")
     public String productDetailImgUpdate(@Validated @ModelAttribute ProductDetailImgUpdateDTO productDetailImgUpdateDTO,
-                                   BindingResult bindingResult, HttpServletRequest request) {
+                                         BindingResult bindingResult, HttpServletRequest request) {
         log.info("detailImg={}", productDetailImgUpdateDTO);
 
         String uploadFolder = request.getServletContext().getRealPath("/product");
@@ -446,7 +448,7 @@ public class ProductController {
             uploadPath.mkdirs();
         }
         // 업로드 용량 제함 10MB
-        if (productDetailImgUpdateDTO.getDetailImg().getSize()>  10 * 1024 * 1024) {
+        if (productDetailImgUpdateDTO.getDetailImg().getSize() > 10 * 1024 * 1024) {
             bindingResult.addError(new FieldError
                     ("productDetailImgUpdateDTO", "detailImg", "이미지 파일 크기는 10MB 초과할 수 없습니다."));
         }
@@ -459,21 +461,21 @@ public class ProductController {
             log.error("productDetailImgUpdateDTO has error");
             return "/product/productDetail_ImgUpdateForm";
         }
-        log.info("productDetailImgUpdateDTO= {} ",productDetailImgUpdateDTO);
+        log.info("productDetailImgUpdateDTO= {} ", productDetailImgUpdateDTO);
 
         // 파일 업로드하는 로직
         UUID uuid = UUID.randomUUID();
-        log.info("uuid = {}",uuid);
+        log.info("uuid = {}", uuid);
 
         String fileDetailOriginal
                 = productDetailImgUpdateDTO.getDetailImg().getOriginalFilename();
-        log.info("fileDetailOriginal = {}",fileDetailOriginal);
+        log.info("fileDetailOriginal = {}", fileDetailOriginal);
 
         String fileDetailSaved = uuid.toString() + "_" + fileDetailOriginal;
-        log.info("fileDetailSaved = {}",fileDetailSaved);
+        log.info("fileDetailSaved = {}", fileDetailSaved);
 
         String fileDetailSavedUploadPath = uploadPath + File.separator + fileDetailSaved;
-        log.info("filDetailSavedUploadPath = {}" ,fileDetailSavedUploadPath);
+        log.info("filDetailSavedUploadPath = {}", fileDetailSavedUploadPath);
 
         try {
             // 사진 업로드
@@ -510,7 +512,7 @@ public class ProductController {
                     "파일 업로드에 실패했습니다. 다시 시도해주세요."));
             // 에러 처리 로직 추가
             log.error("파일 업로드에 실패했습니다.", e);
-     
+
             return "/product/productDetail_ImgUpdateForm"; // 실패시 업데이트 폼으로
         }
     }
@@ -518,10 +520,10 @@ public class ProductController {
     // 카테고리별 상품 목록 출력(페이징 및 검색)
     @GetMapping("/productList")
     public String productList(@RequestParam("categoryIdx") Integer categoryIdx,
-                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                  @RequestParam(value = "searchField", required = false) String searchField,
-                                  @RequestParam(value = "searchWord", required = false) String searchWord,
-                                  Model model){
+                              @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                              @RequestParam(value = "searchField", required = false) String searchField,
+                              @RequestParam(value = "searchWord", required = false) String searchWord,
+                              Model model) {
         // 페이징 및 검색 조건을 적용한 상품목록 조회 서비스 호출
         List<ProductDTO> productListPaging = productService.productListPagingWithSearch(categoryIdx, page, searchField, searchWord);
         // 검색 조건에 따른 페이지 조회 서비스 호출

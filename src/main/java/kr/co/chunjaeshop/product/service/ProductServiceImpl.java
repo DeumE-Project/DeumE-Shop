@@ -20,8 +20,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
 
-
-
     // 남원우
 
 
@@ -31,41 +29,50 @@ public class ProductServiceImpl implements ProductService {
         int saveResult = productRepository.productSave(productDTO);
         return saveResult;
     }
+
     public ProductDTO findByProductIdx(Integer sellerIdx, Integer productIdx) {
         return productRepository.findByProductIdx(sellerIdx, productIdx);
     }
+
     @Override
     public ProductDTO findByProductIdx2(Integer sellerIdx, Integer productIdx) {
         return productRepository.findByProductIdx2(sellerIdx, productIdx);
     }
+
     @Override
     public boolean productInfoUpdate(ProductDTO productDTO) {
         int result = productRepository.productInfoUpdate(productDTO);
         return result > 0;
     }
+
     @Override
     public ProductMainImgUpdateDTO findMainImg(Integer sellerIdx, Integer productIdx) {
         return productRepository.findMainImg(sellerIdx, productIdx);
     }
+
     @Override
     public boolean productImgUpdate(ProductMainImgUpdateDTO productMainImgUpdateDTO) {
         int result = productRepository.productImgUpdate(productMainImgUpdateDTO);
         log.info(productMainImgUpdateDTO);
-        return  result > 0;
+        return result > 0;
 
     }
+
     @Override
     public ProductDetailImgUpdateDTO findDetailImg(Integer sellerIdx, Integer productIdx) {
         return productRepository.findDetailImg(sellerIdx, productIdx);
     }
+
     @Override
     public boolean productDetailImgUpdate(ProductDetailImgUpdateDTO productDetailImgUpdateDTO) {
         int result = productRepository.productDetailImgUpdate(productDetailImgUpdateDTO);
-        return result >0;
+        return result > 0;
     }
+
     // 전역변수로 사용
     int pageLimit = 16; // 한 페이지당 보여줄 글 개수
     int blockLimit = 5; // 하단에 보여줄 페이지 번호 개수
+
     @Override
     public List<ProductDTO> productListPagingWithSearch(Integer categoryIdx, int page, String searchField, String searchWord) {
         /**
@@ -98,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
     /**
      * 페이징 처리에 필요한 매개변수를 계산하여 반환하는 메서드
      *
-     * @param page 현재 페이지 번호
+     * @param page        현재 페이지 번호
      * @param categoryIdx 카테고리 식별자
      * @return 페이징 처리에 필요한 매개변수를 담은 PageDTO 객체
      */
@@ -125,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
          * @param endPage     끝 페이지 값
          * @param pageLimit   한 페이지에 보여질 항목 개수
          * @param totalCount  전체 항목 개수
-         * @return            설정된 페이징 매개변수를 담은 PageDTO 객체
+         * @return 설정된 페이징 매개변수를 담은 PageDTO 객체
          */
         // PageDTO 객체 생성 및 설정
         PageDTO productPagingPageDTO = new PageDTO();
@@ -137,13 +144,14 @@ public class ProductServiceImpl implements ProductService {
         productPagingPageDTO.setTotalCount(productCount);  // 전체 항목 개수 설정
         return productPagingPageDTO;
     }
+
     /**
      * 검색 조건을 포함한 페이징 처리에 필요한 매개변수를 계산하여 반환하는 메서드
      *
-     * @param page 현재 페이지 번호
+     * @param page        현재 페이지 번호
      * @param categoryIdx 카테고리 식별자
      * @param searchField 검색 필드 (제목 등)
-     * @param searchWord 검색어
+     * @param searchWord  검색어
      * @return 페이징 처리에 필요한 매개변수를 담은 PageDTO 객체
      */
     @Override
@@ -183,8 +191,6 @@ public class ProductServiceImpl implements ProductService {
         int myCount = productRepository.countMyProductCnt(sellerIdx);
         return myCount;
     }
-
-
 
 
     // 변재혁
