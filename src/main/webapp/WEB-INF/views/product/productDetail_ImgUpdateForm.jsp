@@ -53,8 +53,8 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
-            height: 50px; /* 변경된 부분: 버튼 크기를 50px로 조정 */
+            width: 50px;
+            height: 50px;
         }
     </style>
 
@@ -96,7 +96,7 @@
         </div>
     </form:form>
 
-    <!-- 파일 선택 시 새로운 이미지 미리보기 기능 -->
+
     <script>
         function previewImage(input, targetId) {
             let reader = new FileReader();
@@ -154,22 +154,26 @@
         });
     </script>
     <script>
-
+        // 스크롤 이벤트를 감지
         window.onscroll = function () {
+            // scrollFunction 함수 호출
             scrollFunction();
         };
-
+        // 스크롤 이벤트에 대응하여 동작하는 함수
         function scrollFunction() {
+            // 페이지 맨 위로 올라가는 버튼 요소를 가져옴
             let btn = document.getElementById("scrollTopBtn");
+            // 현재 스크롤 위치가 20보다 크면 또는 document.documentElement.scrollTop 값이 20보다 크면
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btn.style.display = "block";
+                btn.style.display = "block"; // 버튼이 보이도록 설정
             } else {
-                btn.style.display = "none";
+                btn.style.display = "none"; // 아니면 버튼이 보이지 않도록 설정
             }
         }
 
-
+        // 페이지를 맨 위로 스크롤하는 함수 정의
         function scrollToTop() {
+            // animate 함수를 사용하여 부드럽게 페이지 맨 위로 스크롤
             $('html, body').animate({scrollTop : 0},0);
         }
     </script>
