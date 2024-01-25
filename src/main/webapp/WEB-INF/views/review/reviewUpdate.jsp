@@ -25,7 +25,7 @@
 
     <%-- 스프링 폼을 통해 유효성검사 실행--%>
     <%--@elvariable id="productReviewSaveDTO" type="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO"--%>
-    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update?reviewIdx=${reviewIdx}"
+    <form:form modelAttribute="productReviewSaveDTO" action="/product/review/update?reviewIdx=${reviewIdx}&productIdx=${productIdx}"
                method="post" enctype="multipart/form-data">
 
         <div class="mb-3">
@@ -37,7 +37,7 @@
                 <form:option value="1">★☆☆☆☆</form:option>
                 <form:option value="2">★★☆☆☆</form:option>
                 <form:option value="3">★★★☆☆</form:option>
-                <form:option value="4">★★★★★</form:option>
+                <form:option value="4">★★★★☆</form:option>
                 <form:option value="5">★★★★★</form:option>
             </form:select>
         </div>

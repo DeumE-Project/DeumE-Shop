@@ -35,6 +35,12 @@
         , review_img_saved = #{reviewImgSaved}
         WHERE review_idx = #{reviewIdx}
     </update>
+    <!--수정정보-->
+    <select id="updateInfo" resultType="kr.co.chunjaeshop.product_review.dto.ProductReviewSaveDTO">
+        select review_star, review_content  , review_idx
+        from product_review
+        where customer_idx = #{customerIdx} and review_idx = #{reviewIdx}
+    </select>
     <!--삭제-->
     <delete id="delete" parameterType="String">
         delete from product_review where review_idx = #{reviewIdx}

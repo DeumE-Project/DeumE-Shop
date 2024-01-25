@@ -35,7 +35,7 @@
         <tbody>
         <c:set var="productIdx" value=""/>
         <c:forEach items="${pagingList}" var="review">
-            <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}'" style="cursor: pointer;">
+            <tr onclick="location.href='/product/review?reviewIdx=${review.reviewIdx}&productIdx=${review.productIdx}'" style="cursor: pointer;">
                 <c:set var="productIdx" value="${review.productIdx}"/>
 <%--                <td>${review.reviewIdx}</td>--%>
                 <c:set var="reviewDate" value="${fn:substring(review.reviewDate, 0, 10)}" />

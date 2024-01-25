@@ -66,7 +66,8 @@
     }
     const updateFn = () => {
         const reviewIdx = '${productReview.reviewIdx}';
-        location.href = "/product/review/update?reviewIdx=" + reviewIdx;
+        const  productIdx = '${productIdx}';
+        location.href = "/product/review/update?reviewIdx=" + reviewIdx+"&productIdx="+productIdx;
     }
     const deleteFn = () => {
         const reviewIdx = `${productReview.reviewIdx}`;

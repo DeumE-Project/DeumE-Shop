@@ -244,14 +244,16 @@ public class ProductReviewController {
 
   // 특정 제품 리뷰의 세부 정보를 표시하기 위한 GET 요청 처리
   @GetMapping
-  public String findById(@RequestParam("reviewIdx") String reviewIdx, Model model) {
+  public String findById(@RequestParam("reviewIdx") String reviewIdx, @RequestParam("productIdx") String productIdx, Model model) {
     ProductReviewDTO productReviewDTO = productReviewService.findByIdx(reviewIdx);
     model.addAttribute("productReview", productReviewDTO);
+    model.addAttribute("productIdx",productIdx);
+
     return "review/reviewDetail";
   }
 
   @GetMapping("/update")
-  public String updateForm(@RequestParam("reviewIdx") String reviewIdx,
+  public String updateForm(@RequestParam("reviewIdx") String reviewIdx,@RequestParam("productIdx") String productIdx,
                            Model model,
                            Authentication auth) {
 
@@ -267,6 +269,7 @@ public class ProductReviewController {
     }
 
     model.addAttribute("reviewIdx", reviewIdx);
+    model.addAttribute("productIdx",productIdx);
 
     model.addAttribute("productReviewSaveDTO", productReviewSaveDTO);
     //model.addAttribute("reviewIdx",productReviewDTO.getReviewIdx());
@@ -276,7 +279,8 @@ public class ProductReviewController {
 
   //수정
   @PostMapping("/update")
-  public String update(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult ,
+  public String update(@Validated @ModelAttribute ProductReviewSaveDTO productReviewSaveDTO, BindingResult bindingResult,
+                       @RequestParam("productIdx") String productIdx,
                        HttpServletRequest httpServletRequest, Model model,
                        Authentication auth) {
     // 로그인 한 사용자의 인증 객체 정보를 가져 오는 로직
@@ -347,12 +351,14 @@ public class ProductReviewController {
               .toFile(new File(thumbnailFilePath));
       HttpSession session = httpServletRequest.getSession();
 
-      Integer orderDetailIdx = productReviewSaveDTO.getOrderDetailIdx();
+
       ProductReviewDTO productReviewDTO = new ProductReviewDTO();
-      Integer productIdx = orderDetailService.getProductIdxByOrderDetailIdx(orderDetailIdx);
+   /*   Integer orderDetailIdx = productReviewSaveDTO.getOrderDetailIdx();
+
+      Integer productIdx = orderDetailService.getProductIdxByOrderDetailIdx(orderDetailIdx);*/
 
       productReviewDTO.setCustomerIdx(customerIdx);
-      productReviewDTO.setProductIdx(productIdx);
+      productReviewDTO.setProductIdx(Integer.valueOf(productIdx));
       productReviewDTO.setReviewIdx(productReviewSaveDTO.getReviewIdx());
       productReviewDTO.setReviewContent(productReviewSaveDTO.getReviewContent());
       productReviewDTO.setReviewStar(productReviewSaveDTO.getReviewStar());
