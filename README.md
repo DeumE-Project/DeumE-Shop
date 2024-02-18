@@ -171,6 +171,15 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-
 <br/>
  
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/73a43545-d0fe-4bcc-94cb-4c8996b0e7b6)
+
+판매자 - 상품 등록
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c48176f9-b01d-4503-87c3-eb6f4fd248a0
+
+판매자 - 등록된 상품 정보 수정
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/10cd985b-bb92-4506-bac4-b0446eafff4a
+
+판매자 - 등록된 상품 이미지 및 상세 이미지 수정
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/fd21c5a8-4f8a-41f0-8fd4-398fd42ad519
 </details>
 
 
