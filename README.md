@@ -129,27 +129,28 @@ https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/087bc6f0-0301-4eba-b46
  
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/d2b8de05-7dc7-46a6-96c3-0f957b3cccd1)
 
+메인화면
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/83a0f56f-517b-49bf-abd2-14aec33e89ca
+
 회원가입
 <br/>
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/767a3ba9-13cf-4fc5-afc0-3688e859784f
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/767a3ba9-13cf-4fc5-afc0-3688e859784f](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/83ebdfb2-0329-4ca6-884c-0d99b3aed450)
 <br/>
 
 시큐리티 - 로그인
-<br/>
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/84e2b6b0-d36b-420d-b62d-32c6789a1624
-<br/>
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/bd87520c-4966-42b7-87b4-f4468879e24b
 
 고객로그인 후 장바구니 추가<br/>
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/25755deb-2528-4031-8d3e-53995c873886
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/25755deb-2528-4031-8d3e-53995c873886](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/bd87520c-4966-42b7-87b4-f4468879e24b)
 
 비로그인 사용자가 장바구니 추가<br/>
 https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/8f1188c1-2669-4f3a-b831-a78af1acdf70
 
 고객 로그인 후 장바구니에 담긴 상품 주문<br/>
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/ed45e782-8889-4a53-8847-9d48e87bc3be
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/ed45e782-8889-4a53-8847-9d48e87bc3be](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/08529836-fe38-4c8e-88cd-b95acad80608)
 
 시큐리티 - 접근제한 <br />
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-b389-52693c38353f
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-b389-52693c38353f](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/ba8b1f7d-ae44-4ae5-ab3b-1d87b7a2af4a)
 
 
  
@@ -161,7 +162,7 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/d05467ff-5a9d-4a9e-87fe-23e25e97cc66)
 
 판매자 - 마이페이지 (매출 Chart.js 시각화, 판매 물품 배송 관리)
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c514426c-bf00-4391-9fb1-14f0a8755a6b
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c514426c-bf00-4391-9fb1-14f0a8755a6b](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/1d541736-b6a1-49a9-b8e1-efd17409eb33)
 </details>
 
 <details><summary>이무현</summary>
@@ -176,16 +177,16 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c514426c-bf00-4391-
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/73a43545-d0fe-4bcc-94cb-4c8996b0e7b6)
 
 판매자 - 상품 등록
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c48176f9-b01d-4503-87c3-eb6f4fd248a0
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c48176f9-b01d-4503-87c3-eb6f4fd248a0](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/1f761aaf-dd56-4217-a37b-ed16e751019d)
 
 판매자 - 등록된 상품 정보 수정
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/10cd985b-bb92-4506-bac4-b0446eafff4a
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/10cd985b-bb92-4506-bac4-b0446eafff4a](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/931e1378-9dea-4161-be0d-a71ad96398cf)
 
 판매자 - 등록된 상품 이미지 및 상세 이미지 수정
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/fd21c5a8-4f8a-41f0-8fd4-398fd42ad519
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/fd21c5a8-4f8a-41f0-8fd4-398fd42ad519](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/bebda350-7d50-4ab7-8015-b365930fcd01)
 
 상품 카테고리별 리스트 및 검색
-https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c1ae8fd8-cf9d-4731-b864-6bc45b55ac6a
+[https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c1ae8fd8-cf9d-4731-b864-6bc45b55ac6a](https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/ffefb7ed-e2f9-4438-a92c-c99863100791)
 </details>
 
 
