@@ -183,6 +183,9 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/10cd985b-bb92-4506-
 
 판매자 - 등록된 상품 이미지 및 상세 이미지 수정
 https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/fd21c5a8-4f8a-41f0-8fd4-398fd42ad519
+
+상품 카테고리별 리스트 및 검색
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c1ae8fd8-cf9d-4731-b864-6bc45b55ac6a
 </details>
 
 
