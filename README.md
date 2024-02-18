@@ -132,13 +132,11 @@ https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/087bc6f0-0301-4eba-b46
 회원가입
 <br/>
 https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/767a3ba9-13cf-4fc5-afc0-3688e859784f
-
 <br/>
 
-로그인
+시큐리티 - 로그인
 <br/>
 https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/84e2b6b0-d36b-420d-b62d-32c6789a1624
-
 <br/>
 
 고객로그인 후 장바구니 추가<br/>
@@ -149,6 +147,11 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/8f1188c1-2669-4f3a-
 
 고객 로그인 후 장바구니에 담긴 상품 주문<br/>
 https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/ed45e782-8889-4a53-8847-9d48e87bc3be
+
+시큐리티 - 접근제한 <br />
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-b389-52693c38353f
+
+
  
 </details>
  
