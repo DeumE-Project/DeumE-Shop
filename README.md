@@ -159,6 +159,9 @@ https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/2851b125-dcc7-4dea-
 <br/>
 
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/d05467ff-5a9d-4a9e-87fe-23e25e97cc66)
+
+판매자 - 마이페이지 (매출 Chart.js 시각화, 판매 물품 배송 관리)
+https://github.com/DeumE-Project/DeumE-Shop/assets/145942491/c514426c-bf00-4391-9fb1-14f0a8755a6b
 </details>
 
 <details><summary>이무현</summary>
