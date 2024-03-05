@@ -121,7 +121,19 @@ https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/087bc6f0-0301-4eba-b46
 <br/>
  
 ![image](https://github.com/DeumE-Shop/DeumE-Shop/assets/145524959/6efb8de0-dad5-41da-9f6f-438e25a2df64)
- 
+
+사진리뷰
+<br/>
+
+https://github.com/DeumE-Project/DeumE-Shop/assets/145524959/fdee37cc-39dc-47ce-99b9-153525c46a69
+
+한줄리뷰
+<br/>
+
+
+https://github.com/DeumE-Project/DeumE-Shop/assets/145524959/d6114b18-f66e-4b02-866a-a62c26cda37a
+
+
 </details>
 
 <details><summary>변재혁</summary>
